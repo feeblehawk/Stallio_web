@@ -1,0 +1,17 @@
+import { Outlet } from 'react-router-dom'
+import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
+
+const MainLayout = () => {
+  return (
+    <div className="min-h-screen bg-background text-foreground flex flex-col antialiased">
+      <Navbar />
+      <main className="flex-grow flex flex-col w-full relative z-10">
+        <Outlet />
+      </main>
+      <Footer />
+    </div>
+  )
+}
+
+export default MainLayout
