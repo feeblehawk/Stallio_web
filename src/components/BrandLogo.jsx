@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom'
 
 const BrandLogo = ({ size = 'md', className = '' }) => {
   const sizes = {
-    sm: { img: 'h-7',  s: 'text-[28px]', divider: 'h-7'  },
-    md: { img: 'h-10', s: 'text-[38px]', divider: 'h-10' },
-    lg: { img: 'h-14', s: 'text-[50px]', divider: 'h-14' },
+    sm: { img: 'h-6',  s: 'text-[28px]', divider: 'h-7'  },
+    md: { img: 'h-9', s: 'text-[38px]', divider: 'h-10' },
+    lg: { img: 'h-13', s: 'text-[50px]', divider: 'h-14' },
   }
 
   const s = sizes[size] ?? sizes.md
@@ -20,7 +20,7 @@ const BrandLogo = ({ size = 'md', className = '' }) => {
         src="/logo.png"
         alt=""
         aria-hidden="true"
-        className={`${s.img} w-auto object-contain transition-transform duration-300 group-hover:scale-105`}
+        className={`${s.img} leading-none text-foreground`}
       />
 
       {/* Divider */}
@@ -28,20 +28,12 @@ const BrandLogo = ({ size = 'md', className = '' }) => {
 
       {/* Wordmark */}
       <span className="inline-flex items-baseline gap-1 leading-none">
-        {/* Big S */}
+        {/* Wordmark using the same Great Vibes styling for both pieces */}
         <span
-          className={`${s.s} font-black italic leading-none text-foreground`}
-          style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+          className={`${s.s} leading-none text-foreground`}
+          style={{ fontFamily: "'Great Vibes', cursive" }}
         >
-          S
-        </span>
-
-        {/* TALLIO */}
-        <span
-          className="text-[11px] font-extrabold uppercase tracking-[0.32em] text-foreground/60 mb-[0.1em]"
-          style={{ fontFamily: "'Montserrat', sans-serif" }}
-        >
-          TALLIO
+          Stallio
         </span>
       </span>
     </Link>

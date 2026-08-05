@@ -91,7 +91,7 @@ const StoreHeader = ({
 )
 
 // ─── Product card ────────────────────────────────────────────────────────────
-const ProductCard = ({ product, small = false }) => (
+const ProductCard = ({ product }) => (
   <div
     className="flex h-full flex-col overflow-hidden rounded-xl border"
     style={{

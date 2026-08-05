@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import BrandLogo from './BrandLogo'
 import PrimaryCTA from './PrimaryCTA'
@@ -15,9 +15,26 @@ const navLinks = [
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [visible, setVisible] = useState(true)
+  const lastY = useRef(0)
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 12)
+    const handleScroll = () => {
+      const y = window.scrollY
+      setScrolled(y > 12)
+      // Always show at the very top
+      if (y < 12) {
+        setVisible(true)
+      } else if (y > lastY.current + 6) {
+        // Scrolling down — hide
+        setVisible(false)
+        setIsOpen(false)
+      } else if (lastY.current - y > 4) {
+        // Scrolling up — show
+        setVisible(true)
+      }
+      lastY.current = y
+    }
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
@@ -39,6 +56,10 @@ const Navbar = () => {
             ? 'border-b border-border bg-surface/90 shadow-sm shadow-foreground/5 backdrop-blur-xl'
             : 'border-b border-transparent bg-background/95'
         }`}
+        style={{
+          transform: visible ? 'translateY(0)' : 'translateY(-100%)',
+          transition: 'transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease',
+        }}
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-[68px] items-center gap-8 lg:gap-10">
@@ -46,9 +67,9 @@ const Navbar = () => {
             {/* Brand */}
             <BrandLogo />
 
-            {/* Desktop nav — left-aligned immediately after brand */}
+            {/* Desktop nav — left-aligned immediately after brand (show on lg+) */}
             <nav
-              className="hidden flex-1 items-center gap-1 md:flex"
+              className="hidden flex-1 items-center gap-1 lg:flex"
               aria-label="Main navigation"
             >
               {navLinks.map((link) => (
@@ -81,8 +102,8 @@ const Navbar = () => {
               ))}
             </nav>
 
-            {/* Desktop actions: Theme Toggle → Log in → Start for Free */}
-            <div className="hidden shrink-0 items-center gap-3 md:flex">
+            {/* Desktop actions: Theme Toggle → Log in → Start for Free (show on lg+) */}
+            <div className="hidden shrink-0 items-center gap-3 lg:flex">
               <ThemeToggle />
               <Link
                 to="/login"
@@ -93,8 +114,8 @@ const Navbar = () => {
               <PrimaryCTA />
             </div>
 
-            {/* Mobile: Theme Toggle + Menu */}
-            <div className="ml-auto flex items-center gap-2 md:hidden">
+            {/* Mobile/tablet: Theme Toggle + Menu (visible below lg) */}
+            <div className="ml-auto flex items-center gap-2 lg:hidden">
               <ThemeToggle />
               <button
                 type="button"
@@ -125,22 +146,22 @@ const Navbar = () => {
       </header>
 
       {/* Mobile backdrop */}
-      <div
-        className="fixed inset-0 z-40 bg-foreground/20 backdrop-blur-sm transition-opacity duration-300 md:hidden"
-        style={{ opacity: isOpen ? 1 : 0, pointerEvents: isOpen ? 'auto' : 'none' }}
-        onClick={closeMenu}
-        aria-hidden="true"
-      />
+        <div
+          className="fixed inset-0 z-40 bg-foreground/20 backdrop-blur-sm transition-opacity duration-300 lg:hidden"
+          style={{ opacity: isOpen ? 1 : 0, pointerEvents: isOpen ? 'auto' : 'none' }}
+          onClick={closeMenu}
+          aria-hidden="true"
+        />
 
       {/* Mobile drawer */}
       <div
         id="mobile-nav-menu"
-        className="fixed inset-x-0 top-[68px] z-50 border-b border-border bg-surface shadow-xl transition-all duration-300 ease-in-out md:hidden"
+        className="fixed inset-x-0 top-[68px] z-50 border-b border-border bg-surface shadow-xl transition-all duration-300 ease-in-out lg:hidden"
         style={{
-          transform: isOpen ? 'translateY(0)' : 'translateY(-8px)',
-          opacity: isOpen ? 1 : 0,
-          visibility: isOpen ? 'visible' : 'hidden',
-          pointerEvents: isOpen ? 'auto' : 'none',
+          transform: isOpen && visible ? 'translateY(0)' : 'translateY(-8px)',
+          opacity: isOpen && visible ? 1 : 0,
+          visibility: isOpen && visible ? 'visible' : 'hidden',
+          pointerEvents: isOpen && visible ? 'auto' : 'none',
         }}
         role="navigation"
         aria-label="Mobile navigation"

@@ -1,7 +1,6 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import useReducedMotion from '../../hooks/useReducedMotion'
-import { reveal } from '../../utils/motionVariants'
 
 const platforms = ['Instagram', 'WhatsApp', 'TikTok', 'Facebook']
 
@@ -15,7 +14,7 @@ const TrustStrip = () => {
   return (
     <section
       ref={ref}
-      aria-label="Built for modern sellers"
+      aria-label="Built for the way you sell"
       className="border-b py-8 sm:py-10"
       style={{ borderColor: 'var(--border)', background: 'var(--surface-muted)' }}
     >
@@ -28,7 +27,16 @@ const TrustStrip = () => {
             className="text-sm font-semibold tracking-wide sm:text-base"
             style={{ color: 'var(--foreground)' }}
           >
-            Built for modern sellers
+            Built for the way you sell
+          </motion.p>
+          <motion.p
+            initial={reducedMotion ? false : { opacity: 0, y: 16 }}
+            animate={isVisible ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-xl text-center text-sm leading-7 text-muted-foreground sm:text-base"
+            style={{ color: 'var(--muted-foreground)' }}
+          >
+            Designed for fast social selling, Stallio gives your business a polished storefront that customers trust.
           </motion.p>
 
           <div className="flex flex-wrap items-center justify-center gap-x-1 gap-y-2">

@@ -95,9 +95,9 @@ const Footer = () => {
     <footer className="mt-auto w-full border-t border-border bg-surface text-foreground" role="contentinfo">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Main footer grid */}
-        <div className="grid grid-cols-2 gap-x-8 gap-y-12 py-16 sm:grid-cols-3 lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr]">
+        <div className="grid grid-cols-1 gap-x-8 gap-y-12 py-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr]">
           {/* Brand column */}
-          <div className="col-span-2 flex flex-col gap-5 sm:col-span-3 lg:col-span-1">
+          <div className="col-span-1 flex flex-col gap-5 sm:col-span-2 md:col-span-3 lg:col-span-1">
             <BrandLogo size="lg" />
 
             <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">

@@ -13,7 +13,7 @@ const afterPoints = [
 ]
 
 const Arrow = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="rotate-90 md:rotate-0 transition-transform duration-200">
     <path d="M5 12h14" /><path d="m13 6 6 6-6 6" />
   </svg>
 )
@@ -32,9 +32,9 @@ const BeforeAfter = () => {
     <section ref={ref} aria-labelledby="before-after-heading" className="relative w-full overflow-hidden border-b" style={{ background: 'var(--surface)', borderColor: 'var(--border)' }}>
       <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-28 lg:px-8 lg:py-32">
         <div className="mx-auto max-w-3xl text-center">
-          <span className="text-[11px] font-semibold uppercase tracking-[0.28em]" style={{ color: 'var(--primary)' }}>Before → after</span>
+          <span className="text-[11px] font-semibold uppercase tracking-[0.28em]" style={{ color: 'var(--primary)' }}>Before → After</span>
           <h2 id="before-after-heading" className="mt-4 font-heading font-extrabold tracking-[-0.045em]" style={{ fontSize: 'clamp(2.2rem, 5vw, 4rem)', lineHeight: 1.02, color: 'var(--foreground)' }}>
-            Make your business look <br className="hidden sm:block" />  as good as what you sell.
+            Make your business look <br className="hidden sm:block" /> as good as what you sell.
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7" style={{ color: 'var(--muted-foreground)' }}>
             Stallio turns the messy part of social selling into a simple customer journey — without changing the way you reach people.
@@ -71,7 +71,7 @@ const BeforeAfter = () => {
                 <span className="text-xs" style={{ color: 'var(--muted-foreground)' }}>With Stallio</span>
               </div>
               <div className="relative mt-7 space-y-3">
-                {afterPoints.map((point, i) => (
+                {afterPoints.map((point) => (
                   <div key={point} className="flex items-start gap-3 rounded-xl border p-3 transition-transform duration-300 group-hover:-translate-x-1" style={{ borderColor: 'var(--border)', background: 'var(--surface)' }}>
                     <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full" style={{ background: 'color-mix(in oklch, var(--primary) 10%, var(--surface))', color: 'var(--primary)' }}>✓</span>
                     <span className="text-sm leading-6" style={{ color: 'var(--foreground)' }}>{point}</span>

@@ -105,7 +105,7 @@ const WhoItFits = () => {
             className="text-[11px] font-semibold uppercase tracking-[0.28em]"
             style={{ color: 'var(--primary)' }}
           >
-            Who it fits
+            Who It Fits
           </motion.span>
           <motion.h2
             variants={reveal}
@@ -119,13 +119,20 @@ const WhoItFits = () => {
           >
             Built for the way you sell.
           </motion.h2>
+          <motion.p
+            variants={reveal}
+            className="mx-auto mt-4 max-w-2xl text-base leading-7 lg:mx-0"
+            style={{ color: 'var(--muted-foreground)' }}
+          >
+            Works for social sellers, growing brands, and first-time store owners who want one clear storefront link.
+          </motion.p>
         </motion.div>
 
         <div className="mt-12 grid items-center gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16 xl:gap-20">
           {/* Persona selectors */}
           <div className="order-1 lg:col-start-1 lg:row-start-1">
             <div
-              className="flex flex-wrap justify-center gap-2 lg:justify-start"
+              className="flex flex-nowrap justify-center gap-2 overflow-x-auto pb-2 lg:flex-wrap lg:overflow-visible lg:pb-0 lg:justify-start"
               role="tablist"
               aria-label="Who Stallio is for"
             >
@@ -172,7 +179,7 @@ const WhoItFits = () => {
                 style={{ background: 'var(--primary)' }}
                 aria-hidden="true"
               />
-              <PhoneMockup float={false} size="large">
+              <PhoneMockup float={false} size="small">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={persona.variant}

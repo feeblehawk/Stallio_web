@@ -216,8 +216,6 @@ const Hero = () => {
   const transBase = 'transition-all duration-700 ease-out'
   const hiddenContent = 'opacity-0 translate-y-5'
   const visibleContent = 'opacity-100 translate-y-0'
-  const hiddenPhone = 'opacity-0 scale-95'
-  const visiblePhone = 'opacity-100 scale-100'
 
   return (
     <section

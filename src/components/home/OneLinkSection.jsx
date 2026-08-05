@@ -146,6 +146,15 @@ const OneLinkSection = () => {
             useStaticLayout ? '' : 'md:sticky md:top-0 md:h-screen'
           } flex flex-col items-center justify-center px-4 sm:px-6`}
         >
+          <div className="mb-10 text-center">
+            <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-muted-foreground">One Link</span>
+            <h2 className="mt-4 font-heading font-extrabold tracking-[-0.06em] text-4xl sm:text-5xl" style={{ lineHeight: 0.96, color: 'var(--foreground)' }}>
+              One link for every sale.
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-muted-foreground">
+              A single Stallio link customers open from Instagram, WhatsApp, or any social bio — no DMs required.
+            </p>
+          </div>
           {useStaticLayout ? (
             <StaticPhrases />
           ) : (

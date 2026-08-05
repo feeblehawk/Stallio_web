@@ -13,7 +13,7 @@ const afterPoints = [
 ]
 
 const Arrow = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="rotate-90 md:rotate-0 transition-transform duration-200">
     <path d="M5 12h14" /><path d="m13 6 6 6-6 6" />
   </svg>
 )
@@ -71,7 +71,7 @@ const BeforeAfter = () => {
                 <span className="text-xs" style={{ color: 'var(--muted-foreground)' }}>With Stallio</span>
               </div>
               <div className="relative mt-7 space-y-3">
-                {afterPoints.map((point, i) => (
+                {afterPoints.map((point) => (
                   <div key={point} className="flex items-start gap-3 rounded-xl border p-3 transition-transform duration-300 group-hover:-translate-x-1" style={{ borderColor: 'var(--border)', background: 'var(--surface)' }}>
                     <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full" style={{ background: 'color-mix(in oklch, var(--primary) 10%, var(--surface))', color: 'var(--primary)' }}>✓</span>
                     <span className="text-sm leading-6" style={{ color: 'var(--foreground)' }}>{point}</span>
