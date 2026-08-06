@@ -8,7 +8,7 @@ import InsideTheBox from '../components/home/InsidetheBox'
 import HowItWorks from '../components/home/HowItWorks'
 import WhatsIncluded from '../components/home/WhatsIncluded'
 import WhyStallio from '../components/home/WhyStallio'
-import FinalCTA from '../components/home/FinalCTA'
+import FinalCta from '../components/home/FinalCta'
 
 const Home = () => (
   <>
@@ -22,7 +22,7 @@ const Home = () => (
     <HowItWorks />
     <WhatsIncluded />
     <WhyStallio />
-    <FinalCTA />
+    <FinalCta />
   </>
 )
 
