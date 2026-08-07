@@ -4,9 +4,9 @@ import useReducedMotion from '../../hooks/useReducedMotion'
 import { reveal, revealSoft, staggerContainer } from '../../utils/motionVariants'
 
 const TIMELINE = [
-  { year: '2023', label: 'The problem', detail: 'Watching sellers drown in DMs' },
-  { year: '2024', label: 'First version', detail: 'Launched to 50 beta sellers' },
-  { year: '2025', label: 'Growing fast', detail: '500+ active stores nationwide' },
+  { id: 'The problem',   detail: 'Watching sellers drown in DMs' },
+  { id: 'First version', detail: 'Launched to 50 beta sellers' },
+  { id: 'Growing fast',  detail: '500+ active stores nationwide' },
 ]
 
 const Story = () => {
@@ -22,7 +22,8 @@ const Story = () => {
       className="border-t"
       style={{ borderColor: 'var(--border)', background: 'var(--background)' }}
     >
-      <div ref={ref}
+      <div
+        ref={ref}
         className="mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-28 lg:px-8 lg:py-32"
       >
         {/* Eyebrow */}
@@ -43,9 +44,9 @@ const Story = () => {
             {...motionProps}
             className="flex flex-row gap-6 overflow-x-auto pb-2 lg:flex-col lg:overflow-visible lg:pb-0 lg:gap-0"
           >
-            {TIMELINE.map(({ year, label, detail }, i) => (
+            {TIMELINE.map(({ id, detail }, i) => (
               <motion.div
-                key={year}
+                key={id}
                 variants={revealSoft}
                 className="flex flex-shrink-0 items-start gap-3 lg:flex-col lg:flex-shrink"
               >
@@ -76,13 +77,7 @@ const Story = () => {
                       className="font-heading text-sm font-bold tabular-nums"
                       style={{ color: 'var(--foreground)' }}
                     >
-                      {year}
-                    </div>
-                    <div
-                      className="mt-0.5 text-xs font-semibold"
-                      style={{ color: 'var(--muted-foreground)' }}
-                    >
-                      {label}
+                      {id}
                     </div>
                     <div
                       className="mt-1 text-[11px] leading-tight"
@@ -119,7 +114,7 @@ const Story = () => {
               </p>
               <p>
                 The tools they had were built for warehouses, not for someone running a
-                boutique from their phone. So in 2024, we built Stallio — a store that
+                boutique from their phone. So, we built Stallio, a store that
                 lives at a single link and fits the way social selling actually works
                 in Pakistan.
               </p>

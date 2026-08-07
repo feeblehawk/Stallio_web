@@ -94,8 +94,8 @@ const AboutHero = () => {
             className="mt-7 max-w-xl text-base leading-7 sm:text-lg"
             style={{ color: 'var(--muted-foreground)' }}
           >
-            Stallio started with one observation: Pakistan's best sellers were already
-            selling on Instagram and WhatsApp — they just needed a real store to match.
+            Stallio started with one observation: World's best sellers were already
+            selling on Instagram and WhatsApp. They just needed a real store to match.
             We built exactly that.
           </motion.p>
 
@@ -104,20 +104,7 @@ const AboutHero = () => {
             variants={revealSoft}
             className="mt-10 flex items-center gap-3"
           >
-            <div
-              className="h-px w-8 rounded-full"
-              style={{ background: 'var(--primary)', opacity: 0.4 }}
-            />
-            <span
-              className="text-[11px] font-semibold uppercase tracking-[0.2em]"
-              style={{ color: 'var(--muted-foreground)', opacity: 0.6 }}
-            >
-              Est. 2024 · Lahore, Pakistan
-            </span>
-            <div
-              className="h-px w-8 rounded-full"
-              style={{ background: 'var(--primary)', opacity: 0.4 }}
-            />
+            
           </motion.div>
         </motion.div>
       </div>

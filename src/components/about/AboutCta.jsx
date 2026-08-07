@@ -69,8 +69,8 @@ const AboutCta = () => {
             className="mx-auto mt-5 max-w-md text-base leading-7 sm:text-lg"
             style={{ color: 'var(--muted-foreground)' }}
           >
-            Join hundreds of sellers who launched their store in minutes — no domain,
-            no gateway, no code.
+            Join hundreds of sellers who launched their store in minutes. No domain,
+            No gateway, No code.
           </motion.p>
 
           <motion.div
