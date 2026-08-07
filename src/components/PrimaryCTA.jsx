@@ -1,18 +1,5 @@
 import { Link } from 'react-router-dom'
-
-const ArrowIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    strokeWidth="2.5"
-    stroke="currentColor"
-    className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5"
-    aria-hidden="true"
-  >
-    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-  </svg>
-)
+import ArrowIcon from './icons/ArrowIcon'
 
 const baseClasses =
   'group relative inline-flex items-center justify-center gap-1.5 overflow-hidden rounded-xl bg-primary text-primary-foreground font-semibold shadow-md shadow-primary/25 transition-all duration-200 hover:shadow-lg hover:shadow-primary/40 hover:-translate-y-px active:translate-y-0 active:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring'

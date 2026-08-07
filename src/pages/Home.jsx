@@ -16,7 +16,6 @@ const Home = () => (
     {/* <TrustStrip /> */}
     <DmStoreTransform />
     <BeforeAfter />
-    {/* <OneLinkSection /> */}
     <WhoItFits />
     <InsideTheBox />
     <HowItWorks />

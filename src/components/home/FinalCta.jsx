@@ -3,21 +3,7 @@ import { motion, useInView } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import useReducedMotion from '../../hooks/useReducedMotion'
 import { easePremium, staggerContainer, revealSoft } from '../../utils/motionVariants'
-
-// ─── Arrow icon (matches PrimaryCTA) ─────────────────────────────────────────
-const ArrowIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    strokeWidth="2.5"
-    stroke="currentColor"
-    className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5"
-    aria-hidden="true"
-  >
-    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-  </svg>
-)
+import ArrowIcon from '../icons/ArrowIcon'
 
 // ─── Pill chip ────────────────────────────────────────────────────────────────
 const Chip = ({ children }) => (
@@ -163,17 +149,7 @@ const FinalCTA = () => {
             >
               Log in
               {/* Subtle right-arrow on hover */}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="2"
-                stroke="currentColor"
-                className="h-3.5 w-3.5 opacity-40 transition-all duration-300 group-hover:opacity-70 group-hover:translate-x-0.5"
-                aria-hidden="true"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-              </svg>
+              <ArrowIcon className="opacity-40 group-hover:opacity-70" />
             </a>
           </motion.div>
 

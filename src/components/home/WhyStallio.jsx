@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import useReducedMotion from '../../hooks/useReducedMotion'
+import Stat from '../Stat'
 import { easePremium, staggerContainer, revealSoft } from '../../utils/motionVariants'
 
 // ─── Feature list ─────────────────────────────────────────────────────────────
@@ -31,29 +32,6 @@ const FEATURES = [
     desc: 'Coupon codes and delivery fees, all in Stallio.',
   },
 ]
-
-// ─── Stat item ────────────────────────────────────────────────────────────────
-const Stat = ({ num, label, delay, isVisible, reducedMotion }) => (
-  <motion.div
-    className="flex flex-col gap-0.5"
-    initial={reducedMotion ? false : { opacity: 0, y: 16 }}
-    animate={isVisible ? { opacity: 1, y: 0 } : {}}
-    transition={{ duration: 0.65, ease: easePremium, delay }}
-  >
-    <span
-      className="font-heading font-extrabold leading-none tracking-[-0.04em]"
-      style={{ fontSize: 'clamp(1.4rem, 3vw, 2rem)', color: 'var(--primary)' }}
-    >
-      {num}
-    </span>
-    <span
-      className="text-[11px] font-semibold uppercase tracking-[0.14em]"
-      style={{ color: 'var(--muted-foreground)' }}
-    >
-      {label}
-    </span>
-  </motion.div>
-)
 
 // ─── Feature row ──────────────────────────────────────────────────────────────
 const FeatureRow = ({ feature, delay, isVisible, reducedMotion }) => (

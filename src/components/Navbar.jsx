@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { NavLink, Link } from 'react-router-dom'
+import { Menu, X } from 'lucide-react'
 import BrandLogo from './BrandLogo'
 import PrimaryCTA from './PrimaryCTA'
 import ThemeToggle from './ThemeToggle'
@@ -125,20 +126,11 @@ const Navbar = () => {
                 aria-expanded={isOpen}
                 aria-controls="mobile-nav-menu"
               >
-                <span className="relative flex h-5 w-5 items-center justify-center">
-                  <span
-                    className="absolute block h-0.5 w-5 rounded-full bg-current transition-all duration-300"
-                    style={{ transform: isOpen ? 'rotate(45deg)' : 'translateY(-6px)' }}
-                  />
-                  <span
-                    className="absolute block h-0.5 rounded-full bg-current transition-all duration-300"
-                    style={{ width: isOpen ? '0px' : '20px', opacity: isOpen ? 0 : 1 }}
-                  />
-                  <span
-                    className="absolute block h-0.5 w-5 rounded-full bg-current transition-all duration-300"
-                    style={{ transform: isOpen ? 'rotate(-45deg)' : 'translateY(6px)' }}
-                  />
-                </span>
+                {isOpen ? (
+                  <X size={20} aria-hidden="true" />
+                ) : (
+                  <Menu size={20} aria-hidden="true" />
+                )}
               </button>
             </div>
           </div>
