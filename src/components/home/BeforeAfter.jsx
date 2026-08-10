@@ -8,7 +8,7 @@ const beforePoints = [
 
 const afterPoints = [
   'A professional online storefront, ready in minutes.',
-  'Share your storefront anywhere — social media, bio, messages, or ads.',
+  'Share your storefront anywhere, social media, bio, messages, or ads.',
   'Give shoppers a clear, trustworthy path from product discovery to purchase.',
 ]
 
@@ -37,7 +37,7 @@ const BeforeAfter = () => {
             Make your business look <br className="hidden sm:block" /> as good as what you sell.
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7" style={{ color: 'var(--muted-foreground)' }}>
-            Stallio turns the messy part of social selling into a simple customer journey — without changing the way you reach people.
+            Stallio turns the messy part of social selling into a simple customer journey  without changing the way you reach people.
           </p>
         </div>
 

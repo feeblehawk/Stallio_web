@@ -2,6 +2,8 @@ import { useRef, useState, useEffect, useCallback } from 'react'
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion'
 import useReducedMotion from '../../hooks/useReducedMotion'
 import StallioStoreUI from './StallioStoreUI'
+import { FaInstagram, FaWhatsapp } from 'react-icons/fa6'
+import { ArrowRight, ArrowUpRight, Check } from 'lucide-react'
 import { easePremium } from '../../utils/motionVariants'
 
 const instagramMessages = [
@@ -181,7 +183,7 @@ const MobileStorySwiper = ({ reducedMotion }) => {
               className="flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold text-white"
               style={{ background: 'linear-gradient(135deg, #f58529, #dd2a7b, #8134af)' }}
             >
-              𝕀
+              <FaInstagram className="text-base" />
             </div>
             <div>
               <div className="text-xs font-semibold" style={{ color: 'var(--foreground)' }}>Instagram DMs</div>
@@ -251,7 +253,7 @@ const MobileStorySwiper = ({ reducedMotion }) => {
                   color: 'var(--foreground)',
                 }}
               >
-                <span className="text-xs">𝕀</span> Instagram
+                <FaInstagram className="text-sm" /> Instagram
               </div>
               <svg viewBox="0 0 20 10" className="h-3 w-4 shrink-0" aria-hidden="true">
                 <path d="M0 5h18M14 1l4 4-4 4" stroke="var(--primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
@@ -264,7 +266,7 @@ const MobileStorySwiper = ({ reducedMotion }) => {
                   color: 'var(--foreground)',
                 }}
               >
-                <span className="text-xs">W</span> WhatsApp
+                <FaWhatsapp className="text-sm" /> WhatsApp
               </div>
             </div>
 
@@ -290,7 +292,7 @@ const MobileStorySwiper = ({ reducedMotion }) => {
                 className="text-[9px] font-bold uppercase tracking-wider"
                 style={{ color: 'var(--primary)' }}
               >
-                Live ↗
+                <span className="inline-flex items-center gap-0.5">Live <ArrowUpRight className="h-3 w-3" /></span>
               </span>
             </div>
           </div>
@@ -315,7 +317,10 @@ const MobileStorySwiper = ({ reducedMotion }) => {
             }}
           >
             <p className="text-center text-[11px] font-semibold" style={{ color: 'var(--primary)' }}>
-              ✓ Customers browse, order, and pay — no DMs
+              <span className="inline-flex items-center gap-1">
+                <Check className="h-3 w-3 shrink-0" />
+                Customers browse, order, and pay — no DMs
+              </span>
             </p>
           </div>
         </div>
@@ -340,7 +345,7 @@ const MobileStorySwiper = ({ reducedMotion }) => {
 
       {/* Swipe hint — only shows on first load */}
       <p className="mt-3 text-center text-[10px]" style={{ color: 'var(--muted-foreground)' }}>
-        Swipe to explore →
+        <span className="inline-flex items-center justify-center gap-1">Swipe to explore <ArrowRight className="h-3 w-3" /></span>
       </p>
     </div>
   )
@@ -486,7 +491,11 @@ const DmStoreTransform = () => {
                 className="absolute left-0 top-[14%] w-[26%] max-w-[240px]"
                 style={{ x: instagramX, opacity: chatOpacity }}
               >
-                <ChatPanel title="Instagram" messages={instagramMessages} icon="𝕀" />
+                <ChatPanel
+                  title="Instagram"
+                  messages={instagramMessages}
+                  icon={<FaInstagram />}
+                />
               </motion.div>
 
               {/* WhatsApp */}
@@ -494,7 +503,12 @@ const DmStoreTransform = () => {
                 className="absolute right-0 top-[14%] w-[26%] max-w-[240px]"
                 style={{ x: whatsappX, opacity: chatOpacity }}
               >
-                <ChatPanel title="WhatsApp" messages={whatsappMessages} align="right" icon="W" />
+                <ChatPanel
+                  title="WhatsApp"
+                  messages={whatsappMessages}
+                  align="right"
+                  icon={<FaWhatsapp />}
+                />
               </motion.div>
 
               {/* SVG connection lines */}

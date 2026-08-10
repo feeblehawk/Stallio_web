@@ -103,7 +103,7 @@ const Hero = () => {
               className="mx-auto mt-6 max-w-xl text-base leading-7 sm:text-lg lg:mx-0"
               style={{ color: 'var(--muted-foreground)' }}
             >
-              Stallio turns your social-selling presence into a real online store — one polished link
+              Stallio turns your social-selling presence into a real online store. One polished link
               where customers browse, buy, and checkout.
             </motion.p>
 

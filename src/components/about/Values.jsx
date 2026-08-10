@@ -13,12 +13,12 @@ const VALUES = [
   {
     index: '02',
     title: 'Sellers keep control',
-    desc:  'Your payments, your buyers, your data. We stay out of the middle — always.',
+    desc:  'Your payments, your buyers, your data. We stay out of the middle, always.',
   },
   {
     index: '03',
     title: 'Built for this market',
-    desc:  'Designed for how social commerce actually works in Pakistan — not borrowed from the West.',
+    desc:  'Designed for how social commerce actually works.',
   },
   {
     index: '04',
@@ -49,7 +49,7 @@ const ValueRow = ({ value, index: i, isInView, reducedMotion }) => {
           style={{
             fontSize: 'clamp(4.5rem, 9vw, 7.5rem)',
             color: 'var(--primary)',
-            opacity: 0.06,
+            opacity: 0.50,
             lineHeight: 1,
             minWidth: '3rem',
             flexShrink: 0,

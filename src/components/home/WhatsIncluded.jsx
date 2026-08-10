@@ -334,7 +334,7 @@ const WhatsIncluded = () => {
               style={{ background: 'oklch(0.65 0.18 145)' }}
               aria-hidden="true"
             />
-            All features included in every plan — no hidden add-ons
+            All features included in every plan, no hidden add-ons
           </div>
         </motion.div>
       </div>

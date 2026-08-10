@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import useReducedMotion from '../../hooks/useReducedMotion'
 import { easePremium } from '../../utils/motionVariants'
+import { FaInstagram } from 'react-icons/fa6'
 
 const SCENES = [
   {
@@ -78,7 +79,7 @@ function SceneSocial({ reducedMotion }) {
             className="flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center rounded-lg sm:rounded-xl text-[9px] sm:text-[10px] font-bold text-white shadow-sm"
             style={{ background: 'linear-gradient(135deg, #f58529, #dd2a7b, #8134af)' }}
           >
-            𝕀
+            <FaInstagram />
           </div>
           <div>
             <div className="text-[10px] sm:text-[11px] font-bold" style={{ color: 'var(--foreground)' }}>

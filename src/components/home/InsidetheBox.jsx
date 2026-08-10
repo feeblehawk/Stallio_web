@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react'
 import { motion, useInView } from 'framer-motion'
 import useReducedMotion from '../../hooks/useReducedMotion'
+import { FaInstagram, FaWhatsapp, FaLink, FaFacebook } from 'react-icons/fa6'
 import { easePremium, revealSoft, staggerContainer } from '../../utils/motionVariants'
 
 // ─── Motion helpers ───────────────────────────────────────────────────────────
@@ -57,7 +58,7 @@ const StatChip = ({ value, label, green }) => (
 const PRODUCTS = [
   { id: 'p1', img: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=300&h=340&fit=crop&auto=format&q=80', name: 'Classic Tee',   price: '₨ 1,200', badge: 'New'  },
   { id: 'p2', img: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300&h=340&fit=crop&auto=format&q=80', name: 'Sneakers',      price: '₨ 6,800', badge: 'Hot'  },
-  { id: 'p3', img: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=300&h=340&fit=crop&auto=format&q=80', name: 'Summer Kurta', price: '₨ 2,400', badge: null   },
+  { id: 'p3', img: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=300&h=340&fit=crop&auto=format&q=80', name: 'Blue Classic Suit', price: '₨ 2,400', badge: null   },
   { id: 'p4', img: 'https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=300&h=340&fit=crop&auto=format&q=80', name: 'Linen Shirt',  price: '₨ 1,850', badge: 'Sale' },
 ]
 
@@ -135,7 +136,7 @@ const DashboardMockupCard = ({ index, inView, reducedMotion }) => {
           Everything in one place.
         </h3>
         <p className="mt-1.5 text-sm leading-relaxed" style={{ color: css.mutedFg, maxWidth: '40ch' }}>
-          Revenue, orders, products and activity — all on your Stallio dashboard.
+          Revenue, orders, products and activity all on your Stallio dashboard.
         </p>
       </div>
 
@@ -351,7 +352,7 @@ const StorefrontCard = ({ index, inView, reducedMotion }) => {
           Professional Storefront
         </h3>
         <p className="mt-1.5 text-sm leading-relaxed" style={{ color: css.mutedFg, maxWidth: '26ch' }}>
-          A beautiful, mobile-first store — no code, no domain, no hassle.
+          A beautiful, mobile-first store. No code, no domain, no hassle.
         </p>
       </div>
 
@@ -433,20 +434,25 @@ const CheckoutPreview = () => (
 const LinkPreview = () => (
   <div className="w-full space-y-2">
     <div className="flex items-center gap-2 rounded-xl border px-3 py-2.5" style={{ borderColor: css.primaryMix18, background: css.primaryMix10 }}>
-      <svg viewBox="0 0 16 16" fill="none" className="h-3.5 w-3.5 shrink-0" style={{ color: css.primary }}>
-        <path d="M6 9a3 3 0 004.24 0l1.5-1.5a3 3 0 00-4.24-4.24l-.75.75" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        <path d="M10 7a3 3 0 00-4.24 0L4.26 8.5a3 3 0 004.24 4.24l.75-.75" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      </svg>
+      <FaLink className="h-3.5 w-3.5 shrink-0" style={{ color: css.primary }} />
       <span className="text-[10px] font-semibold" style={{ color: css.primary }}>stallio.shop/yourshop</span>
       <div className="ml-auto shrink-0 rounded-full px-2 py-0.5 text-[7px] font-bold" style={{ background: css.primaryMix18, color: css.primary }}>Copy</div>
     </div>
     <div className="grid grid-cols-3 gap-1.5">
-      {[{ label: 'Instagram', color: '#dd2a7b' }, { label: 'WhatsApp', color: '#25d366' }, { label: 'Twitter', color: '#1da1f2' }].map((p) => (
-        <div key={p.label} className="flex flex-col items-center gap-1 rounded-xl border py-2" style={{ borderColor: css.border, background: css.surfaceMuted }}>
-          <span className="h-2.5 w-2.5 rounded-full" style={{ background: p.color }} />
-          <span className="text-[7px]" style={{ color: css.mutedFg }}>{p.label}</span>
-        </div>
-      ))}
+      {[
+        { label: 'Instagram', icon: FaInstagram, color: '#dd2a7b' },
+        { label: 'WhatsApp', icon: FaWhatsapp, color: '#25d366' },
+        { label: 'Facebook', icon: FaFacebook, color: '#009dfff4' },
+      ].map((p) => {
+        const Icon = p.icon
+
+        return (
+          <div key={p.label} className="flex flex-col items-center gap-1 rounded-xl border py-2" style={{ borderColor: css.border, background: css.surfaceMuted }}>
+            <Icon className="h-3.5 w-3.5" style={{ color: p.color }} />
+            <span className="text-[7px]" style={{ color: css.mutedFg }}>{p.label}</span>
+          </div>
+        )
+      })}
     </div>
   </div>
 )
@@ -623,7 +629,7 @@ const FEATURES = [
     id:          'analytics',
     eyebrow:     'Know your numbers',
     title:       'Analytics',
-    description: "See what's selling, when, and how much — at a glance.",
+    description: "See what's selling, when, and how much at a glance.",
     preview:     <AnalyticsPreview />,
     desktopSpan: 'lg:col-span-7',
   },
@@ -678,11 +684,11 @@ const InsidetheBox = () => {
             style={{ color: css.mutedFg }}
           >
             Six tools, one platform. Everything an Instagram or WhatsApp seller
-            needs to go from DMs to a real online business — already built in.
+            needs to go from DMs to a real online business is already built in.
           </motion.p>
         </motion.div>
 
-        {/* ── Bento grid — 12-col desktop, tight fill, zero wasted space ── */}
+        {/* ── Bento grid — 12-col desktop  */}
         {/* Row 1 : dashboard mockup (8) │ storefront w/ real images (4)   */}
         {/* Row 2 : checkout (3) │ link (3) │ orders (6)                   */}
         {/* Row 3 : products (5) │ analytics (7)                           */}

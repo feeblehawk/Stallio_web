@@ -113,10 +113,6 @@ html, body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  /* NOTE: overflow-x must NOT be set on html or body — it silently promotes
-     body into a scroll container, which breaks position:sticky on any
-     descendant (the navbar stops sticking). Horizontal clip is handled
-     on <main> instead. */
   scroll-behavior: smooth;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
