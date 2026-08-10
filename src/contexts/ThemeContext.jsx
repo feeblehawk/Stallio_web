@@ -1,17 +1,21 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 
+
+
 const ThemeContext = createContext(null)
 
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(() => {
-    // 1. Check localStorage first
-    const stored = localStorage.getItem('stallio-theme')
-    if (stored === 'dark' || stored === 'light') return stored
-    // 2. Fall back to system preference
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    // Read the class the inline script already set — avoids duplicating
+    // the localStorage/matchMedia logic and stays in sync with the painted state.
+    if (typeof document !== 'undefined') {
+      return document.documentElement.classList.contains('dark') ? 'dark' : 'light'
+    }
+    // SSR safety (not currently used but good practice)
+    return 'light'
   })
 
-  // Apply/remove 'dark' class on <html> whenever theme changes
+  // Keep <html> class and localStorage in sync when toggled
   useEffect(() => {
     const root = document.documentElement
     if (theme === 'dark') {

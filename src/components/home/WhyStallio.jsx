@@ -24,7 +24,7 @@ const FEATURES = [
   {
     id: 'orders',
     title: 'Orders in one place',
-    desc: 'Status, invoice, and history — not scattered across DMs.',
+    desc: 'Status, invoice, and history are not scattered across DMs.',
   },
   {
     id: 'promotions',

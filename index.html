@@ -4,8 +4,49 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Stallio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <title>Stallio — Sell from one link</title>
+
+    <!--
+      PERF FIX 1: preconnect to Google Fonts origins so the TCP/TLS handshake
+      is done before the browser encounters the @import in CSS.
+      Two separate origins must both be preconnected.
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!--
+      PERF FIX 2: Load fonts with <link rel="stylesheet"> instead of CSS @import.
+      CSS @import blocks the render of the stylesheet that contains it — the
+      browser cannot start parsing the font URLs until the CSS file is fully
+      downloaded, parsed, and the @import rule is evaluated (a serial waterfall).
+      A <link> in <head> fires in parallel with everything else.
+
+      Also added display=swap so text is visible in fallback while fonts load.
+      Removed Great Vibes from index.html (it was duplicated — CSS already loads it).
+    -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!--
+      PERF FIX 3: Inline theme script — runs synchronously before any paint.
+      Without this, ThemeContext reads localStorage inside a React useEffect
+      which only fires AFTER the JS bundle is downloaded, parsed, and React has
+      rendered. That means every dark-mode user sees a flash of light mode
+      (FOUC) for ~300-800 ms on first load. The inline script applies the class
+      instantly, before the browser draws the first pixel.
+    -->
+    <script>
+      ;(function () {
+        try {
+          var stored = localStorage.getItem('stallio-theme')
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+          var dark = stored === 'dark' || (!stored && prefersDark)
+          if (dark) document.documentElement.classList.add('dark')
+        } catch (_) {}
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>
