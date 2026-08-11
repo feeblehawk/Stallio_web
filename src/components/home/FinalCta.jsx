@@ -1,45 +1,15 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import { ShieldCheck, Zap, CheckCircle2, ArrowRight, Sparkles } from 'lucide-react'
 import useReducedMotion from '../../hooks/useReducedMotion'
-import { easePremium, staggerContainer, revealSoft } from '../../utils/motionVariants'
-import ArrowIcon from '../icons/ArrowIcon'
+import { easePremium, staggerContainer, revealSoft, blurReveal } from '../../utils/motionVariants'
+import PrimaryCTA from '../PrimaryCTA'
 
-// ─── Pill chip ────────────────────────────────────────────────────────────────
-const Chip = ({ children }) => (
-  <span
-    className="inline-flex items-center rounded-full border px-3 py-1 text-[11px] font-medium"
-    style={{
-      borderColor: 'var(--border)',
-      background: 'var(--surface)',
-      color: 'var(--muted-foreground)',
-    }}
-  >
-    {children}
-  </span>
-)
-
-// ─── Micro trust item ─────────────────────────────────────────────────────────
-const TrustItem = ({ icon, children }) => (
-  <span
-    className="inline-flex items-center gap-1.5 text-[12px]"
-    style={{ color: 'var(--muted-foreground)' }}
-  >
-    <svg
-      viewBox="0 0 16 16"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      className="h-3.5 w-3.5 shrink-0"
-      aria-hidden="true"
-    >
-      {icon}
-    </svg>
-    {children}
-  </span>
-)
-
-// ─── Main section ─────────────────────────────────────────────────────────────
+/**
+ * Unified Premium Final CTA — Modern Minimalist design with strict visual hierarchy.
+ * Shared across Home, About, Features, and HowItWorks pages for complete consistency.
+ */
 const FinalCTA = () => {
   const sectionRef = useRef(null)
   const inView = useInView(sectionRef, { once: true, margin: '-60px' })
@@ -50,131 +20,133 @@ const FinalCTA = () => {
     <section
       ref={sectionRef}
       aria-labelledby="final-cta-heading"
-      className="relative overflow-hidden border-b"
+      className="relative overflow-hidden border-t"
       style={{ borderColor: 'var(--border)', background: 'var(--background)' }}
     >
-      {/* Radial glow — centered, restrained */}
+      {/* Radial glow background — centered upward beam */}
       <div
         className="pointer-events-none absolute inset-0 -z-10"
         aria-hidden="true"
         style={{
           background:
-            'radial-gradient(ellipse 70% 60% at 50% 110%, color-mix(in oklch, var(--primary) 8%, transparent), transparent 68%)',
+            'radial-gradient(ellipse 80% 65% at 50% 100%, color-mix(in oklch, var(--primary) 10%, transparent), transparent 70%)',
         }}
       />
 
-      {/* Top border accent rule */}
+      {/* Top glowing edge line */}
       <div
         className="absolute inset-x-0 top-0 h-px"
         aria-hidden="true"
         style={{
           background:
-            'linear-gradient(90deg, transparent 0%, color-mix(in oklch, var(--primary) 40%, transparent) 50%, transparent 100%)',
+            'linear-gradient(90deg, transparent 0%, color-mix(in oklch, var(--primary) 50%, transparent) 50%, transparent 100%)',
         }}
       />
 
-      <div className="mx-auto max-w-3xl px-4 py-24 text-center sm:px-6 sm:py-28 lg:px-8 lg:py-32">
+      {/* Subtle grid pattern background */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.025]"
+        aria-hidden="true"
+        style={{
+          backgroundImage:
+            'linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px)',
+          backgroundSize: '56px 56px',
+        }}
+      />
+
+      <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 sm:py-28 lg:px-8 lg:py-32">
         <motion.div
           variants={staggerContainer}
           initial={reducedMotion ? false : 'hidden'}
           animate={isVisible ? 'visible' : 'hidden'}
+          className="flex flex-col items-center"
         >
-
-          {/* ── Pill chips — pre-empt objections ── */}
-          <motion.div
-            variants={revealSoft}
-            className="mb-7 flex flex-wrap items-center justify-center gap-2"
-          >
-            <Chip>No domain setup</Chip>
-            <Chip>No card required</Chip>
-            <Chip>Live today</Chip>
+          {/* Eyebrow Badge */}
+          <motion.div variants={revealSoft}>
+            <div
+              className="mb-6 inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5"
+              style={{
+                borderColor: 'var(--border)',
+                background: 'color-mix(in oklch, var(--surface) 80%, transparent)',
+                backdropFilter: 'blur(8px)',
+              }}
+            >
+              <Sparkles size={13} className="text-primary" />
+              <span
+                className="text-[11px] font-semibold uppercase tracking-[0.2em]"
+                style={{ color: 'var(--muted-foreground)' }}
+              >
+                Start Selling Today
+              </span>
+            </div>
           </motion.div>
 
-          {/* ── Headline ── */}
+          {/* Main Headline */}
           <motion.h2
-            variants={revealSoft}
+            variants={blurReveal}
             id="final-cta-heading"
             className="font-heading font-extrabold tracking-[-0.055em]"
             style={{
-              fontSize: 'clamp(2.25rem, 5.5vw, 4rem)',
+              fontSize: 'clamp(2.25rem, 5.5vw, 4.25rem)',
               lineHeight: 1.02,
               color: 'var(--foreground)',
             }}
           >
-            Ready when you are.
+            Ready to turn your social link
+            <br />
+            <span style={{ color: 'var(--primary)' }}>into a real online store?</span>
           </motion.h2>
 
-          {/* ── Sub copy ── */}
+          {/* Subtitle */}
           <motion.p
             variants={revealSoft}
-            className="mx-auto mt-5 max-w-md text-base leading-7 sm:text-[17px]"
+            className="mx-auto mt-5 max-w-xl text-base leading-7 sm:text-lg"
             style={{ color: 'var(--muted-foreground)' }}
           >
-            Spin up a store in minutes. Share the link tonight. Wake up to orders that didn't vanish in your inbox.
+            Spin up a store in 60 seconds. Share your link tonight. Wake up to real orders instead of messages lost in your DM request folder.
           </motion.p>
 
-          {/* ── CTA buttons ── */}
+          {/* CTA Action Buttons */}
           <motion.div
             variants={revealSoft}
-            className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4"
+            className="mt-8 flex flex-col w-full sm:w-auto justify-center gap-3.5 sm:flex-row sm:gap-4"
           >
-            {/* Primary — Sign up */}
-            <a
-              href="https://www.stallio.shop/signup"
-              className="group relative inline-flex items-center justify-center gap-1.5 overflow-hidden rounded-xl font-semibold shadow-md transition-all duration-200 hover:-translate-y-px hover:shadow-lg active:translate-y-0 active:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring px-6 py-3 text-sm"
-              style={{
-                background: 'var(--primary)',
-                color: 'var(--primary-foreground)',
-                boxShadow: 'var(--shadow, 0 4px 14px color-mix(in oklch, var(--primary) 30%, transparent))',
-              }}
-            >
-              {/* Shimmer sweep — matches PrimaryCTA */}
-              <span
-                className="pointer-events-none absolute inset-0 -translate-x-full skew-x-[-20deg] bg-white/10 transition-transform duration-500 group-hover:translate-x-[200%]"
-                aria-hidden="true"
-              />
-              Start free
-              <ArrowIcon />
-            </a>
-
-            {/* Secondary — Log in */}
-            <a
-              href="https://www.stallio.shop/login"
-              className="group inline-flex items-center justify-center gap-1.5 rounded-xl border font-semibold transition-all duration-200 hover:-translate-y-px active:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring px-6 py-3 text-sm"
+            <PrimaryCTA size="lg" className="w-full sm:w-auto text-base shadow-lg shadow-black/5 py-3.5">
+              Create Your Store
+            </PrimaryCTA>
+            <Link
+              to="/features"
+              className="group inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border px-6 py-3.5 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:border-[color:var(--primary)] focus-visible:outline-2 focus-visible:outline-offset-2"
               style={{
                 borderColor: 'var(--border)',
                 background: 'var(--surface)',
                 color: 'var(--foreground)',
               }}
             >
-              Log in
-              {/* Subtle right-arrow on hover */}
-              <ArrowIcon className="opacity-40 group-hover:opacity-70" />
-            </a>
+              Explore Features
+              <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
           </motion.div>
 
-          {/* ── Micro trust strip ── */}
+          {/* Trust Badges Strip (Lucide Icons) */}
           <motion.div
             variants={revealSoft}
-            className="mt-7 flex flex-wrap items-center justify-center gap-x-5 gap-y-2"
+            className="mt-9 flex flex-wrap items-center justify-center gap-x-6 gap-y-2.5 text-xs font-medium"
+            style={{ color: 'var(--muted-foreground)' }}
           >
-            <TrustItem
-              icon={<path strokeLinecap="round" strokeLinejoin="round" d="M8 13.5A5.5 5.5 0 1013.5 8M8 13.5V10m0 3.5H5" />}
-            >
-              30-day full trial
-            </TrustItem>
-            <TrustItem
-              icon={<path strokeLinecap="round" strokeLinejoin="round" d="M8 2a6 6 0 110 12A6 6 0 018 2zm0 0v2m0 10v2M2 8H0m16 0h-2" />}
-            >
-              Share tonight
-            </TrustItem>
-            <TrustItem
-              icon={<><rect x="2" y="6" width="12" height="9" rx="1.5" /><path strokeLinecap="round" d="M5 6V4.5a3 3 0 016 0V6" /></>}
-            >
-              No credit card
-            </TrustItem>
+            <span className="flex items-center gap-2">
+              <ShieldCheck size={15} className="text-primary" />
+              No credit card required
+            </span>
+            <span className="flex items-center gap-2">
+              <Zap size={15} className="text-amber-500" />
+              Live in under 5 minutes
+            </span>
+            <span className="flex items-center gap-2">
+              <CheckCircle2 size={15} className="text-emerald-500" />
+              Free forever plan available
+            </span>
           </motion.div>
-
         </motion.div>
       </div>
     </section>

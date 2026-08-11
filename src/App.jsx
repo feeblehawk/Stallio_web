@@ -6,6 +6,7 @@ import MainLayout from './layouts/MainLayout'
 const Home        = lazy(() => import('./pages/Home'))
 const About       = lazy(() => import('./pages/About'))
 const Features    = lazy(() => import('./pages/Features'))
+const HowItWorks  = lazy(() => import('./pages/HowItWorks'))
 const ComingSoon  = lazy(() => import('./pages/ComingSoon'))
 
 // Minimal fallback — invisible div keeps layout stable during chunk fetch
@@ -46,10 +47,17 @@ function App() {
                 </Suspense>
               }
             />
-
+            <Route
+              path="how-it-works"
+              element={
+                <Suspense fallback={<PageFallback />}>
+                  <HowItWorks />
+                </Suspense>
+              }
+            />  
             {/* All remaining routes share one ComingSoon chunk */}
             {[
-              'pricing', 'how-it-works', 'careers', 'contact',
+              'pricing', 'careers', 'contact',
               'docs', 'blog', 'guides', 'help',
               'faq', 'community', 'status',
               'login',

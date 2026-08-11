@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { FaLinkedinIn, FaInstagram, FaXTwitter, FaYoutube, FaFacebookF } from 'react-icons/fa6'
+import { Mail, ShieldCheck, Heart } from 'lucide-react'
 import BrandLogo from './BrandLogo'
 import PrimaryCTA from './PrimaryCTA'
 
@@ -47,20 +48,26 @@ const legalLinks = [
 ]
 
 const socialPlatforms = [
-  { name: 'LinkedIn', Icon: FaLinkedinIn },
-  { name: 'Instagram', Icon: FaInstagram },
-  { name: 'X', Icon: FaXTwitter },
-  { name: 'YouTube', Icon: FaYoutube },
-  { name: 'Facebook', Icon: FaFacebookF },
+  { name: 'LinkedIn', Icon: FaLinkedinIn, href: 'https://linkedin.com' },
+  { name: 'Instagram', Icon: FaInstagram, href: 'https://instagram.com' },
+  { name: 'X', Icon: FaXTwitter, href: 'https://x.com' },
+  { name: 'YouTube', Icon: FaYoutube, href: 'https://youtube.com' },
+  { name: 'Facebook', Icon: FaFacebookF, href: 'https://facebook.com' },
 ]
 
 const FooterLink = ({ to, children }) => (
   <Link
     to={to}
-    className="group relative inline-flex text-sm text-muted-foreground transition-colors duration-150 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring rounded-sm"
+    className="group relative inline-flex text-xs sm:text-sm transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 rounded-sm py-0.5"
+    style={{ color: 'var(--muted-foreground)' }}
   >
-    {children}
-    <span className="absolute -bottom-px left-0 h-px w-0 bg-primary transition-all duration-250 group-hover:w-full" />
+    <span className="transition-colors group-hover:text-[color:var(--foreground)]">
+      {children}
+    </span>
+    <span
+      className="absolute -bottom-0.5 left-0 h-px w-0 transition-all duration-200 group-hover:w-full"
+      style={{ background: 'var(--primary)' }}
+    />
   </Link>
 )
 
@@ -68,65 +75,92 @@ const Footer = () => {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="mt-auto w-full border-t border-border bg-surface text-foreground" role="contentinfo">
+    <footer
+      className="mt-auto w-full border-t border-b-0"
+      style={{ borderColor: 'var(--border)', background: 'var(--surface)' }}
+      role="contentinfo"
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Main footer grid */}
-        <div className="grid grid-cols-1 gap-x-8 gap-y-12 py-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr]">
-          {/* Brand column */}
-          <div className="col-span-1 flex flex-col gap-5 sm:col-span-2 md:col-span-3 lg:col-span-1">
+        {/* Main Footer Grid — 2 columns on mobile, 5 columns on desktop */}
+        <div className="grid grid-cols-1 gap-10 py-12 sm:py-16 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1fr] lg:gap-8">
+          {/* Brand Column */}
+          <div className="flex flex-col gap-4 sm:gap-5 md:col-span-2 lg:col-span-1">
             <BrandLogo size="lg" />
 
-            <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
-              Your online shop, one link away. The simplest way for Instagram and WhatsApp sellers to launch a mobile storefront.
+            <p
+              className="max-w-sm text-xs sm:text-sm leading-relaxed"
+              style={{ color: 'var(--muted-foreground)' }}
+            >
+              Your online store, one link away. The simplest, most powerful way for social sellers on Instagram, WhatsApp & TikTok to build a mobile store.
             </p>
 
-            <PrimaryCTA size="md" className="w-fit" />
+            <div className="pt-1">
+              <PrimaryCTA size="md" className="w-full sm:w-fit py-2.5 text-xs sm:text-sm">
+                Start Selling Free
+              </PrimaryCTA>
+            </div>
           </div>
 
-          {/* Link columns */}
-          {footerColumns.map((col) => (
-            <div key={col.title} className="flex flex-col gap-4">
-              <h3 className="font-heading text-xs font-bold uppercase tracking-widest text-foreground">
-                {col.title}
-              </h3>
-              <ul className="flex flex-col gap-3">
-                {col.links.map((link) => (
-                  <li key={link.name}>
-                    <FooterLink to={link.path}>{link.name}</FooterLink>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {/* Navigation Links — 2-column grid on mobile for compact visual hierarchy */}
+          <div className="grid grid-cols-2 gap-8 md:col-span-2 md:grid-cols-4 lg:col-span-4">
+            {footerColumns.map((col) => (
+              <div key={col.title} className="flex flex-col gap-3.5">
+                <h3
+                  className="font-heading text-xs font-bold uppercase tracking-widest"
+                  style={{ color: 'var(--foreground)' }}
+                >
+                  {col.title}
+                </h3>
+                <ul className="flex flex-col gap-2">
+                  {col.links.map((link) => (
+                    <li key={link.name}>
+                      <FooterLink to={link.path}>{link.name}</FooterLink>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Bottom utility bar */}
-        <div className="flex flex-col gap-6 border-t border-border py-8 sm:flex-row sm:items-center sm:justify-between">
-          {/* Social icons */}
-          <div className="flex items-center gap-3" aria-label="Social media links">
-            {socialPlatforms.map(({ name, Icon }) => (
-              <span
+        {/* Bottom Utility Bar: Social Icons & Legal Links */}
+        <div
+          className="flex flex-col gap-5 border-t py-6 sm:flex-row sm:items-center sm:justify-between"
+          style={{ borderColor: 'var(--border)' }}
+        >
+          {/* Social Icons Strip */}
+          <div className="flex items-center gap-2" aria-label="Social media links">
+            {socialPlatforms.map(({ name, Icon, href }) => (
+              <a
                 key={name}
-                role="img"
-                aria-label={`${name} — coming soon`}
-                title={`${name} — coming soon`}
-                className="flex h-9 w-9 cursor-default items-center justify-center rounded-lg border border-border bg-background text-muted-foreground opacity-60"
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Visit Stallio on ${name}`}
+                title={name}
+                className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-xl border transition-all duration-200 hover:scale-105 hover:border-[color:var(--primary)] hover:text-[color:var(--primary)] focus-visible:outline-2 focus-visible:outline-offset-2"
+                style={{
+                  borderColor: 'var(--border)',
+                  background: 'var(--background)',
+                  color: 'var(--muted-foreground)',
+                }}
               >
-                <Icon size={16} aria-hidden="true" />
-              </span>
+                <Icon size={14} aria-hidden="true" />
+              </a>
             ))}
           </div>
 
-          {/* Legal links */}
+          {/* Legal Navigation Links */}
           <nav
-            className="flex flex-wrap items-center gap-x-5 gap-y-2"
+            className="flex flex-wrap items-center gap-x-4 sm:gap-x-6 gap-y-2"
             aria-label="Legal links"
           >
             {legalLinks.map((item) => (
               <Link
                 key={item.name}
                 to={item.path}
-                className="text-xs text-muted-foreground transition-colors duration-150 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring rounded-sm"
+                className="text-xs transition-colors duration-150 hover:text-[color:var(--foreground)] focus-visible:outline-2 focus-visible:outline-offset-2 rounded-sm"
+                style={{ color: 'var(--muted-foreground)' }}
               >
                 {item.name}
               </Link>
@@ -134,17 +168,24 @@ const Footer = () => {
           </nav>
         </div>
 
-        {/* Copyright + email */}
-        <div className="flex flex-col gap-3 border-t border-border py-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-muted-foreground">
+        {/* Bottom Copyright & Contact Email Strip */}
+        <div
+          className="flex flex-col gap-2.5 border-t py-5 sm:flex-row sm:items-center sm:justify-between"
+          style={{ borderColor: 'var(--border)' }}
+        >
+          <p className="text-xs" style={{ color: 'var(--muted-foreground)' }}>
             Copyright © {currentYear} Stallio. All rights reserved.
           </p>
-          <a
-            href="mailto:contact@stattio.shop"
-            className="text-xs text-muted-foreground transition-colors duration-150 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring rounded-sm"
-          >
-            contact@stallio.shop
-          </a>
+
+          <div className="flex items-center gap-4 text-xs" style={{ color: 'var(--muted-foreground)' }}>
+            <a
+              href="mailto:contact@stallio.shop"
+              className="flex items-center gap-1.5 transition-colors hover:text-[color:var(--foreground)]"
+            >
+              <Mail size={12} className="text-primary" />
+              <span>contact@stallio.shop</span>
+            </a>
+          </div>
         </div>
       </div>
     </footer>
