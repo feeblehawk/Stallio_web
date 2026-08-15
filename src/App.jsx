@@ -3,12 +3,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { ThemeProvider } from './contexts/ThemeContext'
 import MainLayout from './layouts/MainLayout'
 
-const Home        = lazy(() => import('./pages/Home'))
-const About       = lazy(() => import('./pages/About'))
-const Features    = lazy(() => import('./pages/Features'))
-const HowItWorks  = lazy(() => import('./pages/HowItWorks'))
+const Home        = lazy(() => import('./pages/home/Home'))
+const About       = lazy(() => import('./pages/about/About'))
+const Features    = lazy(() => import('./pages/features/Features'))
+const HowItWorks  = lazy(() => import('./pages/howitworks/HowItWorks'))
 const ComingSoon  = lazy(() => import('./pages/ComingSoon'))
-
+const ArchitectureGuide      = lazy(() => import('./pages/ArchitectureGuide'))
 // Minimal fallback — invisible div keeps layout stable during chunk fetch
 const PageFallback = () => (
   <div
@@ -54,7 +54,16 @@ function App() {
                   <HowItWorks />
                 </Suspense>
               }
-            />  
+            /> 
+            <Route
+              path="ArchitectureGuide"
+              element={
+                <Suspense fallback={<PageFallback />}>
+                  <ArchitectureGuide />
+                </Suspense>
+              }
+            />
+
             {/* All remaining routes share one ComingSoon chunk */}
             {[
               'pricing', 'careers', 'contact',
