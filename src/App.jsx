@@ -22,7 +22,6 @@ const About          = lazy(() => import('./pages/about/About'))
 const Features       = lazy(() => import('./pages/features/Features'))
 const HowItWorks     = lazy(() => import('./pages/howitworks/HowItWorks'))
 const ComingSoon     = lazy(() => import('./pages/ComingSoon'))
-const ArchitectureGuide = lazy(() => import('./pages/ArchitectureGuide'))
 
 // Minimal fallback — invisible div keeps layout stable during chunk fetch
 const PageFallback = () => (
@@ -55,7 +54,6 @@ function App() {
             <Route path="about"             element={wrap(About)} />
             <Route path="features"          element={wrap(Features)} />
             <Route path="how-it-works"      element={wrap(HowItWorks)} />
-            <Route path="ArchitectureGuide" element={wrap(ArchitectureGuide)} />
 
             {/* Catch-all */}
             {[
