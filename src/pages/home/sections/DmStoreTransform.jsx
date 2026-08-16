@@ -1,9 +1,9 @@
-import { useRef, useState, useEffect, useCallback } from 'react'
+import { useRef, useState, useCallback } from 'react'
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion'
 import useReducedMotion from '../../../hooks/useReducedMotion'
 import StallioStoreUI from '../../../components/StallioStoreUI'
 import { FaInstagram, FaWhatsapp } from 'react-icons/fa6'
-import { ArrowRight, ArrowUpRight, Check } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Check, Zap, Store, Smile, Image, Mic } from 'lucide-react'
 import { easePremium } from '../../../utils/motionVariants'
 
 const instagramMessages = [
@@ -43,7 +43,7 @@ const ChatBubble = ({ text, align = 'left' }) => (
   </div>
 )
 
-// ─── Chat panel ───────────────────────────────────────────────────────────────
+// ─── Chat panel (desktop) ─────────────────────────────────────────────────────
 const ChatPanel = ({ title, messages, align = 'left', icon }) => (
   <div
     className="isolate rounded-2xl border p-4 sm:p-5"
@@ -56,13 +56,12 @@ const ChatPanel = ({ title, messages, align = 'left', icon }) => (
   >
     <div className="mb-4 flex items-center gap-2">
       <div
-        className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[11px] font-bold"
+        className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[11px] font-bold text-white"
         style={{
           background:
             title === 'Instagram'
               ? 'linear-gradient(135deg, #f58529, #dd2a7b, #8134af)'
               : 'linear-gradient(135deg, #25d366, #128c7e)',
-          color: 'white',
         }}
       >
         {icon}
@@ -84,6 +83,215 @@ const ChatPanel = ({ title, messages, align = 'left', icon }) => (
   </div>
 )
 
+// ─── Mobile Card 1 — Instagram DMs (static mockup) ───────────────────────────
+const InstagramDMCard = ({ reducedMotion }) => {
+  const messages = [
+    { id: 'c1', text: 'How much?' },
+    { id: 'c2', text: 'Is this available?' },
+    { id: 'c3', text: 'How can I order?' },
+    { id: 'c4', text: 'Delivery to Lahore?' },
+  ]
+
+  return (
+    <div
+      className="flex w-[min(82vw,288px)] shrink-0 snap-center flex-col rounded-2xl border overflow-hidden"
+      style={{
+        background: 'var(--surface)',
+        borderColor: 'var(--border)',
+        height: '380px',
+      }}
+    >
+      {/* Header */}
+      <div
+        className="flex shrink-0 items-center gap-2 border-b px-4 py-3"
+        style={{ borderColor: 'var(--border)' }}
+      >
+        <div
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm text-white"
+          style={{ background: 'linear-gradient(135deg, #f58529, #dd2a7b, #8134af)' }}
+        >
+          <FaInstagram />
+        </div>
+        <div className="min-w-0 flex-1">
+          <div className="text-xs font-semibold truncate" style={{ color: 'var(--foreground)' }}>
+            Instagram DMs
+          </div>
+          <div className="text-[9px]" style={{ color: 'var(--muted-foreground)' }}>
+            4 unanswered questions
+          </div>
+        </div>
+        <div
+          className="rounded-full px-2 py-0.5 text-[9px] font-bold text-white shrink-0"
+          style={{ background: '#ef4444' }}
+        >
+          4
+        </div>
+      </div>
+
+      {/* Thread */}
+      <div className="flex-1 overflow-hidden px-3 py-2.5 space-y-2">
+        {messages.map((msg, i) => (
+          <motion.div
+            key={msg.id}
+            initial={reducedMotion ? false : { opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: i * 0.08, duration: 0.3, ease: easePremium }}
+          >
+            <ChatBubble text={msg.text} align="left" />
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Input bar — visual mockup only */}
+      <div
+        className="shrink-0 border-t"
+        style={{ borderColor: 'var(--border)', background: 'var(--surface-muted)' }}
+      >
+        {/* Quick-reply chips */}
+        <div className="flex gap-1.5 overflow-x-auto px-3 pt-2 pb-1.5" style={{ scrollbarWidth: 'none' }}>
+          {['Price?', 'Sizes?', 'COD?', 'In stock?'].map(chip => (
+            <span
+              key={chip}
+              className="shrink-0 rounded-full border px-2.5 py-1 text-[9px] font-medium select-none"
+              style={{
+                background: 'var(--surface)',
+                borderColor: 'var(--border)',
+                color: 'var(--muted-foreground)',
+              }}
+            >
+              {chip}
+            </span>
+          ))}
+        </div>
+
+        <div className="flex items-center gap-2 px-3 pb-3">
+          <Smile className="h-4 w-4 shrink-0" style={{ color: 'var(--muted-foreground)' }} />
+          <div
+            className="flex-1 rounded-full border px-3 py-1.5 text-[10px]"
+            style={{
+              background: 'var(--surface)',
+              borderColor: 'var(--border)',
+              color: 'var(--muted-foreground)',
+            }}
+          >
+            Message…
+          </div>
+          <Image className="h-4 w-4 shrink-0" style={{ color: 'var(--muted-foreground)' }} />
+          <Mic className="h-4 w-4 shrink-0" style={{ color: 'var(--muted-foreground)' }} />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ─── Mobile Card 2 — Stallio connects it ─────────────────────────────────────
+const StallioConnectCard = () => {
+  const features = [
+    { icon: <Zap className="h-3 w-3" />, text: 'Auto-sorts every DM' },
+    { icon: <Store className="h-3 w-3" />, text: 'Builds your catalogue' },
+    { icon: <Check className="h-3 w-3" />, text: 'One link, all orders' },
+  ]
+
+  return (
+    <div
+      className="flex w-[min(82vw,288px)] shrink-0 snap-center flex-col rounded-2xl border overflow-hidden"
+      style={{
+        background: 'var(--surface)',
+        borderColor: 'color-mix(in oklch, var(--primary) 25%, var(--border))',
+        height: '380px',
+      }}
+    >
+      {/* Top section — platform connection diagram */}
+      <div className="flex flex-col items-center justify-center gap-4 px-5 pt-6 pb-4 flex-1">
+        {/* Two platform pills → Stallio node */}
+        <div className="flex w-full items-center gap-2">
+          <div
+            className="flex flex-1 flex-col items-center justify-center gap-1 rounded-xl border py-2.5"
+            style={{ background: 'var(--surface-muted)', borderColor: 'var(--border)' }}
+          >
+            <FaInstagram className="text-base" style={{ color: '#dd2a7b' }} />
+            <span className="text-[9px] font-semibold" style={{ color: 'var(--muted-foreground)' }}>Instagram</span>
+          </div>
+          <ArrowRight className="h-3 w-3 shrink-0" style={{ color: 'var(--primary)' }} />
+          <div
+            className="flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-2xl border font-heading text-[8px] font-extrabold tracking-[0.15em]"
+            style={{
+              background: 'color-mix(in oklch, var(--primary) 10%, var(--surface))',
+              borderColor: 'color-mix(in oklch, var(--primary) 40%, var(--border))',
+              color: 'var(--primary)',
+              boxShadow: '0 0 24px color-mix(in oklch, var(--primary) 18%, transparent)',
+            }}
+          >
+            STALLIO
+          </div>
+          <ArrowRight className="h-3 w-3 shrink-0 rotate-180" style={{ color: 'var(--primary)' }} />
+          <div
+            className="flex flex-1 flex-col items-center justify-center gap-1 rounded-xl border py-2.5"
+            style={{ background: 'var(--surface-muted)', borderColor: 'var(--border)' }}
+          >
+            <FaWhatsapp className="text-base" style={{ color: '#25d366' }} />
+            <span className="text-[9px] font-semibold" style={{ color: 'var(--muted-foreground)' }}>WhatsApp</span>
+          </div>
+        </div>
+
+        {/* Feature checklist */}
+        <div
+          className="w-full rounded-xl border px-3 py-3 space-y-2"
+          style={{
+            background: 'color-mix(in oklch, var(--primary) 4%, var(--surface-muted))',
+            borderColor: 'color-mix(in oklch, var(--primary) 15%, var(--border))',
+          }}
+        >
+          {features.map(f => (
+            <div key={f.text} className="flex items-center gap-2">
+              <span
+                className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full"
+                style={{
+                  background: 'color-mix(in oklch, var(--primary) 14%, var(--surface))',
+                  color: 'var(--primary)',
+                }}
+              >
+                {f.icon}
+              </span>
+              <span className="text-[10px] font-medium" style={{ color: 'var(--foreground)' }}>
+                {f.text}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <p className="text-center text-[11px] leading-snug" style={{ color: 'var(--muted-foreground)' }}>
+          All your DM chaos funnelled into{' '}
+          <span className="font-semibold" style={{ color: 'var(--foreground)' }}>
+            one organised store.
+          </span>
+        </p>
+      </div>
+
+      {/* Bottom — store link */}
+      <div
+        className="shrink-0 border-t px-4 py-3"
+        style={{
+          borderColor: 'color-mix(in oklch, var(--primary) 20%, var(--border))',
+          background: 'color-mix(in oklch, var(--primary) 5%, var(--surface))',
+        }}
+      >
+        <div className="flex items-center justify-between">
+          <span className="text-[11px] font-medium" style={{ color: 'var(--muted-foreground)' }}>
+            stallio.shop/<span className="font-bold" style={{ color: 'var(--primary)' }}>yourbrand</span>
+          </span>
+          <span
+            className="inline-flex items-center gap-0.5 text-[9px] font-bold uppercase tracking-wider"
+            style={{ color: 'var(--primary)' }}
+          >
+            Live <ArrowUpRight className="h-3 w-3" />
+          </span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // ─── Mobile: 3-card swipe story ───────────────────────────────────────────────
 const STORY_CARDS = [
   { id: 'instagram', label: 'Before', tag: 'Instagram DMs' },
@@ -93,30 +301,16 @@ const STORY_CARDS = [
 
 const MobileStorySwiper = ({ reducedMotion }) => {
   const [active, setActive] = useState(0)
-  const [autoPlaying, setAutoPlaying] = useState(true)
   const trackRef = useRef(null)
-  const timerRef = useRef(null)
-
-  // Auto-advance
-  useEffect(() => {
-    if (!autoPlaying || reducedMotion) return
-    timerRef.current = setInterval(() => {
-      setActive(prev => (prev < STORY_CARDS.length - 1 ? prev + 1 : prev))
-    }, 3200)
-    return () => clearInterval(timerRef.current)
-  }, [autoPlaying, reducedMotion])
 
   const goTo = useCallback((idx) => {
     setActive(idx)
-    setAutoPlaying(false)
-    // Scroll the snap container
     if (trackRef.current) {
       const card = trackRef.current.children[idx]
       if (card) card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
     }
   }, [])
 
-  // Sync scroll position → active dot
   const handleScroll = useCallback(() => {
     if (!trackRef.current) return
     const el = trackRef.current
@@ -169,158 +363,37 @@ const MobileStorySwiper = ({ reducedMotion }) => {
           paddingRight: '1px',
         }}
       >
-        {/* Card 1 — Instagram chaos */}
-        <div
-          className="w-[min(80vw,280px)] shrink-0 snap-center rounded-2xl border p-5"
-          style={{
-            background: 'var(--surface)',
-            borderColor: 'var(--border)',
-            boxShadow: '0 8px 32px color-mix(in oklch, var(--foreground) 8%, transparent)',
-          }}
-        >
-          <div className="mb-4 flex items-center gap-2">
-            <div
-              className="flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold text-white"
-              style={{ background: 'linear-gradient(135deg, #f58529, #dd2a7b, #8134af)' }}
-            >
-              <FaInstagram className="text-base" />
-            </div>
-            <div>
-              <div className="text-xs font-semibold" style={{ color: 'var(--foreground)' }}>Instagram DMs</div>
-              <div className="text-[9px]" style={{ color: 'var(--muted-foreground)' }}>4 unanswered questions</div>
-            </div>
-            <div
-              className="ml-auto rounded-full px-2 py-0.5 text-[9px] font-bold"
-              style={{ background: '#ef4444', color: 'white' }}
-            >
-              4
-            </div>
-          </div>
-          <div className="space-y-2.5">
-            {instagramMessages.map((msg, i) => (
-              <motion.div
-                key={msg}
-                initial={reducedMotion ? false : { opacity: 0, x: -12 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.12, duration: 0.4, ease: easePremium }}
-              >
-                <ChatBubble text={msg} align="left" />
-              </motion.div>
-            ))}
-          </div>
-          <div
-            className="mt-4 rounded-xl border px-3 py-2.5 text-[11px] leading-relaxed"
-            style={{
-              background: 'color-mix(in oklch, #ef4444 6%, var(--surface-muted))',
-              borderColor: 'color-mix(in oklch, #ef4444 18%, var(--border))',
-              color: 'var(--muted-foreground)',
-            }}
-          >
-            😅 You're replying to the same questions all day.
-          </div>
-        </div>
+        {/* Card 1 — Instagram DMs with keyboard mockup */}
+        <InstagramDMCard reducedMotion={reducedMotion} />
 
-        {/* Card 2 — Stallio in the middle */}
-        <div
-          className="w-[min(80vw,280px)] shrink-0 snap-center rounded-2xl border p-5"
-          style={{
-            background: 'var(--surface)',
-            borderColor: 'color-mix(in oklch, var(--primary) 25%, var(--border))',
-            boxShadow: '0 8px 32px color-mix(in oklch, var(--primary) 12%, transparent)',
-          }}
-        >
-          <div className="flex flex-col items-center justify-center py-4 gap-5">
-            {/* Stallio node */}
-            <div
-              className="flex h-16 w-16 items-center justify-center rounded-2xl border font-heading text-[10px] font-extrabold tracking-[0.2em]"
-              style={{
-                background: 'color-mix(in oklch, var(--primary) 10%, var(--surface))',
-                borderColor: 'color-mix(in oklch, var(--primary) 40%, var(--border))',
-                color: 'var(--primary)',
-                boxShadow: '0 0 32px color-mix(in oklch, var(--primary) 20%, transparent)',
-              }}
-            >
-              STALLIO
-            </div>
-
-            {/* Two platform pills */}
-            <div className="flex w-full items-center gap-2">
-              <div
-                className="flex flex-1 items-center justify-center gap-1.5 rounded-xl border py-2.5 text-[10px] font-semibold"
-                style={{
-                  background: 'var(--surface-muted)',
-                  borderColor: 'var(--border)',
-                  color: 'var(--foreground)',
-                }}
-              >
-                <FaInstagram className="text-sm" /> Instagram
-              </div>
-              <svg viewBox="0 0 20 10" className="h-3 w-4 shrink-0" aria-hidden="true">
-                <path d="M0 5h18M14 1l4 4-4 4" stroke="var(--primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-              </svg>
-              <div
-                className="flex flex-1 items-center justify-center gap-1.5 rounded-xl border py-2.5 text-[10px] font-semibold"
-                style={{
-                  background: 'var(--surface-muted)',
-                  borderColor: 'var(--border)',
-                  color: 'var(--foreground)',
-                }}
-              >
-                <FaWhatsapp className="text-sm" /> WhatsApp
-              </div>
-            </div>
-
-            <p className="text-center text-sm leading-relaxed" style={{ color: 'var(--muted-foreground)' }}>
-              All your DM chaos funnelled into{' '}
-              <span className="font-semibold" style={{ color: 'var(--foreground)' }}>
-                one organised store.
-              </span>
-            </p>
-
-            {/* Link pill */}
-            <div
-              className="flex w-full items-center justify-between rounded-xl border px-3 py-2.5"
-              style={{
-                background: 'color-mix(in oklch, var(--primary) 8%, var(--surface))',
-                borderColor: 'color-mix(in oklch, var(--primary) 25%, var(--border))',
-              }}
-            >
-              <span className="text-[11px] font-medium" style={{ color: 'var(--muted-foreground)' }}>
-                stallio.shop/<span className="font-bold" style={{ color: 'var(--primary)' }}>yourbrand</span>
-              </span>
-              <span
-                className="text-[9px] font-bold uppercase tracking-wider"
-                style={{ color: 'var(--primary)' }}
-              >
-                <span className="inline-flex items-center gap-0.5">Live <ArrowUpRight className="h-3 w-3" /></span>
-              </span>
-            </div>
-          </div>
-        </div>
+        {/* Card 2 — Stallio connects it */}
+        <StallioConnectCard />
 
         {/* Card 3 — Store UI */}
         <div
-          className="w-[min(80vw,280px)] shrink-0 snap-center rounded-2xl border overflow-hidden"
+          className="w-[min(82vw,288px)] shrink-0 snap-center rounded-2xl border overflow-hidden flex flex-col"
           style={{
             background: 'var(--surface)',
             borderColor: 'color-mix(in oklch, var(--primary) 20%, var(--border))',
-            boxShadow: '0 8px 32px color-mix(in oklch, var(--foreground) 10%, transparent)',
+            height: '380px',
           }}
         >
-          <StallioStoreUI variant="store" />
-
+          <div className="flex-1 overflow-hidden">
+            <StallioStoreUI variant="store" />
+          </div>
           <div
-            className="border-t px-4 py-3"
+            className="shrink-0 border-t px-4 py-3"
             style={{
               borderColor: 'var(--border)',
               background: 'color-mix(in oklch, var(--primary) 6%, var(--surface-muted))',
             }}
           >
-            <p className="text-center text-[11px] font-semibold" style={{ color: 'var(--primary)' }}>
-              <span className="inline-flex items-center gap-1">
-                <Check className="h-3 w-3 shrink-0" />
-                Customers browse, order, and pay — no DMs
-              </span>
+            <p
+              className="text-center text-[11px] font-semibold inline-flex items-center justify-center gap-1 w-full"
+              style={{ color: 'var(--primary)' }}
+            >
+              <Check className="h-3 w-3 shrink-0" />
+              Customers browse, order, and pay — no DMs
             </p>
           </div>
         </div>
@@ -333,25 +406,29 @@ const MobileStorySwiper = ({ reducedMotion }) => {
             key={card.id}
             onClick={() => goTo(i)}
             aria-label={`Go to ${card.tag}`}
-            className="rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2"
+            className="rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 cursor-pointer"
             style={{
               width: active === i ? '20px' : '6px',
               height: '6px',
-              background: active === i ? 'var(--primary)' : 'color-mix(in oklch, var(--primary) 25%, var(--border))',
+              background: active === i
+                ? 'var(--primary)'
+                : 'color-mix(in oklch, var(--primary) 25%, var(--border))',
             }}
           />
         ))}
       </div>
 
-      {/* Swipe hint — only shows on first load */}
+      {/* Swipe hint */}
       <p className="mt-3 text-center text-[10px]" style={{ color: 'var(--muted-foreground)' }}>
-        <span className="inline-flex items-center justify-center gap-1">Swipe to explore <ArrowRight className="h-3 w-3" /></span>
+        <span className="inline-flex items-center justify-center gap-1">
+          Swipe to explore <ArrowRight className="h-3 w-3" />
+        </span>
       </p>
     </div>
   )
 }
 
-// ─── Desktop (unchanged scroll animation) ─────────────────────────────────────
+// ─── Desktop scroll animation ──────────────────────────────────────────────────
 const DmStoreTransform = () => {
   const containerRef = useRef(null)
   const reducedMotion = useReducedMotion()
@@ -480,10 +557,10 @@ const DmStoreTransform = () => {
               </p>
             </div>
 
-            {/* ── Mobile swipe story ─────────────────────────────────────────── */}
+            {/* ── Mobile swipe story ──────────────────────────────────────── */}
             <MobileStorySwiper reducedMotion={reducedMotion} />
 
-            {/* ── Desktop scroll animation (unchanged) ──────────────────────── */}
+            {/* ── Desktop scroll animation ────────────────────────────────── */}
             <div className="relative hidden min-h-[640px] md:block lg:min-h-[740px]">
 
               {/* Instagram */}

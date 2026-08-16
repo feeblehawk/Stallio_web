@@ -23,27 +23,13 @@ const SectionHeading = ({ id, eyebrow, title, subtitle, align = 'center' }) => {
       {...motionProps}
     >
       {eyebrow && (
-        <motion.div variants={revealSoft}>
-          <div
-            className="mb-6 inline-flex items-center gap-2.5 rounded-full border px-3.5 py-1.5"
-            style={{
-              borderColor: css.border,
-              background: 'color-mix(in oklch, var(--surface) 80%, transparent)',
-              backdropFilter: 'blur(8px)',
-            }}
-          >
-            <span
-              className="h-1.5 w-1.5 rounded-full"
-              style={{ background: css.primary }}
-            />
-            <span
-              className="text-[11px] font-semibold uppercase tracking-[0.2em]"
-              style={{ color: css.mutedFg }}
-            >
-              {eyebrow}
-            </span>
-          </div>
-        </motion.div>
+        <motion.span
+          variants={revealSoft}
+          className="mb-4 block text-[11px] font-semibold uppercase tracking-[0.2em]"
+          style={{ color: css.primary }}
+        >
+          {eyebrow}
+        </motion.span>
       )}
 
       <motion.h2

@@ -2,9 +2,21 @@ import { Link } from 'react-router-dom'
 
 const BrandLogo = ({ size = 'md', className = '' }) => {
   const sizes = {
-    sm: { img: 'h-6',  s: 'text-[25px]'  },
-    md: { img: 'h-9', s: 'text-[35px]' },
-    lg: { img: 'h-13', s: 'text-[45px]' },
+    sm: {
+      img: 'h-6',
+      fontSize: '22px',
+      wordmarkNudge: '5px',
+    },
+    md: {
+      img: 'h-8',
+      fontSize: '28px',
+      wordmarkNudge: '7px',
+    },
+    lg: {
+      img: 'h-10',
+      fontSize: '36px',
+      wordmarkNudge: '9px',
+    },
   }
 
   const s = sizes[size] ?? sizes.md
@@ -13,23 +25,31 @@ const BrandLogo = ({ size = 'md', className = '' }) => {
     <Link
       to="/"
       aria-label="Stallio — Home"
-      className={`group inline-flex items-center gap-3 select-none ${className}`}
+      className={[
+        'inline-flex items-center',
+        'select-none rounded-lg',
+        'leading-none',
+        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
+        className,
+      ].join(' ')}
     >
-      {/* Logo icon */}
-      <img
-        src="/logo.png"
-        alt=""
-        aria-hidden="true"
-        className={`${s.img}  mb-4 leading-none text-foreground`}
-      />
+      <span className="flex items-center leading-none">
+        <img
+          src="/logo.png"
+          alt=""
+          aria-hidden="true"
+          className={`${s.img} w-auto shrink-0 object-contain block`}
+        />
 
-
-      {/* Wordmark */}
-      <span className="inline-flex items-baseline gap-1 leading-none">
-        {/* Wordmark using the same Great Vibes styling for both pieces */}
         <span
-          className={`${s.s} leading-none text-foreground`}
-          style={{ fontFamily: "'Great Vibes', cursive" }}
+          className="ml-2 shrink-0 text-foreground leading-none"
+          style={{
+            fontFamily: "'Great Vibes', cursive",
+            fontSize: s.fontSize,
+            lineHeight: 1,
+            display: 'inline-block',
+            transform: `translateY(${s.wordmarkNudge})`,
+          }}
         >
           Stallio
         </span>
