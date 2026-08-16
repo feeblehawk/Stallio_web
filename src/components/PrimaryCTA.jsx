@@ -11,7 +11,7 @@ const sizeClasses = {
   full: 'w-full px-4 py-3 text-sm',
 }
 
-const PrimaryCTA = ({ to = '/features', size = 'sm', className = '', onClick, children = 'Start for Free', ...props }) => {
+const PrimaryCTA = ({ to = '/signup', size = 'sm', className = '', onClick, children = 'Start for Free', ...props }) => {
   const componentClassName = `${baseClasses} ${sizeClasses[size] ?? sizeClasses.sm} ${className}`
 
   if (!to) {
