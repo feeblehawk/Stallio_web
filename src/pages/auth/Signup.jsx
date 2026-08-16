@@ -9,7 +9,7 @@ import {
 import { css } from '../../utils/cssTokens'
 import { revealSoft, scaleIn, staggerContainer } from '../../utils/motionVariants'
 import useReducedMotion from '../../hooks/useReducedMotion'
-import { COUNTRIES, CURRENCIES } from '../../data/signupData.js'
+import { COUNTRIES, CURRENCIES } from '../../data/SignupData.js'
 
 // ─── Step metadata ────────────────────────────────────────────────────────────
 const STEPS = [
