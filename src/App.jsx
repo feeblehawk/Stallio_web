@@ -21,6 +21,7 @@ const Home           = lazy(() => import('./pages/home/Home'))
 const About          = lazy(() => import('./pages/about/About'))
 const Features       = lazy(() => import('./pages/features/Features'))
 const HowItWorks     = lazy(() => import('./pages/howitworks/HowItWorks'))
+const Pricing        = lazy(() => import('./pages/pricing/Pricing'))
 const ComingSoon     = lazy(() => import('./pages/ComingSoon'))
 
 // Minimal fallback — invisible div keeps layout stable during chunk fetch
@@ -54,10 +55,11 @@ function App() {
             <Route path="about"             element={wrap(About)} />
             <Route path="features"          element={wrap(Features)} />
             <Route path="how-it-works"      element={wrap(HowItWorks)} />
+            <Route path="pricing"           element={wrap(Pricing)} />
 
             {/* Catch-all */}
             {[
-              'pricing', 'careers', 'contact',
+               'careers', 'contact',
               'docs', 'blog', 'guides', 'help',
               'faq', 'community', 'status',
               'terms', 'privacy', 'legal', 'sitemap',
