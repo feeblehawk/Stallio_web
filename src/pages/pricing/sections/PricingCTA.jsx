@@ -173,7 +173,7 @@ const PricingCTA = () => {
             </PrimaryCTA>
 
             <Link
-              to="/contact?plan=growth"
+              to="/contact"
               className="group inline-flex w-full items-center justify-center gap-2 rounded-xl border px-6 py-3.5 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:border-[color:var(--primary)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring sm:w-auto"
               style={{
                 borderColor: css.border,
