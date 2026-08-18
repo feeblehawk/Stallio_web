@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Mail, Store, AtSign, Lock, Eye, EyeOff,
@@ -453,7 +453,8 @@ const stepVariants = {
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
 const Signup = () => {
-  const reduced = useReducedMotion()
+  const reduced  = useReducedMotion()
+  const navigate = useNavigate()
   const [step, setStep] = useState(1)
   const [dir,  setDir]  = useState(1)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -486,8 +487,8 @@ const Signup = () => {
     if (step < 3) { goNext(); return }
     setIsSubmitting(true)
     await new Promise(r => setTimeout(r, 1400))
-    setIsSubmitting(false)
-  }, [step, goNext])
+    navigate('/verify-email')
+  }, [step, goNext, navigate])
 
   const motionProps = reduced
     ? { initial: false, animate: 'visible' }

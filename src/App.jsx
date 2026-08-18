@@ -17,11 +17,13 @@ const ScrollToTop = () => {
 const Signup         = lazy(() => import('./pages/auth/Signup'))
 const Login          = lazy(() => import('./pages/auth/Login'))
 const ForgotPassword = lazy(() => import('./pages/auth/ForgotPassword'))
+const VerifyEmail     = lazy(() => import('./pages/auth/VerifyEmail'))
 const Home           = lazy(() => import('./pages/home/Home'))
 const About          = lazy(() => import('./pages/about/About'))
 const Features       = lazy(() => import('./pages/features/Features'))
 const HowItWorks     = lazy(() => import('./pages/howitworks/HowItWorks'))
 const Pricing        = lazy(() => import('./pages/pricing/Pricing'))
+const Contact       = lazy(() => import('./pages/contact/Contact')) 
 const ComingSoon     = lazy(() => import('./pages/ComingSoon'))
 
 // Minimal fallback — invisible div keeps layout stable during chunk fetch
@@ -47,6 +49,7 @@ function App() {
             <Route path="signup"          element={wrap(Signup)} />
             <Route path="login"           element={wrap(Login)} />
             <Route path="forgot-password" element={wrap(ForgotPassword)} />
+            <Route path="verify-email"    element={wrap(VerifyEmail)} />
           </Route>
 
           {/* ── Main routes — with Navbar + Footer ── */}
@@ -56,10 +59,11 @@ function App() {
             <Route path="features"          element={wrap(Features)} />
             <Route path="how-it-works"      element={wrap(HowItWorks)} />
             <Route path="pricing"           element={wrap(Pricing)} />
+            <Route path="contact"          element={wrap(Contact)} />    
 
             {/* Catch-all */}
             {[
-               'careers', 'contact',
+               'careers',
               'docs', 'blog', 'guides', 'help',
               'faq', 'community', 'status',
               'terms', 'privacy', 'legal', 'sitemap',

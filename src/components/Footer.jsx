@@ -27,15 +27,15 @@ const footerColumns = [
       { name: 'Documentation', path: '/docs' },
       { name: 'Guides', path: '/guides' },
       { name: 'Blog', path: '/blog' },
-      { name: 'FAQ', path: '/faq' },
+      
     ],
   },
   {
     title: 'Support',
     links: [
-      { name: 'Help Center', path: '/help' },
-      { name: 'Contact Support', path: '/help' },
-      { name: 'Status', path: '/status' },
+      { name: 'Help Center', path: '/contact' },
+      { name: 'Contact Support', path: '/contact' },
+      { name: 'FAQ', path: '/faq' },
     ],
   },
 ]
@@ -44,7 +44,6 @@ const legalLinks = [
   { name: 'Terms of Service', path: '/terms' },
   { name: 'Privacy Policy', path: '/privacy' },
   { name: 'Legal', path: '/legal' },
-  { name: 'Sitemap', path: '/sitemap' },
 ]
 
 const socialPlatforms = [

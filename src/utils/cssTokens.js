@@ -14,7 +14,7 @@ export const css = {
   surfaceMuted:  'var(--surface-muted)',
   border:        'var(--border)',
   ring:          'var(--ring)',
-
+  input:           'var(--input)',
   // Primary tints (computed in index.css via color-mix)
   p8:            'var(--p-8)',
   p10:           'var(--p-10)',
