@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Mail, Phone, MapPin, Send, CheckCircle2, AlertCircle, ChevronDown } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import { Mail, Send, CheckCircle2, AlertCircle, ChevronDown } from 'lucide-react'
 import { FaWhatsapp, FaInstagram, FaLinkedin, FaFacebook } from 'react-icons/fa6'
 import useReducedMotion from '../../../hooks/useReducedMotion'
 import { easePremium, staggerContainer, revealSoft, blurReveal } from '../../../utils/motionVariants'
@@ -12,7 +13,7 @@ const ChannelCard = ({ icon: Icon, label, value, href, iconColor, iconBg, delay,
     href={href}
     target={href.startsWith('http') ? '_blank' : undefined}
     rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
-    className="group relative flex items-center gap-4 rounded-2xl border p-4 transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+    className="group relative flex items-center gap-4 rounded-2xl border p-4 transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring text-start"
     style={{ borderColor: css.border, background: css.surface }}
     initial={reduced ? false : { opacity: 0, x: -18, filter: 'blur(4px)' }}
     animate={isVisible ? { opacity: 1, x: 0, filter: 'blur(0px)' } : {}}
@@ -28,14 +29,14 @@ const ChannelCard = ({ icon: Icon, label, value, href, iconColor, iconBg, delay,
     </span>
 
     {/* Text */}
-    <div className="min-w-0 flex-1">
+    <div className="min-w-0 flex-1 text-start">
       <p className="text-[11px] font-semibold uppercase tracking-[0.15em]" style={{ color: css.mutedFg }}>{label}</p>
       <p className="mt-0.5 truncate text-[13px] font-semibold" style={{ color: css.fg }}>{value}</p>
     </div>
 
     {/* Arrow hint */}
     <span
-      className="shrink-0 text-[10px] font-bold uppercase tracking-wider opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-1"
+      className="shrink-0 text-[10px] font-bold uppercase tracking-wider opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-1 rtl:rotate-180"
       style={{ color: iconColor }}
       aria-hidden="true"
     >
@@ -58,7 +59,7 @@ const SocialButton = ({ icon: Icon, href, label, color, delay, isVisible, reduce
     target="_blank"
     rel="noopener noreferrer"
     aria-label={label}
-    className="group flex h-10 w-10 items-center justify-center rounded-xl border transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+    className="group flex h-10 w-10 items-center justify-center rounded-xl border transition-all duration-300 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring cursor-pointer"
     style={{ borderColor: css.border, background: css.surface, color: css.mutedFg }}
     initial={reduced ? false : { opacity: 0, scale: 0.8 }}
     animate={isVisible ? { opacity: 1, scale: 1 } : {}}
@@ -91,7 +92,7 @@ const FloatingInput = ({ id, label, type = 'text', value, onChange, required, er
         onBlur={() => setFocused(false)}
         aria-invalid={!!error}
         aria-describedby={error ? `${id}-error` : undefined}
-        className="peer w-full rounded-xl border bg-transparent px-4 pb-3 pt-6 text-sm font-medium outline-none transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-0"
+        className="peer w-full rounded-xl border bg-transparent px-4 pb-3 pt-6 text-sm font-medium outline-none transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-0 text-start"
         style={{
           borderColor: error ? 'var(--destructive)' : focused ? css.primary : css.border,
           color: css.fg,
@@ -104,7 +105,7 @@ const FloatingInput = ({ id, label, type = 'text', value, onChange, required, er
       />
       <label
         htmlFor={id}
-        className="pointer-events-none absolute left-4 font-medium transition-all duration-200"
+        className="pointer-events-none absolute start-4 font-medium transition-all duration-200"
         style={{
           top: lifted ? '10px' : '50%',
           transform: lifted ? 'translateY(0)' : 'translateY(-50%)',
@@ -117,7 +118,7 @@ const FloatingInput = ({ id, label, type = 'text', value, onChange, required, er
         {label}
       </label>
       {error && (
-        <p id={`${id}-error`} className="mt-1.5 flex items-center gap-1 text-[11px] font-medium" style={{ color: 'var(--destructive)' }}>
+        <p id={`${id}-error`} className="mt-1.5 flex items-center gap-1 text-[11px] font-medium text-start" style={{ color: 'var(--destructive)' }}>
           <AlertCircle size={11} aria-hidden="true" />
           {error}
         </p>
@@ -143,7 +144,7 @@ const FloatingTextarea = ({ id, label, value, onChange, required, error }) => {
         onBlur={() => setFocused(false)}
         aria-invalid={!!error}
         aria-describedby={error ? `${id}-error` : undefined}
-        className="w-full resize-none rounded-xl border bg-transparent px-4 pb-4 pt-8 text-sm font-medium outline-none transition-all duration-200"
+        className="w-full resize-none rounded-xl border bg-transparent px-4 pb-4 pt-8 text-sm font-medium outline-none transition-all duration-200 text-start"
         style={{
           borderColor: error ? 'var(--destructive)' : focused ? css.primary : css.input,
           color: css.fg,
@@ -154,7 +155,7 @@ const FloatingTextarea = ({ id, label, value, onChange, required, error }) => {
       />
       <label
         htmlFor={id}
-        className="pointer-events-none absolute left-4 font-medium transition-all duration-200"
+        className="pointer-events-none absolute start-4 font-medium transition-all duration-200"
         style={{
           top: lifted ? '10px' : '24px',
           fontSize: lifted ? '10px' : '13px',
@@ -166,7 +167,7 @@ const FloatingTextarea = ({ id, label, value, onChange, required, error }) => {
         {label}
       </label>
       {error && (
-        <p id={`${id}-error`} className="mt-1.5 flex items-center gap-1 text-[11px] font-medium" style={{ color: 'var(--destructive)' }}>
+        <p id={`${id}-error`} className="mt-1.5 flex items-center gap-1 text-[11px] font-medium text-start" style={{ color: 'var(--destructive)' }}>
           <AlertCircle size={11} aria-hidden="true" />
           {error}
         </p>
@@ -176,7 +177,7 @@ const FloatingTextarea = ({ id, label, value, onChange, required, error }) => {
 }
 
 // ─── Custom Select ────────────────────────────────────────────────────────────
-const FloatingSelect = ({ id, label, value, onChange, options, error }) => {
+const FloatingSelect = ({ id, label, value, onChange, options, placeholder, error }) => {
   const [focused, setFocused] = useState(false)
   const lifted = focused || value.length > 0
 
@@ -189,14 +190,14 @@ const FloatingSelect = ({ id, label, value, onChange, options, error }) => {
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         aria-invalid={!!error}
-        className="w-full appearance-none rounded-xl border bg-transparent px-4 pb-3 pt-6 text-sm font-medium outline-none transition-all duration-200 cursor-pointer"
+        className="w-full appearance-none rounded-xl border bg-transparent px-4 pb-3 pt-6 text-sm font-medium outline-none transition-all duration-200 cursor-pointer text-start"
         style={{
           borderColor: error ? 'var(--destructive)' : focused ? css.primary : css.input,
           color: value ? css.fg : 'transparent',
           boxShadow: focused ? `0 0 0 3px color-mix(in oklch, var(--primary) 12%, transparent)` : 'none',
         }}
       >
-        <option value="" disabled style={{ color: css.mutedFg }}>Select a topic</option>
+        <option value="" disabled style={{ color: css.mutedFg }}>{placeholder}</option>
         {options.map((opt) => (
           <option key={opt.value} value={opt.value} style={{ background: 'var(--surface)', color: css.fg }}>
             {opt.label}
@@ -205,7 +206,7 @@ const FloatingSelect = ({ id, label, value, onChange, options, error }) => {
       </select>
       <label
         htmlFor={id}
-        className="pointer-events-none absolute left-4 font-medium transition-all duration-200"
+        className="pointer-events-none absolute start-4 font-medium transition-all duration-200"
         style={{
           top: lifted ? '10px' : '50%',
           transform: lifted ? 'translateY(0)' : 'translateY(-50%)',
@@ -219,7 +220,7 @@ const FloatingSelect = ({ id, label, value, onChange, options, error }) => {
       </label>
       <ChevronDown
         size={14}
-        className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 transition-transform duration-200"
+        className="pointer-events-none absolute end-4 top-1/2 -translate-y-1/2 transition-transform duration-200"
         style={{ color: css.mutedFg, transform: `translateY(-50%) rotate(${focused ? 180 : 0}deg)` }}
         aria-hidden="true"
       />
@@ -227,60 +228,9 @@ const FloatingSelect = ({ id, label, value, onChange, options, error }) => {
   )
 }
 
-// ─── Contact info data ────────────────────────────────────────────────────────
-const CHANNELS = [
-  {
-    icon: FaWhatsapp,
-    label: 'WhatsApp',
-    value: '+92 300 000 0000',
-    href: 'https://wa.me/923000000000',
-    iconColor: 'oklch(0.58 0.22 150)',
-    iconBg: 'color-mix(in oklch, oklch(0.58 0.22 150) 12%, var(--surface))',
-  },
-  {
-    icon: Mail,
-    label: 'Email',
-    value: 'contact@stallio.shop',
-    href: 'mailto:contact@stallio.shop',
-    iconColor: css.primary,
-    iconBg: 'color-mix(in oklch, var(--primary) 12%, var(--surface))',
-  },
-  {
-    icon: FaInstagram,
-    label: 'Instagram',
-    value: '@stallio.shop',
-    href: 'https://instagram.com/stallio.shop',
-    iconColor: 'oklch(0.62 0.20 350)',
-    iconBg: 'color-mix(in oklch, oklch(0.62 0.20 350) 12%, var(--surface))',
-  },
-  {
-    icon: FaLinkedin,
-    label: 'LinkedIn',
-    value: '@stallio.shop',
-    href: 'https://linkedin.com/company/stallio',
-    iconColor: 'oklch(0.62 0.18 240)',
-    iconBg: 'color-mix(in oklch, oklch(0.62 0.18 240) 12%, var(--surface))',
-  },
-]
-
-const SOCIALS = [
-  { icon: FaWhatsapp, href: 'https://wa.me/923000000000', label: 'WhatsApp', color: 'oklch(0.58 0.22 150)' },
-  { icon: FaInstagram, href: 'https://instagram.com/stallio.shop', label: 'Instagram', color: 'oklch(0.62 0.20 350)' },
-  { icon: FaLinkedin, href: 'https://linkedin.com/company/stallio', label: 'LinkedIn', color: 'oklch(0.55 0.18 240)' },
-  { icon: FaFacebook, href: 'https://facebook.com/stallio', label: 'Facebook', color: 'oklch(0.68 0.20 220)' },
-]
-
-const TOPICS = [
-  { value: 'general', label: 'General enquiry' },
-  { value: 'support', label: 'Store support' },
-  { value: 'pricing', label: 'Pricing & plans' },
-  { value: 'partnership', label: 'Partnership' },
-  { value: 'bug', label: 'Report a bug' },
-  { value: 'other', label: 'Something else' },
-]
-
 // ─── Main ContactForm section ─────────────────────────────────────────────────
 const ContactForm = () => {
+  const { t } = useTranslation('contact')
   const sectionRef = useRef(null)
   const inView = useInView(sectionRef, { once: true, margin: '-60px' })
   const reduced = useReducedMotion()
@@ -288,17 +238,68 @@ const ContactForm = () => {
 
   const [form, setForm] = useState({ name: '', email: '', topic: '', message: '', phone: '' })
   const [errors, setErrors] = useState({})
-  const [status, setStatus] = useState('idle') // idle | loading | success | error
+  const [status, setStatus] = useState('idle')
+
+  const channels = [
+    {
+      icon: FaWhatsapp,
+      label: 'WhatsApp',
+      value: '+92 300 000 0000',
+      href: 'https://wa.me/923000000000',
+      iconColor: 'oklch(0.58 0.22 150)',
+      iconBg: 'color-mix(in oklch, oklch(0.58 0.22 150) 12%, var(--surface))',
+    },
+    {
+      icon: Mail,
+      label: 'Email',
+      value: 'contact@stallio.shop',
+      href: 'mailto:contact@stallio.shop',
+      iconColor: css.primary,
+      iconBg: 'color-mix(in oklch, var(--primary) 12%, var(--surface))',
+    },
+    {
+      icon: FaInstagram,
+      label: 'Instagram',
+      value: '@stallio.shop',
+      href: 'https://instagram.com/stallio.shop',
+      iconColor: 'oklch(0.62 0.20 350)',
+      iconBg: 'color-mix(in oklch, oklch(0.62 0.20 350) 12%, var(--surface))',
+    },
+    {
+      icon: FaLinkedin,
+      label: 'LinkedIn',
+      value: '@stallio.shop',
+      href: 'https://linkedin.com/company/stallio',
+      iconColor: 'oklch(0.62 0.18 240)',
+      iconBg: 'color-mix(in oklch, oklch(0.62 0.18 240) 12%, var(--surface))',
+    },
+  ]
+
+  const socials = [
+    { icon: FaWhatsapp, href: 'https://wa.me/923000000000', label: 'WhatsApp', color: 'oklch(0.58 0.22 150)' },
+    { icon: FaInstagram, href: 'https://instagram.com/stallio.shop', label: 'Instagram', color: 'oklch(0.62 0.20 350)' },
+    { icon: FaLinkedin, href: 'https://linkedin.com/company/stallio', label: 'LinkedIn', color: 'oklch(0.55 0.18 240)' },
+    { icon: FaFacebook, href: 'https://facebook.com/stallio', label: 'Facebook', color: 'oklch(0.68 0.20 220)' },
+  ]
+
+  const topics = [
+    { value: 'general',     label: t('form.topics.general', 'General enquiry') },
+    { value: 'support',     label: t('form.topics.support', 'Store support') },
+    { value: 'pricing',     label: t('form.topics.pricing', 'Pricing & plans') },
+    { value: 'partnership', label: t('form.topics.partnership', 'Partnership') },
+    { value: 'bug',         label: t('form.topics.bug', 'Report a bug') },
+    { value: 'other',       label: t('form.topics.other', 'Something else') },
+  ]
 
   const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }))
 
   const validate = () => {
     const e = {}
-    if (!form.name.trim()) e.name = 'Please enter your name'
-    if (!form.email.trim()) e.email = 'Please enter your email'
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'Enter a valid email address'
-    if (!form.topic) e.topic = 'Please choose a topic'
-    if (!form.message.trim()) e.message = 'Tell us what\'s on your mind'
+    if (!form.name.trim()) e.name = t('form.errors.name', 'Please enter your name')
+    if (!form.email.trim()) e.email = t('form.errors.email', 'Please enter your email')
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = t('form.errors.emailInvalid', 'Enter a valid email address')
+    if (!form.topic) e.topic = t('form.errors.topic', 'Please choose a topic')
+    if (!form.message.trim()) e.message = t('form.errors.message', "Tell us what's on your mind")
     return e
   }
 
@@ -308,7 +309,6 @@ const ContactForm = () => {
     if (Object.keys(e2).length > 0) { setErrors(e2); return }
     setErrors({})
     setStatus('loading')
-    // Simulate network delay
     setTimeout(() => setStatus('success'), 1400)
   }
 
@@ -333,7 +333,7 @@ const ContactForm = () => {
         <div className="grid gap-12 lg:grid-cols-[380px_1fr] xl:grid-cols-[420px_1fr] lg:gap-16 xl:gap-20">
 
           {/* ── LEFT: Contact channels panel ── */}
-          <div>
+          <div className="text-start">
             <motion.div
               variants={staggerContainer}
               initial={reduced ? false : 'hidden'}
@@ -345,7 +345,7 @@ const ContactForm = () => {
                 className="text-[11px] font-semibold uppercase tracking-[0.25em]"
                 style={{ color: css.primary }}
               >
-                Contact channels
+                {t('form.channels.eyebrow', 'Contact channels')}
               </motion.span>
               <motion.h2
                 id="contact-form-heading"
@@ -353,17 +353,16 @@ const ContactForm = () => {
                 className="mt-3 font-heading font-extrabold tracking-[-0.04em]"
                 style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)', lineHeight: 1.06, color: css.fg }}
               >
-                Pick the channel
+                {t('form.channels.headline', 'Pick the channel')}
                 <br />
-                <span style={{ color: css.primary }}>that works for you.</span>
+                <span style={{ color: css.primary }}>{t('form.channels.headlineHighlight', 'that works for you.')}</span>
               </motion.h2>
               <motion.p
                 variants={revealSoft}
                 className="mt-3 text-sm leading-7"
                 style={{ color: css.mutedFg }}
               >
-                Questions, ideas, or need a hand? Tell us what you’re working on and
-                we’ll take it from there.
+                {t('form.channels.subtext', "Questions, ideas, or need a hand? Tell us what you're working on and we'll take it from there.")}
               </motion.p>
 
               {/* Divider */}
@@ -377,7 +376,7 @@ const ContactForm = () => {
 
             {/* Channel cards */}
             <div className="flex flex-col gap-3">
-              {CHANNELS.map((ch, i) => (
+              {channels.map((ch, i) => (
                 <ChannelCard
                   key={ch.label}
                   {...ch}
@@ -396,10 +395,10 @@ const ContactForm = () => {
               transition={{ duration: 0.6, ease: easePremium, delay: 0.55 }}
             >
               <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.15em]" style={{ color: css.mutedFg }}>
-                Find us on
+                {t('form.channels.findUs', 'Find us on')}
               </p>
               <div className="flex items-center gap-2">
-                {SOCIALS.map((s, i) => (
+                {socials.map((s, i) => (
                   <SocialButton
                     key={s.label}
                     {...s}
@@ -431,7 +430,7 @@ const ContactForm = () => {
                   style={{ background: 'oklch(0.58 0.18 145)' }}
                   aria-hidden="true"
                 />
-                Average reply time: under 24 hours
+                {t('form.channels.replyBadge', 'Average reply time: under 24 hours')}
               </div>
             </motion.div>
           </div>
@@ -443,7 +442,7 @@ const ContactForm = () => {
             transition={{ duration: 0.85, ease: easePremium, delay: 0.18 }}
           >
             <div
-              className="relative rounded-2xl border p-7 sm:p-8 lg:p-10"
+              className="relative rounded-2xl border p-7 sm:p-8 lg:p-10 text-start"
               style={{
                 borderColor: css.border,
                 background: css.surface,
@@ -452,7 +451,7 @@ const ContactForm = () => {
             >
               {/* Top-right glow */}
               <div
-                className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full opacity-20 blur-3xl"
+                className="pointer-events-none absolute -end-10 -top-10 h-40 w-40 rounded-full opacity-20 blur-3xl"
                 style={{ background: css.primary }}
                 aria-hidden="true"
               />
@@ -472,18 +471,18 @@ const ContactForm = () => {
                     <CheckCircle2 size={28} />
                   </span>
                   <h3 className="mt-5 font-heading text-2xl font-extrabold tracking-tight" style={{ color: css.fg }}>
-                    Message sent!
+                    {t('form.success.title', 'Message sent!')}
                   </h3>
                   <p className="mt-2 max-w-xs text-sm leading-6" style={{ color: css.mutedFg }}>
-                    Your Message s sent.We will reach out to you as soon as possible Check your inbox (and spam, just in case).
+                    {t('form.success.desc', 'Your message has been sent. We will reach out to you as soon as possible. Check your inbox (and spam, just in case).')}
                   </p>
                   <button
                     type="button"
-                    onClick={() => { setForm({ name: '', email: '', topic: '', message: '' }); setStatus('idle') }}
-                    className="mt-6 text-xs font-semibold underline underline-offset-2 transition-opacity hover:opacity-70"
+                    onClick={() => { setForm({ name: '', email: '', topic: '', message: '', phone: '' }); setStatus('idle') }}
+                    className="mt-6 text-xs font-semibold underline underline-offset-2 transition-opacity hover:opacity-70 cursor-pointer"
                     style={{ color: css.primary }}
                   >
-                    Send another message
+                    {t('form.success.sendAnother', 'Send another message')}
                   </button>
                 </motion.div>
               ) : (
@@ -492,10 +491,10 @@ const ContactForm = () => {
                   {/* Form heading */}
                   <div className="mb-7">
                     <h3 className="font-heading text-xl font-extrabold tracking-tight" style={{ color: css.fg }}>
-                      Send us a message
+                      {t('form.formHeading.title', 'Send us a message')}
                     </h3>
                     <p className="mt-1 text-sm" style={{ color: css.mutedFg }}>
-                      All fields marked with * are required.
+                      {t('form.formHeading.subtitle', 'All fields marked with * are required.')}
                     </p>
                   </div>
 
@@ -504,7 +503,7 @@ const ContactForm = () => {
                     <div className="grid gap-4 sm:grid-cols-2">
                       <FloatingInput
                         id="contact-name"
-                        label="Your name *"
+                        label={t('form.fields.name', 'Your name *')}
                         value={form.name}
                         onChange={set('name')}
                         required
@@ -512,7 +511,7 @@ const ContactForm = () => {
                       />
                       <FloatingInput
                         id="contact-email"
-                        label="Email address *"
+                        label={t('form.fields.email', 'Email address *')}
                         type="email"
                         value={form.email}
                         onChange={set('email')}
@@ -524,17 +523,18 @@ const ContactForm = () => {
                     {/* Topic select */}
                     <FloatingSelect
                       id="contact-topic"
-                      label="What's this about? *"
+                      label={t('form.fields.topic', "What's this about? *")}
                       value={form.topic}
                       onChange={set('topic')}
-                      options={TOPICS}
+                      options={topics}
+                      placeholder={t('form.fields.topicPlaceholder', 'Select a topic')}
                       error={errors.topic}
                     />
 
                     {/* Message textarea */}
                     <FloatingTextarea
                       id="contact-message"
-                      label="Your message *"
+                      label={t('form.fields.message', 'Your message *')}
                       value={form.message}
                       onChange={set('message')}
                       required
@@ -544,7 +544,7 @@ const ContactForm = () => {
                     {/* Phone (optional) */}
                     <FloatingInput
                       id="contact-phone"
-                      label="WhatsApp / phone (optional)"
+                      label={t('form.fields.phone', 'WhatsApp / phone (optional)')}
                       type="tel"
                       value={form.phone || ''}
                       onChange={set('phone')}
@@ -555,7 +555,7 @@ const ContactForm = () => {
                     <motion.button
                       type="submit"
                       disabled={status === 'loading'}
-                      className="group relative mt-1 inline-flex w-full items-center justify-center gap-2.5 overflow-hidden rounded-xl px-6 py-3.5 text-sm font-bold shadow-md transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                      className="group relative mt-1 inline-flex w-full items-center justify-center gap-2.5 overflow-hidden rounded-xl px-6 py-3.5 text-sm font-bold shadow-md transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring cursor-pointer"
                       style={{
                         background: css.primary,
                         color: css.primaryFg,
@@ -563,7 +563,6 @@ const ContactForm = () => {
                       }}
                       whileTap={reduced ? {} : { scale: 0.98 }}
                     >
-                      {/* Shimmer */}
                       <span
                         className="pointer-events-none absolute inset-0 -translate-x-full skew-x-[-20deg] bg-white/10 transition-transform duration-500 group-hover:translate-x-[200%]"
                         aria-hidden="true"
@@ -573,19 +572,19 @@ const ContactForm = () => {
                           <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                             <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeDasharray="32" strokeDashoffset="8" />
                           </svg>
-                          Sending…
+                          {t('form.sending', 'Sending…')}
                         </>
                       ) : (
                         <>
-                          <Send size={15} aria-hidden="true" />
-                          Send Message
+                          <Send size={15} aria-hidden="true" className="rtl:rotate-180" />
+                          {t('form.submit', 'Send Message')}
                         </>
                       )}
                     </motion.button>
 
                     {/* Privacy note */}
                     <p className="mt-1 text-center text-[11px] leading-5" style={{ color: css.mutedFg }}>
-                      We keep your details private and never share them with third parties.
+                      {t('form.privacy', 'We keep your details private and never share them with third parties.')}
                     </p>
                   </form>
                 </>

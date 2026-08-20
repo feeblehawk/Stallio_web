@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import PhoneMockup from '../../../components/PhoneMockup'
 import StallioStoreUI from '../../../components/StallioStoreUI'
 import PrimaryCTA from '../../../components/PrimaryCTA'
 import useReducedMotion from '../../../hooks/useReducedMotion'
 import { personaTransition, reveal, staggerContainer } from '../../../utils/motionVariants'
 
-const personas = [
+const fallbackPersonas = [
   {
     id: 'starting-out',
     label: 'Starting out',
@@ -40,12 +41,6 @@ const PersonaCopy = ({ persona, reducedMotion }) => (
       transition={personaTransition}
       className="text-center lg:text-left"
     >
-      <p
-        className="text-sm font-semibold uppercase tracking-[0.28em]"
-        style={{ color: 'var(--primary)' }}
-      >
-  
-      </p>
       <h3
         className="font-heading font-extrabold tracking-[-0.055em]"
         style={{
@@ -68,12 +63,21 @@ const PersonaCopy = ({ persona, reducedMotion }) => (
 )
 
 const WhoItFits = () => {
+  const { t } = useTranslation('home')
   const [active, setActive] = useState(0)
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
   const reducedMotion = useReducedMotion()
 
-  const persona = personas[active]
+  const rawPersonas = t('whoItFits.personas', { returnObjects: true })
+  const personas = Array.isArray(rawPersonas) && rawPersonas.length > 0
+    ? rawPersonas.map((p, i) => ({
+        ...p,
+        variant: fallbackPersonas[i]?.variant || p.id,
+      }))
+    : fallbackPersonas
+
+  const persona = personas[active] || personas[0]
   const isVisible = reducedMotion || inView
 
   useEffect(() => {
@@ -84,7 +88,7 @@ const WhoItFits = () => {
     }, 6500)
 
     return () => window.clearInterval(intervalId)
-  }, [inView, reducedMotion])
+  }, [inView, reducedMotion, personas.length])
 
   return (
     <section
@@ -105,7 +109,7 @@ const WhoItFits = () => {
             className="text-[11px] font-semibold uppercase tracking-[0.28em]"
             style={{ color: 'var(--primary)' }}
           >
-            Who It Fits
+            {t('whoItFits.eyebrow')}
           </motion.span>
           <motion.h2
             variants={reveal}
@@ -117,14 +121,14 @@ const WhoItFits = () => {
               color: 'var(--foreground)',
             }}
           >
-            Built for the way you sell.
+            {t('whoItFits.headline')}
           </motion.h2>
           <motion.p
             variants={reveal}
             className="mx-auto mt-4 max-w-2xl text-base leading-7 lg:mx-0"
             style={{ color: 'var(--muted-foreground)' }}
           >
-            Works for social sellers, growing brands, and first-time store owners who want one clear storefront link.
+            {t('whoItFits.body')}
           </motion.p>
         </motion.div>
 
@@ -152,7 +156,7 @@ const WhoItFits = () => {
                       setActive((index - 1 + personas.length) % personas.length)
                     }
                   }}
-                  className="rounded-full border px-4 py-2.5 text-sm font-semibold transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2"
+                  className="rounded-full border px-4 py-2.5 text-sm font-semibold transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 cursor-pointer"
                   style={{
                     borderColor:
                       active === index

@@ -1,35 +1,12 @@
 import { motion } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import { useInViewOnce } from '../../../hooks/useInViewOnce'
 import useReducedMotion from '../../../hooks/useReducedMotion'
 import { easePremium } from '../../../utils/motionVariants'
 
-// ─── Values data ──────────────────────────────────────────────────────────────
-const VALUES = [
-  {
-    index: '01',
-    title: 'Speed over ceremony',
-    desc:  'If it takes more than a minute to set up, we rethink it. Every screen, every step.',
-  },
-  {
-    index: '02',
-    title: 'Sellers keep control',
-    desc:  'Your payments, your buyers, your data. We stay out of the middle, always.',
-  },
-  {
-    index: '03',
-    title: 'Built for this market',
-    desc:  'Designed for how social commerce actually works.',
-  },
-  {
-    index: '04',
-    title: 'Mobile first, always',
-    desc:  'Your buyers are on their phones. So is every pixel, every interaction we write.',
-  },
-]
-
 // ─── Single value row ─────────────────────────────────────────────────────────
-const ValueRow = ({ value, index: i, isInView, reducedMotion }) => {
-  const isLast = i === VALUES.length - 1
+const ValueRow = ({ value, index: i, total, isInView, reducedMotion }) => {
+  const isLast = i === total - 1
 
   return (
     <div
@@ -37,7 +14,7 @@ const ValueRow = ({ value, index: i, isInView, reducedMotion }) => {
     >
       {/* Left — large title block */}
       <motion.div
-        className="relative flex items-start gap-6 py-10 pr-0 lg:pr-16"
+        className="relative flex items-start gap-6 py-10 pe-0 lg:pe-16 text-start"
         initial={reducedMotion ? false : { opacity: 0, x: -24 }}
         animate={isInView ? { opacity: 1, x: 0 } : {}}
         transition={{ duration: 0.75, ease: easePremium, delay: 0.08 + i * 0.1 }}
@@ -67,30 +44,53 @@ const ValueRow = ({ value, index: i, isInView, reducedMotion }) => {
 
       {/* Right — description + rule */}
       <motion.div
-        className="flex items-center border-l border-border pb-10 lg:py-10 lg:pl-10"
+        className="flex items-center border-s border-border pb-10 lg:py-10 lg:ps-10 text-start"
         initial={reducedMotion ? false : { opacity: 0, x: 16 }}
         animate={isInView ? { opacity: 1, x: 0 } : {}}
         transition={{ duration: 0.75, ease: easePremium, delay: 0.18 + i * 0.1 }}
       >
         {/* Horizontal connector rule — desktop only */}
         <span
-          className="hidden lg:block h-px w-8 shrink-0 mr-6 bg-border"
+          className="hidden lg:block h-px w-8 shrink-0 me-6 bg-border"
           aria-hidden="true"
         />
         <p className="text-sm leading-7 text-muted-foreground sm:text-base">
           {value.desc}
         </p>
       </motion.div>
-
-      {/* Mobile index label removed — watermark number in the row already serves this role */}
     </div>
   )
 }
 
 // ─── Section ──────────────────────────────────────────────────────────────────
 const Values = () => {
+  const { t } = useTranslation('about')
   const [ref, isInView] = useInViewOnce({ margin: '-60px' })
   const reducedMotion = useReducedMotion()
+
+  const rawValues = t('values.items', { returnObjects: true })
+  const values = Array.isArray(rawValues) ? rawValues : [
+    {
+      index: '01',
+      title: 'Speed over ceremony',
+      desc:  'If it takes more than a minute to set up, we rethink it. Every screen, every step.',
+    },
+    {
+      index: '02',
+      title: 'Sellers keep control',
+      desc:  'Your payments, your buyers, your data. We stay out of the middle, always.',
+    },
+    {
+      index: '03',
+      title: 'Built for this market',
+      desc:  'Designed for how social commerce actually works.',
+    },
+    {
+      index: '04',
+      title: 'Mobile first, always',
+      desc:  'Your buyers are on their phones. So is every pixel, every interaction we write.',
+    },
+  ]
 
   return (
     <section
@@ -102,13 +102,13 @@ const Values = () => {
 
         {/* Section header */}
         <motion.div
-          className="mb-4"
+          className="mb-4 text-start"
           initial={reducedMotion ? false : { opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.65, ease: easePremium, delay: 0 }}
         >
           <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
-            What we believe
+            {t('values.eyebrow', 'What we believe')}
           </span>
         </motion.div>
 
@@ -116,13 +116,13 @@ const Values = () => {
         <div className="flex items-end justify-between gap-8 border-b border-border pb-12">
           <motion.h2
             id="values-heading"
-            className="font-heading font-extrabold tracking-[-0.04em] leading-[1.05] text-foreground"
+            className="font-heading font-extrabold tracking-[-0.04em] leading-[1.05] text-foreground text-start"
             style={{ fontSize: 'clamp(1.9rem, 3.8vw, 3rem)' }}
             initial={reducedMotion ? false : { opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease: easePremium, delay: 0.06 }}
           >
-            Our values
+            {t('values.title', 'Our values')}
           </motion.h2>
 
           {/* Count badge */}
@@ -133,17 +133,18 @@ const Values = () => {
             transition={{ duration: 0.6, ease: easePremium, delay: 0.2 }}
             aria-hidden="true"
           >
-            {VALUES.length} principles
+            {values.length} {t('values.principles', 'principles')}
           </motion.span>
         </div>
 
-        {/* Value rows — manifesto wall */}
+        {/* Value rows */}
         <div className="mt-0">
-          {VALUES.map((value, i) => (
+          {values.map((value, i) => (
             <ValueRow
               key={value.index}
               value={value}
               index={i}
+              total={values.length}
               isInView={isInView}
               reducedMotion={reducedMotion}
             />

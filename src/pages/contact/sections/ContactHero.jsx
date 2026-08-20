@@ -1,7 +1,8 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { MessageCircle, Clock, Zap } from 'lucide-react'
-import { FaWhatsapp, FaInstagram , FaFacebook, FaLinkedin, FaXTwitter} from 'react-icons/fa6'
+import { useTranslation } from 'react-i18next'
+import { MessageCircle, Clock } from 'lucide-react'
+import { FaWhatsapp, FaInstagram, FaFacebook, FaLinkedin, FaXTwitter } from 'react-icons/fa6'
 import useReducedMotion from '../../../hooks/useReducedMotion'
 import { blurReveal, revealSoft, staggerHero } from '../../../utils/motionVariants'
 import { css } from '../../../utils/cssTokens'
@@ -53,6 +54,7 @@ const SocialOrb = ({ icon: Icon, color, delay, top, left, right, bottom, size = 
 
 // ─── ContactHero ──────────────────────────────────────────────────────────────
 const ContactHero = () => {
+  const { t } = useTranslation('contact')
   const ref = useRef(null)
   const inView = useInView(ref, { once: true })
   const reduced = useReducedMotion()
@@ -114,7 +116,6 @@ const ContactHero = () => {
           <SocialOrb icon={FaLinkedin} color="oklch(0.55 0.18 240)" delay={0.25} top="25%" right="10%" size={44} />
           <SocialOrb icon={FaFacebook} color="oklch(0.68 0.20 220)" delay={0.15} top="50%" left="18%" size={40} />
           <SocialOrb icon={MessageCircle} color="var(--primary)" delay={0.35} top="72%" right="10%" size={36} />
-         
         </>
       )}
 
@@ -135,7 +136,7 @@ const ContactHero = () => {
             >
               <span className="h-1.5 w-1.5 rounded-full bg-primary" />
               <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                Get in Touch
+                {t('hero.eyebrow', 'Get in Touch')}
               </span>
             </div>
           </motion.div>
@@ -147,10 +148,9 @@ const ContactHero = () => {
             className="font-heading font-extrabold tracking-[-0.04em] text-foreground"
             style={{ fontSize: 'clamp(2.6rem, 5.5vw, 4.5rem)', lineHeight: 1.0 }}
           >
-            Have a question?
-            <br/>
-            <span style={{ color: css.primary }}>Let's Talk.</span>
-            
+            {t('hero.headline', 'Have a question?')}
+            <br />
+            <span style={{ color: css.primary }}>{t('hero.headlineHighlight', "Let's Talk.")}</span>
           </motion.h1>
 
           {/* Subtext */}
@@ -158,8 +158,7 @@ const ContactHero = () => {
             variants={revealSoft}
             className="mt-6 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg"
           >
-            Whether you have a question about your store, need help setting things up,
-            or just want to say hello, We are here.
+            {t('hero.subtext', 'Whether you have a question about your store, need help setting things up, or just want to say hello, We are here.')}
           </motion.p>
 
           {/* Trust pills */}
@@ -168,13 +167,13 @@ const ContactHero = () => {
             className="mt-8 flex flex-wrap items-center justify-center gap-2.5"
           >
             <ResponsePill icon={Clock} iconStyle={{ color: css.primary }}>
-              Replies within 24 hours
+              {t('hero.trust.replies', 'Replies within 24 hours')}
             </ResponsePill>
             <ResponsePill icon={FaWhatsapp} iconStyle={{ color: 'oklch(0.58 0.22 150)' }}>
-              WhatsApp support
+              {t('hero.trust.whatsapp', 'WhatsApp support')}
             </ResponsePill>
             <ResponsePill icon={MessageCircle} iconStyle={{ color: css.primary }}>
-              No ticket queues
+              {t('hero.trust.noQueue', 'No ticket queues')}
             </ResponsePill>
           </motion.div>
 

@@ -2,12 +2,14 @@ import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { ArrowRight, MessageCircle, Sparkles } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import useReducedMotion from '../../../hooks/useReducedMotion'
 import { blurReveal, revealSoft, staggerContainer } from '../../../utils/motionVariants'
 import { css } from '../../../utils/cssTokens'
 import PrimaryCTA from '../../../components/PrimaryCTA'
 
 const ContactCta = () => {
+  const { t } = useTranslation('contact')
   const sectionRef = useRef(null)
   const inView = useInView(sectionRef, { once: true, margin: '-60px' })
   const reduced = useReducedMotion()
@@ -67,7 +69,7 @@ const ContactCta = () => {
                 className="text-[11px] font-semibold uppercase tracking-[0.2em]"
                 style={{ color: css.mutedFg }}
               >
-                Still have questions?
+                {t('cta.eyebrow', 'Still have questions?')}
               </span>
             </div>
           </motion.div>
@@ -82,9 +84,9 @@ const ContactCta = () => {
               color: css.fg,
             }}
           >
-            Let&apos;s figure it out
+            {t('cta.headline', "Let's figure it out")}
             <br />
-            <span style={{ color: css.primary }}>together.</span>
+            <span style={{ color: css.primary }}>{t('cta.headlineHighlight', 'together.')}</span>
           </motion.h2>
 
           <motion.p
@@ -92,8 +94,7 @@ const ContactCta = () => {
             className="mx-auto mt-5 max-w-[500px] text-base leading-7 sm:text-[17px]"
             style={{ color: css.mutedFg }}
           >
-            Whether you&apos;re exploring Stallio, setting up your store, or looking for the right way to grow,
-            we&apos;re here to help.
+            {t('cta.body', "Whether you're exploring Stallio, setting up your store, or looking for the right way to grow, we're here to help.")}
           </motion.p>
 
           <motion.div
@@ -105,7 +106,7 @@ const ContactCta = () => {
               size="lg"
               className="w-full py-3.5 text-[15px] font-bold sm:w-auto"
             >
-              Get Started
+              {t('cta.primary', 'Get Started')}
             </PrimaryCTA>
 
             <Link
@@ -117,10 +118,10 @@ const ContactCta = () => {
                 color: css.fg,
               }}
             >
-              Explore Stallio
+              {t('cta.secondary', 'Explore Stallio')}
               <ArrowRight
                 size={15}
-                className="transition-transform duration-300 group-hover:translate-x-1"
+                className="transition-transform duration-300 group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1"
                 aria-hidden="true"
               />
             </Link>
@@ -132,11 +133,11 @@ const ContactCta = () => {
           >
             <span className="inline-flex items-center gap-2 text-xs font-medium" style={{ color: css.mutedFg }}>
               <MessageCircle size={14} style={{ color: css.primary }} aria-hidden="true" />
-              Real support, real answers
+              {t('cta.trust.support', 'Real support, real answers')}
             </span>
             <span className="hidden h-3 w-px sm:block" style={{ background: css.border }} aria-hidden="true" />
             <span className="text-xs font-medium" style={{ color: css.mutedFg }}>
-              Replies within 24 hours
+              {t('cta.trust.replies', 'Replies within 24 hours')}
             </span>
           </motion.div>
         </motion.div>

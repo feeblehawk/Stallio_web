@@ -1,109 +1,43 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import { Globe, Package, Store, Sliders, FileText, Tag, FileCheck, Truck, Languages, 
 TrendingUp, MessageSquare, Sparkles, ShoppingBag, Settings, LineChart, } from 'lucide-react'
 import useReducedMotion from '../../../hooks/useReducedMotion'
 import { easePremium, staggerContainer, revealSoft } from '../../../utils/motionVariants'
 
-// ─── Feature list — all 12 items with Lucide React icons ─────────────────────
-const FEATURES = [
-  // Column 1 — Store & Products
+// ─── Feature Icons Definition ────────────────────────────────────────────────
+const COLUMN_CONFIGS = [
   {
-    id: 'link',
-    icon: <Globe className="h-4 w-4" aria-hidden="true" />,
-    label: 'Hosted stallio.shop link',
-    sub: 'No domain needed',
-    col: 0,
+    key: 'storeProducts',
+    icon: <ShoppingBag className="h-4 w-4 text-primary" aria-hidden="true" />,
+    items: [
+      { id: 'link', icon: <Globe className="h-4 w-4" aria-hidden="true" />, defaultLabel: 'Hosted stallio.shop link', defaultSub: 'No domain needed' },
+      { id: 'products', icon: <Package className="h-4 w-4" aria-hidden="true" />, defaultLabel: 'Unlimited products & photos', defaultSub: 'No caps, ever' },
+      { id: 'storefront', icon: <Store className="h-4 w-4" aria-hidden="true" />, defaultLabel: 'Mobile storefront & checkout', defaultSub: 'Cart built-in' },
+      { id: 'variants', icon: <Sliders className="h-4 w-4" aria-hidden="true" />, defaultLabel: 'Variants, sale prices & stock', defaultSub: 'Sizes, colours, and more' },
+    ],
   },
   {
-    id: 'products',
-    icon: <Package className="h-4 w-4" aria-hidden="true" />,
-    label: 'Unlimited products & photos',
-    sub: 'No caps, ever',
-    col: 0,
+    key: 'operations',
+    icon: <Settings className="h-4 w-4 text-primary" aria-hidden="true" />,
+    items: [
+      { id: 'pages', icon: <FileText className="h-4 w-4" aria-hidden="true" />, defaultLabel: 'About and Contact pages', defaultSub: 'Ready to customise' },
+      { id: 'coupons', icon: <Tag className="h-4 w-4" aria-hidden="true" />, defaultLabel: 'Coupons and delivery fees', defaultSub: 'Discounts that close sales' },
+      { id: 'invoice', icon: <FileCheck className="h-4 w-4" aria-hidden="true" />, defaultLabel: 'PDF invoice per order', defaultSub: 'Auto-generated' },
+      { id: 'orders', icon: <Truck className="h-4 w-4" aria-hidden="true" />, defaultLabel: 'Mark paid, ship & export CSV', defaultSub: 'Full order lifecycle' },
+    ],
   },
   {
-    id: 'storefront',
-    icon: <Store className="h-4 w-4" aria-hidden="true" />,
-    label: 'Mobile storefront & checkout',
-    sub: 'Cart built-in',
-    col: 0,
+    key: 'growth',
+    icon: <LineChart className="h-4 w-4 text-primary" aria-hidden="true" />,
+    items: [
+      { id: 'i18n', icon: <Languages className="h-4 w-4" aria-hidden="true" />, defaultLabel: 'Shop in EN, ES, and AR', defaultSub: 'Dashboard too' },
+      { id: 'analytics', icon: <TrendingUp className="h-4 w-4" aria-hidden="true" />, defaultLabel: 'Revenue and order charts', defaultSub: "See what's working" },
+      { id: 'messages', icon: <MessageSquare className="h-4 w-4" aria-hidden="true" />, defaultLabel: 'Buyer messages & support chat', defaultSub: 'Stay close to customers' },
+      { id: 'free', icon: <Sparkles className="h-4 w-4" aria-hidden="true" />, defaultLabel: 'First month free', defaultSub: 'No card required', highlight: true },
+    ],
   },
-  {
-    id: 'variants',
-    icon: <Sliders className="h-4 w-4" aria-hidden="true" />,
-    label: 'Variants, sale prices & stock',
-    sub: 'Sizes, colours, and more',
-    col: 0,
-  },
-  // Column 2 — Operations
-  {
-    id: 'pages',
-    icon: <FileText className="h-4 w-4" aria-hidden="true" />,
-    label: 'About and Contact pages',
-    sub: 'Ready to customise',
-    col: 1,
-  },
-  {
-    id: 'coupons',
-    icon: <Tag className="h-4 w-4" aria-hidden="true" />,
-    label: 'Coupons and delivery fees',
-    sub: 'Discounts that close sales',
-    col: 1,
-  },
-  {
-    id: 'invoice',
-    icon: <FileCheck className="h-4 w-4" aria-hidden="true" />,
-    label: 'PDF invoice per order',
-    sub: 'Auto-generated',
-    col: 1,
-  },
-  {
-    id: 'orders',
-    icon: <Truck className="h-4 w-4" aria-hidden="true" />,
-    label: 'Mark paid, ship & export CSV',
-    sub: 'Full order lifecycle',
-    col: 1,
-  },
-  // Column 3 — Growth
-  {
-    id: 'i18n',
-    icon: <Languages className="h-4 w-4" aria-hidden="true" />,
-    label: 'Shop in EN, ES, and AR',
-    sub: 'Dashboard too',
-    col: 2,
-  },
-  {
-    id: 'analytics',
-    icon: <TrendingUp className="h-4 w-4" aria-hidden="true" />,
-    label: 'Revenue and order charts',
-    sub: 'See what\'s working',
-    col: 2,
-  },
-  {
-    id: 'messages',
-    icon: <MessageSquare className="h-4 w-4" aria-hidden="true" />,
-    label: 'Buyer messages & support chat',
-    sub: 'Stay close to customers',
-    col: 2,
-  },
-  {
-    id: 'free',
-    icon: <Sparkles className="h-4 w-4" aria-hidden="true" />,
-    label: 'First month free',
-    sub: 'No card required',
-    col: 2,
-    highlight: true,
-  },
-]
-
-const cols = [0, 1, 2].map((c) => FEATURES.filter((f) => f.col === c))
-
-// ─── Column heading config with Lucide React Icons (No Emojis) ─────────────
-const COL_HEADS = [
-  { label: 'Store & Products', icon: <ShoppingBag className="h-4 w-4 text-primary" aria-hidden="true" /> },
-  { label: 'Operations', icon: <Settings className="h-4 w-4 text-primary" aria-hidden="true" /> },
-  { label: 'Growth', icon: <LineChart className="h-4 w-4 text-primary" aria-hidden="true" /> },
 ]
 
 // ─── Single feature row ───────────────────────────────────────────────────────
@@ -154,6 +88,7 @@ const FeatureRow = ({ feature, delay, isVisible, reducedMotion }) => (
 
 // ─── Main section ─────────────────────────────────────────────────────────────
 const WhatsIncluded = () => {
+  const { t } = useTranslation('home')
   const sectionRef = useRef(null)
   const inView = useInView(sectionRef, { once: true, margin: '-80px' })
   const reducedMotion = useReducedMotion()
@@ -189,7 +124,7 @@ const WhatsIncluded = () => {
             className="text-[11px] font-semibold uppercase tracking-[0.28em]"
             style={{ color: 'var(--primary)' }}
           >
-            What&apos;s Included
+            {t('whatsIncluded.eyebrow')}
           </motion.span>
 
           <motion.h2
@@ -202,7 +137,7 @@ const WhatsIncluded = () => {
               color: 'var(--foreground)',
             }}
           >
-            One plan. The full seller toolkit.
+            {t('whatsIncluded.headline')}
           </motion.h2>
 
           <motion.p
@@ -210,45 +145,64 @@ const WhatsIncluded = () => {
             className="mx-auto mt-4 max-w-lg text-base leading-7"
             style={{ color: 'var(--muted-foreground)' }}
           >
-            Everything below is part of Stallio, not add-ons. Start free, then pick monthly or yearly when you&apos;re ready.
+            {t('whatsIncluded.body')}
           </motion.p>
         </motion.div>
 
         {/* ── 3-column feature grid ── */}
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-          {cols.map((colFeatures, colIdx) => (
-            <div key={colIdx}>
-              {/* Column heading */}
-              <motion.div
-                className="mb-4 flex items-center gap-2 pb-3 border-b"
-                style={{ borderColor: 'color-mix(in oklch, var(--primary) 20%, var(--border))' }}
-                initial={reducedMotion ? false : { opacity: 0, y: 12 }}
-                animate={isVisible ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.55, ease: easePremium, delay: colIdx * 0.08 }}
-              >
-                <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary/10">
-                  {COL_HEADS[colIdx].icon}
-                </div>
-                <span
-                  className="text-[11px] font-bold uppercase tracking-[0.22em]"
-                  style={{ color: 'var(--primary)' }}
-                >
-                  {COL_HEADS[colIdx].label}
-                </span>
-              </motion.div>
+          {COLUMN_CONFIGS.map((colConfig, colIdx) => {
+            const rawColFeatures = t(`whatsIncluded.columns.${colConfig.key}.features`, { returnObjects: true })
+            const rawColItems = Array.isArray(rawColFeatures)
+              ? rawColFeatures
+              : t(`whatsIncluded.columns.${colConfig.key}.items`, { returnObjects: true })
+            const colTitle = t(`whatsIncluded.columns.${colConfig.key}.label`, t(`whatsIncluded.columns.${colConfig.key}.title`, colConfig.key))
 
-              {/* Feature rows */}
-              {colFeatures.map((f, rowIdx) => (
-                <FeatureRow
-                  key={f.id}
-                  feature={f}
-                  delay={0.1 + colIdx * 0.07 + rowIdx * 0.06}
-                  isVisible={isVisible}
-                  reducedMotion={reducedMotion}
-                />
-              ))}
-            </div>
-          ))}
+            return (
+              <div key={colConfig.key}>
+                {/* Column heading */}
+                <motion.div
+                  className="mb-4 flex items-center gap-2 pb-3 border-b"
+                  style={{ borderColor: 'color-mix(in oklch, var(--primary) 20%, var(--border))' }}
+                  initial={reducedMotion ? false : { opacity: 0, y: 12 }}
+                  animate={isVisible ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.55, ease: easePremium, delay: colIdx * 0.08 }}
+                >
+                  <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary/10">
+                    {colConfig.icon}
+                  </div>
+                  <span
+                    className="text-[11px] font-bold uppercase tracking-[0.22em]"
+                    style={{ color: 'var(--primary)' }}
+                  >
+                    {colTitle}
+                  </span>
+                </motion.div>
+
+                {/* Feature rows */}
+                {colConfig.items.map((itemDef, rowIdx) => {
+                  const translatedItem = Array.isArray(rawColItems)
+                    ? rawColItems.find(it => it?.id === itemDef.id) || rawColItems[rowIdx]
+                    : null
+                  const feature = {
+                    ...itemDef,
+                    label: translatedItem?.label || itemDef.defaultLabel,
+                    sub: translatedItem?.sub || itemDef.defaultSub,
+                  }
+
+                  return (
+                    <FeatureRow
+                      key={feature.id}
+                      feature={feature}
+                      delay={0.1 + colIdx * 0.07 + rowIdx * 0.06}
+                      isVisible={isVisible}
+                      reducedMotion={reducedMotion}
+                    />
+                  )
+                })}
+              </div>
+            )
+          })}
         </div>
 
         {/* ── Bottom badge ── */}
@@ -271,7 +225,7 @@ const WhatsIncluded = () => {
               style={{ background: 'oklch(0.65 0.18 145)' }}
               aria-hidden="true"
             />
-            All features included in every plan, no hidden add-ons
+            {t('whatsIncluded.bottomBadge')}
           </div>
         </motion.div>
       </div>

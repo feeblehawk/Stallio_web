@@ -1,6 +1,7 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import {
   Mail, Store, AtSign, Lock, Eye, EyeOff,
   Globe, Coins, ImagePlus, UserPlus, ArrowRight,
@@ -12,13 +13,6 @@ import useReducedMotion from '../../hooks/useReducedMotion'
 import { COUNTRIES, CURRENCIES } from '../../data/SignupData.js'
 import SelectDropdown from '../../components/SelectDropdown'
 import BrandLogo from '../../components/BrandLogo'
-
-// ─── Constants ────────────────────────────────────────────────────────────────
-const STEPS = [
-  { id: 1, label: 'Account',     hint: 'How you sign in'    },
-  { id: 2, label: 'Your Shop',   hint: 'What customers see' },
-  { id: 3, label: 'Preferences', hint: 'Region & currency'  },
-]
 
 const SPRING = easePremium
 
@@ -68,12 +62,12 @@ const BgOrbs = () => (
 )
 
 // ─── Step indicator ───────────────────────────────────────────────────────────
-const StepIndicator = ({ current }) => (
+const StepIndicator = ({ steps, current }) => (
   <div className="mb-8 flex items-start justify-center gap-0" role="list" aria-label="Sign-up progress">
-    {STEPS.map((step, i) => {
+    {steps.map((step, i) => {
       const done   = step.id < current
       const active = step.id === current
-      const isLast = i === STEPS.length - 1
+      const isLast = i === steps.length - 1
       return (
         <div key={step.id} className="flex items-start" role="listitem">
           <div className="flex w-max flex-col items-center">
@@ -113,7 +107,7 @@ const StepIndicator = ({ current }) => (
               style={{ background: css.border }}
             >
               <motion.div
-                className="absolute inset-y-0 left-0 rounded-full"
+                className="absolute inset-y-0 start-0 rounded-full"
                 style={{ background: 'var(--primary)' }}
                 animate={{ width: done ? '100%' : '0%' }}
                 transition={{ duration: 0.4, ease: SPRING }}
@@ -128,7 +122,7 @@ const StepIndicator = ({ current }) => (
 
 // ─── Field wrapper ────────────────────────────────────────────────────────────
 const Field = ({ label, required, hint, children }) => (
-  <div className="flex flex-col gap-1.5">
+  <div className="flex flex-col gap-1.5 text-start">
     <label className="text-[13px] font-medium" style={{ color: css.fg }}>
       {label}
       {required && (
@@ -136,7 +130,7 @@ const Field = ({ label, required, hint, children }) => (
       )}
     </label>
     {children}
-    {hint && <p className="text-[11px]" style={{ color: css.mutedFg }}>{hint}</p>}
+    {hint && <p className="text-[11px] text-start" style={{ color: css.mutedFg }}>{hint}</p>}
   </div>
 )
 
@@ -170,7 +164,7 @@ const Input = ({ icon: Icon, type = 'text', placeholder, value, onChange, name, 
         autoComplete={autoComplete}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+        className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground text-start"
         style={{ color: css.fg }}
         {...rest}
       />
@@ -207,14 +201,14 @@ const PasswordInput = ({ placeholder, value, onChange, name, autoComplete }) => 
         autoComplete={autoComplete}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+        className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground text-start"
         style={{ color: css.fg }}
       />
       <button
         type="button"
         onClick={() => setShow(p => !p)}
         aria-label={show ? 'Hide password' : 'Show password'}
-        className="shrink-0 rounded-md p-0.5 transition-opacity duration-150 hover:opacity-70"
+        className="shrink-0 rounded-md p-0.5 transition-opacity duration-150 hover:opacity-70 cursor-pointer"
         style={{ color: css.mutedFg }}
       >
         {show
@@ -227,7 +221,7 @@ const PasswordInput = ({ placeholder, value, onChange, name, autoComplete }) => 
 }
 
 // ─── Live URL preview ─────────────────────────────────────────────────────────
-const LiveUrlPreview = ({ username }) => {
+const LiveUrlPreview = ({ username, yourLinkLabel }) => {
   const slug = username.replace(/[^a-zA-Z0-9_-]/g, '').toLowerCase()
   return (
     <AnimatePresence>
@@ -237,7 +231,7 @@ const LiveUrlPreview = ({ username }) => {
           animate={{ opacity: 1,  y: 0,  scale: 1    }}
           exit={{ opacity: 0,    y: -4,  scale: 0.97 }}
           transition={{ duration: 0.25, ease: SPRING }}
-          className="flex items-center gap-2 rounded-lg border px-3.5 py-2.5"
+          className="flex items-center gap-2 rounded-lg border px-3.5 py-2.5 text-start"
           style={{ background: 'var(--p-10)', borderColor: 'var(--p-35)' }}
           aria-live="polite"
           aria-label={`Your store URL will be: stallio.shop/${slug}`}
@@ -255,10 +249,10 @@ const LiveUrlPreview = ({ username }) => {
             {slug}
           </motion.span>
           <span
-            className="ml-auto rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider"
+            className="ms-auto rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider"
             style={{ background: 'var(--p-12)', color: 'var(--primary)' }}
           >
-            your link
+            {yourLinkLabel}
           </span>
         </motion.div>
       )}
@@ -285,39 +279,43 @@ const stepVariants = {
 }
 
 // ─── Back to Home — premium frosted pill ──────────────────────────────────────
-const BackToHome = () => (
-  <motion.div
-    variants={revealSoft}
-    className="mb-6"
-  >
-    <Link
-      to="/"
-      aria-label="Back to Stallio home"
-      className="group inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-[12px] font-medium 
-      text-muted-foreground transition-all duration-200 hover: hover:text-primary focus-visible:outline-2 
-      focus-visible:outline-offset-2 focus-visible:outline-ring"
-      style={{
-        borderColor: css.border,
-        background: 'color-mix(in oklch, var(--surface) 80%, transparent)',
-        backdropFilter: 'blur(10px)',
-        color: css.mutedfg,
-        WebkitBackdropFilter: 'blur(10px)',
-      }}
+const BackToHome = () => {
+  const { t } = useTranslation('common')
+  return (
+    <motion.div
+      variants={revealSoft}
+      className="mb-6"
     >
-      <ArrowLeft
-        size={13}
-        strokeWidth={2}
-        aria-hidden="true"
-        className="transition-transform duration-200 group-hover:-translate-x-0.5"
-        style={{ color: css.primary }}
-      />
-      Back to home
-    </Link>
-  </motion.div>
-)
+      <Link
+        to="/"
+        aria-label={t('auth.backToHome', 'Back to Stallio home')}
+        className="group inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-[12px] font-medium 
+        text-muted-foreground transition-all duration-200 hover:text-primary focus-visible:outline-2 
+        focus-visible:outline-offset-2 focus-visible:outline-ring"
+        style={{
+          borderColor: css.border,
+          background: 'color-mix(in oklch, var(--surface) 80%, transparent)',
+          backdropFilter: 'blur(10px)',
+          color: css.mutedFg,
+          WebkitBackdropFilter: 'blur(10px)',
+        }}
+      >
+        <ArrowLeft
+          size={13}
+          strokeWidth={2}
+          aria-hidden="true"
+          className="transition-transform duration-200 group-hover:-translate-x-0.5 rtl:rotate-180 rtl:group-hover:translate-x-0.5"
+          style={{ color: css.primary }}
+        />
+        {t('auth.backToHome', 'Back to home')}
+      </Link>
+    </motion.div>
+  )
+}
 
 // ─── Signup ───────────────────────────────────────────────────────────────────
 const Signup = () => {
+  const { t } = useTranslation('common')
   const reduced  = useReducedMotion()
   const navigate = useNavigate()
 
@@ -325,6 +323,12 @@ const Signup = () => {
   const [dir,  setDir]                = useState(1)
   const [isSubmitting, setSubmitting] = useState(false)
   const [logoName, setLogoName]       = useState('')
+
+  const steps = useMemo(() => [
+    { id: 1, label: t('auth.signup.steps.step1Label', 'Account'),     hint: t('auth.signup.steps.step1Hint', 'How you sign in')    },
+    { id: 2, label: t('auth.signup.steps.step2Label', 'Your Shop'),   hint: t('auth.signup.steps.step2Hint', 'What customers see') },
+    { id: 3, label: t('auth.signup.steps.step3Label', 'Preferences'), hint: t('auth.signup.steps.step3Hint', 'Region & currency')  },
+  ], [t])
 
   const [form, setForm] = useState({
     email: '', password: '', confirmPassword: '',
@@ -375,7 +379,7 @@ const Signup = () => {
         <motion.div variants={revealSoft} className="mb-7 flex flex-col items-center gap-2.5">
           <BrandLogo size="lg" />
           <p className="text-sm font-medium" style={{ color: css.mutedFg }}>
-            Your online shop, one link away
+            {t('auth.brandSubtitle', 'Your online shop, one link away')}
           </p>
         </motion.div>
       </motion.div>
@@ -423,7 +427,7 @@ const Signup = () => {
               '0 0 0 1px color-mix(in oklch, var(--primary) 10%, transparent), 0 14px 44px -8px color-mix(in oklch, var(--primary) 14%, transparent), 0 6px 18px color-mix(in oklch, var(--foreground) 5%, transparent)',
           }}
         >
-          <StepIndicator current={step} />
+          <StepIndicator steps={steps} current={step} />
 
           {/* Step title */}
           <div className="mb-6 text-center">
@@ -431,12 +435,12 @@ const Signup = () => {
               className="font-heading text-2xl font-extrabold tracking-[-0.03em] sm:text-[1.75rem]"
               style={{ color: css.fg }}
             >
-              {step === 1 && 'Create your account'}
-              {step === 2 && 'Set up your shop'}
-              {step === 3 && 'Almost there'}
+              {step === 1 && t('auth.signup.titles.step1', 'Create your account')}
+              {step === 2 && t('auth.signup.titles.step2', 'Set up your shop')}
+              {step === 3 && t('auth.signup.titles.step3', 'Almost there')}
             </h1>
             <p className="mt-1.5 text-sm" style={{ color: css.mutedFg }}>
-              {STEPS[step - 1].hint}
+              {steps[step - 1].hint}
             </p>
           </div>
 
@@ -459,25 +463,25 @@ const Signup = () => {
                     exit="exit"
                     className="flex flex-col gap-4"
                   >
-                    <Field label="Email" required>
+                    <Field label={t('auth.signup.fields.email', 'Email')} required>
                       <Input
                         name="email" type="email" icon={Mail}
-                        placeholder="you@example.com"
+                        placeholder={t('auth.signup.fields.emailPlaceholder', 'you@example.com')}
                         value={form.email} onChange={handle('email')}
                         autoComplete="email"
                       />
                     </Field>
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                      <Field label="Password" required hint="Minimum 8 characters">
+                      <Field label={t('auth.signup.fields.password', 'Password')} required hint={t('auth.signup.fields.passwordHint', 'Minimum 8 characters')}>
                         <PasswordInput
-                          name="password" placeholder="Create a strong password"
+                          name="password" placeholder={t('auth.signup.fields.passwordPlaceholder', 'Create a strong password')}
                           value={form.password} onChange={handle('password')}
                           autoComplete="new-password"
                         />
                       </Field>
-                      <Field label="Confirm Password" required>
+                      <Field label={t('auth.signup.fields.confirmPassword', 'Confirm Password')} required>
                         <PasswordInput
-                          name="confirmPassword" placeholder="Repeat password"
+                          name="confirmPassword" placeholder={t('auth.signup.fields.confirmPasswordPlaceholder', 'Repeat password')}
                           value={form.confirmPassword} onChange={handle('confirmPassword')}
                           autoComplete="new-password"
                         />
@@ -497,35 +501,35 @@ const Signup = () => {
                     exit="exit"
                     className="flex flex-col gap-4"
                   >
-                    <Field label="Shop Name" required>
+                    <Field label={t('auth.signup.fields.shopName', 'Shop Name')} required>
                       <Input
                         name="shopName" icon={Store}
-                        placeholder="My Awesome Shop"
+                        placeholder={t('auth.signup.fields.shopNamePlaceholder', 'My Awesome Shop')}
                         value={form.shopName} onChange={handle('shopName')}
                         autoComplete="organization"
                       />
                     </Field>
                     <Field
-                      label="Username (Store URL)" required
-                      hint="Letters, numbers, underscores and hyphens only"
+                      label={t('auth.signup.fields.username', 'Username (Store URL)')} required
+                      hint={t('auth.signup.fields.usernameHint', 'Letters, numbers, underscores and hyphens only')}
                     >
                       <Input
                         name="username" icon={AtSign}
-                        placeholder="myshop"
+                        placeholder={t('auth.signup.fields.usernamePlaceholder', 'myshop')}
                         value={form.username} onChange={handle('username')}
                         autoComplete="username"
                         pattern="[a-zA-Z0-9_\-]+"
                       />
-                      <LiveUrlPreview username={form.username} />
+                      <LiveUrlPreview username={form.username} yourLinkLabel={t('auth.signup.fields.yourLink', 'your link')} />
                     </Field>
-                    <Field label="Shop Logo" hint="Optional — PNG or JPG, max 2 MB">
+                    <Field label={t('auth.signup.fields.logo', 'Shop Logo')} hint={t('auth.signup.fields.logoHint', 'Optional — PNG or JPG, max 2 MB')}>
                       <label
                         htmlFor="logo-upload"
                         className="flex cursor-pointer items-center justify-center gap-2 rounded-lg border-2 border-dashed py-2.5 text-sm font-medium transition-colors duration-150 hover:border-primary/50"
                         style={{ borderColor: css.border, color: css.mutedFg }}
                       >
                         <ImagePlus size={15} strokeWidth={2} aria-hidden="true" />
-                        <span className="truncate max-w-[180px]">{logoName || 'Choose Logo'}</span>
+                        <span className="truncate max-w-[180px]">{logoName || t('auth.signup.fields.chooseLogo', 'Choose Logo')}</span>
                         <input
                           id="logo-upload" name="logo" type="file"
                           accept="image/png,image/jpeg,image/webp"
@@ -549,24 +553,26 @@ const Signup = () => {
                     className="flex flex-col gap-4"
                     style={{ overflow: 'visible' }}
                   >
-                    <Field label="Country" required>
+                    <Field label={t('auth.signup.fields.country', 'Country')} required>
                       <SelectDropdown
                         items={COUNTRY_ITEMS}
                         value={form.country}
                         onChange={handleDropdown('country')}
-                        placeholder="Select your country"
+                        placeholder={t('auth.signup.fields.countryPlaceholder', 'Select your country')}
                         icon={Globe}
-                        searchPlaceholder="Search countries…"
+                        searchPlaceholder={t('auth.signup.fields.countrySearch', 'Search countries…')}
+                        noResultsText={(q) => t('auth.selectDropdown.noResults', { query: q, defaultValue: `No results for "${q}"` })}
                       />
                     </Field>
-                    <Field label="Currency" required>
+                    <Field label={t('auth.signup.fields.currency', 'Currency')} required>
                       <SelectDropdown
                         items={CURRENCY_ITEMS}
                         value={form.currency}
                         onChange={handleDropdown('currency')}
-                        placeholder="Select currency"
+                        placeholder={t('auth.signup.fields.currencyPlaceholder', 'Select currency')}
                         icon={Coins}
-                        searchPlaceholder="Search currencies…"
+                        searchPlaceholder={t('auth.signup.fields.currencySearch', 'Search currencies…')}
+                        noResultsText={(q) => t('auth.selectDropdown.noResults', { query: q, defaultValue: `No results for "${q}"` })}
                       />
                     </Field>
 
@@ -576,7 +582,7 @@ const Signup = () => {
                         initial={{ opacity: 0, y: 6 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.3, ease: SPRING }}
-                        className="rounded-lg border px-4 py-3 text-sm"
+                        className="rounded-lg border px-4 py-3 text-sm text-start"
                         style={{ background: 'var(--p-10)', borderColor: 'var(--p-35)' }}
                       >
                         <div className="flex items-center gap-2 mb-1">
@@ -593,7 +599,7 @@ const Signup = () => {
                           </p>
                           {selectedCurrency && (
                             <span
-                              className="ml-auto rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
+                              className="ms-auto rounded-md px-1.5 py-0.5 text-[10px] font-semibold"
                               style={{ background: 'var(--p-20)', color: 'var(--primary)' }}
                             >
                               {selectedCurrency.badge}
@@ -622,17 +628,17 @@ const Signup = () => {
                   type="button"
                   onClick={goPrev}
                   aria-label="Go to previous step"
-                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border transition-colors duration-150 hover:bg-accent"
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border transition-colors duration-150 hover:bg-accent cursor-pointer"
                   style={{ borderColor: css.border, color: css.mutedFg }}
                 >
-                  <ChevronLeft size={18} strokeWidth={2} aria-hidden="true" />
+                  <ChevronLeft size={18} strokeWidth={2} aria-hidden="true" className="rtl:rotate-180" />
                 </button>
               )}
 
               <motion.button
                 type="submit"
                 disabled={isSubmitting}
-                className="group relative flex flex-1 items-center justify-center gap-2 overflow-hidden rounded-lg py-2.5 text-sm font-semibold"
+                className="group relative flex flex-1 items-center justify-center gap-2 overflow-hidden rounded-lg py-2.5 text-sm font-semibold cursor-pointer"
                 style={{
                   background: 'var(--primary)',
                   color: 'var(--primary-foreground)',
@@ -652,27 +658,27 @@ const Signup = () => {
                 {isSubmitting ? (
                   <>
                     <Spinner />
-                    Creating your shop…
+                    {t('auth.signup.buttons.creating', 'Creating your shop…')}
                   </>
                 ) : step < 3 ? (
                   <>
-                    Continue
+                    {t('auth.signup.buttons.continue', 'Continue')}
                     <ArrowRight
                       size={14}
                       strokeWidth={2.2}
                       aria-hidden="true"
-                      className="transition-transform duration-200 group-hover:translate-x-0.5"
+                      className="transition-transform duration-200 group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5"
                     />
                   </>
                 ) : (
                   <>
                     <UserPlus size={15} strokeWidth={2.2} aria-hidden="true" />
-                    Create My Shop
+                    {t('auth.signup.buttons.createShop', 'Create My Shop')}
                     <ArrowRight
                       size={14}
                       strokeWidth={2.2}
                       aria-hidden="true"
-                      className="transition-transform duration-200 group-hover:translate-x-0.5"
+                      className="transition-transform duration-200 group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5"
                     />
                   </>
                 )}
@@ -682,13 +688,13 @@ const Signup = () => {
 
           {/* Login link */}
           <p className="mt-5 text-center text-sm" style={{ color: css.mutedFg }}>
-            Already have a shop?{' '}
+            {t('auth.signup.haveAccount', 'Already have a shop?')}{' '}
             <Link
               to="/login"
               className="font-semibold underline-offset-2 transition-colors duration-150 hover:underline rounded-sm"
               style={{ color: 'var(--primary)' }}
             >
-              Log In
+              {t('auth.signup.loginLink', 'Log In')}
             </Link>
           </p>
         </div>
@@ -701,13 +707,13 @@ const Signup = () => {
         variants={revealSoft}
         {...motionProps}
       >
-        By creating a shop you agree to our{' '}
+        {t('auth.signup.legal', 'By creating a shop you agree to our')}{' '}
         <Link to="/terms" className="underline-offset-2 hover:underline" style={{ color: css.mutedFg }}>
-          Terms
+          {t('auth.terms', 'Terms')}
         </Link>
-        {' '}and{' '}
+        {' '}{t('auth.and', 'and')}{' '}
         <Link to="/privacy" className="underline-offset-2 hover:underline" style={{ color: css.mutedFg }}>
-          Privacy Policy
+          {t('auth.privacyPolicy', 'Privacy Policy')}
         </Link>.
       </motion.p>
     </div>

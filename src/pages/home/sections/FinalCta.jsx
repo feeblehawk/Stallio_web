@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { ShieldCheck, Zap, CheckCircle2, ArrowRight, Sparkles } from 'lucide-react'
 import useReducedMotion from '../../../hooks/useReducedMotion'
 import { easePremium, staggerContainer, revealSoft, blurReveal } from '../../../utils/motionVariants'
@@ -11,10 +12,18 @@ import PrimaryCTA from '../../../components/PrimaryCTA'
  * Shared across Home, About, Features, and HowItWorks pages for complete consistency.
  */
 const FinalCTA = () => {
+  const { t } = useTranslation('home')
   const sectionRef = useRef(null)
   const inView = useInView(sectionRef, { once: true, margin: '-60px' })
   const reducedMotion = useReducedMotion()
   const isVisible = reducedMotion || inView
+
+  const rawBadges = t('finalCta.trustBadges', { returnObjects: true })
+  const trustBadges = Array.isArray(rawBadges) ? rawBadges : [
+    'No credit card required',
+    'Live in under 5 minutes',
+    'Free forever plan available',
+  ]
 
   return (
     <section
@@ -76,7 +85,7 @@ const FinalCTA = () => {
                 className="text-[11px] font-semibold uppercase tracking-[0.2em]"
                 style={{ color: 'var(--muted-foreground)' }}
               >
-                Start Selling Today
+                {t('finalCta.eyebrow')}
               </span>
             </div>
           </motion.div>
@@ -92,9 +101,11 @@ const FinalCTA = () => {
               color: 'var(--foreground)',
             }}
           >
-            Ready to turn your social link
+            {t('finalCta.headline')}
             <br />
-            <span style={{ color: 'var(--primary)' }}>into a real online store?</span>
+            <span style={{ color: 'var(--primary)' }}>
+              {t('finalCta.headlineHighlight')}
+            </span>
           </motion.h2>
 
           {/* Subtitle */}
@@ -103,7 +114,7 @@ const FinalCTA = () => {
             className="mx-auto mt-5 max-w-xl text-base leading-7 sm:text-lg"
             style={{ color: 'var(--muted-foreground)' }}
           >
-            Spin up a store in 60 seconds. Share your link tonight. Wake up to real orders instead of messages lost in your DM request folder.
+            {t('finalCta.body')}
           </motion.p>
 
           {/* CTA Action Buttons */}
@@ -112,7 +123,7 @@ const FinalCTA = () => {
             className="mt-8 flex flex-col w-full sm:w-auto justify-center gap-3.5 sm:flex-row sm:gap-4"
           >
             <PrimaryCTA size="lg" className="w-full sm:w-auto text-base shadow-lg shadow-black/5 py-3.5">
-              Create Your Store
+              {t('finalCta.primaryButton', 'Create Your Store')}
             </PrimaryCTA>
             <Link
               to="/features"
@@ -123,7 +134,7 @@ const FinalCTA = () => {
                 color: 'var(--foreground)',
               }}
             >
-              Explore Features
+              {t('finalCta.secondaryButton', 'Explore Features')}
               <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </motion.div>
@@ -136,15 +147,15 @@ const FinalCTA = () => {
           >
             <span className="flex items-center gap-2">
               <ShieldCheck size={15} className="text-primary" />
-              No credit card required
+              {trustBadges[0] || 'No credit card required'}
             </span>
             <span className="flex items-center gap-2">
               <Zap size={15} className="text-amber-500" />
-              Live in under 5 minutes
+              {trustBadges[1] || 'Live in under 5 minutes'}
             </span>
             <span className="flex items-center gap-2">
               <CheckCircle2 size={15} className="text-emerald-500" />
-              Free forever plan available
+              {trustBadges[2] || 'Free forever plan available'}
             </span>
           </motion.div>
         </motion.div>

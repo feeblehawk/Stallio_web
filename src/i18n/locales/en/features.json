@@ -1,0 +1,224 @@
+{
+  "hero": {
+    "eyebrow": "Everything included",
+    "headline": "Everything you need",
+    "headlineHighlight": "to sell from one link.",
+    "body": "Storefront, dashboard, and seller tools in one place. Hosted link, unlimited catalog and orders, no buyer payment gateway required.",
+    "startFree": "Start Free",
+    "seeHow": "See How It Works",
+    "trustFree": "Free to start",
+    "trustCard": "No card required",
+    "trustLive": "Live in minutes",
+    "stepper": {
+      "dashboardTitle": "Stallio Dashboard",
+      "tagline": "Catalog, checkout, orders, and invoices in one dashboard loop.",
+      "steps": {
+        "orders": {
+          "label": "Orders",
+          "description": "Every order in one feed."
+        },
+        "products": {
+          "label": "Products",
+          "description": "Catalog, variants, stock."
+        },
+        "checkout": {
+          "label": "Checkout",
+          "description": "Coupons & delivery fees."
+        },
+        "invoice": {
+          "label": "Invoices",
+          "description": "PDF invoices, one tap."
+        }
+      },
+      "orderWidget": {
+        "orderId": "Order #1042",
+        "customer": "Zayn M. — ₨ 2,800",
+        "statusPaid": "Paid",
+        "statusDelivered": "Delivered"
+      },
+      "productWidget": {
+        "productName": "Sneakers",
+        "price": "₨ 6,800",
+        "stock": "Stock: 8",
+        "sizeLabel": "Size:"
+      },
+      "checkoutWidget": {
+        "subtotal": "Subtotal",
+        "subtotalVal": "₨ 6,800",
+        "coupon": "Coupon (SAVE15)",
+        "couponVal": "−₨ 1,020",
+        "total": "Total",
+        "totalVal": "₨ 5,780"
+      },
+      "invoiceWidget": {
+        "title": "Stallio Invoice",
+        "subtitle": "#INV-1042 · Aug 2026",
+        "totalVal": "₨ 5,780",
+        "shareWhatsApp": "Share via WhatsApp"
+      }
+    }
+  },
+  "whatYouGet": {
+    "eyebrow": "What you get",
+    "headline": "Every tool a seller needs.",
+    "headlineSecondary": "Nothing they don't.",
+    "body": "Built for sellers who already have buyers, not for teams managing DNS, plugins, and payment gateways.",
+    "countPill": "12 features included",
+    "groups": {
+      "storefront": {
+        "label": "Your Store Link",
+        "headline": "One link. Your entire brand.",
+        "body": "Share stallio.shop/yourname from your bio, WhatsApp, or QR. We host it, no domain, no server.",
+        "chips": [
+          "Custom slug",
+          "Arabic & English",
+          "About & Contact pages",
+          "Mobile-first"
+        ],
+        "mockup": {
+          "shopName": "Your Shop",
+          "shopSubtitle": "4 products · Summer Collection",
+          "verifiedBadge": "Verified ✓",
+          "footerText": "4 products · stallio.shop/yourshop",
+          "shopNow": "Shop now →"
+        }
+      },
+      "orders": {
+        "label": "Order Management",
+        "headline": "Every order, organized.",
+        "body": "Search, filter, mark paid, set delivery status. Nothing lost in DMs or scattered across chats.",
+        "chips": [
+          "Order inbox",
+          "Status tracking",
+          "Buyer messages",
+          "Export CSV"
+        ],
+        "mockup": {
+          "title": "Orders — Today",
+          "statusPaid": "Paid",
+          "statusPending": "Pending"
+        }
+      },
+      "commerce": {
+        "label": "Catalog & Checkout",
+        "headline": "Products buyers can actually buy.",
+        "body": "Variants, sale prices, coupons, delivery fees, and COD, all applied at checkout with no gateway.",
+        "chips": [
+          "Unlimited products",
+          "Variant pricing",
+          "Coupon codes",
+          "COD toggle"
+        ],
+        "mockup": {
+          "title": "Checkout Summary",
+          "item": "Sneakers × 1",
+          "delivery": "Delivery",
+          "coupon": "Coupon SAVE15",
+          "total": "Total"
+        }
+      },
+      "growth": {
+        "label": "Invoices & Insights",
+        "headline": "Professional receipts. Real numbers.",
+        "body": "PDF invoices per order, revenue charts, and a WhatsApp share button, all in one dashboard tap.",
+        "chips": [
+          "PDF invoices",
+          "Revenue overview",
+          "WhatsApp share",
+          "Seller support"
+        ],
+        "mockup": {
+          "title": "Invoice · #INV-1042",
+          "invoiceHeading": "Stallio Invoice",
+          "invoiceSubtitle": "Aug 2026 · Zayn M.",
+          "revenueWeek": "Revenue / week",
+          "shareWhatsApp": "Share via WhatsApp"
+        }
+      }
+    }
+  },
+  "allFeatures": {
+    "eyebrow": "Everything included",
+    "headline": "A storefront, not a science project.",
+    "body": "Buyers browse categories, pick variants, apply coupons, and place orders on their phone. Share one link tonight, no hosting bill, custom domain, or deploy keys.",
+    "pill": "12 features · all plans · no add-ons",
+    "bottomBadge": "Hosted on stallio.shop/yourname",
+    "columns": {
+      "store": {
+        "label": "Your Store",
+        "items": [
+          {
+            "id": "store-link",
+            "label": "Custom Store Link",
+            "body": "Custom Store link to use on Whatsapp, FaceBook Instagram and other socials."
+          },
+          {
+            "id": "catalog",
+            "label": "Product Catalog",
+            "body": "Unlimited products and images. Variants, sale prices, stock counts."
+          },
+          {
+            "id": "storefront",
+            "label": "Mobile-First Storefront",
+            "body": "Grid, product pages, and checkout tuned for thumbs, right where your buyers already are."
+          },
+          {
+            "id": "categories",
+            "label": "Categories & Pages",
+            "body": "Group products, run a custom home hero with trust lines, reviews, plus About and Contact pages."
+          }
+        ]
+      },
+      "operations": {
+        "label": "Operations",
+        "items": [
+          {
+            "id": "orders",
+            "label": "Order Dashboard",
+            "body": "Every order in one inbox. Search, filter, mark paid, set delivery status, and add tracking."
+          },
+          {
+            "id": "coupons",
+            "label": "Coupons & Promos",
+            "body": "Percent or fixed-off codes with optional expiry dates. Buyers apply them right at checkout."
+          },
+          {
+            "id": "invoices",
+            "label": "PDF Invoices",
+            "body": "Download a professional invoice per order to send on WhatsApp or email instantly."
+          },
+          {
+            "id": "delivery",
+            "label": "Delivery & COD",
+            "body": "Fixed or free-above-minimum delivery, ETA text, checkout notes, and a cash-on-delivery toggle."
+          }
+        ]
+      },
+      "growth": {
+        "label": "Growth",
+        "items": [
+          {
+            "id": "payment",
+            "label": "You Control Payment",
+            "body": "Tell buyers how to pay by bank, link, or COD. Stallio tracks the order; you confirm when money arrives."
+          },
+          {
+            "id": "revenue",
+            "label": "Revenue Overview",
+            "body": "Charts and totals for paid orders across today, the week, or a custom date range."
+          },
+          {
+            "id": "messages",
+            "label": "Buyer Messages",
+            "body": "Contact form submissions land in your inbox so nothing sits only on Instagram."
+          },
+          {
+            "id": "support",
+            "label": "Seller Support",
+            "body": "Chat with the Stallio team from your dashboard whenever you need a hand."
+          }
+        ]
+      }
+    }
+  }
+}

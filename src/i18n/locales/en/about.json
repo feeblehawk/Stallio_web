@@ -1,0 +1,95 @@
+{
+  "hero": {
+    "eyebrow": "About Stallio",
+    "headline": "Built for sellers",
+    "headlineHighlight": "who move fast.",
+    "body": "Stallio started with one observation: World's best sellers were already selling on Instagram and WhatsApp. They just needed a real store to match. We built exactly that."
+  },
+  "mission": {
+    "eyebrow": "Our mission",
+    "quote1": "Commerce moves through DMs.",
+    "quote2": "We built the store for that.",
+    "body": "We're not building a marketplace. We're building the simplest, most powerful store a solo seller can run from their phone, because that's where real commerce actually happens.",
+    "card": {
+      "reach": "Global reach",
+      "worldwide": "Worldwide"
+    },
+    "stats": {
+      "sellers": { "num": "500+", "label": "Sellers" },
+      "cities": { "num": "50+", "label": "Cities" },
+      "orders": { "num": "100K+", "label": "Orders" }
+    }
+  },
+  "story": {
+    "eyebrow": "Our story",
+    "title": "Why we built Stallio",
+    "p1": "We watched talented sellers spend their days copy-pasting product details into WhatsApp DMs, tracking orders in handwritten notebooks, and losing buyers to a checkout process that didn't exist.",
+    "p2": "The tools they had were built for warehouses, not for someone running a boutique from their phone. So, we built Stallio — a store that lives at a single link and fits the way social selling actually works.",
+    "p3": "No domains to configure. No payment gateways to negotiate. Just your products, your buyers, and one link you share everywhere.",
+    "timeline": {
+      "step1": { "id": "The problem", "detail": "Watching sellers drown in DMs", "step": "01" },
+      "step2": { "id": "First version", "detail": "Launched to 50 beta sellers", "step": "02" },
+      "step3": { "id": "Growing fast", "detail": "500+ active stores nationwide", "step": "03" }
+    }
+  },
+  "values": {
+    "eyebrow": "What we believe",
+    "title": "Our values",
+    "principles": "principles",
+    "items": [
+      {
+        "index": "01",
+        "title": "Speed over ceremony",
+        "desc": "If it takes more than a minute to set up, we rethink it. Every screen, every step."
+      },
+      {
+        "index": "02",
+        "title": "Sellers keep control",
+        "desc": "Your payments, your buyers, your data. We stay out of the middle, always."
+      },
+      {
+        "index": "03",
+        "title": "Built for this market",
+        "desc": "Designed for how social commerce actually works."
+      },
+      {
+        "index": "04",
+        "title": "Mobile first, always",
+        "desc": "Your buyers are on their phones. So is every pixel, every interaction we write."
+      }
+    ]
+  },
+  "howWeThink": {
+    "eyebrow": "How we think",
+    "title": "Principles behind the product",
+    "card1": {
+      "eyebrow": "Built for real sellers",
+      "title": "Home kitchens, studios,\nand side hustles.",
+      "body": "Not enterprise procurement. Stallio is designed for the seller who runs their business from their phone and ships every day."
+    },
+    "card2": {
+      "title": "Straightforward\nby design",
+      "body": "Fewer knobs and plugins. A clear path from catalog to order."
+    },
+    "card3": {
+      "title": "Room to grow",
+      "body": "Start small, add products and polish as your audience grows with you."
+    },
+    "card4": {
+      "eyebrow": "Built for momentum",
+      "title": "Whether you're testing a new line or shipping every week",
+      "body": "Stallio is meant to stay out of the way. Update products, tweak copy, and keep selling without rebuilding a whole site."
+    },
+    "card5": {
+      "eyebrow": "Our vision",
+      "title": "Independent sellers deserve tools that feel premium and honest.",
+      "body": "Clear pricing, clear fulfillment, and a storefront that respects the buyer's time as much as yours."
+    }
+  },
+  "statsStrip": {
+    "ariaLabel": "Stallio by the numbers",
+    "sellers": { "num": "500+", "label": "Active sellers" },
+    "cities": { "num": "50+", "label": "Cities reached" },
+    "orders": { "num": "100K+", "label": "Orders managed" }
+  }
+}

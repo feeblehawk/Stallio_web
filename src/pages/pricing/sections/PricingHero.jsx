@@ -1,8 +1,10 @@
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
-import { ArrowRight, Zap, TrendingUp } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import { Zap, TrendingUp } from 'lucide-react'
 import PrimaryCTA from '../../../components/PrimaryCTA'
+import ArrowIcon from '../../../components/icons/ArrowIcon'
 import useReducedMotion from '../../../hooks/useReducedMotion'
 import {
   blurReveal,
@@ -15,7 +17,7 @@ import { css } from '../../../utils/cssTokens'
 // ─── Trust dot ───────────────────────────────────────────────────────────────
 const TrustDot = ({ children }) => (
   <span className="inline-flex items-center gap-2 text-xs font-medium" style={{ color: css.mutedFg }}>
-    <span className="h-1.5 w-1.5 rounded-full flex-shrink-0" style={{ background: css.primary, opacity: 0.75 }} />
+    <span className="h-1.5 w-1.5 rounded-full shrink-0" style={{ background: css.primary, opacity: 0.75 }} />
     {children}
   </span>
 )
@@ -23,7 +25,7 @@ const TrustDot = ({ children }) => (
 // ─── Individual stat row with hover glow ─────────────────────────────────────
 const StatRow = ({ label, value, accent, delay, reducedMotion }) => (
   <motion.div
-    className="flex items-center justify-between rounded-xl px-4 py-3"
+    className="flex items-center justify-between rounded-xl px-4 py-3 text-start"
     style={{
       background:   'color-mix(in oklch, var(--primary) 3%, var(--surface-muted))',
       border:       '1px solid var(--border)',
@@ -53,14 +55,13 @@ const PlanPill = ({ label, Icon, badge, active, onClick }) => (
     type="button"
     onClick={onClick}
     aria-pressed={active}
-    className="group relative flex flex-1 flex-col items-center gap-1 rounded-xl px-1 py-2.5 text-center focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring"
+    className="group relative flex flex-1 flex-col items-center gap-1 rounded-xl px-1 py-2.5 text-center focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring cursor-pointer"
   >
     {active && (
       <motion.span
         layoutId="active-plan"
         className="absolute inset-0 rounded-xl"
-        transition={{ type: 'spring', stiffness: 450, damping: 32, mass: 0.7,
-        }}
+        transition={{ type: 'spring', stiffness: 450, damping: 32, mass: 0.7 }}
         style={{
           background: 'color-mix(in oklch, var(--primary) 10%, var(--surface))',
           border: '1px solid color-mix(in oklch, var(--primary) 28%, transparent)',
@@ -105,37 +106,37 @@ const PlanPill = ({ label, Icon, badge, active, onClick }) => (
 
 // ─── Static Pricing Mockup ────────────────────────────────────────────────────
 const PricingMockup = ({ reducedMotion }) => {
+  const { t } = useTranslation('pricing')
   const [activePlan, setActive] = useState('monthly')
 
-  const PLANS = [
+  const plans = [
     {
       id:         'monthly',
-      label:      'Monthly',
+      label:      t('hero.mockup.monthly.label', 'Monthly'),
       Icon:       TrendingUp,
-      badge:      'Popular',
-      priceLabel: '$5',
-      suffix:     '/ mo',
-      note:       'Billed monthly · cancel anytime',
+      badge:      t('hero.mockup.monthly.badge', 'Popular'),
+      priceLabel: t('hero.mockup.monthly.priceLabel', '$5'),
+      suffix:     t('hero.mockup.monthly.suffix', '/ mo'),
+      note:       t('hero.mockup.monthly.note', 'Billed monthly · cancel anytime'),
     },
     {
       id:         'yearly',
-      label:      'Yearly',
+      label:      t('hero.mockup.yearly.label', 'Yearly'),
       Icon:       Zap,
       badge:      null,
-      priceLabel: '$55',
-      suffix:     '/ yr',
-      note:       'One payment · save 27%',
+      priceLabel: t('hero.mockup.yearly.priceLabel', '$55'),
+      suffix:     t('hero.mockup.yearly.suffix', '/ yr'),
+      note:       t('hero.mockup.yearly.note', 'One payment · save 27%'),
     },
   ]
 
-  const plan = PLANS.find(p => p.id === activePlan)
+  const plan = plans.find(p => p.id === activePlan) || plans[0]
 
-  // Static stats — no features list
-  const STATS = [
-    { label: 'Avg. setup time',     value: '< 5 min',   accent: css.primary              },
-    { label: 'Free trial',          value: '30 days',    accent: css.primary              },
-    { label: 'Products',            value: 'Unlimited',  accent: css.fg                   },
-    { label: 'Custom domain',       value: 'Included',   accent: css.fg                   },
+  const stats = [
+    { label: t('hero.mockup.stats.setup.label', 'Avg. setup time'), value: t('hero.mockup.stats.setup.value', '< 5 min'), accent: css.primary },
+    { label: t('hero.mockup.stats.trial.label', 'Free trial'), value: t('hero.mockup.stats.trial.value', '30 days'), accent: css.primary },
+    { label: t('hero.mockup.stats.products.label', 'Products'), value: t('hero.mockup.stats.products.value', 'Unlimited'), accent: css.fg },
+    { label: t('hero.mockup.stats.domain.label', 'Custom domain'), value: t('hero.mockup.stats.domain.value', 'Included'), accent: css.fg },
   ]
 
   return (
@@ -158,7 +159,7 @@ const PricingMockup = ({ reducedMotion }) => {
 
       {/* Card shell */}
       <div
-        className="relative overflow-hidden rounded-2xl"
+        className="relative overflow-hidden rounded-2xl text-start"
         style={{
           background: css.surface,
           border:     '1px solid var(--border)',
@@ -174,25 +175,24 @@ const PricingMockup = ({ reducedMotion }) => {
         />
 
         <div className="p-5">
-
           {/* Header */}
           <span
             className="text-[11px] font-semibold uppercase tracking-[0.18em]"
             style={{ color: css.mutedFg }}
           >
-            Choose your plan
+            {t('hero.mockup.header', 'Choose your plan')}
           </span>
 
           {/* Plan tabs */}
           <div
             className="mb-4 mt-3 grid gap-1.5 rounded-xl p-1"
             style={{
-              gridTemplateColumns: `repeat(${PLANS.length}, 1fr)`,
+              gridTemplateColumns: `repeat(${plans.length}, 1fr)`,
               background: 'var(--surface-muted)',
               border:     '1px solid var(--border)',
             }}
           >
-            {PLANS.map(p => (
+            {plans.map(p => (
               <PlanPill
                 key={p.id}
                 label={p.label}
@@ -237,7 +237,7 @@ const PricingMockup = ({ reducedMotion }) => {
 
           {/* Stat rows — each with its own hover glow */}
           <div className="flex flex-col gap-2">
-            {STATS.map((s, i) => (
+            {stats.map((s, i) => (
               <StatRow
                 key={s.label}
                 label={s.label}
@@ -251,24 +251,23 @@ const PricingMockup = ({ reducedMotion }) => {
 
           {/* CTA */}
           <div
-            className="group relative mt-5 flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl py-3 text-sm font-bold transition-all duration-200 hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+            className="group relative mt-5 flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl py-3 text-sm font-bold transition-all duration-200 hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring cursor-pointer"
             style={{
               background: css.primary,
               color:      css.primaryFg,
               boxShadow:  '0 4px 20px color-mix(in oklch, var(--primary) 32%, transparent)',
             }}
           >
-            {/* Shimmer sweep on hover */}
             <span
               className="pointer-events-none absolute inset-0 -translate-x-full skew-x-[-20deg] bg-white/10 transition-transform duration-500 group-hover:translate-x-[200%]"
               aria-hidden="true"
             />
-            Start Free Trial
-            <ArrowRight size={14} aria-hidden="true" />
+            {t('hero.mockup.startTrial', 'Start Free Trial')}
+            <ArrowIcon />
           </div>
 
           <p className="mt-2 text-center text-[10.5px]" style={{ color: css.mutedFg }}>
-            No credit card required
+            {t('hero.mockup.noCardRequired', 'No credit card required')}
           </p>
         </div>
 
@@ -277,7 +276,7 @@ const PricingMockup = ({ reducedMotion }) => {
           className="flex items-center justify-between px-5 py-3"
           style={{ borderTop: '1px solid var(--border)', background: 'var(--surface-muted)' }}
         >
-          <div className="flex -space-x-2" aria-hidden="true">
+          <div className="flex -space-x-2 rtl:space-x-reverse" aria-hidden="true">
             {['#7C6AF5', '#5BC4A0', '#F5A744', '#E05C7A'].map((bg, i) => (
               <span
                 key={i}
@@ -289,21 +288,18 @@ const PricingMockup = ({ reducedMotion }) => {
             ))}
           </div>
           <p className="text-[10.5px]" style={{ color: css.mutedFg }}>
-            <span className="font-semibold" style={{ color: css.fg }}>2,400+</span>{' '}
-            sellers active this month
+            <span className="font-semibold" style={{ color: css.fg }}>{t('hero.mockup.activeCount', '2,400+')}</span>{' '}
+            {t('hero.mockup.activeSellers', 'sellers active this month')}
           </p>
         </div>
       </div>
-
-    
-
-     
     </motion.div>
   )
 }
 
 // ─── PricingHero ──────────────────────────────────────────────────────────────
 const PricingHero = () => {
+  const { t } = useTranslation('pricing')
   const sectionRef    = useRef(null)
   const inView        = useInView(sectionRef, { once: true, margin: '-40px' })
   const reducedMotion = useReducedMotion()
@@ -335,7 +331,7 @@ const PricingHero = () => {
 
           {/* ── Left column ── */}
           <motion.div
-            className="text-center lg:text-left"
+            className="text-center lg:text-start"
             variants={staggerContainer}
             initial={reducedMotion ? false : 'hidden'}
             animate={isVisible ? 'visible' : 'hidden'}
@@ -353,7 +349,7 @@ const PricingHero = () => {
               >
                 <span className="h-1.5 w-1.5 rounded-full" style={{ background: css.primary }} />
                 <span className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: css.mutedFg }}>
-                  Simple, transparent pricing
+                  {t('hero.eyebrow', 'Simple, transparent pricing')}
                 </span>
               </div>
             </motion.div>
@@ -365,8 +361,8 @@ const PricingHero = () => {
               className="font-heading font-extrabold tracking-[-0.055em]"
               style={{ fontSize: 'clamp(2.5rem, 5.5vw, 4.5rem)', lineHeight: 1.02, color: css.fg }}
             >
-              One plan that{' '}
-              <span style={{ color: css.primary }}>grows with you.</span>
+              {t('hero.headline', 'One plan that')}{' '}
+              <span style={{ color: css.primary }}>{t('hero.headlineHighlight', 'grows with you.')}</span>
             </motion.h1>
 
             {/* Subtitle */}
@@ -375,8 +371,7 @@ const PricingHero = () => {
               className="mx-auto mt-5 max-w-md text-base leading-7 sm:text-[17px] lg:mx-0"
               style={{ color: css.mutedFg }}
             >
-              Start free. Go pro when your DMs become a full-time job. No commissions,
-              no gotchas, just tools that work.
+              {t('hero.body', 'Start free. Go pro when your DMs become a full-time job. No commissions, no gotchas, just tools that work.')}
             </motion.p>
 
             {/* CTAs */}
@@ -385,7 +380,7 @@ const PricingHero = () => {
               className="mt-8 flex w-full flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4 lg:justify-start"
             >
               <PrimaryCTA to="/signup" size="lg" className="w-full text-[15px] font-bold shadow-lg shadow-black/5 sm:w-auto">
-                Create Your Store
+                {t('hero.cta.createStore', 'Create Your Store')}
               </PrimaryCTA>
 
               <Link
@@ -393,8 +388,8 @@ const PricingHero = () => {
                 className="group inline-flex w-full items-center justify-center gap-2 rounded-xl border px-6 py-3 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:border-[color:var(--primary)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring sm:w-auto"
                 style={{ borderColor: css.border, background: 'color-mix(in oklch, var(--surface) 80%, transparent)', color: css.fg }}
               >
-                What You Get
-                <ArrowRight size={15} aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-0.5" />
+                {t('hero.cta.whatYouGet', 'What You Get')}
+                <ArrowIcon />
               </Link>
             </motion.div>
 
@@ -403,9 +398,9 @@ const PricingHero = () => {
               variants={revealSoft}
               className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 lg:justify-start"
             >
-              <TrustDot>No credit card</TrustDot>
-              <TrustDot>Live in 5 minutes</TrustDot>
-              <TrustDot>Cancel anytime</TrustDot>
+              <TrustDot>{t('hero.trust.noCard', 'No credit card')}</TrustDot>
+              <TrustDot>{t('hero.trust.liveFast', 'Live in 5 minutes')}</TrustDot>
+              <TrustDot>{t('hero.trust.cancel', 'Cancel anytime')}</TrustDot>
             </motion.div>
 
             {/* Stats strip */}
@@ -416,13 +411,13 @@ const PricingHero = () => {
               aria-label="Platform highlights"
             >
               {[
-                { value: '5 min',   label: 'avg setup'  },
-                { value: '30 days', label: 'free trial' },
-                { value: '100%',    label: 'access'},
+                { value: t('hero.stats.setup.value', '5 min'),   label: t('hero.stats.setup.label', 'avg setup') },
+                { value: t('hero.stats.trial.value', '30 days'), label: t('hero.stats.trial.label', 'free trial') },
+                { value: t('hero.stats.access.value', '100%'),    label: t('hero.stats.access.label', 'access') },
               ].map((stat, i) => (
                 <div key={stat.label} role="listitem" className="flex items-stretch">
                   {i > 0 && <div className="mx-6 w-px self-stretch" aria-hidden="true" style={{ background: css.border }} />}
-                  <div className="flex flex-col gap-0.5">
+                  <div className="flex flex-col gap-0.5 text-start">
                     <span
                       className="font-heading font-extrabold tabular-nums tracking-[-0.03em]"
                       style={{ fontSize: 'clamp(1.2rem, 2.5vw, 1.55rem)', color: css.fg }}

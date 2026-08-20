@@ -1,0 +1,491 @@
+{
+  "hero": {
+    "eyebrow": "Social selling, simplified",
+    "headline1": "Your store.",
+    "headline2": "One link away.",
+    "body": "Stallio turns your social-selling presence into a real online store. One polished link where customers browse, buy, and checkout.",
+    "seeHow": "See how it works",
+    "trustFree": "Free to start",
+    "trustCard": "No card required",
+    "trustLive": "Live in minutes",
+    "notification": {
+      "title": "New Order",
+      "detail": "₨ 4,500 • Just now"
+    }
+  },
+
+  "dmStoreTransform": {
+    "eyebrow": "From DMs to Store",
+    "headline": "From scattered DMs to one organized store.",
+    "body": "Keep using chat apps customers already love while giving them a polished online storefront.",
+    "instagram": {
+      "title": "Instagram",
+      "subtitle": "Customer messages",
+      "headerTitle": "Instagram DMs",
+      "headerSubtitle": "4 unanswered questions",
+      "messages": [
+        "How much?",
+        "Is this available?",
+        "How can I order?",
+        "Delivery to Lahore?"
+      ],
+      "quickReplies": ["Price?", "Sizes?", "COD?", "In stock?"],
+      "inputPlaceholder": "Message…"
+    },
+    "whatsapp": {
+      "title": "WhatsApp",
+      "subtitle": "Customer messages",
+      "messages": [
+        "Price?",
+        "COD available?",
+        "What sizes?"
+      ]
+    },
+    "stallioNode": {
+      "label": "STALLIO",
+      "features": [
+        "Auto-sorts every DM",
+        "Builds your catalogue",
+        "One link, all orders"
+      ],
+      "description": "All your DM chaos funnelled into",
+      "descriptionHighlight": "one organised store.",
+      "storeLinkLabel": "stallio.shop/",
+      "storeLinkBrand": "yourbrand",
+      "storeLiveLabel": "Live"
+    },
+    "story": {
+      "cards": [
+        { "label": "Before", "tag": "Instagram DMs" },
+        { "label": "Then",   "tag": "Stallio connects it" },
+        { "label": "After",  "tag": "Your store" }
+      ],
+      "swipeHint": "Swipe to explore",
+      "storeCardNote": "Customers browse, order, and pay — no DMs"
+    }
+  },
+
+  "beforeAfter": {
+    "eyebrow": "Before → After",
+    "headline": "Make your business look as good as what you sell.",
+    "body": "Stallio turns the messy part of social selling into a simple customer journey without changing the way you reach people.",
+    "before": {
+      "label": "Before",
+      "subtitle": "Chat-only selling",
+      "points": [
+        "Selling through scattered posts and messages",
+        "Manually sharing product photos, prices, and details with every customer",
+        "Managing orders manually makes it easy to miss sales"
+      ]
+    },
+    "after": {
+      "label": "After",
+      "subtitle": "With Stallio",
+      "points": [
+        "A professional online storefront, ready in minutes.",
+        "Share your storefront anywhere, social media, bio, messages, or ads.",
+        "Give shoppers a clear, trustworthy path from product discovery to purchase."
+      ]
+    },
+    "dividerLabel": "One link replaces the back-and-forth"
+  },
+
+  "whoItFits": {
+    "eyebrow": "Who It Fits",
+    "headline": "Built for the way you sell.",
+    "body": "Works for social sellers, growing brands, and first-time store owners who want one clear storefront link.",
+    "personas": [
+      {
+        "id": "starting-out",
+        "label": "Starting out",
+        "title": "Your first store, ready in minutes.",
+        "body": "Add your products, choose your look, and share one link. No domain, hosting, or developer needed."
+      },
+      {
+        "id": "social-seller",
+        "label": "Social seller",
+        "title": "Turn conversations into customers.",
+        "body": "Keep Instagram and WhatsApp as your reach, while Stallio gives every customer a clear place to browse and buy."
+      },
+      {
+        "id": "growing-business",
+        "label": "Growing business",
+        "title": "A cleaner system as you grow.",
+        "body": "Move beyond manual order handling with one place for products, orders, and the storefront your customers see."
+      }
+    ]
+  },
+
+  "insideTheBox": {
+    "eyebrow": "Inside The Box",
+    "headline": "Everything in the box.",
+    "body": "Six tools, one platform. Everything an Instagram or WhatsApp seller needs to go from DMs to a real online business is already built in.",
+    "trustStrip": [
+      "No domain required",
+      "No payment gateway setup",
+      "Free to start",
+      "Works on any device"
+    ],
+    "dashboard": {
+      "eyebrow": "Your dashboard",
+      "title": "Everything in one place.",
+      "body": "Revenue, orders, products and activity all on your Stallio dashboard.",
+      "sidebar": {
+        "heading": "Stallio",
+        "items": ["Dashboard", "Products", "Orders", "Analytics", "Settings"]
+      },
+      "stats": [
+        { "label": "Revenue",  "value": "₨ 84.5k", "trend": "+12%" },
+        { "label": "Orders",   "value": "42",       "trend": "+8%"  },
+        { "label": "Products", "value": "128",      "trend": "→"    }
+      ],
+      "chart": {
+        "title": "Weekly sales",
+        "days": ["M", "T", "W", "T", "F"]
+      },
+      "recentOrders": {
+        "title": "Recent orders",
+        "statuses": {
+          "new": "New",
+          "shipped": "Shipped",
+          "done": "Done"
+        }
+      },
+      "topProducts": {
+        "title": "Top Products",
+        "viewAll": "View all →",
+        "soldSuffix": "sold"
+      },
+      "activity": {
+        "title": "Recent Activity",
+        "entries": [
+          "New order from Ayesha K.",
+          "Payment confirmed · #1051",
+          "Product \"Sneakers\" updated"
+        ],
+        "times": ["2m ago", "8m ago", "22m ago"]
+      },
+      "urlBar": "stallio.shop/"
+    },
+    "storefront": {
+      "eyebrow": "Your brand, online",
+      "title": "Professional Storefront",
+      "body": "A beautiful, mobile-first store. No code, no domain, no hassle.",
+      "storeHeader": {
+        "name": "YourShop",
+        "url": "stallio.shop/yourshop"
+      },
+      "featuredBanner": {
+        "label": "Featured Collection",
+        "title": "Summer '25 Arrivals"
+      },
+      "cartBar": {
+        "label": "View cart",
+        "open": "↗"
+      }
+    },
+    "features": {
+      "checkout": {
+        "eyebrow": "Zero friction",
+        "title": "Simple Checkout",
+        "description": "Customers place orders in seconds. No waiting for DMs.",
+        "orderSummary": {
+          "heading": "Order Summary",
+          "totalLabel": "Total",
+          "placeOrder": "Place Order →"
+        }
+      },
+      "link": {
+        "eyebrow": "One link, everywhere",
+        "title": "Shareable Link",
+        "description": "Share one link on Instagram, WhatsApp, or anywhere.",
+        "copyLabel": "Copy",
+        "platforms": ["Instagram", "WhatsApp", "Facebook"]
+      },
+      "orders": {
+        "eyebrow": "Nothing gets lost",
+        "title": "Order Dashboard",
+        "description": "Every order neatly tracked. Stop managing sales through DMs.",
+        "statuses": {
+          "new": "New",
+          "shipped": "Shipped",
+          "done": "Done"
+        }
+      },
+      "products": {
+        "eyebrow": "Stay organised",
+        "title": "Product Management",
+        "description": "Add, edit, and reorder your full catalog in moments.",
+        "stockSuffix": "left"
+      },
+      "analytics": {
+        "eyebrow": "Know your numbers",
+        "title": "Analytics",
+        "description": "See what's selling, when, and how much at a glance.",
+        "revenue": "Revenue",
+        "vsLastWeek": "vs last week",
+        "weeklyTitle": "Weekly sales",
+        "days": ["M", "T", "W", "T", "F", "S", "S"]
+      }
+    }
+  },
+
+  "howItWorks": {
+    "eyebrow": "How It Works",
+    "headline": "From a tap to a sale,",
+    "headlineHighlight": "in seconds.",
+    "body": "Follow the quick buyer journey that turns social traffic into orders without extra setup.",
+    "scrollHint": "Scroll to explore →",
+    "stepLabel": "Step",
+    "ofLabel": "of",
+    "scenes": [
+      {
+        "id": "social",
+        "num": "01",
+        "label": "Social Post",
+        "title": "Customer sees your product",
+        "caption": "Discover your products on Instagram or WhatsApp with a clean, branded look."
+      },
+      {
+        "id": "link",
+        "num": "02",
+        "label": "One Link",
+        "title": "They tap the link in bio",
+        "caption": "One memorable link in your bio replaces repetitive DM price inquiries."
+      },
+      {
+        "id": "store",
+        "num": "03",
+        "label": "Your Store",
+        "title": "Storefront opens instantly",
+        "caption": "Customers browse your full catalog with real photos, clear prices, and details."
+      },
+      {
+        "id": "checkout",
+        "num": "04",
+        "label": "Checkout",
+        "title": "Frictionless order placement",
+        "caption": "Shoppers select options and place orders in seconds without waiting for DMs."
+      },
+      {
+        "id": "confirmed",
+        "num": "05",
+        "label": "Order Confirmed",
+        "title": "You get notified instantly",
+        "caption": "Orders land neatly organized in your dashboard with customer notifications sent."
+      }
+    ],
+    "sceneContent": {
+      "social": {
+        "accountName": "yourshop",
+        "postTime": "Instagram Post • 2h ago",
+        "featuredBadge": "Featured",
+        "caption": "Summer collection is live! 👇",
+        "bioBadge": "Bio ↗",
+        "storeLink": "stallio.shop/yourshop"
+      },
+      "link": {
+        "accountHandle": "@yourshop",
+        "linkSubtitle": "Official Stallio Store Link",
+        "visitLabel": "Visit Storefront",
+        "storeLink": "stallio.shop/yourshop",
+        "openLabel": "Open ↗",
+        "instantLoading": "⚡ Instant loading",
+        "noApp": "No app needed",
+        "paymentMethods": "📦 COD & Card",
+        "verifiedStore": "Verified Store",
+        "poweredBy": "Powered by",
+        "poweredByBrand": "Stallio"
+      },
+      "store": {
+        "shopName": "Your Shop",
+        "storeUrl": "stallio.shop/yourshop",
+        "verifiedBadge": "Verified",
+        "searchPlaceholder": "Search collection…",
+        "cartLabel": "1 item in cart"
+      },
+      "checkout": {
+        "title": "Order Checkout",
+        "step": "Step 2 of 2",
+        "fields": [
+          { "label": "Full Name",         "value": "Amna Khan" },
+          { "label": "City / Delivery",   "value": "Lahore (Cash on Delivery)" },
+          { "label": "Phone / WhatsApp",  "value": "0300-1234567" }
+        ],
+        "qty": "Qty: 1 • Size: M",
+        "completeButton": "Complete Order →"
+      },
+      "confirmed": {
+        "title": "Order Confirmed!",
+        "orderId": "Order #STL-2847",
+        "message": "Confirmation sent to",
+        "messageSuffix": "via WhatsApp automatically.",
+        "customerName": "Amna Khan",
+        "notificationTitle": "New Order Received",
+        "notificationDetail": "₨ 1,200 • Just now"
+      }
+    },
+    "accessibility": {
+      "goToStep": "Go to step {{num}}: {{label}}"
+    }
+  },
+
+  "whatsIncluded": {
+    "eyebrow": "What's Included",
+    "headline": "One plan. The full seller toolkit.",
+    "body": "Everything below is part of Stallio, not add-ons. Start free, then pick monthly or yearly when you're ready.",
+    "columns": {
+      "storeProducts": {
+        "label": "Store & Products",
+        "features": [
+          {
+            "id": "link",
+            "label": "Hosted stallio.shop link",
+            "sub": "No domain needed"
+          },
+          {
+            "id": "products",
+            "label": "Unlimited products & photos",
+            "sub": "No caps, ever"
+          },
+          {
+            "id": "storefront",
+            "label": "Mobile storefront & checkout",
+            "sub": "Cart built-in"
+          },
+          {
+            "id": "variants",
+            "label": "Variants, sale prices & stock",
+            "sub": "Sizes, colours, and more"
+          }
+        ]
+      },
+      "operations": {
+        "label": "Operations",
+        "features": [
+          {
+            "id": "pages",
+            "label": "About and Contact pages",
+            "sub": "Ready to customise"
+          },
+          {
+            "id": "coupons",
+            "label": "Coupons and delivery fees",
+            "sub": "Discounts that close sales"
+          },
+          {
+            "id": "invoice",
+            "label": "PDF invoice per order",
+            "sub": "Auto-generated"
+          },
+          {
+            "id": "orders",
+            "label": "Mark paid, ship & export CSV",
+            "sub": "Full order lifecycle"
+          }
+        ]
+      },
+      "growth": {
+        "label": "Growth",
+        "features": [
+          {
+            "id": "i18n",
+            "label": "Shop in EN, ES, and AR",
+            "sub": "Dashboard too"
+          },
+          {
+            "id": "analytics",
+            "label": "Revenue and order charts",
+            "sub": "See what's working"
+          },
+          {
+            "id": "messages",
+            "label": "Buyer messages & support chat",
+            "sub": "Stay close to customers"
+          },
+          {
+            "id": "free",
+            "label": "First month free",
+            "sub": "No card required"
+          }
+        ]
+      }
+    },
+    "bottomBadge": "All features included in every plan, no hidden add-ons"
+  },
+
+  "whyStallio": {
+    "eyebrow": "Why it lands",
+    "headline": "Sharp where money moves.",
+    "headlineSecondary": "Quiet everywhere else.",
+    "body": "Fewer tools to babysit. More time making and shipping.",
+    "stats": [
+      { "num": "1 link",  "label": "your whole store"    },
+      { "num": "0 apps",  "label": "to stitch together"  },
+      { "num": "30 days", "label": "on us, no card"      }
+    ],
+    "freePill": "First month completely free",
+    "features": [
+      {
+        "id": "domain",
+        "title": "No domain stress",
+        "desc": "stallio.shop link, ready instantly. No DNS, hosting, or deploy keys."
+      },
+      {
+        "id": "payment",
+        "title": "You collect payment",
+        "desc": "Bank, link, or COD. Stallio never sits between you and your buyer."
+      },
+      {
+        "id": "thumbs",
+        "title": "Built for thumbs",
+        "desc": "Mobile storefront where your buyers already are."
+      },
+      {
+        "id": "orders",
+        "title": "Orders in one place",
+        "desc": "Status, invoice, and history are not scattered across DMs."
+      },
+      {
+        "id": "promotions",
+        "title": "Run promotions",
+        "desc": "Coupon codes and delivery fees, all in Stallio."
+      }
+    ]
+  },
+
+  "finalCta": {
+    "eyebrow": "Start Selling Today",
+    "headline": "Ready to turn your social link",
+    "headlineHighlight": "into a real online store?",
+    "body": "Spin up a store in 60 seconds. Share your link tonight. Wake up to real orders instead of messages lost in your DM request folder.",
+    "primaryButton": "Create Your Store",
+    "secondaryButton": "Explore Features",
+    "trustBadges": [
+      "No credit card required",
+      "Live in under 5 minutes",
+      "Free forever plan available"
+    ]
+  },
+
+  "products": {
+    "classicTee": "Classic Tee",
+    "sneakers": "Sneakers",
+    "summerKurta": "Summer Kurta",
+    "linenShirt": "Linen Shirt",
+    "blueClassicSuit": "Blue Classic Suit",
+    "badges": {
+      "new": "New",
+      "hot": "Hot",
+      "sale": "Sale"
+    }
+  },
+
+  "orders": {
+    "statuses": {
+      "new": "New",
+      "shipped": "Shipped",
+      "done": "Done"
+    }
+  }
+}

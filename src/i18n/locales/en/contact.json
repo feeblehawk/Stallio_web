@@ -1,0 +1,70 @@
+{
+  "hero": {
+    "eyebrow": "Get in Touch",
+    "headline": "Have a question?",
+    "headlineHighlight": "Let's Talk.",
+    "subtext": "Whether you have a question about your store, need help setting things up, or just want to say hello, We are here.",
+    "trust": {
+      "replies": "Replies within 24 hours",
+      "whatsapp": "WhatsApp support",
+      "noQueue": "No ticket queues"
+    }
+  },
+  "form": {
+    "channels": {
+      "eyebrow": "Contact channels",
+      "headline": "Pick the channel",
+      "headlineHighlight": "that works for you.",
+      "subtext": "Questions, ideas, or need a hand? Tell us what you're working on and we'll take it from there.",
+      "findUs": "Find us on",
+      "replyBadge": "Average reply time: under 24 hours"
+    },
+    "formHeading": {
+      "title": "Send us a message",
+      "subtitle": "All fields marked with * are required."
+    },
+    "fields": {
+      "name": "Your name *",
+      "email": "Email address *",
+      "topic": "What's this about? *",
+      "topicPlaceholder": "Select a topic",
+      "message": "Your message *",
+      "phone": "WhatsApp / phone (optional)"
+    },
+    "topics": {
+      "general": "General enquiry",
+      "support": "Store support",
+      "pricing": "Pricing & plans",
+      "partnership": "Partnership",
+      "bug": "Report a bug",
+      "other": "Something else"
+    },
+    "errors": {
+      "name": "Please enter your name",
+      "email": "Please enter your email",
+      "emailInvalid": "Enter a valid email address",
+      "topic": "Please choose a topic",
+      "message": "Tell us what's on your mind"
+    },
+    "submit": "Send Message",
+    "sending": "Sending…",
+    "privacy": "We keep your details private and never share them with third parties.",
+    "success": {
+      "title": "Message sent!",
+      "desc": "Your message has been sent. We will reach out to you as soon as possible. Check your inbox (and spam, just in case).",
+      "sendAnother": "Send another message"
+    }
+  },
+  "cta": {
+    "eyebrow": "Still have questions?",
+    "headline": "Let's figure it out",
+    "headlineHighlight": "together.",
+    "body": "Whether you're exploring Stallio, setting up your store, or looking for the right way to grow, we're here to help.",
+    "primary": "Get Started",
+    "secondary": "Explore Stallio",
+    "trust": {
+      "support": "Real support, real answers",
+      "replies": "Replies within 24 hours"
+    }
+  }
+}

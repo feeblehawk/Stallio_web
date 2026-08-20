@@ -5,6 +5,7 @@ import PhoneMockup from '../../../components/PhoneMockup'
 import StallioStoreUI from '../../../components/StallioStoreUI'
 import useReducedMotion from '../../../hooks/useReducedMotion'
 import { blurReveal, reveal, revealSoft, staggerHero } from '../../../utils/motionVariants'
+import { useTranslation } from 'react-i18next'
 
 const TrustBadge = ({ children }) => (
   <span
@@ -21,6 +22,7 @@ const TrustBadge = ({ children }) => (
 
 const Hero = () => {
   const reducedMotion = useReducedMotion()
+  const { t } = useTranslation('home')
 
   const motionProps = reducedMotion
     ? { initial: false, animate: 'visible' }
@@ -56,7 +58,7 @@ const Hero = () => {
 
           {/* ── Left: Headline + CTAs ── */}
           <motion.div
-            className="max-w-2xl text-center lg:text-left"
+            className="max-w-2xl text-center lg:text-start"
             variants={staggerHero}
             {...motionProps}
           >
@@ -77,7 +79,7 @@ const Hero = () => {
                   className="text-[11px] font-semibold uppercase tracking-[0.2em]"
                   style={{ color: 'var(--muted-foreground)' }}
                 >
-                  Social selling, simplified
+                  {t('hero.eyebrow')}
                 </span>
               </div>
             </motion.div>
@@ -92,19 +94,18 @@ const Hero = () => {
                 color: 'var(--foreground)',
               }}
             >
-              Your store.
+              {t('hero.headline1')}
               <br />
-              One link away.
+              {t('hero.headline2')}
             </motion.h1>
 
             {/* Body copy */}
             <motion.p
               variants={reveal}
-              className="mx-auto mt-6 max-w-xl text-base leading-7 sm:text-lg lg:mx-0"
+              className="mx-auto mt-6 max-w-xl text-base leading-7 sm:text-lg lg:mx-0 text-center lg:text-start"
               style={{ color: 'var(--muted-foreground)' }}
             >
-              Stallio turns your social-selling presence into a real online store. One polished link
-              where customers browse, buy, and checkout.
+              {t('hero.body')}
             </motion.p>
 
             {/* CTAs */}
@@ -122,9 +123,9 @@ const Hero = () => {
                   background: 'color-mix(in oklch, var(--surface) 80%, transparent)',
                 }}
               >
-                See how it works
+                {t('hero.seeHow')}
                 <span
-                  className="transition-transform duration-300 group-hover:translate-x-0.5"
+                  className="inline-block transition-transform duration-300 group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5"
                   aria-hidden="true"
                 >
                   →
@@ -137,9 +138,9 @@ const Hero = () => {
               variants={revealSoft}
               className="mt-6 flex flex-wrap justify-center gap-x-5 gap-y-2 lg:justify-start"
             >
-              <TrustBadge>Free to start</TrustBadge>
-              <TrustBadge>No card required</TrustBadge>
-              <TrustBadge>Live in minutes</TrustBadge>
+              <TrustBadge>{t('hero.trustFree')}</TrustBadge>
+              <TrustBadge>{t('hero.trustCard')}</TrustBadge>
+              <TrustBadge>{t('hero.trustLive')}</TrustBadge>
             </motion.div>
           </motion.div>
 
@@ -177,12 +178,12 @@ const Hero = () => {
                     >
                       ✓
                     </span>
-                    <div>
+                    <div className="text-start">
                       <div className="text-[10px] font-bold leading-tight" style={{ color: 'var(--foreground)' }}>
-                        New Order
+                        {t('hero.notification.title')}
                       </div>
                       <div className="text-[9px] font-medium" style={{ color: 'var(--muted-foreground)' }}>
-                        ₨ 4,500 • Just now
+                        {t('hero.notification.detail')}
                       </div>
                     </div>
                   </div>

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import { useInViewOnce } from '../../../hooks/useInViewOnce'
 import useReducedMotion from '../../../hooks/useReducedMotion'
 import { reveal, revealSoft, easePremium } from '../../../utils/motionVariants'
@@ -50,6 +51,7 @@ const GLOBE_DOTS = [
 ]
 
 const Mission = () => {
+  const { t } = useTranslation('about')
   const [ref, isInView] = useInViewOnce()
   const reducedMotion = useReducedMotion()
   const motionProps = reducedMotion
@@ -68,29 +70,29 @@ const Mission = () => {
         >
 
           {/* ── Left: quote block ── */}
-          <div>
+          <div className="text-start">
             <motion.span
               variants={revealSoft}
               {...motionProps}
               className="mb-10 inline-block text-[11px] font-semibold uppercase tracking-[0.2em] text-primary"
             >
-              Our mission
+              {t('mission.eyebrow', 'Our mission')}
             </motion.span>
 
             <motion.blockquote
               variants={reveal}
               {...motionProps}
-              className="max-w-2xl border-l-[3px] border-primary pl-8 sm:pl-12"
+              className="max-w-2xl border-s-[3px] border-primary ps-8 sm:ps-12 text-start"
             >
               <p
                 id="mission-heading"
                 className="font-heading font-bold leading-tight text-foreground"
                 style={{ fontSize: 'clamp(1.7rem, 4vw, 3rem)' }}
               >
-                Commerce moves through DMs.
+                {t('mission.quote1', 'Commerce moves through DMs.')}
                 <br />
                 <span className="font-semibold text-muted-foreground">
-                  We built the store for that.
+                  {t('mission.quote2', 'We built the store for that.')}
                 </span>
               </p>
             </motion.blockquote>
@@ -98,11 +100,9 @@ const Mission = () => {
             <motion.p
               variants={revealSoft}
               {...motionProps}
-              className="mt-10 max-w-xl pl-8 text-sm leading-7 text-muted-foreground sm:text-base"
+              className="mt-10 max-w-xl ps-8 text-sm leading-7 text-muted-foreground sm:text-base text-start"
             >
-              We're not building a marketplace. We're building the simplest, most powerful
-              store a solo seller can run from their phone, because that's where real
-              commerce actually happens.
+              {t('mission.body', "We're not building a marketplace. We're building the simplest, most powerful store a solo seller can run from their phone, because that's where real commerce actually happens.")}
             </motion.p>
           </div>
 
@@ -123,7 +123,7 @@ const Mission = () => {
                   aria-hidden="true"
                 />
                 <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
-                  Global reach
+                  {t('mission.card.reach', 'Global reach')}
                 </span>
               </div>
               <motion.span
@@ -132,13 +132,12 @@ const Mission = () => {
                 animate={isInView ? { opacity: 1 } : {}}
                 transition={{ duration: 0.6, ease: easePremium, delay: 0.7 }}
               >
-                Worldwide
+                {t('mission.card.worldwide', 'Worldwide')}
               </motion.span>
             </div>
 
             {/* Globe SVG */}
             <div className="relative flex items-center justify-center px-6 py-8">
-              {/* Radial glow — color-mix() must stay as style */}
               <div
                 className="pointer-events-none absolute inset-0"
                 style={{
@@ -261,19 +260,19 @@ const Mission = () => {
             {/* Footer stat strip */}
             <div className="grid grid-cols-3 border-t border-border">
               {[
-                { num: '500+',  label: 'Sellers'  },
-                { num: '50+',   label: 'Cities'   },
-                { num: '100K+', label: 'Orders'   },
+                { num: t('mission.stats.sellers.num', '500+'),  label: t('mission.stats.sellers.label', 'Sellers') },
+                { num: t('mission.stats.cities.num', '50+'),    label: t('mission.stats.cities.label', 'Cities') },
+                { num: t('mission.stats.orders.num', '100K+'),  label: t('mission.stats.orders.label', 'Orders') },
               ].map(({ num, label }, i) => (
                 <motion.div
                   key={label}
-                  className={`flex flex-col items-center gap-0.5 py-4 ${i < 2 ? 'border-r border-border' : ''}`}
+                  className={`flex flex-col items-center gap-0.5 py-4 ${i < 2 ? 'border-e border-border' : ''}`}
                   initial={reducedMotion ? false : { opacity: 0, y: 8 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, ease: easePremium, delay: 0.75 + i * 0.08 }}
                 >
                   <span
-                    className="font-heading font-extrabold tracking-[-0.03em] leading-none text-primary"
+                    className="font-heading font-extrabold tracking-[-0.03em] leading-none text-primary tabular-nums"
                     style={{ fontSize: '1.05rem' }}
                   >
                     {num}

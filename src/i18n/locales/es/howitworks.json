@@ -1,0 +1,210 @@
+{
+  "hero": {
+    "eyebrow": "Cómo Funciona Stallio",
+    "headline": "Tres pasos desde",
+    "headlineHighlight": "el enlace hasta tu primer pedido.",
+    "body": "Sin diseñar escaparates ni configurar plugins complejos. Elige el nombre de tu tienda, sube tus productos y comparte un único enlace donde ya están tus clientes.",
+    "stepPrefix": "Paso",
+    "steps": {
+      "step1": {
+        "title": "Crea tu tienda",
+        "summary": "Nómbrala, personalízala y publícala al instante."
+      },
+      "step2": {
+        "title": "Añade tus productos",
+        "summary": "Fotos, precios y stock en segundos."
+      },
+      "step3": {
+        "title": "Comparte un enlace",
+        "summary": "Recibe pedidos por IG, WhatsApp y TikTok."
+      }
+    },
+    "cta": {
+      "createStore": "Crea Tu Tienda",
+      "exploreFeatures": "Explorar Funciones"
+    },
+    "trust": {
+      "free": "Gratis para empezar",
+      "noCoding": "Sin código",
+      "liveFast": "Activa en 5 min"
+    },
+    "showcase": {
+      "orderReceived": "¡Pedido #1042 Recibido!",
+      "mobileProductDesc": "Traje Clásico de Hombre × 1 • ₨ 3,400",
+      "paidCod": "Pago Contra Reembolso",
+      "paid": "Pagado",
+      "live": "En vivo",
+      "storeName": "Tu Tienda",
+      "rating": "4.9",
+      "orderCount": "+140 pedidos",
+      "themeLabel": "Tema:",
+      "productsTitle": "Productos en Vivo",
+      "readyBadge": "3 artículos listos",
+      "whatsappCheckout": "Checkout por WhatsApp",
+      "buyNow": "Comprar Ahora",
+      "desktopKurtaDesc": "Kurta de Seda y Lino × 1 • ₨ 3,400",
+      "products": {
+        "suit": {
+          "name": "Traje Clásico de Hombre",
+          "price": "₨ 3,400",
+          "badge": "Popular"
+        },
+        "tote": {
+          "name": "Bolsa de Lona",
+          "price": "₨ 2,800",
+          "badge": "Nuevo"
+        },
+        "sneakers": {
+          "name": "Zapatillas Court",
+          "price": "₨ 6,200",
+          "badge": "Limitado"
+        }
+      }
+    }
+  },
+  "workflow": {
+    "eyebrow": "El Flujo de Trabajo",
+    "title": "Cómo funciona Stallio en acción",
+    "subtitle": "Descubre cómo tu negocio en redes sociales se transforma en una tienda online real.",
+    "stepBadge": "PASO {{num}}",
+    "stepOf": "PASO {{current}} DE {{total}}",
+    "interactive": "Interactivo",
+    "liveMockup": "Demostración en vivo",
+    "prevStepAria": "Paso anterior",
+    "nextStepAria": "Siguiente paso",
+    "goToSlideAria": "Ir a la diapositiva {{slide}}",
+    "steps": {
+      "create": {
+        "kicker": "Configuración",
+        "title": "Crea tu tienda en 60 segundos",
+        "body": "Elige el nombre de tu tienda, sube tu logo y selecciona el color de tu marca. Stallio genera al instante tu tienda, checkout rápido y bandeja de pedidos.",
+        "bullets": [
+          "Enlace activo al instante, sin configurar dominio",
+          "Identidad de marca y paleta de colores personalizada"
+        ],
+        "previewBadge": "Estudio Creador de Tienda"
+      },
+      "products": {
+        "kicker": "Catálogo",
+        "title": "Añade tus productos y variantes",
+        "body": "Fotos, precios, variantes y control de stock en segundos. Añade productos directamente desde tu móvil y obtén botones de compra listos para compartir.",
+        "bullets": [
+          "Subida masiva de fotos desde la galería del móvil",
+          "Variantes integradas, tallas y control de stock en tiempo real"
+        ],
+        "previewBadge": "Gestor de Catálogo e Inventario"
+      },
+      "share": {
+        "kicker": "Lanzamiento",
+        "title": "Comparte un enlace y recibe pedidos",
+        "body": "Copia tu enlace exclusivo de Stallio en tu biografía de Instagram, estado de WhatsApp o perfil de TikTok. Tus clientes compran sin mensajes interminables.",
+        "bullets": [
+          "Envío automatizado de pedidos y facturas por WhatsApp",
+          "Panel de pedidos en tiempo real y archivo de recibos"
+        ],
+        "previewBadge": "Checkout Social y Bandeja de Pedidos"
+      }
+    },
+    "mockups": {
+      "storeBuilder": {
+        "storeName": "Tu Tienda",
+        "domain": "stallio.shop/tu-tienda",
+        "published": "Publicada",
+        "accentLabel": "Selecciona el Color de Marca",
+        "liveLinkReady": "Enlace Listo:",
+        "copyLink": "Copiar Enlace"
+      },
+      "productCatalog": {
+        "title": "Catálogo de Productos (3)",
+        "bulk": "Lote",
+        "add": "Añadir",
+        "inStock": "en stock",
+        "sizes": "S/M/L",
+        "products": {
+          "suit": {
+            "name": "Traje Clásico de Hombre",
+            "price": "₨ 3,400"
+          },
+          "tote": {
+            "name": "Bolsa de Lona",
+            "price": "₨ 2,800"
+          },
+          "sneakers": {
+            "name": "Zapatillas Court",
+            "price": "₨ 6,200"
+          }
+        }
+      },
+      "shareCheckout": {
+        "instagramBio": "Enlace en Bio de Instagram",
+        "newOrderReceived": "Nuevo Pedido Recibido",
+        "platform": "WhatsApp",
+        "orderNumber": "Pedido #1042",
+        "orderPrice": "₨ 3,400",
+        "orderItem": "1x Kurta Clásica de Hombre (Talla M)",
+        "customerCod": "Ayesha K. • Contra Reembolso",
+        "pdfInvoice": "Factura en PDF"
+      }
+    }
+  },
+  "lifecycle": {
+    "eyebrow": "Tras el enlace",
+    "title": "Los pedidos se gestionan solos",
+    "subtitle": "Cada pedido avanza a través de cuatro etapas estructuradas para mantener al vendedor y comprador informados.",
+    "stages": {
+      "placed": {
+        "label": "Pedido Realizado",
+        "detail": "El cliente completa la compra desde tu enlace compartido"
+      },
+      "confirmed": {
+        "label": "Pedido Confirmado",
+        "detail": "Confirmación de pedido automatizada enviada al cliente"
+      },
+      "packed": {
+        "label": "Empaquetado y Enviado",
+        "detail": "El vendedor marca listo y se notifica al repartidor"
+      },
+      "delivered": {
+        "label": "Entregado y Liquidado",
+        "detail": "Pago recibido, factura generada y archivada"
+      }
+    }
+  },
+  "metrics": {
+    "ariaLabel": "Stallio en números",
+    "stores": {
+      "suffix": "+",
+      "label": "Tiendas creadas"
+    },
+    "setup": {
+      "suffix": " min",
+      "label": "Tiempo medio de configuración"
+    },
+    "skills": {
+      "suffix": "",
+      "label": "Conocimientos técnicos necesarios"
+    }
+  },
+  "faq": {
+    "eyebrow": "Preguntas",
+    "title": "Preguntas frecuentes",
+    "items": {
+      "domain": {
+        "question": "¿Necesito un sitio web o dominio personalizado?",
+        "answer": "No. Cada tienda Stallio obtiene un enlace alojado instantáneo (stallio.shop/tunombre). Si tienes un dominio propio, puedes conectarlo en cualquier momento."
+      },
+      "whatsapp": {
+        "question": "¿Pueden los clientes pedir por WhatsApp?",
+        "answer": "Sí. Stallio permite transferir la compra directamente a WhatsApp para que los datos del cliente y el carrito lleguen ordenados sin mensajes interminables."
+      },
+      "free": {
+        "question": "¿Hay un plan gratuito para empezar?",
+        "answer": "¡Sí! Puedes crear tu tienda, subir productos y compartir tu enlace gratis sin necesidad de tarjeta de crédito."
+      },
+      "payments": {
+        "question": "¿Cómo llegan los pagos a mi cuenta?",
+        "answer": "Stallio admite Pago Contra Reembolso (COD) y pagos online. Los pedidos y el estado del pago se siguen en tu panel en tiempo real."
+      }
+    }
+  }
+}

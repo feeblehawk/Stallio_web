@@ -1,11 +1,13 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { ShieldCheck, RefreshCcw, MessageCircle, ArrowRight, BadgeCheck } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import { ShieldCheck, RefreshCcw, MessageCircle, BadgeCheck } from 'lucide-react'
 import useReducedMotion from '../../../hooks/useReducedMotion'
-import { easePremium, staggerContainer, revealSoft, blurReveal} from '../../../utils/motionVariants'
+import { revealSoft, blurReveal, staggerContainer } from '../../../utils/motionVariants'
 import { css } from '../../../utils/cssTokens'
 import PrimaryCTA from '../../../components/PrimaryCTA'
+import ArrowIcon from '../../../components/icons/ArrowIcon'
 
 // ─── Trust pill ───────────────────────────────────────────────────────────────
 const TrustPill = ({ icon: Icon, iconClassName, children }) => (
@@ -15,51 +17,9 @@ const TrustPill = ({ icon: Icon, iconClassName, children }) => (
   </span>
 )
 
-// ─── Guarantee card ───────────────────────────────────────────────────────────
-const GuaranteeCard = ({ icon: Icon, title, desc, delay, isVisible, reduced }) => (
-  <motion.div
-    className="flex flex-col items-center gap-2 rounded-2xl border p-5 text-center"
-    style={{ borderColor: css.border, background: css.surface }}
-    initial={reduced ? false : { opacity: 0, y: 20, filter: 'blur(4px)' }}
-    animate={isVisible ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
-    transition={{ duration: 0.65, ease: easePremium, delay }}
-  >
-    <span
-      className="flex h-9 w-9 items-center justify-center rounded-xl"
-      style={{ background: css.p10, color: css.primary }}
-    >
-      <Icon size={17} aria-hidden="true" />
-    </span>
-    <p className="text-[13px] font-semibold leading-snug" style={{ color: css.fg }}>
-      {title}
-    </p>
-    <p className="text-[12px] leading-relaxed" style={{ color: css.mutedFg }}>
-      {desc}
-    </p>
-  </motion.div>
-)
-
-// ─── Guarantees data ──────────────────────────────────────────────────────────
-const GUARANTEES = [
-  {
-    icon: ShieldCheck,
-    title: 'No credit card needed',
-    desc: 'Start free today. Add a card only when you choose to upgrade.',
-  },
-  {
-    icon: RefreshCcw,
-    title: 'Cancel anytime',
-    desc: 'No lock-in, no cancellation fees. Your store stays yours.',
-  },
-  {
-    icon: MessageCircle,
-    title: 'We reply in 2 hours',
-    desc: 'Real support on WhatsApp — not a ticket queue.',
-  },
-]
-
 // ─── PricingCTA ───────────────────────────────────────────────────────────────
 const PricingCTA = () => {
+  const { t } = useTranslation('pricing')
   const sectionRef = useRef(null)
   const inView = useInView(sectionRef, { once: true, margin: '-60px' })
   const reduced = useReducedMotion()
@@ -72,7 +32,6 @@ const PricingCTA = () => {
       className="relative isolate overflow-hidden border-t"
       style={{ borderColor: css.border, background: css.bg }}
     >
-
       {/* ── Background: upward radial primary bloom ── */}
       <div
         className="pointer-events-none absolute inset-0 -z-10"
@@ -128,12 +87,12 @@ const PricingCTA = () => {
                 className="text-[11px] font-semibold uppercase tracking-[0.2em]"
                 style={{ color: css.mutedFg }}
               >
-                Risk-free to start
+                {t('cta.eyebrow', 'Risk-free to start')}
               </span>
             </div>
           </motion.div>
 
-          {/* Main headline — pricing-specific, not a repeat of home FinalCTA */}
+          {/* Main headline */}
           <motion.h2
             variants={blurReveal}
             id="pricing-cta-heading"
@@ -144,9 +103,9 @@ const PricingCTA = () => {
               color: css.fg,
             }}
           >
-            You're one link away
+            {t('cta.headline', "You're one link away")}
             <br />
-            <span style={{ color: css.primary }}>from your next order.</span>
+            <span style={{ color: css.primary }}>{t('cta.headlineHighlight', 'from your next order.')}</span>
           </motion.h2>
 
           {/* Subtitle */}
@@ -155,8 +114,7 @@ const PricingCTA = () => {
             className="mx-auto mt-5 max-w-[480px] text-base leading-7 sm:text-[17px]"
             style={{ color: css.mutedFg }}
           >
-            Start free in 5 minutes. No code, no card, no commitment.
-            Upgrade to Growth the moment your DMs become a full-time job.
+            {t('cta.body', 'Start free in 5 minutes. No code, no card, no commitment. Upgrade to Growth the moment your DMs become a full-time job.')}
           </motion.p>
 
           {/* CTA buttons */}
@@ -169,7 +127,7 @@ const PricingCTA = () => {
               size="lg"
               className="w-full sm:w-auto py-3.5 text-[15px] font-bold"
             >
-              Create My Store
+              {t('cta.primary', 'Create My Store')}
             </PrimaryCTA>
 
             <Link
@@ -181,12 +139,8 @@ const PricingCTA = () => {
                 color: css.fg,
               }}
             >
-              Have A Querry? 
-              <ArrowRight
-                size={15}
-                className="transition-transform duration-300 group-hover:translate-x-1"
-                aria-hidden="true"
-              />
+              {t('cta.secondary', 'Have A Query?')}
+              <ArrowIcon />
             </Link>
           </motion.div>
 
@@ -196,15 +150,15 @@ const PricingCTA = () => {
             className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2.5"
           >
             <TrustPill icon={ShieldCheck} iconClassName="text-primary">
-              No credit card
+              {t('cta.trust.noCard', 'No credit card')}
             </TrustPill>
             <span className="h-3 w-px hidden sm:block" style={{ background: css.border }} aria-hidden="true" />
             <TrustPill icon={RefreshCcw} iconClassName="text-emerald-500">
-              Cancel anytime
+              {t('cta.trust.cancel', 'Cancel anytime')}
             </TrustPill>
             <span className="h-3 w-px hidden sm:block" style={{ background: css.border }} aria-hidden="true" />
             <TrustPill icon={MessageCircle} iconClassName="text-sky-500">
-              Customer Support
+              {t('cta.trust.support', 'Customer Support')}
             </TrustPill>
           </motion.div>
         </motion.div>    

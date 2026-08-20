@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import useReducedMotion from '../../../hooks/useReducedMotion'
 import { blurReveal, reveal, revealSoft, staggerHero } from '../../../utils/motionVariants'
 
 const AboutHero = () => {
+  const { t } = useTranslation('about')
   const reducedMotion = useReducedMotion()
   const motionProps = reducedMotion
     ? { initial: false, animate: 'visible' }
@@ -15,7 +17,7 @@ const AboutHero = () => {
     >
       {/* Background: centered radial glow + grid */}
       <div className="absolute inset-0 -z-20 overflow-hidden" aria-hidden="true">
-        {/* Primary glow — centered: color-mix() must stay as style */}
+        {/* Primary glow — centered */}
         <div
           className="absolute inset-0"
           style={{
@@ -56,7 +58,7 @@ const AboutHero = () => {
             >
               <span className="h-1.5 w-1.5 rounded-full bg-primary" />
               <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                About Stallio
+                {t('hero.eyebrow', 'About Stallio')}
               </span>
             </div>
           </motion.div>
@@ -71,9 +73,9 @@ const AboutHero = () => {
               lineHeight: 1.0,
             }}
           >
-            Built for sellers
+            {t('hero.headline', 'Built for sellers')}
             <br />
-            <span className="text-primary">who move fast.</span>
+            <span className="text-primary">{t('hero.headlineHighlight', 'who move fast.')}</span>
           </motion.h1>
 
           {/* Body */}
@@ -81,9 +83,7 @@ const AboutHero = () => {
             variants={reveal}
             className="mt-7 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg"
           >
-            Stallio started with one observation: World's best sellers were already
-            selling on Instagram and WhatsApp. They just needed a real store to match.
-            We built exactly that.
+            {t('hero.body', "Stallio started with one observation: World's best sellers were already selling on Instagram and WhatsApp. They just needed a real store to match. We built exactly that.")}
           </motion.p>
 
           {/* Divider accent */}

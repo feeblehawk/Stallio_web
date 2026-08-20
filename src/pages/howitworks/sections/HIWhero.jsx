@@ -1,63 +1,19 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import {Check, Store, PackagePlus, Share2, Lock, Sparkles, ShoppingBag, Zap, Star, ExternalLink,ShieldCheck } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import { Check, Store, PackagePlus, Share2, Lock, ShoppingBag, Zap, Star, ExternalLink, ShieldCheck } from 'lucide-react'
 import { FaWhatsapp } from 'react-icons/fa6'
 import useReducedMotion from '../../../hooks/useReducedMotion'
 import { blurReveal, reveal, revealSoft, staggerHero } from '../../../utils/motionVariants'
 import PrimaryCTA from '../../../components/PrimaryCTA'
 import ArrowIcon from '../../../components/icons/ArrowIcon'
 
-const STEPS = [
-  {
-    num: '01',
-    icon: Store,
-    title: 'Create your store',
-    summary: 'Name it, brand it, publish instantly.',
-  },
-  {
-    num: '02',
-    icon: PackagePlus,
-    title: 'Add your products',
-    summary: 'Photos, prices, and stock in seconds.',
-  },
-  {
-    num: '03',
-    icon: Share2,
-    title: 'Share one link',
-    summary: 'Accept orders on IG, WhatsApp & TikTok.',
-  },
-]
-
 const ACCENT_COLORS = [
   { id: 'indigo', name: 'Indigo', val: 'oklch(0.52 0.22 268)' },
   { id: 'emerald', name: 'Emerald', val: 'oklch(0.58 0.20 150)' },
   { id: 'rose', name: 'Rose', val: 'oklch(0.62 0.22 15)' },
   { id: 'amber', name: 'Amber', val: 'oklch(0.68 0.18 65)' },
-]
-
-const PRODUCTS_HERO = [
-  {
-    id: 1,
-    name: 'Classic Men\'s Suit',
-    price: '₨ 3,400',
-    img: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=300&h=340&fit=crop&auto=format&q=80',
-    badge: 'Popular',
-  },
-  {
-    id: 2,
-    name: 'Canvas Tote',
-    price: '₨ 2,800',
-    img: 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=300&h=340&fit=crop&auto=format&q=80',
-    badge: 'New',
-  },
-  {
-    id: 3,
-    name: 'Court Sneakers',
-    price: '₨ 6,200',
-    img: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300&h=340&fit=crop&auto=format&q=80',
-    badge: 'Limited',
-  },
 ]
 
 const EyebrowBadge = ({ children }) => (
@@ -93,11 +49,36 @@ const TrustBadge = ({ children }) => (
 )
 
 /**
- * Premium Hero Showcase Card with Mobile Optimization.
+ * Premium Hero Showcase Card with Mobile Optimization & RTL support.
  */
 const PremiumHeroShowcase = () => {
+  const { t } = useTranslation('howitworks')
   const [accent, setAccent] = useState(ACCENT_COLORS[0])
   const [activeProduct, setActiveProduct] = useState(0)
+
+  const productsHero = [
+    {
+      id: 1,
+      name: t('hero.showcase.products.suit.name', "Classic Men's Suit"),
+      price: t('hero.showcase.products.suit.price', '₨ 3,400'),
+      img: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=300&h=340&fit=crop&auto=format&q=80',
+      badge: t('hero.showcase.products.suit.badge', 'Popular'),
+    },
+    {
+      id: 2,
+      name: t('hero.showcase.products.tote.name', 'Canvas Tote'),
+      price: t('hero.showcase.products.tote.price', '₨ 2,800'),
+      img: 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=300&h=340&fit=crop&auto=format&q=80',
+      badge: t('hero.showcase.products.tote.badge', 'New'),
+    },
+    {
+      id: 3,
+      name: t('hero.showcase.products.sneakers.name', 'Court Sneakers'),
+      price: t('hero.showcase.products.sneakers.price', '₨ 6,200'),
+      img: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300&h=340&fit=crop&auto=format&q=80',
+      badge: t('hero.showcase.products.sneakers.badge', 'Limited'),
+    },
+  ]
 
   return (
     <div className="relative w-full max-w-lg lg:max-w-none">
@@ -119,22 +100,22 @@ const PremiumHeroShowcase = () => {
       >
         <div className="flex items-center gap-2">
           <span
-            className="flex h-7 w-7 items-center justify-center rounded-lg text-white font-bold"
+            className="flex h-7 w-7 items-center justify-center rounded-lg text-white font-bold shrink-0"
             style={{ background: accent.val }}
           >
             <Check size={14} />
           </span>
-          <div>
+          <div className="text-start">
             <p className="text-[11px] font-extrabold" style={{ color: 'var(--foreground)' }}>
-              Order #1042 Received!
+              {t('hero.showcase.orderReceived', 'Order #1042 Received!')}
             </p>
             <p className="text-[9px]" style={{ color: 'var(--muted-foreground)' }}>
-              Claasic Men's Suit × 1 • ₨ 3,400
+              {t('hero.showcase.mobileProductDesc', "Classic Men's Suit × 1 • ₨ 3,400")}
             </p>
           </div>
         </div>
-        <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[9px] font-bold text-emerald-600">
-          Paid COD
+        <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[9px] font-bold text-emerald-600 shrink-0">
+          {t('hero.showcase.paidCod', 'Paid COD')}
         </span>
       </div>
 
@@ -167,6 +148,7 @@ const PremiumHeroShowcase = () => {
 
           {/* URL bar */}
           <div
+            dir="ltr"
             className="flex items-center gap-1 sm:gap-1.5 rounded-full border px-2.5 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-[11px] font-medium max-w-[190px] sm:max-w-none truncate"
             style={{
               borderColor: 'var(--border)',
@@ -184,7 +166,7 @@ const PremiumHeroShowcase = () => {
               className="inline-flex items-center gap-1 rounded-md px-1.5 sm:px-2 py-0.5 text-[8px] sm:text-[9px] font-bold uppercase tracking-wider"
               style={{ background: 'color-mix(in oklch, var(--primary) 12%, var(--surface))', color: 'var(--primary)' }}
             >
-              <Zap size={9} /> Live
+              <Zap size={9} /> {t('hero.showcase.live', 'Live')}
             </span>
           </div>
         </div>
@@ -199,37 +181,40 @@ const PremiumHeroShowcase = () => {
                 className="h-9 w-9 sm:h-11 sm:w-11 rounded-xl sm:rounded-2xl object-cover border-2 shadow-sm"
                 style={{ borderColor: accent.val }}
               />
-              <div>
+              <div className="text-start">
                 <div className="flex items-center gap-1">
                   <h3 className="text-xs sm:text-sm font-extrabold" style={{ color: 'var(--foreground)' }}>
-                    Your Store
+                    {t('hero.showcase.storeName', 'Your Store')}
                   </h3>
                   <ShieldCheck size={13} className="text-blue-500" />
                 </div>
                 <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px]" style={{ color: 'var(--muted-foreground)' }}>
                   <span className="flex items-center gap-0.5 text-amber-500 font-semibold">
-                    <Star size={10} className="fill-amber-500" /> 4.9
+                    <Star size={10} className="fill-amber-500" /> {t('hero.showcase.rating', '4.9')}
                   </span>
                   <span>•</span>
-                  <span>140+ orders</span>
+                  <span>{t('hero.showcase.orderCount', '140+ orders')}</span>
                 </div>
               </div>
             </div>
 
             {/* Interactive Theme Color Picker */}
             <div className="flex items-center gap-1 rounded-lg sm:rounded-xl border p-1" style={{ borderColor: 'var(--border)', background: 'var(--surface)' }}>
-              <span className="px-1 text-[9px] sm:text-[10px] font-medium" style={{ color: 'var(--muted-foreground)' }}>Theme:</span>
+              <span className="px-1 text-[9px] sm:text-[10px] font-medium" style={{ color: 'var(--muted-foreground)' }}>
+                {t('hero.showcase.themeLabel', 'Theme:')}
+              </span>
               {ACCENT_COLORS.map((c) => (
                 <button
                   key={c.id}
                   type="button"
                   onClick={() => setAccent(c)}
-                  className="h-3.5 w-3.5 sm:h-4 sm:w-4 rounded-full transition-transform hover:scale-110 focus-visible:outline-none"
+                  className="h-3.5 w-3.5 sm:h-4 sm:w-4 rounded-full transition-transform hover:scale-110 focus-visible:outline-none cursor-pointer"
                   style={{
                     background: c.val,
                     boxShadow: accent.id === c.id ? `0 0 0 2px var(--surface), 0 0 0 3px ${c.val}` : 'none',
                   }}
                   title={`Switch theme to ${c.name}`}
+                  aria-label={`Switch theme to ${c.name}`}
                 />
               ))}
             </div>
@@ -240,20 +225,20 @@ const PremiumHeroShowcase = () => {
         <div className="p-3.5 sm:p-5">
           <div className="flex items-center justify-between mb-2.5">
             <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--muted-foreground)' }}>
-              Live Storefront Products
+              {t('hero.showcase.productsTitle', 'Live Storefront Products')}
             </span>
             <span className="text-[10px] sm:text-xs font-semibold" style={{ color: accent.val }}>
-              3 items ready
+              {t('hero.showcase.readyBadge', '3 items ready')}
             </span>
           </div>
 
           <div className="grid grid-cols-3 gap-2 sm:gap-3">
-            {PRODUCTS_HERO.map((item, idx) => (
+            {productsHero.map((item, idx) => (
               <button
                 key={item.id}
                 type="button"
                 onClick={() => setActiveProduct(idx)}
-                className="group relative flex flex-col overflow-hidden rounded-xl sm:rounded-2xl border text-left transition-all duration-200"
+                className="group relative flex flex-col overflow-hidden rounded-xl sm:rounded-2xl border text-start transition-all duration-200 cursor-pointer"
                 style={{
                   borderColor: activeProduct === idx ? accent.val : 'var(--border)',
                   background: 'var(--surface)',
@@ -267,7 +252,7 @@ const PremiumHeroShowcase = () => {
                     className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                   <span
-                    className="absolute top-1 left-1 rounded px-1 py-0.2 text-[8px] sm:text-[9px] font-bold text-white shadow-sm"
+                    className="absolute top-1 start-1 rounded px-1 py-0.2 text-[8px] sm:text-[9px] font-bold text-white shadow-sm"
                     style={{ background: accent.val }}
                   >
                     {item.badge}
@@ -296,22 +281,22 @@ const PremiumHeroShowcase = () => {
               <FaWhatsapp size={11} />
             </span>
             <span className="text-[10px] sm:text-xs font-semibold" style={{ color: 'var(--foreground)' }}>
-              WhatsApp Checkout
+              {t('hero.showcase.whatsappCheckout', 'WhatsApp Checkout')}
             </span>
           </div>
           <button
             type="button"
-            className="flex items-center gap-1 rounded-lg sm:rounded-xl px-2.5 py-1 sm:px-3 sm:py-1.5 text-[10px] sm:text-xs font-bold text-white shadow-md"
+            className="flex items-center gap-1 rounded-lg sm:rounded-xl px-2.5 py-1 sm:px-3 sm:py-1.5 text-[10px] sm:text-xs font-bold text-white shadow-md cursor-pointer"
             style={{ background: accent.val }}
           >
-            <ShoppingBag size={11} /> Buy Now
+            <ShoppingBag size={11} /> {t('hero.showcase.buyNow', 'Buy Now')}
           </button>
         </div>
       </div>
 
       {/* Desktop Floating Overlay 1 */}
       <motion.div
-        className="absolute -top-4 -right-4 z-20 hidden sm:flex items-center gap-3 rounded-2xl border p-3 shadow-2xl backdrop-blur-md"
+        className="absolute -top-4 -right-4 rtl:right-auto rtl:-left-4 z-20 hidden sm:flex items-center gap-3 rounded-2xl border p-3 shadow-2xl backdrop-blur-md"
         style={{
           borderColor: 'var(--border)',
           background: 'color-mix(in oklch, var(--surface) 92%, transparent)',
@@ -322,22 +307,22 @@ const PremiumHeroShowcase = () => {
         transition={{ delay: 0.6, type: 'spring', stiffness: 200 }}
       >
         <span
-          className="flex h-9 w-9 items-center justify-center rounded-xl text-white font-bold"
+          className="flex h-9 w-9 items-center justify-center rounded-xl text-white font-bold shrink-0"
           style={{ background: accent.val }}
         >
           <Check size={16} />
         </span>
-        <div>
+        <div className="text-start">
           <div className="flex items-center gap-2">
             <p className="text-xs font-extrabold" style={{ color: 'var(--foreground)' }}>
-              Order #1042 Received!
+              {t('hero.showcase.orderReceived', 'Order #1042 Received!')}
             </p>
             <span className="rounded-full bg-emerald-500/15 px-1.5 py-0.5 text-[9px] font-bold text-emerald-600">
-              Paid
+              {t('hero.showcase.paid', 'Paid')}
             </span>
           </div>
           <p className="text-[10px]" style={{ color: 'var(--muted-foreground)' }}>
-            Silk Linen Kurta × 1 • ₨ 3,400
+            {t('hero.showcase.desktopKurtaDesc', 'Silk Linen Kurta × 1 • ₨ 3,400')}
           </p>
         </div>
       </motion.div>
@@ -346,7 +331,29 @@ const PremiumHeroShowcase = () => {
 }
 
 const HowItWorksHero = () => {
+  const { t } = useTranslation('howitworks')
   const reducedMotion = useReducedMotion()
+
+  const steps = [
+    {
+      num: '01',
+      icon: Store,
+      title: t('hero.steps.step1.title', 'Create your store'),
+      summary: t('hero.steps.step1.summary', 'Name it, brand it, publish instantly.'),
+    },
+    {
+      num: '02',
+      icon: PackagePlus,
+      title: t('hero.steps.step2.title', 'Add your products'),
+      summary: t('hero.steps.step2.summary', 'Photos, prices, and stock in seconds.'),
+    },
+    {
+      num: '03',
+      icon: Share2,
+      title: t('hero.steps.step3.title', 'Share one link'),
+      summary: t('hero.steps.step3.summary', 'Accept orders on IG, WhatsApp & TikTok.'),
+    },
+  ]
 
   const motionProps = reducedMotion
     ? { initial: false, animate: 'visible' }
@@ -381,13 +388,13 @@ const HowItWorksHero = () => {
         <div className="grid items-center gap-8 sm:gap-12 lg:grid-cols-[1.05fr_.95fr] lg:gap-10 xl:gap-14">
           {/* ── Left Column: Headline & Step Ledger ─────────────────────────────── */}
           <motion.div
-            className="max-w-2xl text-center lg:text-left"
+            className="max-w-2xl text-center lg:text-start"
             variants={staggerHero}
             {...motionProps}
           >
             {/* Eyebrow badge */}
             <motion.div variants={revealSoft}>
-              <EyebrowBadge>How Stallio Works</EyebrowBadge>
+              <EyebrowBadge>{t('hero.eyebrow', 'How Stallio Works')}</EyebrowBadge>
             </motion.div>
 
             {/* Main Headline */}
@@ -401,9 +408,11 @@ const HowItWorksHero = () => {
                 color: 'var(--foreground)',
               }}
             >
-              Three steps from
+              {t('hero.headline', 'Three steps from')}
               <br />
-              <span style={{ color: 'var(--primary)' }}>link to first order.</span>
+              <span style={{ color: 'var(--primary)' }}>
+                {t('hero.headlineHighlight', 'link to first order.')}
+              </span>
             </motion.h1>
 
             {/* Subtitle */}
@@ -412,13 +421,12 @@ const HowItWorksHero = () => {
               className="mx-auto mt-4 sm:mt-6 max-w-xl text-sm leading-6 sm:text-lg sm:leading-7 lg:mx-0"
               style={{ color: 'var(--muted-foreground)' }}
             >
-              No storefront to design, no complex plugins to configure. Name your shop, upload your
-              products, and paste one link everywhere your customers already are.
+              {t('hero.body', 'No storefront to design, no complex plugins to configure. Name your shop, upload your products, and paste one link everywhere your customers already are.')}
             </motion.p>
 
             {/* 3 Step Ledger (Optimized for Mobile Vertical & Desktop Horizontal) */}
-            <motion.ol variants={reveal} className="mt-6 sm:mt-8 space-y-2.5 sm:space-y-3 text-left">
-              {STEPS.map((step) => {
+            <motion.ol variants={reveal} className="mt-6 sm:mt-8 space-y-2.5 sm:space-y-3 text-start">
+              {steps.map((step) => {
                 const Icon = step.icon
                 return (
                   <li
@@ -445,7 +453,7 @@ const HowItWorksHero = () => {
                           className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider"
                           style={{ color: 'var(--primary)' }}
                         >
-                          Step {step.num}
+                          {t('hero.stepPrefix', 'Step')} {step.num}
                         </span>
                         <span
                           className="text-xs sm:text-xs font-bold leading-tight"
@@ -472,7 +480,7 @@ const HowItWorksHero = () => {
               className="mt-6 sm:mt-8 flex flex-col justify-center gap-3 sm:flex-row lg:justify-start"
             >
               <PrimaryCTA size="lg" className="w-full sm:w-auto text-sm sm:text-base py-3 sm:py-3.5 shadow-lg shadow-black/5">
-                Create Your Store
+                {t('hero.cta.createStore', 'Create Your Store')}
               </PrimaryCTA>
               <Link
                 to="/features"
@@ -483,7 +491,7 @@ const HowItWorksHero = () => {
                   background: 'color-mix(in oklch, var(--surface) 80%, transparent)',
                 }}
               >
-                Explore Features
+                {t('hero.cta.exploreFeatures', 'Explore Features')}
                 <ArrowIcon />
               </Link>
             </motion.div>
@@ -493,9 +501,9 @@ const HowItWorksHero = () => {
               variants={revealSoft}
               className="mt-5 sm:mt-6 flex flex-wrap justify-center gap-x-4 sm:gap-x-5 gap-y-2 lg:justify-start"
             >
-              <TrustBadge>Free to start</TrustBadge>
-              <TrustBadge>No coding required</TrustBadge>
-              <TrustBadge>Live in 5 mins</TrustBadge>
+              <TrustBadge>{t('hero.trust.free', 'Free to start')}</TrustBadge>
+              <TrustBadge>{t('hero.trust.noCoding', 'No coding required')}</TrustBadge>
+              <TrustBadge>{t('hero.trust.liveFast', 'Live in 5 mins')}</TrustBadge>
             </motion.div>
           </motion.div>
 

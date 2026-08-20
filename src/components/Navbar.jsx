@@ -1,38 +1,38 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import BrandLogo from './BrandLogo'
 import PrimaryCTA from './PrimaryCTA'
 import ThemeToggle from './ThemeToggle'
+import LanguageSwitcher from './LanguageSwitcher'
 import useReducedMotion from '../hooks/useReducedMotion'
 
 // ─── Scroll threshold ────────────────────────────────────────────────────────
 const FLOAT_THRESHOLD = 24   // px — below this, navbar is flush with page
 
-// ─── Nav links ───────────────────────────────────────────────────────────────
-const navLinks = [
-  { name: 'Home',         path: '/' },
-  { name: 'Features',     path: '/features' },
-  { name: 'Pricing',      path: '/pricing' },
-  { name: 'How It Works', path: '/how-it-works' },
-  { name: 'About',        path: '/about' },
-]
-
 // ─── Easing curves ──────────────────────────────────────────────────────────
-// spring-like easing for spatial movement (shape, size, position)
-const SPRING = 'cubic-bezier(0.16, 1, 0.3, 1)'
-// snappy ease-out for opacity/color (doesn't need spring overshoot)
+const SPRING   = 'cubic-bezier(0.16, 1, 0.3, 1)'
 const EASE_OUT = 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
 
 // ─── Navbar ──────────────────────────────────────────────────────────────────
 const Navbar = () => {
+  const { t } = useTranslation('common')
   const [isOpen,   setIsOpen]   = useState(false)
   const [floating, setFloating] = useState(false)
-  // Track if we've ever scrolled — prevents entrance animation on load
-  const hasScrolled = useRef(false)
-  const reducedMotion = useReducedMotion()
+  const hasScrolled    = useRef(false)
+  const reducedMotion  = useReducedMotion()
 
-  // ── Scroll handler ──
+  // ── Nav links — driven by translations ──────────────────────────────────
+  const navLinks = [
+    { nameKey: 'nav.home',       path: '/' },
+    { nameKey: 'nav.features',   path: '/features' },
+    { nameKey: 'nav.pricing',    path: '/pricing' },
+    { nameKey: 'nav.howItWorks', path: '/how-it-works' },
+    { nameKey: 'nav.about',      path: '/about' },
+  ]
+
+  // ── Scroll handler ────────────────────────────────────────────────────────
   const handleScroll = useCallback(() => {
     const shouldFloat = window.scrollY > FLOAT_THRESHOLD
     if (shouldFloat !== floating) {
@@ -55,27 +55,20 @@ const Navbar = () => {
   const closeMenu  = useCallback(() => setIsOpen(false), [])
   const toggleMenu = useCallback(() => setIsOpen(prev => !prev), [])
 
-  // ── Duration constants ──
-  // Shape animates first with spring; color/blur trail in with a deliberate delay.
-  // On float-IN: shape leads (0.48s spring) → color follows after 0.14s delay.
-  // On float-OUT: everything collapses together quickly with zero delay.
-  // Premium motion system:
-  // shape leads, surface follows, then the ambient glow settles.
-  // The same timing is used in both directions so the navbar never feels
-  // like it snaps when scrolling back to the top.
+  // ── Duration constants ────────────────────────────────────────────────────
   const SHAPE_DURATION = '0.58s'
   const COLOR_DURATION = '0.46s'
-  const BLUR_DURATION = '0.62s'
+  const BLUR_DURATION  = '0.62s'
 
   const SHAPE_DELAY_IN = '0s'
   const COLOR_DELAY_IN = '0.08s'
-  const BLUR_DELAY_IN = '0.12s'
+  const BLUR_DELAY_IN  = '0.12s'
 
   const sd = floating ? SHAPE_DELAY_IN : '0s'
   const cd = floating ? COLOR_DELAY_IN  : '0s'
   const bd = floating ? BLUR_DELAY_IN   : '0s'
 
-  // ── Pill transition ──
+  // ── Pill transition ───────────────────────────────────────────────────────
   const pillTransition = reducedMotion ? 'none' : [
     `width            ${SHAPE_DURATION} ${SPRING} ${sd}`,
     `max-width        ${SHAPE_DURATION} ${SPRING} ${sd}`,
@@ -88,16 +81,13 @@ const Navbar = () => {
     `backdrop-filter  ${BLUR_DURATION} ${EASE_OUT} ${bd}`,
   ].join(', ')
 
-  // ── Floating pill styles ──
+  // ── Floating pill styles ──────────────────────────────────────────────────
   const pillStyles = floating
     ? {
-        // Keep a small breathing room on mobile so the floating pill never
-        // touches or clips against the viewport edges.
         width:        'calc(100% - 16px)',
         maxWidth:     '1180px',
         borderRadius: '18px',
         margin:       '10px auto 0',
-        // Multi-layer shadow: tight ambient + diffuse glow
         boxShadow:    'var(--navbar-glow, 0 2px 8px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04))',
       }
     : {
@@ -108,9 +98,7 @@ const Navbar = () => {
         boxShadow:    'none',
       }
 
-  // ── Content scale: items very subtly contract when pill shrinks ──
-  // This sells the "pill is its own container" idea without being distracting.
-  const contentScale = floating ? 'scale(0.994)' : 'scale(1)'
+  const contentScale      = floating ? 'scale(0.994)' : 'scale(1)'
   const contentTransition = reducedMotion
     ? 'none'
     : `transform ${SHAPE_DURATION} ${SPRING} ${sd}`
@@ -119,12 +107,9 @@ const Navbar = () => {
     <>
       {/*
         STICKY ARCHITECTURE
-        ─────────────────────────────────────────────────────────────────────
         • <header> is position:sticky — NO transform/filter on it directly.
-          transform on a sticky element breaks stickiness in all browsers.
         • All visual transitions live on the inner pill <div>.
-        • Content gets a whisper-subtle scale via an inner wrapper —
-          avoids any reflow while still feeling "alive".
+        • Content gets a whisper-subtle scale via an inner wrapper.
       */}
       <header className="sticky top-0 z-50 w-full">
 
@@ -143,13 +128,12 @@ const Navbar = () => {
             ...pillStyles,
           }}
         >
-          {/* ── Nav row — content wrapper with micro-scale ── */}
+          {/* ── Nav row ── */}
           <div
             className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
             style={{
-              transform:  contentScale,
-              transition: contentTransition,
-              // transform-origin: top so items anchor to the top edge of the pill
+              transform:       contentScale,
+              transition:      contentTransition,
               transformOrigin: 'top center',
             }}
           >
@@ -176,37 +160,45 @@ const Navbar = () => {
                         : 'text-muted-foreground hover:text-foreground hover:bg-accent/60',
                     ].join(' ')}
                   >
-                    {link.name}
+                    {t(link.nameKey)}
                   </NavLink>
                 ))}
               </nav>
 
-              {/* Desktop right actions */}
-              <div className="hidden shrink-0 items-center gap-1.5 lg:flex">
-                <ThemeToggle />
-                <div className="mx-1 h-4 w-px bg-border" aria-hidden="true" />
-                <Link
-                  to="/login"
-                  className={[
-                    'rounded-xl px-3.5 py-2 text-sm font-medium',
-                    'text-muted-foreground transition-colors duration-150',
-                    'hover:text-foreground hover:bg-accent/60',
-                    'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
-                  ].join(' ')}
-                >
-                  Log in
-                </Link>
-                <PrimaryCTA size="sm" />
-              </div>
+              {/* Right actions group — unified container with exactly one ThemeToggle */}
+              <div className="ms-auto flex shrink-0 items-center gap-1.5 sm:gap-2">
+                {/* Desktop-only: Language switcher */}
+                <div className="hidden lg:flex items-center gap-1.5">
+                  <LanguageSwitcher variant="desktop" />
+                  <div className="mx-1 h-4 w-px bg-border" aria-hidden="true" />
+                </div>
 
-              {/* Mobile right controls */}
-              <div className="ml-auto flex shrink-0 items-center gap-2 lg:hidden">
+                {/* Single Theme Toggle for all viewports */}
                 <ThemeToggle />
+
+                {/* Desktop-only: Login and CTA */}
+                <div className="hidden lg:flex items-center gap-1.5">
+                  <div className="mx-1 h-4 w-px bg-border" aria-hidden="true" />
+                  <Link
+                    to="/login"
+                    className={[
+                      'rounded-xl px-3.5 py-2 text-sm font-medium',
+                      'text-muted-foreground transition-colors duration-150',
+                      'hover:text-foreground hover:bg-accent/60',
+                      'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
+                    ].join(' ')}
+                  >
+                    {t('nav.login')}
+                  </Link>
+                  <PrimaryCTA size="sm" />
+                </div>
+
+                {/* Mobile-only: Hamburger toggle button */}
                 <button
                   type="button"
                   onClick={toggleMenu}
                   className={[
-                    'flex h-9 w-9 cursor-pointer items-center justify-center',
+                    'flex lg:hidden h-9 w-9 cursor-pointer items-center justify-center',
                     'rounded-xl border border-border bg-surface',
                     'text-foreground transition-colors duration-150',
                     'hover:bg-muted hover:border-border/80',
@@ -216,16 +208,12 @@ const Navbar = () => {
                   aria-expanded={isOpen}
                   aria-controls="mobile-nav-menu"
                 >
-                  {/*
-                    Icon swap: X rotates in from 90°, Menu rotates back to 0°.
-                    Cross-fade via absolute positioning so both can animate simultaneously.
-                  */}
+                  {/* Icon swap animation */}
                   <span className="relative flex h-[17px] w-[17px] items-center justify-center">
-                    {/* Menu icon — visible when closed */}
                     <span
                       aria-hidden="true"
                       style={{
-                        position: 'absolute',
+                        position:   'absolute',
                         transition: reducedMotion
                           ? 'none'
                           : `opacity 0.18s ${EASE_OUT}, transform 0.22s ${SPRING}`,
@@ -235,12 +223,10 @@ const Navbar = () => {
                     >
                       <Menu size={17} strokeWidth={2.2} />
                     </span>
-
-                    {/* X icon — visible when open */}
                     <span
                       aria-hidden="true"
                       style={{
-                        position: 'absolute',
+                        position:   'absolute',
                         transition: reducedMotion
                           ? 'none'
                           : `opacity 0.18s ${EASE_OUT}, transform 0.22s ${SPRING}`,
@@ -257,7 +243,7 @@ const Navbar = () => {
             </div>
           </div>{/* /content wrapper */}
 
-          {/* ── Mobile drawer — clipped inside pill border-radius ── */}
+          {/* ── Mobile drawer ── */}
           <div
             id="mobile-nav-menu"
             role="navigation"
@@ -265,17 +251,13 @@ const Navbar = () => {
             aria-hidden={!isOpen}
             className="lg:hidden"
             style={{
-              display: 'grid',
+              display:         'grid',
               gridTemplateRows: isOpen ? '1fr' : '0fr',
               transition: reducedMotion
                 ? 'none'
                 : `grid-template-rows 0.32s ${SPRING}`,
             }}
           >
-            {/*
-              Grid row trick: inner div overflow-hidden lets grid-template-rows
-              animate 0fr → 1fr for a smooth height expand without max-height hacks.
-            */}
             <div className="overflow-hidden">
               <div
                 className="border-t border-border/50"
@@ -297,9 +279,8 @@ const Navbar = () => {
                       end={link.path === '/'}
                       onClick={closeMenu}
                       style={reducedMotion ? {} : {
-                        // Stagger each link's entrance slightly
-                        opacity:    isOpen ? 1 : 0,
-                        transform:  isOpen ? 'translateX(0)' : 'translateX(-6px)',
+                        opacity:   isOpen ? 1 : 0,
+                        transform: isOpen ? 'translateX(0)' : 'translateX(-6px)',
                         transition: `opacity 0.2s ${EASE_OUT} ${isOpen ? 0.08 + i * 0.04 : 0}s,
                                      transform 0.26s ${SPRING} ${isOpen ? 0.06 + i * 0.04 : 0}s`,
                       }}
@@ -311,7 +292,7 @@ const Navbar = () => {
                           : 'text-foreground hover:bg-accent/60',
                       ].join(' ')}
                     >
-                      {link.name}
+                      {t(link.nameKey)}
                     </NavLink>
                   ))}
                 </nav>
@@ -320,12 +301,15 @@ const Navbar = () => {
                 <div
                   className="flex flex-col gap-2 border-t border-border/50 px-3 pt-3 pb-4 mt-1"
                   style={reducedMotion ? {} : {
-                    opacity:    isOpen ? 1 : 0,
-                    transform:  isOpen ? 'translateY(0)' : 'translateY(6px)',
+                    opacity:   isOpen ? 1 : 0,
+                    transform: isOpen ? 'translateY(0)' : 'translateY(6px)',
                     transition: `opacity 0.2s ${EASE_OUT} ${isOpen ? `${0.08 + navLinks.length * 0.04}s` : '0s'},
                                  transform 0.26s ${SPRING} ${isOpen ? `${0.06 + navLinks.length * 0.04}s` : '0s'}`,
                   }}
                 >
+                  {/* Language switcher — full-width row in mobile drawer */}
+                  <LanguageSwitcher variant="mobile" />
+
                   <Link
                     to="/login"
                     onClick={closeMenu}
@@ -337,7 +321,7 @@ const Navbar = () => {
                       'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
                     ].join(' ')}
                   >
-                    Log in
+                    {t('nav.login')}
                   </Link>
                   <PrimaryCTA size="full" onClick={closeMenu} />
                 </div>
@@ -347,10 +331,7 @@ const Navbar = () => {
 
         </div>{/* /pill */}
 
-        {/*
-          Spacer: also animated so the page content doesn't jump
-          when the pill gains its top margin.
-        */}
+        {/* Spacer */}
         <div
           aria-hidden="true"
           style={{
@@ -358,7 +339,7 @@ const Navbar = () => {
             transition: reducedMotion
               ? 'none'
               : `height ${SHAPE_DURATION} ${SPRING} ${sd}`,
-            overflow:   'hidden',
+            overflow: 'hidden',
           }}
         />
 

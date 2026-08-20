@@ -1,11 +1,12 @@
 import { useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import { Mail, ArrowRight, ArrowLeft, MailCheck, RefreshCw, ShieldAlert } from 'lucide-react'
 import { revealSoft, scaleIn, staggerContainer } from '../../utils/motionVariants'
 import useReducedMotion from '../../hooks/useReducedMotion'
 import BrandLogo from '../../components/BrandLogo'
-import {css} from '../../utils/cssTokens'
+import { css } from '../../utils/cssTokens'
 
 // ─── Spring easing ────────────────────────────────────────────────────────────
 const SPRING = [0.22, 1, 0.36, 1]
@@ -33,41 +34,45 @@ const BgOrbs = () => (
     />
   </div>
 )
+
 // ─── Back to Home — premium frosted pill ──────────────────────────────────────
-const BackToHome = () => (
-  <motion.div
-    variants={revealSoft}
-    className="mb-6"
-  >
-    <Link
-      to="/"
-      aria-label="Back to Stallio home"
-      className="group inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-[12px] font-medium 
-      text-muted-foreground transition-all duration-200 hover: hover:text-primary focus-visible:outline-2 
-      focus-visible:outline-offset-2 focus-visible:outline-ring"
-      style={{
-        borderColor: css.border,
-        background: 'color-mix(in oklch, var(--surface) 80%, transparent)',
-        backdropFilter: 'blur(10px)',
-        color: css.mutedfg,
-        WebkitBackdropFilter: 'blur(10px)',
-      }}
+const BackToHome = () => {
+  const { t } = useTranslation('common')
+  return (
+    <motion.div
+      variants={revealSoft}
+      className="mb-6"
     >
-      <ArrowLeft
-        size={13}
-        strokeWidth={2}
-        aria-hidden="true"
-        className="transition-transform duration-200 group-hover:-translate-x-0.5"
-        style={{ color: css.primary }}
-      />
-      Back to home
-    </Link>
-  </motion.div>
-)
+      <Link
+        to="/"
+        aria-label={t('auth.backToHome', 'Back to Stallio home')}
+        className="group inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-[12px] font-medium 
+        text-muted-foreground transition-all duration-200 hover:text-primary focus-visible:outline-2 
+        focus-visible:outline-offset-2 focus-visible:outline-ring"
+        style={{
+          borderColor: css.border,
+          background: 'color-mix(in oklch, var(--surface) 80%, transparent)',
+          backdropFilter: 'blur(10px)',
+          color: css.mutedFg,
+          WebkitBackdropFilter: 'blur(10px)',
+        }}
+      >
+        <ArrowLeft
+          size={13}
+          strokeWidth={2}
+          aria-hidden="true"
+          className="transition-transform duration-200 group-hover:-translate-x-0.5 rtl:rotate-180 rtl:group-hover:translate-x-0.5"
+          style={{ color: css.primary }}
+        />
+        {t('auth.backToHome', 'Back to home')}
+      </Link>
+    </motion.div>
+  )
+}
 
 // ─── Field wrapper ────────────────────────────────────────────────────────────
 const Field = ({ label, required, hint, children }) => (
-  <div className="flex flex-col gap-1.5">
+  <div className="flex flex-col gap-1.5 text-start">
     <label className="text-[13px] font-medium text-foreground">
       {label}
       {required && (
@@ -75,7 +80,7 @@ const Field = ({ label, required, hint, children }) => (
       )}
     </label>
     {children}
-    {hint && <p className="text-[11px] text-muted-foreground">{hint}</p>}
+    {hint && <p className="text-[11px] text-muted-foreground text-start">{hint}</p>}
   </div>
 )
 
@@ -109,7 +114,7 @@ const EmailInput = ({ value, onChange, disabled }) => {
         disabled={disabled}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        className="w-full bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed"
+        className="w-full bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed text-start"
       />
     </div>
   )
@@ -122,7 +127,7 @@ const ErrorBanner = ({ message }) => (
     animate={{ opacity: 1, y: 0, scale: 1 }}
     exit={{ opacity: 0, y: -4 }}
     transition={{ duration: 0.25, ease: SPRING }}
-    className="flex items-start gap-2.5 rounded-lg border border-destructive/30 px-3.5 py-3"
+    className="flex items-start gap-2.5 rounded-lg border border-destructive/30 px-3.5 py-3 text-start"
     style={{ background: 'color-mix(in oklch, var(--destructive) 8%, transparent)' }}
     role="alert"
     aria-live="assertive"
@@ -134,6 +139,7 @@ const ErrorBanner = ({ message }) => (
 
 // ─── Phase 1 — Email entry ────────────────────────────────────────────────────
 const EmailPhase = ({ onSent }) => {
+  const { t } = useTranslation('common')
   const [email, setEmail]           = useState('')
   const [error, setError]           = useState('')
   const [isSubmitting, setSubmitting] = useState(false)
@@ -141,9 +147,12 @@ const EmailPhase = ({ onSent }) => {
   const handleSubmit = useCallback(async (e) => {
     e.preventDefault()
     const trimmed = email.trim()
-    if (!trimmed) { setError('Please enter your email address.'); return }
+    if (!trimmed) {
+      setError(t('auth.forgotPassword.errors.empty', 'Please enter your email address.'))
+      return
+    }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
-      setError('Enter a valid email address.')
+      setError(t('auth.forgotPassword.errors.invalid', 'Enter a valid email address.'))
       return
     }
     setSubmitting(true)
@@ -152,7 +161,7 @@ const EmailPhase = ({ onSent }) => {
     await new Promise(r => setTimeout(r, 1300))
     setSubmitting(false)
     onSent(trimmed)
-  }, [email, onSent])
+  }, [email, onSent, t])
 
   return (
     <motion.div
@@ -176,18 +185,17 @@ const EmailPhase = ({ onSent }) => {
       {/* Copy */}
       <div className="text-center">
         <h1 className="font-heading text-2xl font-extrabold tracking-[-0.03em] text-foreground sm:text-[1.75rem]">
-          Forgot your password?
+          {t('auth.forgotPassword.title', 'Forgot your password?')}
         </h1>
         <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-          No worries. Enter the email linked to your Stallio account and
-          we'll send you a reset link.
+          {t('auth.forgotPassword.subtext', "No worries. Enter the email linked to your Stallio account and we'll send you a reset link.")}
         </p>
       </div>
 
       <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
         {error && <ErrorBanner message={error} />}
 
-        <Field label="Email address" required>
+        <Field label={t('auth.forgotPassword.email', 'Email address')} required>
           <EmailInput
             value={email}
             onChange={(e) => { setError(''); setEmail(e.target.value) }}
@@ -198,7 +206,7 @@ const EmailPhase = ({ onSent }) => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="group relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-lg py-2.5 text-sm font-semibold shadow-md transition-all duration-200 hover:-translate-y-px hover:shadow-lg active:translate-y-0 disabled:pointer-events-none disabled:opacity-70 bg-primary text-primary-foreground"
+          className="group relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-lg py-2.5 text-sm font-semibold shadow-md transition-all duration-200 hover:-translate-y-px hover:shadow-lg active:translate-y-0 disabled:pointer-events-none disabled:opacity-70 bg-primary text-primary-foreground cursor-pointer"
           style={{ boxShadow: '0 4px 18px -4px var(--p-45)' }}
         >
           {/* Shimmer */}
@@ -219,16 +227,16 @@ const EmailPhase = ({ onSent }) => {
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
               </svg>
-              Sending link…
+              {t('auth.forgotPassword.submitting', 'Sending link…')}
             </>
           ) : (
             <>
-              Send Reset Link
+              {t('auth.forgotPassword.submit', 'Send Reset Link')}
               <ArrowRight
                 size={14}
                 strokeWidth={2.2}
                 aria-hidden="true"
-                className="transition-transform duration-200 group-hover:translate-x-0.5"
+                className="transition-transform duration-200 group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5"
               />
             </>
           )}
@@ -240,8 +248,8 @@ const EmailPhase = ({ onSent }) => {
           to="/login"
           className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors duration-150 hover:text-foreground rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
         >
-          <ArrowLeft size={14} strokeWidth={2} aria-hidden="true" />
-          Back to Log In
+          <ArrowLeft size={14} strokeWidth={2} aria-hidden="true" className="rtl:rotate-180" />
+          {t('auth.forgotPassword.backToLogin', 'Back to Log In')}
         </Link>
       </div>
     </motion.div>
@@ -250,6 +258,7 @@ const EmailPhase = ({ onSent }) => {
 
 // ─── Phase 2 — Sent confirmation ─────────────────────────────────────────────
 const SentPhase = ({ email, onResend }) => {
+  const { t } = useTranslation('common')
   const [resending, setResending] = useState(false)
   const [resent,    setResent]    = useState(false)
 
@@ -292,37 +301,35 @@ const SentPhase = ({ email, onResend }) => {
       {/* Copy */}
       <div className="text-center">
         <h1 className="font-heading text-2xl font-extrabold tracking-[-0.03em] text-foreground sm:text-[1.75rem]">
-          Check your inbox
+          {t('auth.forgotPassword.checkInbox', 'Check your inbox')}
         </h1>
         <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-          We sent a password reset link to{' '}
-          <span className="font-semibold text-foreground">{maskedEmail}</span>.
-          It expires in 15 minutes.
+          {t('auth.forgotPassword.sentSubtext', { email: maskedEmail, defaultValue: `We sent a password reset link to ${maskedEmail}. It expires in 15 minutes.` })}
         </p>
       </div>
 
       {/* Info box */}
       <div
-        className="rounded-lg border px-4 py-3.5"
+        className="rounded-lg border px-4 py-3.5 text-start"
         style={{ background: 'var(--p-10)', borderColor: 'var(--p-35)' }}
       >
         <p className="text-[13px] text-muted-foreground leading-relaxed">
-          Didn't get it? Check your spam folder, or{' '}
+          {t('auth.forgotPassword.didntGetIt', "Didn't get it? Check your spam folder, or")}{' '}
           <button
             type="button"
             onClick={handleResend}
             disabled={resending || resent}
-            className="inline-flex items-center gap-1 font-semibold text-primary underline-offset-2 hover:underline disabled:opacity-60 disabled:cursor-not-allowed transition-opacity duration-150"
+            className="inline-flex items-center gap-1 font-semibold text-primary underline-offset-2 hover:underline disabled:opacity-60 disabled:cursor-not-allowed transition-opacity duration-150 cursor-pointer"
           >
             {resending ? (
               <>
                 <RefreshCw size={12} strokeWidth={2.2} className="animate-spin" aria-hidden="true" />
-                resending…
+                {t('auth.forgotPassword.resending', 'resending…')}
               </>
             ) : resent ? (
-              'link resent ✓'
+              t('auth.forgotPassword.linkResent', 'link resent ✓')
             ) : (
-              'resend the link'
+              t('auth.forgotPassword.resendLink', 'resend the link')
             )}
           </button>
           .
@@ -335,16 +342,16 @@ const SentPhase = ({ email, onResend }) => {
           to="/login"
           className="group relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-lg border border-border bg-surface py-2.5 text-sm font-semibold text-foreground shadow-sm transition-all duration-150 hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
         >
-          <ArrowLeft size={14} strokeWidth={2.2} aria-hidden="true" />
-          Back to Log In
+          <ArrowLeft size={14} strokeWidth={2.2} aria-hidden="true" className="rtl:rotate-180" />
+          {t('auth.forgotPassword.backToLogin', 'Back to Log In')}
         </Link>
 
         <button
           type="button"
           onClick={onResend}
-          className="text-center text-[13px] text-muted-foreground hover:text-foreground transition-colors duration-150 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+          className="text-center text-[13px] text-muted-foreground hover:text-foreground transition-colors duration-150 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring cursor-pointer"
         >
-          Use a different email address
+          {t('auth.forgotPassword.useDifferentEmail', 'Use a different email address')}
         </button>
       </div>
     </motion.div>
@@ -353,6 +360,7 @@ const SentPhase = ({ email, onResend }) => {
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
 const ForgotPassword = () => {
+  const { t } = useTranslation('common')
   const reduced = useReducedMotion()
 
   const [phase, setPhase] = useState('email')   // 'email' | 'sent'
@@ -369,18 +377,18 @@ const ForgotPassword = () => {
     <div className="relative flex min-h-screen flex-col items-center justify-center px-4 py-10 sm:py-14">
       <BgOrbs />
 
-     {/* ── Back to home pill ── */}
-            <motion.div variants={staggerContainer} {...motionProps} className="flex flex-col items-center">
-              <BackToHome />
-      
-              {/* Brand */}
-              <motion.div variants={revealSoft} className="mb-7 flex flex-col items-center gap-2.5">
-                <BrandLogo size="lg" />
-                <p className="text-sm font-medium" style={{ color: css.mutedFg }}>
-                  Welcome back to your Shop
-                </p>
-              </motion.div>
-            </motion.div>
+      {/* ── Back to home pill ── */}
+      <motion.div variants={staggerContainer} {...motionProps} className="flex flex-col items-center">
+        <BackToHome />
+
+        {/* Brand */}
+        <motion.div variants={revealSoft} className="mb-7 flex flex-col items-center gap-2.5">
+          <BrandLogo size="lg" />
+          <p className="text-sm font-medium" style={{ color: css.mutedFg }}>
+            {t('auth.login.welcomeBack', 'Welcome back to your Shop')}
+          </p>
+        </motion.div>
+      </motion.div>
 
       {/* Card */}
       <motion.div className="w-full max-w-md relative" variants={scaleIn} {...motionProps}>
@@ -421,9 +429,9 @@ const ForgotPassword = () => {
         variants={revealSoft}
         {...motionProps}
       >
-        Need help?{' '}
-        <Link to="/help" className="underline-offset-2 hover:underline text-muted-foreground">
-          Contact support
+        {t('auth.forgotPassword.needHelp', 'Need help?')}{' '}
+        <Link to="/contact" className="underline-offset-2 hover:underline text-muted-foreground">
+          {t('auth.forgotPassword.contactSupport', 'Contact support')}
         </Link>
         .
       </motion.p>

@@ -1,0 +1,95 @@
+{
+  "hero": {
+    "eyebrow": "Sobre Stallio",
+    "headline": "Diseñado para vendedores",
+    "headlineHighlight": "que avanzan rápido.",
+    "body": "Stallio nació de una observación: los mejores vendedores ya vendían por Instagram y WhatsApp. Solo necesitaban una tienda real a su altura. Y eso fue exactamente lo que creamos."
+  },
+  "mission": {
+    "eyebrow": "Nuestra misión",
+    "quote1": "El comercio se mueve por mensajes directos.",
+    "quote2": "Creamos la tienda para eso.",
+    "body": "No estamos creando un marketplace más. Desarrollamos la tienda más simple y potente que un vendedor puede gestionar desde su móvil, porque ahí es donde ocurre el comercio real.",
+    "card": {
+      "reach": "Alcance global",
+      "worldwide": "Mundial"
+    },
+    "stats": {
+      "sellers": { "num": "+500", "label": "Vendedores" },
+      "cities": { "num": "+50", "label": "Ciudades" },
+      "orders": { "num": "+100K", "label": "Pedidos" }
+    }
+  },
+  "story": {
+    "eyebrow": "Nuestra historia",
+    "title": "Por qué creamos Stallio",
+    "p1": "Vimos a vendedores talentosos pasar sus días copiando y pegando detalles de productos en chats de WhatsApp, anotando pedidos en libretas de papel y perdiendo clientes por no tener un proceso de compra claro.",
+    "p2": "Las herramientas existentes estaban pensadas para grandes almacenes, no para quienes gestionan una boutique desde su teléfono. Por eso creamos Stallio: una tienda accesible desde un único enlace que encaja perfectamente con el comercio social.",
+    "p3": "Sin dominios que configurar ni pasarelas complejas que negociar. Solo tus productos, tus compradores y un enlace que compartes donde quieras.",
+    "timeline": {
+      "step1": { "id": "El problema", "detail": "Vendedores desbordados en chats", "step": "01" },
+      "step2": { "id": "Primera versión", "detail": "Lanzamiento con 50 tiendas beta", "step": "02" },
+      "step3": { "id": "Crecimiento rápido", "detail": "+500 tiendas activas", "step": "03" }
+    }
+  },
+  "values": {
+    "eyebrow": "En lo que creemos",
+    "title": "Nuestros valores",
+    "principles": "principios",
+    "items": [
+      {
+        "index": "01",
+        "title": "Rapidez sin rodeos",
+        "desc": "Si se tarda más de un minuto en configurar, lo rediseñamos. Cada pantalla, cada paso."
+      },
+      {
+        "index": "02",
+        "title": "El vendedor tiene el control",
+        "desc": "Tus cobros, tus clientes, tus datos. Nosotros nunca nos interponemos en medio."
+      },
+      {
+        "index": "03",
+        "title": "Hecho para este mercado",
+        "desc": "Diseñado para el funcionamiento real del comercio social."
+      },
+      {
+        "index": "04",
+        "title": "El móvil primero, siempre",
+        "desc": "Tus clientes compran desde el móvil. Así diseñamos cada píxel y cada interacción."
+      }
+    ]
+  },
+  "howWeThink": {
+    "eyebrow": "Cómo pensamos",
+    "title": "Principios detrás del producto",
+    "card1": {
+      "eyebrow": "Creado para vendedores reales",
+      "title": "Cocinas caseras, talleres\ny proyectos personales.",
+      "body": "No es software corporativo. Stallio está diseñado para el comerciante que gestiona todo desde su teléfono y envía paquetes todos los días."
+    },
+    "card2": {
+      "title": "Sencillo\npor diseño",
+      "body": "Menos ajustes confusos y extensiones innecesarias. Un camino directo del catálogo al pedido."
+    },
+    "card3": {
+      "title": "Espacio para crecer",
+      "body": "Empieza de forma ágil y añade productos y detalles a medida que tu audiencia crece contigo."
+    },
+    "card4": {
+      "eyebrow": "Hecho para el impulso",
+      "title": "Tanto si pruebas una nueva colección como si envías cada semana",
+      "body": "Stallio no estorba. Actualiza artículos, ajusta textos y sigue vendiendo sin tener que rehacer una web entera."
+    },
+    "card5": {
+      "eyebrow": "Nuestra visión",
+      "title": "Los vendedores independientes merecen herramientas de calidad y honestas.",
+      "body": "Precios transparentes, gestión clara y una tienda que respeta el tiempo de tu comprador tanto como el tuyo."
+    }
+  },
+  "statsStrip": {
+    "ariaLabel": "Stallio en cifras",
+    "sellers": { "num": "+500", "label": "Vendedores activos" },
+    "cities": { "num": "+50", "label": "Ciudades alcanzadas" },
+    "orders": { "num": "+100K", "label": "Pedidos gestionados" }
+  }
+}

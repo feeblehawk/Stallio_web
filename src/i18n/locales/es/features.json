@@ -1,0 +1,224 @@
+{
+  "hero": {
+    "eyebrow": "Todo incluido",
+    "headline": "Todo lo que necesitas",
+    "headlineHighlight": "para vender desde un solo enlace.",
+    "body": "Tienda, panel de control y herramientas de vendedor en un solo lugar. Enlace alojado, catálogo y pedidos ilimitados, sin necesidad de pasarela de pago del comprador.",
+    "startFree": "Comenzar gratis",
+    "seeHow": "Ver cómo funciona",
+    "trustFree": "Comienza gratis",
+    "trustCard": "Sin tarjeta requerida",
+    "trustLive": "Activo en minutos",
+    "stepper": {
+      "dashboardTitle": "Panel de Stallio",
+      "tagline": "Catálogo, pago, pedidos y facturas en un solo ciclo de gestión.",
+      "steps": {
+        "orders": {
+          "label": "Pedidos",
+          "description": "Cada pedido en un solo lugar."
+        },
+        "products": {
+          "label": "Productos",
+          "description": "Catálogo, variantes, stock."
+        },
+        "checkout": {
+          "label": "Pago",
+          "description": "Cupones y tarifas de envío."
+        },
+        "invoice": {
+          "label": "Facturas",
+          "description": "Facturas en PDF, con un toque."
+        }
+      },
+      "orderWidget": {
+        "orderId": "Pedido #1042",
+        "customer": "Zayn M. — ₨ 2,800",
+        "statusPaid": "Pagado",
+        "statusDelivered": "Entregado"
+      },
+      "productWidget": {
+        "productName": "Zapatillas",
+        "price": "₨ 6,800",
+        "stock": "Stock: 8",
+        "sizeLabel": "Talla:"
+      },
+      "checkoutWidget": {
+        "subtotal": "Subtotal",
+        "subtotalVal": "₨ 6,800",
+        "coupon": "Cupón (SAVE15)",
+        "couponVal": "−₨ 1,020",
+        "total": "Total",
+        "totalVal": "₨ 5,780"
+      },
+      "invoiceWidget": {
+        "title": "Factura Stallio",
+        "subtitle": "#INV-1042 · Ago 2026",
+        "totalVal": "₨ 5,780",
+        "shareWhatsApp": "Compartir por WhatsApp"
+      }
+    }
+  },
+  "whatYouGet": {
+    "eyebrow": "Lo que obtienes",
+    "headline": "Cada herramienta que un vendedor necesita.",
+    "headlineSecondary": "Nada de lo que no.",
+    "body": "Creado para vendedores que ya tienen compradores, no para equipos que gestionan DNS, plugins y pasarelas de pago.",
+    "countPill": "12 funciones incluidas",
+    "groups": {
+      "storefront": {
+        "label": "El enlace de tu tienda",
+        "headline": "Un enlace. Toda tu marca.",
+        "body": "Comparte stallio.shop/tunombre desde tu biografía, WhatsApp o código QR. Lo alojamos nosotros, sin dominio ni servidor.",
+        "chips": [
+          "Slug personalizado",
+          "Árabe e Inglés",
+          "Páginas Acerca y Contacto",
+          "Mobile-first"
+        ],
+        "mockup": {
+          "shopName": "Tu Tienda",
+          "shopSubtitle": "4 productos · Colección de Verano",
+          "verifiedBadge": "Verificado ✓",
+          "footerText": "4 productos · stallio.shop/tutienda",
+          "shopNow": "Comprar ahora →"
+        }
+      },
+      "orders": {
+        "label": "Gestión de Pedidos",
+        "headline": "Cada pedido, organizado.",
+        "body": "Busca, filtra, marca como pagado, establece el estado de entrega. Nada se pierde en DMs ni se dispersa entre chats.",
+        "chips": [
+          "Bandeja de pedidos",
+          "Seguimiento de estado",
+          "Mensajes de compradores",
+          "Exportar CSV"
+        ],
+        "mockup": {
+          "title": "Pedidos — Hoy",
+          "statusPaid": "Pagado",
+          "statusPending": "Pendiente"
+        }
+      },
+      "commerce": {
+        "label": "Catálogo y Pago",
+        "headline": "Productos que los compradores pueden comprar fácilmente.",
+        "body": "Variantes, precios de oferta, cupones, tarifas de envío y pago contra entrega (COD), todo aplicado al pagar sin pasarelas.",
+        "chips": [
+          "Productos ilimitados",
+          "Precios por variante",
+          "Códigos de cupón",
+          "Opción de COD"
+        ],
+        "mockup": {
+          "title": "Resumen de Pago",
+          "item": "Zapatillas × 1",
+          "delivery": "Envío",
+          "coupon": "Cupón SAVE15",
+          "total": "Total"
+        }
+      },
+      "growth": {
+        "label": "Facturas y Estadísticas",
+        "headline": "Recibos profesionales. Números reales.",
+        "body": "Facturas PDF por pedido, gráficos de ingresos y botón para compartir por WhatsApp, todo con un toque en el panel.",
+        "chips": [
+          "Facturas PDF",
+          "Resumen de ingresos",
+          "Compartir por WhatsApp",
+          "Soporte al vendedor"
+        ],
+        "mockup": {
+          "title": "Factura · #INV-1042",
+          "invoiceHeading": "Factura Stallio",
+          "invoiceSubtitle": "Ago 2026 · Zayn M.",
+          "revenueWeek": "Ingresos / semana",
+          "shareWhatsApp": "Compartir por WhatsApp"
+        }
+      }
+    }
+  },
+  "allFeatures": {
+    "eyebrow": "Todo incluido",
+    "headline": "Una tienda en línea, no un proyecto de ciencias.",
+    "body": "Los compradores exploran categorías, eligen variantes, aplican cupones y hacen pedidos desde su teléfono. Comparte un enlace esta misma noche, sin factura de hosting, dominio personalizado ni configuraciones complejas.",
+    "pill": "12 funciones · todos los planes · sin costos ocultos",
+    "bottomBadge": "Alojado en stallio.shop/tunombre",
+    "columns": {
+      "store": {
+        "label": "Tu Tienda",
+        "items": [
+          {
+            "id": "store-link",
+            "label": "Enlace de Tienda Personalizado",
+            "body": "Enlace de tienda personalizado para usar en WhatsApp, Facebook, Instagram y otras redes."
+          },
+          {
+            "id": "catalog",
+            "label": "Catálogo de Productos",
+            "body": "Productos e imágenes ilimitadas. Variantes, precios de oferta, conteo de stock."
+          },
+          {
+            "id": "storefront",
+            "label": "Tienda Optimizada para Móviles",
+            "body": "Cuadrícula, páginas de productos y proceso de pago adaptados para móviles, justo donde ya están tus compradores."
+          },
+          {
+            "id": "categories",
+            "label": "Categorías y Páginas",
+            "body": "Agrupa productos, personaliza la portada con distintivos de confianza, reseñas, y páginas de Acerca de y Contacto."
+          }
+        ]
+      },
+      "operations": {
+        "label": "Operaciones",
+        "items": [
+          {
+            "id": "orders",
+            "label": "Panel de Pedidos",
+            "body": "Cada pedido en una sola bandeja. Busca, filtra, marca como pagado, define el estado de envío y agrega seguimiento."
+          },
+          {
+            "id": "coupons",
+            "label": "Cupones y Promociones",
+            "body": "Códigos con descuento porcentual o fijo con fecha de vencimiento opcional. Los clientes los aplican directamente al pagar."
+          },
+          {
+            "id": "invoices",
+            "label": "Facturas en PDF",
+            "body": "Descarga una factura profesional por pedido para enviarla al instante por WhatsApp o correo electrónico."
+          },
+          {
+            "id": "delivery",
+            "label": "Envíos y Pago Contra Entrega",
+            "body": "Envío fijo o gratuito a partir de un monto mínimo, tiempo estimado de entrega, notas al pagar y opción de pago contra entrega."
+          }
+        ]
+      },
+      "growth": {
+        "label": "Crecimiento",
+        "items": [
+          {
+            "id": "payment",
+            "label": "Tú Controlas el Pago",
+            "body": "Indica a los compradores cómo pagar mediante transferencia, enlace o COD. Stallio registra el pedido; tú confirmas al recibir el pago."
+          },
+          {
+            "id": "revenue",
+            "label": "Resumen de Ingresos",
+            "body": "Gráficos y totales de pedidos pagados hoy, durante la semana o en un rango de fechas personalizado."
+          },
+          {
+            "id": "messages",
+            "label": "Mensajes de Compradores",
+            "body": "Los envíos del formulario de contacto llegan a tu bandeja para que nada se quede únicamente en Instagram."
+          },
+          {
+            "id": "support",
+            "label": "Soporte para Vendedores",
+            "body": "Chatea con el equipo de Stallio desde tu panel de control siempre que necesites ayuda."
+          }
+        ]
+      }
+    }
+  }
+}

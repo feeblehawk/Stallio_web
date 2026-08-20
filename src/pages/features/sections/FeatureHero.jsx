@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { FaWhatsapp } from 'react-icons/fa6'
 import { FileText, Package, ShoppingBag, Tag } from 'lucide-react'
 import useReducedMotion from '../../../hooks/useReducedMotion'
@@ -32,13 +33,13 @@ const css = {
 
 const AUTOPLAY_MS = 5000
 
-// ─── Step configuration — single source of truth ─────────────────────────────
-const STEPS = [
-  { id: 'orders',   num: 1, label: 'Orders',   description: 'Every order in one feed.', Icon: ShoppingBag },
-  { id: 'products', num: 2, label: 'Products',  description: 'Catalog, variants, stock.', Icon: Package },
-  { id: 'checkout', num: 3, label: 'Checkout',  description: 'Coupons & delivery fees.', Icon: Tag },
-  { id: 'invoice',  num: 4, label: 'Invoices',  description: 'PDF invoices, one tap.',    Icon: FileText },
-]
+// ─── Step icon map ────────────────────────────────────────────────────────────
+const STEP_ICONS = {
+  orders: ShoppingBag,
+  products: Package,
+  checkout: Tag,
+  invoice: FileText,
+}
 
 // ─── Shared micro-components ──────────────────────────────────────────────────
 const TrustBadge = ({ children }) => (
@@ -66,20 +67,31 @@ const StatusPill = ({ children, variant = 'success' }) => {
 
 // ─── Widget panels — pre-rendered, opacity-only swap, no height animation ─────
 
-const OrderWidget = () => (
-  <div className="rounded-xl border p-3" style={{ background: css.p10, borderColor: css.p20border }}>
-    <div className="flex items-center justify-between">
-      <div>
-        <div className="text-[11px] font-bold" style={{ color: css.fg }}>Order #1042</div>
-        <div className="mt-0.5 text-[10px]" style={{ color: css.mutedFg }}>Zayn M. — ₨ 2,800</div>
-      </div>
-      <div className="flex flex-col items-end gap-1">
-        <StatusPill variant="success">Paid</StatusPill>
-        <StatusPill variant="info">Delivered</StatusPill>
+const OrderWidget = () => {
+  const { t } = useTranslation('features')
+  return (
+    <div className="rounded-xl border p-3" style={{ background: css.p10, borderColor: css.p20border }}>
+      <div className="flex items-center justify-between">
+        <div>
+          <div className="text-[11px] font-bold" style={{ color: css.fg }}>
+            {t('hero.stepper.orderWidget.orderId', 'Order #1042')}
+          </div>
+          <div className="mt-0.5 text-[10px]" style={{ color: css.mutedFg }}>
+            {t('hero.stepper.orderWidget.customer', 'Zayn M. — ₨ 2,800')}
+          </div>
+        </div>
+        <div className="flex flex-col items-end gap-1">
+          <StatusPill variant="success">
+            {t('hero.stepper.orderWidget.statusPaid', 'Paid')}
+          </StatusPill>
+          <StatusPill variant="info">
+            {t('hero.stepper.orderWidget.statusDelivered', 'Delivered')}
+          </StatusPill>
+        </div>
       </div>
     </div>
-  </div>
-)
+  )
+}
 
 const VariantChip = ({ active, children }) => (
   <span
@@ -94,72 +106,93 @@ const VariantChip = ({ active, children }) => (
   </span>
 )
 
-const ProductWidget = () => (
-  <div className="rounded-xl border p-3" style={{ background: css.p10, borderColor: css.p20border }}>
-    <div className="flex items-start justify-between">
-      <div>
-        <div className="text-[11px] font-bold" style={{ color: css.fg }}>Sneakers</div>
-        <div className="mt-0.5 text-[10px] font-semibold" style={{ color: css.primary }}>₨ 6,800</div>
+const ProductWidget = () => {
+  const { t } = useTranslation('features')
+  return (
+    <div className="rounded-xl border p-3" style={{ background: css.p10, borderColor: css.p20border }}>
+      <div className="flex items-start justify-between">
+        <div>
+          <div className="text-[11px] font-bold" style={{ color: css.fg }}>
+            {t('hero.stepper.productWidget.productName', 'Sneakers')}
+          </div>
+          <div className="mt-0.5 text-[10px] font-semibold" style={{ color: css.primary }}>
+            {t('hero.stepper.productWidget.price', '₨ 6,800')}
+          </div>
+        </div>
+        <div
+          className="rounded-lg px-2 py-0.5 text-[9px] font-semibold"
+          style={{ background: css.successBg, color: css.success, border: `1px solid ${css.successBorder}` }}
+        >
+          {t('hero.stepper.productWidget.stock', 'Stock: 8')}
+        </div>
+      </div>
+      <div className="mt-2.5 flex items-center gap-1.5">
+        <span className="text-[9px] font-medium" style={{ color: css.mutedFg }}>
+          {t('hero.stepper.productWidget.sizeLabel', 'Size:')}
+        </span>
+        <VariantChip>S</VariantChip>
+        <VariantChip active>M</VariantChip>
+        <VariantChip>L</VariantChip>
+      </div>
+    </div>
+  )
+}
+
+const CheckoutWidget = () => {
+  const { t } = useTranslation('features')
+  return (
+    <div className="space-y-1.5 rounded-xl border p-3" style={{ background: css.p10, borderColor: css.p20border }}>
+      <div className="flex justify-between text-[10px]">
+        <span style={{ color: css.mutedFg }}>{t('hero.stepper.checkoutWidget.subtotal', 'Subtotal')}</span>
+        <span className="font-semibold" style={{ color: css.fg }}>{t('hero.stepper.checkoutWidget.subtotalVal', '₨ 6,800')}</span>
+      </div>
+      <div className="flex justify-between text-[10px]">
+        <span style={{ color: css.success }}>{t('hero.stepper.checkoutWidget.coupon', 'Coupon (SAVE15)')}</span>
+        <span className="font-semibold" style={{ color: css.success }}>{t('hero.stepper.checkoutWidget.couponVal', '−₨ 1,020')}</span>
       </div>
       <div
-        className="rounded-lg px-2 py-0.5 text-[9px] font-semibold"
-        style={{ background: css.successBg, color: css.success, border: `1px solid ${css.successBorder}` }}
+        className="mt-1 flex justify-between border-t pt-1.5 text-[11px] font-bold"
+        style={{ borderColor: css.p20border }}
       >
-        Stock: 8
+        <span style={{ color: css.fg }}>{t('hero.stepper.checkoutWidget.total', 'Total')}</span>
+        <span style={{ color: css.primary }}>{t('hero.stepper.checkoutWidget.totalVal', '₨ 5,780')}</span>
       </div>
     </div>
-    <div className="mt-2.5 flex items-center gap-1.5">
-      <span className="text-[9px] font-medium" style={{ color: css.mutedFg }}>Size:</span>
-      <VariantChip>S</VariantChip>
-      <VariantChip active>M</VariantChip>
-      <VariantChip>L</VariantChip>
-    </div>
-  </div>
-)
+  )
+}
 
-const CheckoutWidget = () => (
-  <div className="space-y-1.5 rounded-xl border p-3" style={{ background: css.p10, borderColor: css.p20border }}>
-    <div className="flex justify-between text-[10px]">
-      <span style={{ color: css.mutedFg }}>Subtotal</span>
-      <span className="font-semibold" style={{ color: css.fg }}>₨ 6,800</span>
-    </div>
-    <div className="flex justify-between text-[10px]">
-      <span style={{ color: css.success }}>Coupon (SAVE15)</span>
-      <span className="font-semibold" style={{ color: css.success }}>−₨ 1,020</span>
-    </div>
-    <div
-      className="mt-1 flex justify-between border-t pt-1.5 text-[11px] font-bold"
-      style={{ borderColor: css.p20border }}
-    >
-      <span style={{ color: css.fg }}>Total</span>
-      <span style={{ color: css.primary }}>₨ 5,780</span>
-    </div>
-  </div>
-)
-
-const InvoiceWidget = () => (
-  <div className="rounded-xl border p-3" style={{ background: css.p10, borderColor: css.p20border }}>
-    <div className="mb-2 flex items-center justify-between">
-      <div>
-        <div className="text-[11px] font-bold" style={{ color: css.fg }}>Stallio Invoice</div>
-        <div className="mt-0.5 text-[9px]" style={{ color: css.mutedFg }}>#INV-1042 · Aug 2026</div>
+const InvoiceWidget = () => {
+  const { t } = useTranslation('features')
+  return (
+    <div className="rounded-xl border p-3" style={{ background: css.p10, borderColor: css.p20border }}>
+      <div className="mb-2 flex items-center justify-between">
+        <div>
+          <div className="text-[11px] font-bold" style={{ color: css.fg }}>
+            {t('hero.stepper.invoiceWidget.title', 'Stallio Invoice')}
+          </div>
+          <div className="mt-0.5 text-[9px]" style={{ color: css.mutedFg }}>
+            {t('hero.stepper.invoiceWidget.subtitle', '#INV-1042 · Aug 2026')}
+          </div>
+        </div>
+        <div className="text-[11px] font-bold" style={{ color: css.primary }}>
+          {t('hero.stepper.invoiceWidget.totalVal', '₨ 5,780')}
+        </div>
       </div>
-      <div className="text-[11px] font-bold" style={{ color: css.primary }}>₨ 5,780</div>
+      <button
+        type="button"
+        className="mt-1 flex w-full items-center justify-center gap-1.5 rounded-lg py-1.5 text-[10px] font-semibold transition-opacity duration-150 hover:opacity-80"
+        style={{
+          background: 'color-mix(in oklch, oklch(0.58 0.22 150) 14%, var(--surface))',
+          color:      'oklch(0.48 0.22 150)',
+          border:     '1px solid color-mix(in oklch, oklch(0.58 0.22 150) 22%, var(--border))',
+        }}
+      >
+        <FaWhatsapp size={11} aria-hidden="true" />
+        {t('hero.stepper.invoiceWidget.shareWhatsApp', 'Share via WhatsApp')}
+      </button>
     </div>
-    <button
-      type="button"
-      className="mt-1 flex w-full items-center justify-center gap-1.5 rounded-lg py-1.5 text-[10px] font-semibold transition-opacity duration-150 hover:opacity-80"
-      style={{
-        background: 'color-mix(in oklch, oklch(0.58 0.22 150) 14%, var(--surface))',
-        color:      'oklch(0.48 0.22 150)',
-        border:     '1px solid color-mix(in oklch, oklch(0.58 0.22 150) 22%, var(--border))',
-      }}
-    >
-      <FaWhatsapp size={11} aria-hidden="true" />
-      Share via WhatsApp
-    </button>
-  </div>
-)
+  )
+}
 
 // Keyed by step id — used for AnimatePresence key prop
 const WIDGET_MAP = {
@@ -177,15 +210,23 @@ const widgetVariants = {
 }
 
 const LiquidStepperCard = ({ reducedMotion }) => {
+  const { t } = useTranslation('features')
   const [activeStep, setActiveStep] = useState(0)
   const timerRef    = useRef(null)
   // Guards one-time autoplay start without a useEffect
   const startedRef  = useRef(false)
 
+  const steps = [
+    { id: 'orders',   num: 1, label: t('hero.stepper.steps.orders.label', 'Orders'),   description: t('hero.stepper.steps.orders.description', 'Every order in one feed.'), Icon: STEP_ICONS.orders },
+    { id: 'products', num: 2, label: t('hero.stepper.steps.products.label', 'Products'), description: t('hero.stepper.steps.products.description', 'Catalog, variants, stock.'), Icon: STEP_ICONS.products },
+    { id: 'checkout', num: 3, label: t('hero.stepper.steps.checkout.label', 'Checkout'), description: t('hero.stepper.steps.checkout.description', 'Coupons & delivery fees.'), Icon: STEP_ICONS.checkout },
+    { id: 'invoice',  num: 4, label: t('hero.stepper.steps.invoice.label', 'Invoices'), description: t('hero.stepper.steps.invoice.description', 'PDF invoices, one tap.'), Icon: STEP_ICONS.invoice },
+  ]
+
   const startTimer = () => {
     if (timerRef.current) clearInterval(timerRef.current)
     timerRef.current = setInterval(() => {
-      setActiveStep((s) => (s + 1) % STEPS.length)
+      setActiveStep((s) => (s + 1) % steps.length)
     }, AUTOPLAY_MS)
   }
 
@@ -206,11 +247,11 @@ const LiquidStepperCard = ({ reducedMotion }) => {
     startTimer() // resets countdown
   }
 
-  const activeStepId = STEPS[activeStep].id
+  const activeStepId = steps[activeStep]?.id || 'orders'
 
   return (
     <motion.div
-      className="relative mx-auto w-full max-w-sm overflow-hidden rounded-2xl border lg:mx-0 lg:ml-auto"
+      className="relative mx-auto w-full max-w-sm overflow-hidden rounded-2xl border lg:mx-0 lg:ms-auto"
       style={{
         background:          'color-mix(in oklch, var(--surface) 92%, transparent)',
         borderColor:         css.p35,
@@ -226,7 +267,7 @@ const LiquidStepperCard = ({ reducedMotion }) => {
     >
       {/* Radial glow — decorative only */}
       <div
-        className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full opacity-20 blur-3xl"
+        className="pointer-events-none absolute -end-16 -top-16 h-48 w-48 rounded-full opacity-20 blur-3xl"
         style={{ background: css.primary }}
         aria-hidden="true"
       />
@@ -243,7 +284,9 @@ const LiquidStepperCard = ({ reducedMotion }) => {
           >
             <span className="font-heading text-[9px] font-extrabold" style={{ color: css.primary }}>S</span>
           </div>
-          <span className="text-[11px] font-semibold" style={{ color: css.fg }}>Stallio Dashboard</span>
+          <span className="text-[11px] font-semibold" style={{ color: css.fg }}>
+            {t('hero.stepper.dashboardTitle', 'Stallio Dashboard')}
+          </span>
         </div>
         {/* Traffic-light dots — decorative */}
         <div className="flex gap-1.5" aria-hidden="true">
@@ -256,8 +299,8 @@ const LiquidStepperCard = ({ reducedMotion }) => {
       {/* ── Card body ── */}
       <div className="p-4">
         {/* Tagline */}
-        <p className="mb-4 text-[11px] font-medium leading-relaxed" style={{ color: css.mutedFg }}>
-          Catalog, checkout, orders, and invoices in one dashboard loop.
+        <p className="mb-4 text-[11px] font-medium leading-relaxed text-start" style={{ color: css.mutedFg }}>
+          {t('hero.stepper.tagline', 'Catalog, checkout, orders, and invoices in one dashboard loop.')}
         </p>
 
         {/* Two-column: vertical timeline | step tabs */}
@@ -279,14 +322,14 @@ const LiquidStepperCard = ({ reducedMotion }) => {
                   left: '50%',
                   transform: 'translateX(-50%)',
                 }}
-                animate={{ height: `${(activeStep / (STEPS.length - 1)) * 100}%` }}
+                animate={{ height: `${(activeStep / (steps.length - 1)) * 100}%` }}
                 transition={{ duration: 0.48, ease: easePremium }}
               />
             )}
 
             {/* Nodes — rendered in fixed positions, no layout/margin changes */}
             <div className="relative flex h-full flex-col items-center justify-between" style={{ gap: '1.75rem' }}>
-              {STEPS.map((step, i) => {
+              {steps.map((step, i) => {
                 const isActive = activeStep === i
                 const isPast   = activeStep > i
                 return (
@@ -294,7 +337,7 @@ const LiquidStepperCard = ({ reducedMotion }) => {
                     key={step.id}
                     type="button"
                     onClick={() => handleSelectStep(i)}
-                    className="relative z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2"
+                    className="relative z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 cursor-pointer"
                     style={{
                       background:  isActive ? css.primary : isPast ? css.p14 : css.surface,
                       borderColor: isActive ? css.primary : isPast ? css.p35 : css.border,
@@ -315,14 +358,14 @@ const LiquidStepperCard = ({ reducedMotion }) => {
 
           {/* ── Step labels — always rendered, tab-style, no collapse/expand ── */}
           <div className="flex flex-1 min-w-0 flex-col" style={{ gap: '1.75rem', paddingTop: 2 }}>
-            {STEPS.map((step, i) => {
+            {steps.map((step, i) => {
               const isActive = activeStep === i
               return (
                 <button
                   key={step.id}
                   type="button"
                   onClick={() => handleSelectStep(i)}
-                  className="flex min-w-0 flex-col items-start gap-0.5 text-left focus-visible:outline-2 focus-visible:outline-offset-2 rounded-sm transition-opacity duration-200"
+                  className="flex min-w-0 flex-col items-start gap-0.5 text-start focus-visible:outline-2 focus-visible:outline-offset-2 rounded-sm transition-opacity duration-200 cursor-pointer"
                   style={{ opacity: isActive ? 1 : 0.45, outline: 'none' }}
                   aria-pressed={isActive}
                   aria-label={`${step.label}: ${step.description}`}
@@ -345,9 +388,8 @@ const LiquidStepperCard = ({ reducedMotion }) => {
           </div>
         </div>
 
-      
         <div
-          className="mt-4 border-t pt-3"
+          className="mt-4 border-t pt-3 text-start"
           style={{ borderColor: css.p20border, minHeight: 88 }}
         >
           <AnimatePresence mode="wait" initial={false}>
@@ -365,12 +407,12 @@ const LiquidStepperCard = ({ reducedMotion }) => {
 
         {/* ── Progress indicator ── */}
         <div className="mt-3 flex items-center gap-2">
-          {STEPS.map((step, i) => (
+          {steps.map((step, i) => (
             <button
               key={step.id}
               type="button"
               onClick={() => handleSelectStep(i)}
-              className="h-0.5 flex-1 rounded-full transition-all duration-500 focus-visible:outline-2 focus-visible:outline-offset-2"
+              className="h-0.5 flex-1 rounded-full transition-all duration-500 focus-visible:outline-2 focus-visible:outline-offset-2 cursor-pointer"
               style={{
                 background: i <= activeStep ? css.primary : css.border,
                 opacity:    i === activeStep ? 1 : i < activeStep ? 0.55 : 0.28,
@@ -386,6 +428,7 @@ const LiquidStepperCard = ({ reducedMotion }) => {
 
 // ─── Main FeaturesHero section ────────────────────────────────────────────────
 const FeaturesHero = () => {
+  const { t } = useTranslation('features')
   const reducedMotion = useReducedMotion()
   const motionProps = reducedMotion
     ? { initial: false, animate: 'visible' }
@@ -428,7 +471,7 @@ const FeaturesHero = () => {
 
           {/* ── LEFT: Hero copy ── */}
           <motion.div
-            className="max-w-2xl text-center lg:text-left"
+            className="max-w-2xl text-center lg:text-start"
             variants={staggerHero}
             {...motionProps}
           >
@@ -447,7 +490,7 @@ const FeaturesHero = () => {
                   className="text-[11px] font-semibold uppercase tracking-[0.2em]"
                   style={{ color: css.mutedFg }}
                 >
-                  Everything included
+                  {t('hero.eyebrow')}
                 </span>
               </div>
             </motion.div>
@@ -463,19 +506,20 @@ const FeaturesHero = () => {
                 color:     'var(--foreground)',
               }}
             >
-              Everything you need
+              {t('hero.headline')}
               <br />
-              <span style={{ color: css.primary }}>to sell from one link.</span>
+              <span style={{ color: css.primary }}>
+                {t('hero.headlineHighlight')}
+              </span>
             </motion.h1>
 
             {/* Sub copy */}
             <motion.p
               variants={reveal}
-              className="mx-auto mt-6 max-w-xl text-base leading-7 sm:text-lg lg:mx-0"
+              className="mx-auto mt-6 max-w-xl text-base leading-7 sm:text-lg lg:mx-0 text-center lg:text-start"
               style={{ color: css.mutedFg }}
             >
-              Storefront, dashboard, and seller tools in one place.Hosted link,
-              unlimited catalog and orders, no buyer payment gateway required.
+              {t('hero.body')}
             </motion.p>
 
             {/* CTAs */}
@@ -496,7 +540,7 @@ const FeaturesHero = () => {
                   className="pointer-events-none absolute inset-0 -translate-x-full skew-x-[-20deg] bg-white/10 transition-transform duration-500 group-hover:translate-x-[200%]"
                   aria-hidden="true"
                 />
-                Start Free
+                {t('hero.startFree', 'Start Free')}
                 <ArrowIcon />
               </a>
               <Link
@@ -508,8 +552,8 @@ const FeaturesHero = () => {
                   background:  'color-mix(in oklch, var(--surface) 80%, transparent)',
                 }}
               >
-                See How It Works
-                <span className="transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true">→</span>
+                {t('hero.seeHow', 'See How It Works')}
+                <span className="inline-block transition-transform duration-300 group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5" aria-hidden="true">→</span>
               </Link>
             </motion.div>
 
@@ -518,9 +562,9 @@ const FeaturesHero = () => {
               variants={revealSoft}
               className="mt-6 flex flex-wrap justify-center gap-x-5 gap-y-2 lg:justify-start"
             >
-              <TrustBadge>Free to start</TrustBadge>
-              <TrustBadge>No card required</TrustBadge>
-              <TrustBadge>Live in minutes</TrustBadge>
+              <TrustBadge>{t('hero.trustFree', 'Free to start')}</TrustBadge>
+              <TrustBadge>{t('hero.trustCard', 'No card required')}</TrustBadge>
+              <TrustBadge>{t('hero.trustLive', 'Live in minutes')}</TrustBadge>
             </motion.div>
           </motion.div>
 

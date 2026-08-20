@@ -1,0 +1,145 @@
+{
+  "nav": {
+    "home":       "Inicio",
+    "features":   "Funciones",
+    "pricing":    "Precios",
+    "howItWorks": "Cómo Funciona",
+    "about":      "Nosotros",
+    "login":      "Iniciar sesión",
+    "signup":     "Empieza Gratis"
+  },
+  "language": {
+    "label":       "Idioma",
+    "ariaLabel":   "Seleccionar idioma",
+    "en":          "English",
+    "es":          "Español"
+  },
+  "cta": {
+    "startFree":   "Empieza Gratis",
+    "seeHow":      "Ver cómo funciona",
+    "learnMore":   "Saber más",
+    "getStarted":  "Comenzar"
+  },
+  "footer": {
+    "tagline": "Tu tienda. A un enlace.",
+    "rights":  "Todos los derechos reservados."
+  },
+  "auth": {
+    "backToHome": "Volver al inicio",
+    "terms": "Términos",
+    "and": "y",
+    "privacyPolicy": "Política de Privacidad",
+    "brandSubtitle": "Tu tienda online, a un enlace de distancia",
+    "login": {
+      "welcomeBack": "Bienvenido de nuevo a tu tienda",
+      "heading": "Inicia sesión en Stallio",
+      "subtitle": "Tu tienda a un solo toque",
+      "email": "Correo electrónico",
+      "emailPlaceholder": "tu@ejemplo.com",
+      "password": "Contraseña",
+      "passwordPlaceholder": "Tu contraseña",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "submit": "Iniciar Sesión",
+      "submitting": "Iniciando sesión…",
+      "noAccount": "¿Aún no tienes una tienda?",
+      "signupLink": "Regístrate gratis →",
+      "legal": "Al iniciar sesión aceptas nuestros",
+      "errors": {
+        "required": "Por favor, introduce tu correo y contraseña.",
+        "invalid": "Correo o contraseña incorrectos. Inténtalo de nuevo."
+      }
+    },
+    "signup": {
+      "steps": {
+        "step1Label": "Cuenta",
+        "step1Hint": "Cómo inicias sesión",
+        "step2Label": "Tu Tienda",
+        "step2Hint": "Lo que ven tus clientes",
+        "step3Label": "Preferencias",
+        "step3Hint": "Región y moneda"
+      },
+      "titles": {
+        "step1": "Crea tu cuenta",
+        "step2": "Configura tu tienda",
+        "step3": "Casi listo"
+      },
+      "fields": {
+        "email": "Correo electrónico",
+        "emailPlaceholder": "tu@ejemplo.com",
+        "password": "Contraseña",
+        "passwordHint": "Mínimo 8 caracteres",
+        "passwordPlaceholder": "Crea una contraseña segura",
+        "confirmPassword": "Confirmar Contraseña",
+        "confirmPasswordPlaceholder": "Repite la contraseña",
+        "shopName": "Nombre de la Tienda",
+        "shopNamePlaceholder": "Mi Tienda Increíble",
+        "username": "Nombre de usuario (URL de la tienda)",
+        "usernameHint": "Solo letras, números, guiones y guiones bajos",
+        "usernamePlaceholder": "mitienda",
+        "logo": "Logo de la Tienda",
+        "logoHint": "Opcional — PNG o JPG, máx. 2 MB",
+        "chooseLogo": "Elegir Logo",
+        "country": "País",
+        "countryPlaceholder": "Selecciona tu país",
+        "countrySearch": "Buscar países…",
+        "currency": "Moneda",
+        "currencyPlaceholder": "Selecciona moneda",
+        "currencySearch": "Buscar monedas…",
+        "yourLink": "tu enlace"
+      },
+      "buttons": {
+        "continue": "Continuar",
+        "createShop": "Crear Mi Tienda",
+        "creating": "Creando tu tienda…"
+      },
+      "haveAccount": "¿Ya tienes una tienda?",
+      "loginLink": "Inicia Sesión",
+      "legal": "Al crear una tienda aceptas nuestros"
+    },
+    "forgotPassword": {
+      "title": "¿Olvidaste tu contraseña?",
+      "subtext": "No te preocupes. Introduce el correo vinculado a tu cuenta de Stallio y te enviaremos un enlace de recuperación.",
+      "email": "Correo electrónico",
+      "submit": "Enviar Enlace",
+      "submitting": "Enviando enlace…",
+      "backToLogin": "Volver a Iniciar Sesión",
+      "checkInbox": "Revisa tu bandeja de entrada",
+      "sentSubtext": "Hemos enviado un enlace de restablecimiento a {{email}}. Expira en 15 minutos.",
+      "didntGetIt": "¿No lo recibiste? Revisa tu carpeta de spam o",
+      "resendLink": "reenviar el enlace",
+      "resending": "reenviando…",
+      "linkResent": "enlace reenviado ✓",
+      "useDifferentEmail": "Usar otro correo electrónico",
+      "needHelp": "¿Necesitas ayuda?",
+      "contactSupport": "Contactar soporte",
+      "errors": {
+        "empty": "Por favor, introduce tu correo electrónico.",
+        "invalid": "Introduce un correo electrónico válido."
+      }
+    },
+    "verifyEmail": {
+      "heading": "Verifica tu Correo",
+      "checkInbox": "Revisa tu bandeja de entrada",
+      "subtext": "Hemos enviado un código de 6 dígitos a {{email}}.",
+      "inputAriaLabel": "Dígito {{index}} de 6",
+      "groupAriaLabel": "Introduce tu código de verificación de 6 dígitos",
+      "submit": "Verificar correo",
+      "verifying": "Verificando…",
+      "didntGetIt": "¿No lo recibiste?",
+      "resend": "Reenviar código",
+      "sent": "¡Enviado!",
+      "backToSignup": "Volver a",
+      "signup": "Registro",
+      "trust": "Tu código expira en 10 minutos y solo puede usarse una vez.",
+      "successTitle": "Correo verificado",
+      "successDesc": "Tu cuenta está confirmada y lista para comenzar.",
+      "continueToSignIn": "Continuar al inicio de sesión",
+      "errors": {
+        "incorrect": "Código incorrecto. Inténtalo de nuevo."
+      }
+    },
+    "selectDropdown": {
+      "noResults": "No hay resultados para \"{{query}}\""
+    }
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "nav": {
+    "home": "الرئيسية",
+    "features": "المزايا",
+    "pricing": "الأسعار",
+    "howItWorks": "كيف يعمل",
+    "about": "من نحن",
+    "login": "تسجيل الدخول",
+    "signup": "ابدأ مجاناً"
+  },
+  "language": {
+    "label": "اللغة",
+    "ariaLabel": "اختر اللغة",
+    "en": "English",
+    "es": "Español",
+    "ar": "العربية"
+  },
+  "cta": {
+    "startFree": "ابدأ مجاناً",
+    "seeHow": "شاهد كيف يعمل",
+    "learnMore": "معرفة المزيد",
+    "getStarted": "ابدأ الآن"
+  },
+  "footer": {
+    "tagline": "متجرك. على بُعد رابط واحد.",
+    "rights": "جميع الحقوق محفوظة."
+  },
+  "auth": {
+    "backToHome": "العودة للرئيسية",
+    "terms": "شروط الخدمة",
+    "and": "و",
+    "privacyPolicy": "سياسة الخصوصية",
+    "brandSubtitle": "متجرك الإلكتروني على بُعد رابط واحد",
+    "login": {
+      "welcomeBack": "مرحباً بعودتك إلى متجرك",
+      "heading": "تسجيل الدخول إلى ستاليو",
+      "subtitle": "متجرك على بُعد لمسة واحدة",
+      "email": "البريد الإلكتروني",
+      "emailPlaceholder": "you@example.com",
+      "password": "كلمة المرور",
+      "passwordPlaceholder": "كلمة المرور الخاصة بك",
+      "forgotPassword": "نسيت كلمة المرور؟",
+      "submit": "تسجيل الدخول",
+      "submitting": "جاري تسجيل الدخول…",
+      "noAccount": "ليس لديك متجر بعد؟",
+      "signupLink": "أنشئ متجرك مجاناً ←",
+      "legal": "بتسجيل دخولك فإنك توافق على",
+      "errors": {
+        "required": "يرجى إدخال البريد الإلكتروني وكلمة المرور.",
+        "invalid": "البريد الإلكتروني أو كلمة المرور غير صحيحة. يرجى المحاولة مرة أخرى."
+      }
+    },
+    "signup": {
+      "steps": {
+        "step1Label": "الحساب",
+        "step1Hint": "بيانات تسجيل دخولك",
+        "step2Label": "متجرك",
+        "step2Hint": "ما يراه عملاؤك",
+        "step3Label": "التفضيلات",
+        "step3Hint": "الدولة والعملة"
+      },
+      "titles": {
+        "step1": "إنشاء حسابك",
+        "step2": "إعداد متجرك",
+        "step3": "أوشكت على الانتهاء"
+      },
+      "fields": {
+        "email": "البريد الإلكتروني",
+        "emailPlaceholder": "you@example.com",
+        "password": "كلمة المرور",
+        "passwordHint": "8 أحرف على الأقل",
+        "passwordPlaceholder": "أنشئ كلمة مرور قوية",
+        "confirmPassword": "تأكيد كلمة المرور",
+        "confirmPasswordPlaceholder": "أعد كتابة كلمة المرور",
+        "shopName": "اسم المتجر",
+        "shopNamePlaceholder": "متجري الرائع",
+        "username": "اسم المستخدم (رابط المتجر)",
+        "usernameHint": "أحرف، أرقام، وشرطات فقط بالإنجليزية",
+        "usernamePlaceholder": "myshop",
+        "logo": "شعار المتجر",
+        "logoHint": "اختياري — PNG أو JPG، بحد أقصى 2 ميجابايت",
+        "chooseLogo": "اختر الشعار",
+        "country": "الدولة",
+        "countryPlaceholder": "اختر دولتك",
+        "countrySearch": "ابحث عن دولة…",
+        "currency": "العملة",
+        "currencyPlaceholder": "اختر العملة",
+        "currencySearch": "ابحث عن عملة…",
+        "yourLink": "رابطك الخاص"
+      },
+      "buttons": {
+        "continue": "متابعة",
+        "createShop": "إنشاء متجري",
+        "creating": "جاري إنشاء متجرك…"
+      },
+      "haveAccount": "لديك متجر بالفعل؟",
+      "loginLink": "تسجيل الدخول",
+      "legal": "بإنشاء متجرك فإنك توافق على"
+    },
+    "forgotPassword": {
+      "title": "نسيت كلمة المرور؟",
+      "subtext": "لا تقلق، أدخل البريد الإلكتروني المرتبط بحسابك في ستاليو وسنرسل لك رابطاً لإعادة تعيينها.",
+      "email": "البريد الإلكتروني",
+      "submit": "إرسال رابط الاستعادة",
+      "submitting": "جاري إرسال الرابط…",
+      "backToLogin": "العودة لتسجيل الدخول",
+      "checkInbox": "تحقق من صندوق الوارد",
+      "sentSubtext": "أرسلنا رابط إعادة تعيين كلمة المرور إلى {{email}}. ينتهي الرابط خلال 15 دقيقة.",
+      "didntGetIt": "لم يصلك الرابط؟ تحقق من مجلد الرسائل غير المرغوب فيها، أو",
+      "resendLink": "أعد إرسال الرابط",
+      "resending": "جاري إعادة الإرسال…",
+      "linkResent": "تمت إعادة الإرسال ✓",
+      "useDifferentEmail": "استخدام بريد إلكتروني آخر",
+      "needHelp": "تحتاج مساعدة؟",
+      "contactSupport": "تواصل مع الدعم",
+      "errors": {
+        "empty": "يرجى إدخال عنوان بريدك الإلكتروني.",
+        "invalid": "يرجى إدخال بريد إلكتروني صحيح."
+      }
+    },
+    "verifyEmail": {
+      "heading": "تأكيد بريدك الإلكتروني",
+      "checkInbox": "تحقق من بريدك الإلكتروني",
+      "subtext": "أرسلنا رمز تأكيد مكون من 6 أرقام إلى {{email}}.",
+      "inputAriaLabel": "الرقم {{index}} من 6",
+      "groupAriaLabel": "أدخل رمز التحقق المكون من 6 أرقام",
+      "submit": "تأكيد البريد",
+      "verifying": "جاري التحقق…",
+      "didntGetIt": "لم يصلك الرمز؟",
+      "resend": "إعادة إرسال الرمز",
+      "sent": "تم الإرسال!",
+      "backToSignup": "العودة إلى",
+      "signup": "التسجيل",
+      "trust": "ينتهي الرمز خلال 10 دقائق ويمكن استخدامه مرة واحدة فقط.",
+      "successTitle": "تم تأكيد البريد بنجاح",
+      "successDesc": "تم تفعيل حسابك وجاهز للاستخدام الآن.",
+      "continueToSignIn": "الانتقال لتسجيل الدخول",
+      "errors": {
+        "incorrect": "الرمز غير صحيح، يرجى المحاولة مرة أخرى."
+      }
+    },
+    "selectDropdown": {
+      "noResults": "لا توجد نتائج مطابقة لـ \"{{query}}\""
+    }
+  }
+}

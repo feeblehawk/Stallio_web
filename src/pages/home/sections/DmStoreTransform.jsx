@@ -1,23 +1,11 @@
 import { useRef, useState, useCallback } from 'react'
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import useReducedMotion from '../../../hooks/useReducedMotion'
 import StallioStoreUI from '../../../components/StallioStoreUI'
 import { FaInstagram, FaWhatsapp } from 'react-icons/fa6'
 import { ArrowRight, ArrowUpRight, Check, Zap, Store, Smile, Image, Mic } from 'lucide-react'
 import { easePremium } from '../../../utils/motionVariants'
-
-const instagramMessages = [
-  'How much?',
-  'Is this available?',
-  'How can I order?',
-  'Delivery to Lahore?',
-]
-
-const whatsappMessages = [
-  'Price?',
-  'COD available?',
-  'What sizes?',
-]
 
 // ─── Chat bubble ──────────────────────────────────────────────────────────────
 const ChatBubble = ({ text, align = 'left' }) => (
@@ -44,7 +32,7 @@ const ChatBubble = ({ text, align = 'left' }) => (
 )
 
 // ─── Chat panel (desktop) ─────────────────────────────────────────────────────
-const ChatPanel = ({ title, messages, align = 'left', icon }) => (
+const ChatPanel = ({ title, subtitle, messages, align = 'left', icon }) => (
   <div
     className="isolate rounded-2xl border p-4 sm:p-5"
     style={{
@@ -71,7 +59,7 @@ const ChatPanel = ({ title, messages, align = 'left', icon }) => (
           {title}
         </div>
         <div className="text-[8px] sm:text-[9px]" style={{ color: 'var(--muted-foreground)' }}>
-          Customer messages
+          {subtitle}
         </div>
       </div>
     </div>
@@ -85,12 +73,19 @@ const ChatPanel = ({ title, messages, align = 'left', icon }) => (
 
 // ─── Mobile Card 1 — Instagram DMs (static mockup) ───────────────────────────
 const InstagramDMCard = ({ reducedMotion }) => {
-  const messages = [
-    { id: 'c1', text: 'How much?' },
-    { id: 'c2', text: 'Is this available?' },
-    { id: 'c3', text: 'How can I order?' },
-    { id: 'c4', text: 'Delivery to Lahore?' },
-  ]
+  const { t } = useTranslation('home')
+  const rawMessages = t('dmStoreTransform.instagram.messages', { returnObjects: true })
+  const messages = Array.isArray(rawMessages)
+    ? rawMessages.map((text, i) => ({ id: `c${i + 1}`, text }))
+    : [
+        { id: 'c1', text: 'How much?' },
+        { id: 'c2', text: 'Is this available?' },
+        { id: 'c3', text: 'How can I order?' },
+        { id: 'c4', text: 'Delivery to Lahore?' },
+      ]
+
+  const rawChips = t('dmStoreTransform.instagram.quickReplies', { returnObjects: true })
+  const quickReplies = Array.isArray(rawChips) ? rawChips : ['Price?', 'Sizes?', 'COD?', 'In stock?']
 
   return (
     <div
@@ -114,10 +109,10 @@ const InstagramDMCard = ({ reducedMotion }) => {
         </div>
         <div className="min-w-0 flex-1">
           <div className="text-xs font-semibold truncate" style={{ color: 'var(--foreground)' }}>
-            Instagram DMs
+            {t('dmStoreTransform.instagram.headerTitle', 'Instagram DMs')}
           </div>
           <div className="text-[9px]" style={{ color: 'var(--muted-foreground)' }}>
-            4 unanswered questions
+            {t('dmStoreTransform.instagram.headerSubtitle', '4 unanswered questions')}
           </div>
         </div>
         <div
@@ -149,7 +144,7 @@ const InstagramDMCard = ({ reducedMotion }) => {
       >
         {/* Quick-reply chips */}
         <div className="flex gap-1.5 overflow-x-auto px-3 pt-2 pb-1.5" style={{ scrollbarWidth: 'none' }}>
-          {['Price?', 'Sizes?', 'COD?', 'In stock?'].map(chip => (
+          {quickReplies.map(chip => (
             <span
               key={chip}
               className="shrink-0 rounded-full border px-2.5 py-1 text-[9px] font-medium select-none"
@@ -174,7 +169,7 @@ const InstagramDMCard = ({ reducedMotion }) => {
               color: 'var(--muted-foreground)',
             }}
           >
-            Message…
+            {t('dmStoreTransform.instagram.inputPlaceholder', 'Message…')}
           </div>
           <Image className="h-4 w-4 shrink-0" style={{ color: 'var(--muted-foreground)' }} />
           <Mic className="h-4 w-4 shrink-0" style={{ color: 'var(--muted-foreground)' }} />
@@ -186,11 +181,17 @@ const InstagramDMCard = ({ reducedMotion }) => {
 
 // ─── Mobile Card 2 — Stallio connects it ─────────────────────────────────────
 const StallioConnectCard = () => {
-  const features = [
-    { icon: <Zap className="h-3 w-3" />, text: 'Auto-sorts every DM' },
-    { icon: <Store className="h-3 w-3" />, text: 'Builds your catalogue' },
-    { icon: <Check className="h-3 w-3" />, text: 'One link, all orders' },
-  ]
+  const { t } = useTranslation('home')
+  const rawFeatures = t('dmStoreTransform.stallioNode.features', { returnObjects: true })
+  const featureList = Array.isArray(rawFeatures)
+    ? rawFeatures
+    : ['Auto-sorts every DM', 'Builds your catalogue', 'One link, all orders']
+
+  const icons = [<Zap className="h-3 w-3" key="zap" />, <Store className="h-3 w-3" key="store" />, <Check className="h-3 w-3" key="check" />]
+  const features = featureList.map((text, i) => ({
+    icon: icons[i % icons.length],
+    text,
+  }))
 
   return (
     <div
@@ -222,7 +223,7 @@ const StallioConnectCard = () => {
               boxShadow: '0 0 24px color-mix(in oklch, var(--primary) 18%, transparent)',
             }}
           >
-            STALLIO
+            {t('dmStoreTransform.stallioNode.label', 'STALLIO')}
           </div>
           <ArrowRight className="h-3 w-3 shrink-0 rotate-180" style={{ color: 'var(--primary)' }} />
           <div
@@ -261,9 +262,9 @@ const StallioConnectCard = () => {
         </div>
 
         <p className="text-center text-[11px] leading-snug" style={{ color: 'var(--muted-foreground)' }}>
-          All your DM chaos funnelled into{' '}
+          {t('dmStoreTransform.stallioNode.description', 'All your DM chaos funnelled into')}{' '}
           <span className="font-semibold" style={{ color: 'var(--foreground)' }}>
-            one organised store.
+            {t('dmStoreTransform.stallioNode.descriptionHighlight', 'one organised store.')}
           </span>
         </p>
       </div>
@@ -278,13 +279,16 @@ const StallioConnectCard = () => {
       >
         <div className="flex items-center justify-between">
           <span className="text-[11px] font-medium" style={{ color: 'var(--muted-foreground)' }}>
-            stallio.shop/<span className="font-bold" style={{ color: 'var(--primary)' }}>yourbrand</span>
+            {t('dmStoreTransform.stallioNode.storeLinkLabel', 'stallio.shop/')}
+            <span className="font-bold" style={{ color: 'var(--primary)' }}>
+              {t('dmStoreTransform.stallioNode.storeLinkBrand', 'yourbrand')}
+            </span>
           </span>
           <span
             className="inline-flex items-center gap-0.5 text-[9px] font-bold uppercase tracking-wider"
             style={{ color: 'var(--primary)' }}
           >
-            Live <ArrowUpRight className="h-3 w-3" />
+            {t('dmStoreTransform.stallioNode.storeLiveLabel', 'Live')} <ArrowUpRight className="h-3 w-3" />
           </span>
         </div>
       </div>
@@ -293,15 +297,19 @@ const StallioConnectCard = () => {
 }
 
 // ─── Mobile: 3-card swipe story ───────────────────────────────────────────────
-const STORY_CARDS = [
-  { id: 'instagram', label: 'Before', tag: 'Instagram DMs' },
-  { id: 'stallio',   label: 'Then',   tag: 'Stallio connects it' },
-  { id: 'store',     label: 'After',  tag: 'Your store' },
-]
-
 const MobileStorySwiper = ({ reducedMotion }) => {
+  const { t } = useTranslation('home')
   const [active, setActive] = useState(0)
   const trackRef = useRef(null)
+
+  const rawCards = t('dmStoreTransform.story.cards', { returnObjects: true })
+  const storyCards = Array.isArray(rawCards) && rawCards.length === 3
+    ? rawCards.map((c, i) => ({ id: ['instagram', 'stallio', 'store'][i], ...c }))
+    : [
+        { id: 'instagram', label: 'Before', tag: 'Instagram DMs' },
+        { id: 'stallio',   label: 'Then',   tag: 'Stallio connects it' },
+        { id: 'store',     label: 'After',  tag: 'Your store' },
+      ]
 
   const goTo = useCallback((idx) => {
     setActive(idx)
@@ -334,7 +342,7 @@ const MobileStorySwiper = ({ reducedMotion }) => {
             className="text-[11px] font-bold uppercase tracking-[0.2em]"
             style={{ color: 'var(--primary)' }}
           >
-            {STORY_CARDS[active].label}
+            {storyCards[active]?.label}
           </span>
           <span
             className="rounded-full border px-2.5 py-0.5 text-[10px] font-semibold"
@@ -344,7 +352,7 @@ const MobileStorySwiper = ({ reducedMotion }) => {
               background: 'var(--surface-muted)',
             }}
           >
-            {STORY_CARDS[active].tag}
+            {storyCards[active]?.tag}
           </span>
         </motion.div>
       </AnimatePresence>
@@ -393,7 +401,7 @@ const MobileStorySwiper = ({ reducedMotion }) => {
               style={{ color: 'var(--primary)' }}
             >
               <Check className="h-3 w-3 shrink-0" />
-              Customers browse, order, and pay — no DMs
+              {t('dmStoreTransform.story.storeCardNote', 'Customers browse, order, and pay — no DMs')}
             </p>
           </div>
         </div>
@@ -401,7 +409,7 @@ const MobileStorySwiper = ({ reducedMotion }) => {
 
       {/* Dot nav */}
       <div className="mt-5 flex justify-center gap-2">
-        {STORY_CARDS.map((card, i) => (
+        {storyCards.map((card, i) => (
           <button
             key={card.id}
             onClick={() => goTo(i)}
@@ -421,7 +429,7 @@ const MobileStorySwiper = ({ reducedMotion }) => {
       {/* Swipe hint */}
       <p className="mt-3 text-center text-[10px]" style={{ color: 'var(--muted-foreground)' }}>
         <span className="inline-flex items-center justify-center gap-1">
-          Swipe to explore <ArrowRight className="h-3 w-3" />
+          {t('dmStoreTransform.story.swipeHint', 'Swipe to explore')} <ArrowRight className="h-3 w-3" />
         </span>
       </p>
     </div>
@@ -430,8 +438,19 @@ const MobileStorySwiper = ({ reducedMotion }) => {
 
 // ─── Desktop scroll animation ──────────────────────────────────────────────────
 const DmStoreTransform = () => {
+  const { t } = useTranslation('home')
   const containerRef = useRef(null)
   const reducedMotion = useReducedMotion()
+
+  const rawIgMessages = t('dmStoreTransform.instagram.messages', { returnObjects: true })
+  const igMessages = Array.isArray(rawIgMessages)
+    ? rawIgMessages
+    : ['How much?', 'Is this available?', 'How can I order?', 'Delivery to Lahore?']
+
+  const rawWaMessages = t('dmStoreTransform.whatsapp.messages', { returnObjects: true })
+  const waMessages = Array.isArray(rawWaMessages)
+    ? rawWaMessages
+    : ['Price?', 'COD available?', 'What sizes?']
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -539,7 +558,7 @@ const DmStoreTransform = () => {
                 className="text-[11px] font-semibold uppercase tracking-[0.28em]"
                 style={{ color: 'var(--primary)' }}
               >
-                From DMs to Store
+                {t('dmStoreTransform.eyebrow')}
               </span>
               <h2
                 id="dm-store-heading"
@@ -550,10 +569,10 @@ const DmStoreTransform = () => {
                   color: 'var(--foreground)',
                 }}
               >
-                From scattered DMs to one organized store.
+                {t('dmStoreTransform.headline')}
               </h2>
               <p className="mt-5 text-base leading-7" style={{ color: 'var(--muted-foreground)' }}>
-                Keep using chat apps customers already love while giving them a polished online storefront.
+                {t('dmStoreTransform.body')}
               </p>
             </div>
 
@@ -569,8 +588,9 @@ const DmStoreTransform = () => {
                 style={{ x: instagramX, opacity: chatOpacity }}
               >
                 <ChatPanel
-                  title="Instagram"
-                  messages={instagramMessages}
+                  title={t('dmStoreTransform.instagram.title', 'Instagram')}
+                  subtitle={t('dmStoreTransform.instagram.subtitle', 'Customer messages')}
+                  messages={igMessages}
                   icon={<FaInstagram />}
                 />
               </motion.div>
@@ -581,8 +601,9 @@ const DmStoreTransform = () => {
                 style={{ x: whatsappX, opacity: chatOpacity }}
               >
                 <ChatPanel
-                  title="WhatsApp"
-                  messages={whatsappMessages}
+                  title={t('dmStoreTransform.whatsapp.title', 'WhatsApp')}
+                  subtitle={t('dmStoreTransform.whatsapp.subtitle', 'Customer messages')}
+                  messages={waMessages}
                   align="right"
                   icon={<FaWhatsapp />}
                 />

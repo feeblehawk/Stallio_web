@@ -1,47 +1,18 @@
 import { useState, useRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import {Store, PackagePlus, Share2, Check, Plus, Upload, Copy, ExternalLink, FileText, 
-Sparkles, ShieldCheck, CheckCircle2, ChevronLeft, ChevronRight, } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import {
+  Store, PackagePlus, Share2, Check, Plus, Upload, Copy, ExternalLink, FileText,
+  Sparkles, ShieldCheck, CheckCircle2, ChevronLeft, ChevronRight
+} from 'lucide-react'
 import { FaWhatsapp, FaInstagram } from 'react-icons/fa6'
 import useReducedMotion from '../../../hooks/useReducedMotion'
 import { easePremium } from '../../../utils/motionVariants'
 import SectionHeading from '../../../components/SectionHeading'
 
-const STEPS = [
-  {
-    id: 'create',
-    num: '01',
-    icon: Store,
-    kicker: 'Setup',
-    title: 'Create your store in 60 seconds',
-    body: 'Pick your shop name, upload your logo, and choose your primary accent brand color. Stallio instantly generates your storefront, instant checkout, and order inbox.',
-    bullets: ['Instant live URL, no domain configuration needed', 'Custom store branding & color palette'],
-    previewBadge: 'Store Builder Studio',
-  },
-  {
-    id: 'products',
-    num: '02',
-    icon: PackagePlus,
-    kicker: 'Catalog',
-    title: 'Add your products & variants',
-    body: 'Photos, prices, variants, and stock counts in seconds. Add products directly from your camera roll and instantly get shareable product buy buttons.',
-    bullets: ['Bulk photo uploads from mobile camera roll', 'Built-in variants, size options & live stock tracking'],
-    previewBadge: 'Catalog & Inventory Manager',
-  },
-  {
-    id: 'share',
-    num: '03',
-    icon: Share2,
-    kicker: 'Launch',
-    title: 'Share one link & receive orders',
-    body: 'Copy your unique Stallio link into your Instagram bio, WhatsApp status, or TikTok profile. Customers browse and order without any DM back-and-forth.',
-    bullets: ['Automated WhatsApp order handoff & invoices', 'Real-time order dashboard & receipt archiving'],
-    previewBadge: 'Social Checkout & Order Inbox',
-  },
-]
-
 /* ─── Mockup 1: Store Setup / Branding Mockup ─── */
 const StoreBuilderMockup = () => {
+  const { t } = useTranslation('howitworks')
   const [selectedColor, setSelectedColor] = useState('oklch(0.52 0.22 268)')
   const colors = ['oklch(0.52 0.22 268)', 'oklch(0.58 0.20 150)', 'oklch(0.62 0.22 15)', 'oklch(0.68 0.18 65)']
 
@@ -59,30 +30,30 @@ const StoreBuilderMockup = () => {
             className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg sm:rounded-xl object-cover border"
             style={{ borderColor: selectedColor }}
           />
-          <div>
+          <div className="text-start">
             <div className="flex items-center gap-1">
               <span className="text-[11px] sm:text-xs font-extrabold" style={{ color: 'var(--foreground)' }}>
-                Your Store
+                {t('workflow.mockups.storeBuilder.storeName', 'Your Store')}
               </span>
               <ShieldCheck size={11} className="text-blue-500" />
             </div>
             <span className="text-[9px] sm:text-[10px]" style={{ color: 'var(--muted-foreground)' }}>
-              stallio.shop/your-store
+              {t('workflow.mockups.storeBuilder.domain', 'stallio.shop/your-store')}
             </span>
           </div>
         </div>
         <span className="flex items-center gap-1 rounded-full bg-emerald-500/15 px-2 py-0.5 text-[8px] sm:text-[9px] font-bold text-emerald-600">
-          <CheckCircle2 size={9} /> Published
+          <CheckCircle2 size={9} /> {t('workflow.mockups.storeBuilder.published', 'Published')}
         </span>
       </div>
 
       {/* Brand Color Selector */}
       <div
-        className="rounded-xl border p-2.5 sm:p-3"
+        className="rounded-xl border p-2.5 sm:p-3 text-start"
         style={{ borderColor: 'var(--border)', background: 'var(--surface)' }}
       >
         <label className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider block mb-1.5 sm:mb-2" style={{ color: 'var(--muted-foreground)' }}>
-          Select Brand Accent Color
+          {t('workflow.mockups.storeBuilder.accentLabel', 'Select Brand Accent Color')}
         </label>
         <div className="flex items-center gap-2">
           {colors.map((c) => (
@@ -90,11 +61,12 @@ const StoreBuilderMockup = () => {
               key={c}
               type="button"
               onClick={() => setSelectedColor(c)}
-              className="h-5 w-5 sm:h-6 sm:w-6 rounded-full transition-transform hover:scale-110 flex items-center justify-center"
+              className="h-5 w-5 sm:h-6 sm:w-6 rounded-full transition-transform hover:scale-110 flex items-center justify-center cursor-pointer"
               style={{
                 background: c,
                 boxShadow: selectedColor === c ? `0 0 0 2px var(--surface), 0 0 0 3px ${c}` : 'none',
               }}
+              aria-label="Select accent color"
             >
               {selectedColor === c && <Check size={10} className="text-white" />}
             </button>
@@ -104,18 +76,19 @@ const StoreBuilderMockup = () => {
 
       {/* Live Storefront Preview Box */}
       <div
-        className="rounded-xl border p-2.5 sm:p-3 transition-colors"
+        className="rounded-xl border p-2.5 sm:p-3 transition-colors text-start"
         style={{ borderColor: 'var(--border)', background: 'color-mix(in oklch, var(--surface-muted) 80%, transparent)' }}
       >
         <div className="flex items-center justify-between mb-1.5 sm:mb-2">
           <span className="text-[9px] sm:text-[10px] font-bold" style={{ color: 'var(--foreground)' }}>
-            Live Link Ready:
+            {t('workflow.mockups.storeBuilder.liveLinkReady', 'Live Link Ready:')}
           </span>
           <span className="flex items-center gap-1 text-[9px] sm:text-[10px] font-bold" style={{ color: selectedColor }}>
-            <Copy size={9} /> Copy Link
+            <Copy size={9} /> {t('workflow.mockups.storeBuilder.copyLink', 'Copy Link')}
           </span>
         </div>
         <div
+          dir="ltr"
           className="flex items-center justify-between rounded-lg border px-2 sm:px-2.5 py-1 sm:py-1.5 text-[10px] sm:text-xs font-mono"
           style={{ borderColor: 'var(--border)', background: 'var(--surface)', color: 'var(--foreground)' }}
         >
@@ -129,25 +102,26 @@ const StoreBuilderMockup = () => {
 
 /* ─── Mockup 2: Product Catalog & Inventory Manager ─── */
 const ProductCatalogMockup = () => {
+  const { t } = useTranslation('howitworks')
   const products = [
     {
       id: 1,
-      name: 'Men\'s Suit Classic',
-      price: '₨ 3,400',
+      name: t('workflow.mockups.productCatalog.products.suit.name', "Men's Suit Classic"),
+      price: t('workflow.mockups.productCatalog.products.suit.price', '₨ 3,400'),
       stock: 12,
       img: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=200&h=200&fit=crop&auto=format&q=80',
     },
     {
       id: 2,
-      name: 'Canvas Tote Bag',
-      price: '₨ 2,800',
+      name: t('workflow.mockups.productCatalog.products.tote.name', 'Canvas Tote Bag'),
+      price: t('workflow.mockups.productCatalog.products.tote.price', '₨ 2,800'),
       stock: 8,
       img: 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=200&h=200&fit=crop&auto=format&q=80',
     },
     {
       id: 3,
-      name: 'Court Sneakers',
-      price: '₨ 6,200',
+      name: t('workflow.mockups.productCatalog.products.sneakers.name', 'Court Sneakers'),
+      price: t('workflow.mockups.productCatalog.products.sneakers.price', '₨ 6,200'),
       stock: 5,
       img: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200&h=200&fit=crop&auto=format&q=80',
     },
@@ -158,22 +132,22 @@ const ProductCatalogMockup = () => {
       {/* Action Header */}
       <div className="flex items-center justify-between">
         <span className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider" style={{ color: 'var(--foreground)' }}>
-          Product Catalog (3)
+          {t('workflow.mockups.productCatalog.title', 'Product Catalog (3)')}
         </span>
         <div className="flex items-center gap-1">
           <button
             type="button"
-            className="flex items-center gap-1 rounded-lg border px-1.5 sm:px-2 py-0.5 sm:py-1 text-[9px] sm:text-[10px] font-bold"
+            className="flex items-center gap-1 rounded-lg border px-1.5 sm:px-2 py-0.5 sm:py-1 text-[9px] sm:text-[10px] font-bold cursor-pointer"
             style={{ borderColor: 'var(--border)', background: 'var(--surface)', color: 'var(--foreground)' }}
           >
-            <Upload size={9} /> Bulk
+            <Upload size={9} /> {t('workflow.mockups.productCatalog.bulk', 'Bulk')}
           </button>
           <button
             type="button"
-            className="flex items-center gap-1 rounded-lg px-1.5 sm:px-2 py-0.5 sm:py-1 text-[9px] sm:text-[10px] font-bold text-white"
+            className="flex items-center gap-1 rounded-lg px-1.5 sm:px-2 py-0.5 sm:py-1 text-[9px] sm:text-[10px] font-bold text-white cursor-pointer"
             style={{ background: 'var(--primary)' }}
           >
-            <Plus size={9} /> Add
+            <Plus size={9} /> {t('workflow.mockups.productCatalog.add', 'Add')}
           </button>
         </div>
       </div>
@@ -183,7 +157,7 @@ const ProductCatalogMockup = () => {
         {products.map((p) => (
           <div
             key={p.id}
-            className="flex items-center justify-between rounded-xl border p-1.5 sm:p-2 text-left"
+            className="flex items-center justify-between rounded-xl border p-1.5 sm:p-2 text-start"
             style={{ borderColor: 'var(--border)', background: 'var(--surface)' }}
           >
             <div className="flex items-center gap-2 sm:gap-2.5">
@@ -195,13 +169,15 @@ const ProductCatalogMockup = () => {
                 <div className="flex items-center gap-1.5 text-[9px] sm:text-[10px]" style={{ color: 'var(--muted-foreground)' }}>
                   <span className="font-semibold text-primary">{p.price}</span>
                   <span>•</span>
-                  <span className="text-emerald-600 font-semibold">{p.stock} in stock</span>
+                  <span className="text-emerald-600 font-semibold">
+                    {p.stock} {t('workflow.mockups.productCatalog.inStock', 'in stock')}
+                  </span>
                 </div>
               </div>
             </div>
 
             <span className="rounded border px-1 sm:px-1.5 py-0.5 text-[8px] sm:text-[9px] font-semibold shrink-0" style={{ borderColor: 'var(--border)' }}>
-              S/M/L
+              {t('workflow.mockups.productCatalog.sizes', 'S/M/L')}
             </span>
           </div>
         ))}
@@ -212,42 +188,45 @@ const ProductCatalogMockup = () => {
 
 /* ─── Mockup 3: Social Link & WhatsApp Checkout Mockup ─── */
 const ShareAndCheckoutMockup = () => {
+  const { t } = useTranslation('howitworks')
+
   return (
     <div className="flex flex-col gap-2.5 sm:gap-3 p-0.5 sm:p-1">
       {/* Social Bio Card Preview */}
       <div
-        className="rounded-xl border p-2.5 sm:p-3 text-left"
+        className="rounded-xl border p-2.5 sm:p-3 text-start"
         style={{ borderColor: 'var(--border)', background: 'var(--surface)' }}
       >
         <div className="flex items-center gap-1.5 mb-1.5 sm:mb-2">
-          <FaInstagram className="text-pink-500" size={13} />
+          <FaInstagram className="text-pink-500 shrink-0" size={13} />
           <span className="text-[10px] sm:text-[11px] font-bold" style={{ color: 'var(--foreground)' }}>
-            Instagram Bio Link
+            {t('workflow.mockups.shareCheckout.instagramBio', 'Instagram Bio Link')}
           </span>
         </div>
         <div
+          dir="ltr"
           className="flex items-center justify-between rounded-lg border px-2 sm:px-2.5 py-1 sm:py-1.5 text-[10px] sm:text-xs"
           style={{ borderColor: 'var(--border)', background: 'color-mix(in oklch, var(--primary) 8%, var(--surface))' }}
         >
           <span className="font-bold text-primary truncate">stallio.shop/your-store</span>
-          <Sparkles size={11} className="text-primary shrink-0 ml-1" />
+          <Sparkles size={11} className="text-primary shrink-0 ms-1" />
         </div>
       </div>
 
       {/* WhatsApp Order Dispatch Card */}
       <div
-        className="rounded-xl border p-2.5 sm:p-3 text-left"
+        className="rounded-xl border p-2.5 sm:p-3 text-start"
         style={{ borderColor: 'var(--border)', background: 'var(--surface)' }}
       >
         <div className="flex items-center justify-between mb-1.5 sm:mb-2">
           <div className="flex items-center gap-1.5">
-            <FaWhatsapp className="text-emerald-500" size={13} />
+            <FaWhatsapp className="text-emerald-500 shrink-0" size={13} />
             <span className="text-[11px] sm:text-xs font-bold" style={{ color: 'var(--foreground)' }}>
-              New Order Received
+              {t('workflow.mockups.shareCheckout.newOrderReceived', 'New Order Received')}
             </span>
           </div>
           <span className="rounded-full bg-emerald-500/15 px-1.5 py-0.5 text-[8px] sm:text-[9px] font-bold text-emerald-600">
-            WhatsApp
+            {t('workflow.mockups.shareCheckout.platform', 'WhatsApp')}
           </span>
         </div>
 
@@ -256,21 +235,21 @@ const ShareAndCheckoutMockup = () => {
           style={{ borderColor: 'var(--border)', background: 'color-mix(in oklch, var(--surface-muted) 80%, transparent)' }}
         >
           <div className="flex justify-between font-bold text-[11px] sm:text-xs" style={{ color: 'var(--foreground)' }}>
-            <span>Order #1042</span>
-            <span className="text-primary">₨ 3,400</span>
+            <span>{t('workflow.mockups.shareCheckout.orderNumber', 'Order #1042')}</span>
+            <span className="text-primary">{t('workflow.mockups.shareCheckout.orderPrice', '₨ 3,400')}</span>
           </div>
           <p className="text-[10px] sm:text-[11px]" style={{ color: 'var(--muted-foreground)' }}>
-            1x Classic Men's Kurta (Size M)
+            {t('workflow.mockups.shareCheckout.orderItem', "1x Classic Men's Kurta (Size M)")}
           </p>
           <div className="flex items-center justify-between pt-1 border-t mt-1.5" style={{ borderColor: 'var(--border)' }}>
             <span className="text-[9px] sm:text-[10px]" style={{ color: 'var(--muted-foreground)' }}>
-              Ayesha K. • COD
+              {t('workflow.mockups.shareCheckout.customerCod', 'Ayesha K. • COD')}
             </span>
             <button
               type="button"
-              className="flex items-center gap-1 text-[9px] sm:text-[10px] font-bold text-emerald-600 hover:underline"
+              className="flex items-center gap-1 text-[9px] sm:text-[10px] font-bold text-emerald-600 hover:underline cursor-pointer"
             >
-              <FileText size={9} /> PDF Invoice
+              <FileText size={9} /> {t('workflow.mockups.shareCheckout.pdfInvoice', 'PDF Invoice')}
             </button>
           </div>
         </div>
@@ -288,10 +267,10 @@ const MOCKUP_COMPONENTS = {
 const StepCopy = ({ step, isActive }) => {
   const Icon = step.icon
   return (
-    <div>
+    <div className="text-start">
       <div className="flex items-center gap-2.5">
         <span
-          className="flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center rounded-lg border text-[11px] sm:text-xs font-bold"
+          className="flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center rounded-lg border text-[11px] sm:text-xs font-bold shrink-0"
           style={{
             borderColor: isActive
               ? 'color-mix(in oklch, var(--primary) 30%, var(--border))'
@@ -350,17 +329,64 @@ const StepCopy = ({ step, isActive }) => {
 }
 
 const WorkflowTheatre = () => {
+  const { t } = useTranslation('howitworks')
   const [activeStep, setActiveStep] = useState(0)
   const [mobileSlide, setMobileSlide] = useState(0)
   const reducedMotion = useReducedMotion()
   const carouselRef = useRef(null)
 
-  const activeData = STEPS[activeStep]
+  const rawCreateBullets = t('workflow.steps.create.bullets', { returnObjects: true })
+  const rawProductBullets = t('workflow.steps.products.bullets', { returnObjects: true })
+  const rawShareBullets = t('workflow.steps.share.bullets', { returnObjects: true })
+
+  const steps = [
+    {
+      id: 'create',
+      num: '01',
+      icon: Store,
+      kicker: t('workflow.steps.create.kicker', 'Setup'),
+      title: t('workflow.steps.create.title', 'Create your store in 60 seconds'),
+      body: t('workflow.steps.create.body', 'Pick your shop name, upload your logo, and choose your primary accent brand color. Stallio instantly generates your storefront, instant checkout, and order inbox.'),
+      bullets: Array.isArray(rawCreateBullets) ? rawCreateBullets : [
+        'Instant live URL, no domain configuration needed',
+        'Custom store branding & color palette'
+      ],
+      previewBadge: t('workflow.steps.create.previewBadge', 'Store Builder Studio'),
+    },
+    {
+      id: 'products',
+      num: '02',
+      icon: PackagePlus,
+      kicker: t('workflow.steps.products.kicker', 'Catalog'),
+      title: t('workflow.steps.products.title', 'Add your products & variants'),
+      body: t('workflow.steps.products.body', 'Photos, prices, variants, and stock counts in seconds. Add products directly from your camera roll and instantly get shareable product buy buttons.'),
+      bullets: Array.isArray(rawProductBullets) ? rawProductBullets : [
+        'Bulk photo uploads from mobile camera roll',
+        'Built-in variants, size options & live stock tracking'
+      ],
+      previewBadge: t('workflow.steps.products.previewBadge', 'Catalog & Inventory Manager'),
+    },
+    {
+      id: 'share',
+      num: '03',
+      icon: Share2,
+      kicker: t('workflow.steps.share.kicker', 'Launch'),
+      title: t('workflow.steps.share.title', 'Share one link & receive orders'),
+      body: t('workflow.steps.share.body', 'Copy your unique Stallio link into your Instagram bio, WhatsApp status, or TikTok profile. Customers browse and order without any DM back-and-forth.'),
+      bullets: Array.isArray(rawShareBullets) ? rawShareBullets : [
+        'Automated WhatsApp order handoff & invoices',
+        'Real-time order dashboard & receipt archiving'
+      ],
+      previewBadge: t('workflow.steps.share.previewBadge', 'Social Checkout & Order Inbox'),
+    },
+  ]
+
+  const activeData = steps[activeStep] || steps[0]
 
   const handleMobileScroll = (e) => {
     const el = e.target
     const index = Math.round(el.scrollLeft / el.clientWidth)
-    if (index !== mobileSlide && index >= 0 && index < STEPS.length) {
+    if (index !== mobileSlide && index >= 0 && index < steps.length) {
       setMobileSlide(index)
     }
   }
@@ -384,14 +410,14 @@ const WorkflowTheatre = () => {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           id="hiw-theatre-heading"
-          eyebrow="The Workflow"
-          title="How Stallio works in action"
-          subtitle="Explore how your social business transitions into a real online store."
+          eyebrow={t('workflow.eyebrow', 'The Workflow')}
+          title={t('workflow.title', 'How Stallio works in action')}
+          subtitle={t('workflow.subtitle', 'Explore how your social business transitions into a real online store.')}
         />
 
         {/* ─── DESKTOP ONLY: Interactive Step Switcher ─── */}
         <div className="mt-12 hidden sm:grid sm:grid-cols-3 gap-4">
-          {STEPS.map((step, idx) => {
+          {steps.map((step, idx) => {
             const isActive = activeStep === idx
             const Icon = step.icon
             return (
@@ -399,7 +425,7 @@ const WorkflowTheatre = () => {
                 key={step.id}
                 type="button"
                 onClick={() => setActiveStep(idx)}
-                className="group relative flex flex-col items-start rounded-2xl border p-5 text-left transition-all duration-300 focus-visible:outline-none"
+                className="group relative flex flex-col items-start rounded-2xl border p-5 text-start transition-all duration-300 focus-visible:outline-none cursor-pointer"
                 style={{
                   borderColor: isActive
                     ? 'color-mix(in oklch, var(--primary) 40%, var(--border))'
@@ -428,7 +454,7 @@ const WorkflowTheatre = () => {
                     className="text-xs font-extrabold tracking-wider"
                     style={{ color: isActive ? 'var(--primary)' : 'var(--muted-foreground)' }}
                   >
-                    STEP {step.num}
+                    {t('workflow.stepBadge', { num: step.num, defaultValue: `STEP ${step.num}` })}
                   </span>
                 </div>
 
@@ -510,7 +536,7 @@ const WorkflowTheatre = () => {
                       color: 'var(--primary)',
                     }}
                   >
-                    Interactive
+                    {t('workflow.interactive', 'Interactive')}
                   </span>
                 </div>
 
@@ -542,12 +568,12 @@ const WorkflowTheatre = () => {
             className="flex overflow-x-auto snap-x snap-mandatory scrollbar-none gap-4 w-full pb-4"
             style={{ WebkitOverflowScrolling: 'touch' }}
           >
-            {STEPS.map((step) => {
+            {steps.map((step) => {
               const Icon = step.icon
               return (
                 <div
                   key={step.id}
-                  className="w-full shrink-0 snap-center rounded-2xl border p-4 space-y-4"
+                  className="w-full shrink-0 snap-center rounded-2xl border p-4 space-y-4 text-start"
                   style={{
                     borderColor: 'var(--border)',
                     background: 'color-mix(in oklch, var(--surface) 95%, transparent)',
@@ -568,7 +594,7 @@ const WorkflowTheatre = () => {
                       </span>
                     </div>
                     <span className="rounded-md bg-primary/10 px-2 py-0.5 text-[9px] font-bold text-primary">
-                      STEP {step.num} OF 03
+                      {t('workflow.stepOf', { current: step.num, total: '03', defaultValue: `STEP ${step.num} OF 03` })}
                     </span>
                   </div>
 
@@ -587,7 +613,9 @@ const WorkflowTheatre = () => {
                           {step.previewBadge}
                         </span>
                       </div>
-                      <span className="text-[8px] font-semibold text-primary">Live Mockup</span>
+                      <span className="text-[8px] font-semibold text-primary">
+                        {t('workflow.liveMockup', 'Live Mockup')}
+                      </span>
                     </div>
                     <div className="p-2.5">
                       {MOCKUP_COMPONENTS[step.id]}
@@ -619,39 +647,39 @@ const WorkflowTheatre = () => {
               type="button"
               onClick={() => scrollMobileTo(Math.max(0, mobileSlide - 1))}
               disabled={mobileSlide === 0}
-              className="flex h-8 w-8 items-center justify-center rounded-full border text-foreground disabled:opacity-30"
+              className="flex h-8 w-8 items-center justify-center rounded-full border text-foreground disabled:opacity-30 cursor-pointer"
               style={{ borderColor: 'var(--border)', background: 'var(--surface)' }}
-              aria-label="Previous step"
+              aria-label={t('workflow.prevStepAria', 'Previous step')}
             >
-              <ChevronLeft size={16} />
+              <ChevronLeft size={16} className="rtl:rotate-180" />
             </button>
 
             {/* Pagination Dots */}
             <div className="flex items-center gap-1.5">
-              {STEPS.map((s, i) => (
+              {steps.map((s, i) => (
                 <button
                   key={s.id}
                   type="button"
                   onClick={() => scrollMobileTo(i)}
-                  className="h-2 rounded-full transition-all duration-300"
+                  className="h-2 rounded-full transition-all duration-300 cursor-pointer"
                   style={{
                     width: mobileSlide === i ? 24 : 8,
                     background: mobileSlide === i ? 'var(--primary)' : 'var(--border)',
                   }}
-                  aria-label={`Go to slide ${i + 1}`}
+                  aria-label={t('workflow.goToSlideAria', { slide: i + 1, defaultValue: `Go to slide ${i + 1}` })}
                 />
               ))}
             </div>
 
             <button
               type="button"
-              onClick={() => scrollMobileTo(Math.min(STEPS.length - 1, mobileSlide + 1))}
-              disabled={mobileSlide === STEPS.length - 1}
-              className="flex h-8 w-8 items-center justify-center rounded-full border text-foreground disabled:opacity-30"
+              onClick={() => scrollMobileTo(Math.min(steps.length - 1, mobileSlide + 1))}
+              disabled={mobileSlide === steps.length - 1}
+              className="flex h-8 w-8 items-center justify-center rounded-full border text-foreground disabled:opacity-30 cursor-pointer"
               style={{ borderColor: 'var(--border)', background: 'var(--surface)' }}
-              aria-label="Next step"
+              aria-label={t('workflow.nextStepAria', 'Next step')}
             >
-              <ChevronRight size={16} />
+              <ChevronRight size={16} className="rtl:rotate-180" />
             </button>
           </div>
         </div>

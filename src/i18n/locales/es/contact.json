@@ -1,0 +1,70 @@
+{
+  "hero": {
+    "eyebrow": "Ponte en Contacto",
+    "headline": "¿Tienes alguna pregunta?",
+    "headlineHighlight": "Hablemos.",
+    "subtext": "Tanto si tienes dudas sobre tu tienda, necesitas ayuda con la configuración o simplemente quieres saludarnos, estamos aquí.",
+    "trust": {
+      "replies": "Respuesta en menos de 24 horas",
+      "whatsapp": "Soporte por WhatsApp",
+      "noQueue": "Sin colas de espera"
+    }
+  },
+  "form": {
+    "channels": {
+      "eyebrow": "Canales de contacto",
+      "headline": "Elige el canal",
+      "headlineHighlight": "que prefieras.",
+      "subtext": "¿Preguntas, sugerencias o necesitas ayuda? Cuéntanos qué necesitas y nos pondremos en marcha.",
+      "findUs": "Encuéntranos en",
+      "replyBadge": "Tiempo medio de respuesta: menos de 24 horas"
+    },
+    "formHeading": {
+      "title": "Envíanos un mensaje",
+      "subtitle": "Todos los campos con * son obligatorios."
+    },
+    "fields": {
+      "name": "Tu nombre *",
+      "email": "Correo electrónico *",
+      "topic": "¿De qué se trata? *",
+      "topicPlaceholder": "Selecciona un tema",
+      "message": "Tu mensaje *",
+      "phone": "WhatsApp / teléfono (opcional)"
+    },
+    "topics": {
+      "general": "Consulta general",
+      "support": "Soporte de la tienda",
+      "pricing": "Precios y planes",
+      "partnership": "Colaboraciones",
+      "bug": "Reportar un problema",
+      "other": "Otro motivo"
+    },
+    "errors": {
+      "name": "Por favor, introduce tu nombre",
+      "email": "Por favor, introduce tu correo",
+      "emailInvalid": "Introduce un correo electrónico válido",
+      "topic": "Por favor, selecciona un tema",
+      "message": "Cuéntanos en qué podemos ayudarte"
+    },
+    "submit": "Enviar Mensaje",
+    "sending": "Enviando…",
+    "privacy": "Cuidamos tu privacidad y nunca compartimos tus datos con terceros.",
+    "success": {
+      "title": "¡Mensaje enviado!",
+      "desc": "Hemos recibido tu mensaje. Nos pondremos en contacto contigo lo antes posible. Revisa tu bandeja de entrada (y la carpeta de spam por si acaso).",
+      "sendAnother": "Enviar otro mensaje"
+    }
+  },
+  "cta": {
+    "eyebrow": "¿Aún tienes dudas?",
+    "headline": "Encontremos la solución",
+    "headlineHighlight": "juntos.",
+    "body": "Tanto si estás descubriendo Stallio, creando tu tienda o buscando la mejor forma de crecer, estamos para ayudarte.",
+    "primary": "Comenzar",
+    "secondary": "Explorar Stallio",
+    "trust": {
+      "support": "Soporte real, respuestas directas",
+      "replies": "Respuesta en menos de 24 horas"
+    }
+  }
+}

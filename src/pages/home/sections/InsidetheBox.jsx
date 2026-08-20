@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import useReducedMotion from '../../../hooks/useReducedMotion'
 import { FaInstagram, FaWhatsapp, FaLink, FaFacebook } from 'react-icons/fa6'
 import { easePremium, revealSoft, staggerContainer } from '../../../utils/motionVariants'
@@ -96,12 +97,36 @@ const MiniProductCard = ({ product }) => (
 // ─── DASHBOARD MOCKUP CARD — row 1, lg:col-span-8 ────────────────────────────
 // ═══════════════════════════════════════════════════════════════════════════════
 const DashboardMockupCard = ({ index, inView, reducedMotion }) => {
+  const { t } = useTranslation('home')
   const [hovered, setHovered] = useState(false)
   const bars   = [68, 52, 81, 43, 74]
+
+  const rawStats = t('insideTheBox.dashboard.stats', { returnObjects: true })
+  const stats = Array.isArray(rawStats) ? rawStats : [
+    { label: 'Revenue',  value: '₨ 84.5k', trend: '+12%' },
+    { label: 'Orders',   value: '42',       trend: '+8%'  },
+    { label: 'Products', value: '128',      trend: '→'    },
+  ]
+
+  const rawSidebar = t('insideTheBox.dashboard.sidebar.items', { returnObjects: true })
+  const sidebarItems = Array.isArray(rawSidebar) ? rawSidebar : ['Dashboard', 'Products', 'Orders', 'Analytics', 'Settings']
+
+  const rawDays = t('insideTheBox.dashboard.chart.days', { returnObjects: true })
+  const chartDays = Array.isArray(rawDays) ? rawDays : ['M', 'T', 'W', 'T', 'F']
+
+  const rawActivities = t('insideTheBox.dashboard.activity.entries', { returnObjects: true })
+  const rawTimes = t('insideTheBox.dashboard.activity.times', { returnObjects: true })
+  const activityEntries = Array.isArray(rawActivities) ? rawActivities : [
+    'New order from Ayesha K.',
+    'Payment confirmed · #1051',
+    'Product "Sneakers" updated',
+  ]
+  const activityTimes = Array.isArray(rawTimes) ? rawTimes : ['2m ago', '8m ago', '22m ago']
+
   const orders = [
-    { id: '#1051', item: 'Classic Tee',  amount: '₨ 1,200', status: 'New'     },
-    { id: '#1050', item: 'Sneakers',     amount: '₨ 6,800', status: 'Shipped' },
-    { id: '#1049', item: 'Linen Shirt',  amount: '₨ 1,850', status: 'Done'    },
+    { id: '#1051', item: 'Classic Tee',  amount: '₨ 1,200', status: t('insideTheBox.dashboard.recentOrders.statuses.new', 'New')     },
+    { id: '#1050', item: 'Sneakers',     amount: '₨ 6,800', status: t('insideTheBox.dashboard.recentOrders.statuses.shipped', 'Shipped') },
+    { id: '#1049', item: 'Linen Shirt',  amount: '₨ 1,850', status: t('insideTheBox.dashboard.recentOrders.statuses.done', 'Done')    },
   ]
 
   return (
@@ -130,13 +155,13 @@ const DashboardMockupCard = ({ index, inView, reducedMotion }) => {
       {/* Card text header */}
       <div className="shrink-0 px-6 pt-6 pb-4">
         <div className="mb-1 text-[10px] font-semibold uppercase tracking-[0.22em]" style={{ color: css.primary }}>
-          Your dashboard
+          {t('insideTheBox.dashboard.eyebrow')}
         </div>
         <h3 className="font-heading font-extrabold leading-tight tracking-[-0.03em]" style={{ fontSize: 'clamp(1rem, 2vw, 1.25rem)', color: css.fg }}>
-          Everything in one place.
+          {t('insideTheBox.dashboard.title')}
         </h3>
         <p className="mt-1.5 text-sm leading-relaxed" style={{ color: css.mutedFg, maxWidth: '40ch' }}>
-          Revenue, orders, products and activity all on your Stallio dashboard.
+          {t('insideTheBox.dashboard.body')}
         </p>
       </div>
 
@@ -172,8 +197,10 @@ const DashboardMockupCard = ({ index, inView, reducedMotion }) => {
         <div className="grid grid-cols-5 gap-0" style={{ minHeight: 0 }}>
           {/* Sidebar */}
           <div className="col-span-1 hidden border-r p-3 lg:block" style={{ borderColor: css.border, background: css.surfaceMuted }}>
-            <div className="mb-3 text-[8px] font-bold uppercase tracking-[0.2em]" style={{ color: css.mutedFg }}>Stallio</div>
-            {['Dashboard', 'Products', 'Orders', 'Analytics', 'Settings'].map((item, i) => (
+            <div className="mb-3 text-[8px] font-bold uppercase tracking-[0.2em]" style={{ color: css.mutedFg }}>
+              {t('insideTheBox.dashboard.sidebar.heading', 'Stallio')}
+            </div>
+            {sidebarItems.map((item, i) => (
               <div
                 key={item}
                 className="mb-0.5 rounded-md px-2 py-1.5 text-[9px] font-medium"
@@ -188,11 +215,7 @@ const DashboardMockupCard = ({ index, inView, reducedMotion }) => {
           <div className="col-span-5 p-3 lg:col-span-4">
             {/* Stats row */}
             <div className="mb-3 grid grid-cols-3 gap-2">
-              {[
-                { label: 'Revenue',  value: '₨ 84.5k', trend: '+12%' },
-                { label: 'Orders',   value: '42',       trend: '+8%'  },
-                { label: 'Products', value: '128',      trend: '→'    },
-              ].map((stat) => (
+              {stats.map((stat) => (
                 <div key={stat.label} className="rounded-xl border p-2.5" style={{ borderColor: css.border, background: css.surfaceMuted }}>
                   <div className="text-[8px] font-medium" style={{ color: css.mutedFg }}>{stat.label}</div>
                   <div className="mt-0.5 font-heading text-xs font-extrabold tracking-tight" style={{ color: css.fg }}>{stat.value}</div>
@@ -204,21 +227,25 @@ const DashboardMockupCard = ({ index, inView, reducedMotion }) => {
             {/* Chart + orders */}
             <div className="grid grid-cols-2 gap-2 mb-2">
               <div className="rounded-xl border p-2.5" style={{ borderColor: css.border, background: css.surfaceMuted }}>
-                <div className="mb-2 text-[8px] font-semibold uppercase tracking-[0.16em]" style={{ color: css.mutedFg }}>Weekly sales</div>
+                <div className="mb-2 text-[8px] font-semibold uppercase tracking-[0.16em]" style={{ color: css.mutedFg }}>
+                  {t('insideTheBox.dashboard.chart.title', 'Weekly sales')}
+                </div>
                 <div className="flex items-end justify-between gap-1" style={{ height: 52 }}>
                   {bars.map((h, i) => (
                     <div key={i} className="flex-1 rounded-sm" style={{ height: `${h}%`, background: i === 2 ? css.primary : css.primaryMix28 }} />
                   ))}
                 </div>
                 <div className="mt-1.5 flex justify-between">
-                  {['M', 'T', 'W', 'T', 'F'].map((d, i) => (
+                  {chartDays.map((d, i) => (
                     <span key={i} className="text-[7px]" style={{ color: css.mutedFg }}>{d}</span>
                   ))}
                 </div>
               </div>
 
               <div className="rounded-xl border p-2.5" style={{ borderColor: css.border, background: css.surfaceMuted }}>
-                <div className="mb-2 text-[8px] font-semibold uppercase tracking-[0.16em]" style={{ color: css.mutedFg }}>Recent orders</div>
+                <div className="mb-2 text-[8px] font-semibold uppercase tracking-[0.16em]" style={{ color: css.mutedFg }}>
+                  {t('insideTheBox.dashboard.recentOrders.title', 'Recent orders')}
+                </div>
                 <div className="space-y-1.5">
                   {orders.map((order) => (
                     <div key={order.id} className="flex items-center justify-between gap-2">
@@ -228,8 +255,8 @@ const DashboardMockupCard = ({ index, inView, reducedMotion }) => {
                         <span
                           className="rounded-full px-1.5 py-px text-[6px] font-bold uppercase tracking-wide"
                           style={{
-                            background: order.status === 'New' ? css.primaryMix14 : css.surface,
-                            color: order.status === 'New' ? css.primary : css.mutedFg,
+                            background: order.status === 'New' || order.status === 'Nuevo' ? css.primaryMix14 : css.surface,
+                            color: order.status === 'New' || order.status === 'Nuevo' ? css.primary : css.mutedFg,
                             border: `1px solid ${css.border}`,
                           }}
                         >
@@ -245,8 +272,12 @@ const DashboardMockupCard = ({ index, inView, reducedMotion }) => {
             {/* Top products */}
             <div className="rounded-xl border p-2.5" style={{ borderColor: css.border, background: css.surfaceMuted }}>
               <div className="mb-2 flex items-center justify-between">
-                <span className="text-[8px] font-semibold uppercase tracking-[0.16em]" style={{ color: css.mutedFg }}>Top Products</span>
-                <span className="text-[7px] font-medium" style={{ color: css.primary }}>View all →</span>
+                <span className="text-[8px] font-semibold uppercase tracking-[0.16em]" style={{ color: css.mutedFg }}>
+                  {t('insideTheBox.dashboard.topProducts.title', 'Top Products')}
+                </span>
+                <span className="text-[7px] font-medium" style={{ color: css.primary }}>
+                  {t('insideTheBox.dashboard.topProducts.viewAll', 'View all →')}
+                </span>
               </div>
               <div className="space-y-1.5">
                 {[
@@ -264,7 +295,9 @@ const DashboardMockupCard = ({ index, inView, reducedMotion }) => {
                         <div className="h-full rounded-full" style={{ width: `${p.pct}%`, background: css.primary }} />
                       </div>
                     </div>
-                    <span className="shrink-0 text-[7px]" style={{ color: css.mutedFg }}>{p.sold} sold</span>
+                    <span className="shrink-0 text-[7px]" style={{ color: css.mutedFg }}>
+                      {p.sold} {t('insideTheBox.dashboard.topProducts.soldSuffix', 'sold')}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -272,17 +305,15 @@ const DashboardMockupCard = ({ index, inView, reducedMotion }) => {
 
             {/* Activity strip */}
             <div className="mt-2 rounded-xl border p-2.5" style={{ borderColor: css.border, background: css.surfaceMuted }}>
-              <div className="mb-2 text-[8px] font-semibold uppercase tracking-[0.16em]" style={{ color: css.mutedFg }}>Recent Activity</div>
+              <div className="mb-2 text-[8px] font-semibold uppercase tracking-[0.16em]" style={{ color: css.mutedFg }}>
+                {t('insideTheBox.dashboard.activity.title', 'Recent Activity')}
+              </div>
               <div className="space-y-1.5">
-                {[
-                  { msg: 'New order from Ayesha K.',    time: '2m ago',  dot: css.primary },
-                  { msg: 'Payment confirmed · #1051',   time: '8m ago',  dot: 'oklch(0.65 0.18 145)' },
-                  { msg: 'Product "Sneakers" updated',  time: '22m ago', dot: css.mutedFg },
-                ].map((a, i) => (
+                {activityEntries.map((msg, i) => (
                   <div key={i} className="flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: a.dot }} />
-                    <span className="flex-1 text-[8px]" style={{ color: css.fg }}>{a.msg}</span>
-                    <span className="shrink-0 text-[7px]" style={{ color: css.mutedFg }}>{a.time}</span>
+                    <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: i === 0 ? css.primary : i === 1 ? 'oklch(0.65 0.18 145)' : css.mutedFg }} />
+                    <span className="flex-1 text-[8px]" style={{ color: css.fg }}>{msg}</span>
+                    <span className="shrink-0 text-[7px]" style={{ color: css.mutedFg }}>{activityTimes[i] || ''}</span>
                   </div>
                 ))}
               </div>
@@ -306,6 +337,7 @@ const DashboardMockupCard = ({ index, inView, reducedMotion }) => {
 // ─── STOREFRONT CARD — row 1, lg:col-span-4, real product images ──────────────
 // ═══════════════════════════════════════════════════════════════════════════════
 const StorefrontCard = ({ index, inView, reducedMotion }) => {
+  const { t } = useTranslation('home')
   const [hovered, setHovered] = useState(false)
   const [scrollOffset, setScrollOffset] = useState(0)
 
@@ -346,13 +378,13 @@ const StorefrontCard = ({ index, inView, reducedMotion }) => {
       {/* Text */}
       <div className="shrink-0 px-6 pt-6 pb-4">
         <div className="mb-1 text-[10px] font-semibold uppercase tracking-[0.22em]" style={{ color: css.primary }}>
-          Your brand, online
+          {t('insideTheBox.storefront.eyebrow')}
         </div>
         <h3 className="font-heading font-extrabold leading-tight tracking-[-0.03em]" style={{ fontSize: 'clamp(1rem, 2vw, 1.25rem)', color: css.fg }}>
-          Professional Storefront
+          {t('insideTheBox.storefront.title')}
         </h3>
         <p className="mt-1.5 text-sm leading-relaxed" style={{ color: css.mutedFg, maxWidth: '26ch' }}>
-          A beautiful, mobile-first store. No code, no domain, no hassle.
+          {t('insideTheBox.storefront.body')}
         </p>
       </div>
 
@@ -369,16 +401,24 @@ const StorefrontCard = ({ index, inView, reducedMotion }) => {
         {/* Store header */}
         <div className="flex shrink-0 items-center justify-between border-b px-3 py-2.5" style={{ borderColor: css.border, background: css.surfaceMuted }}>
           <div>
-            <div className="text-[10px] font-bold" style={{ color: css.fg }}>YourShop</div>
-            <div className="text-[8px]" style={{ color: css.mutedFg }}>stallio.shop/yourshop</div>
+            <div className="text-[10px] font-bold" style={{ color: css.fg }}>
+              {t('insideTheBox.storefront.storeHeader.name', 'YourShop')}
+            </div>
+            <div className="text-[8px]" style={{ color: css.mutedFg }}>
+              {t('insideTheBox.storefront.storeHeader.url', 'stallio.shop/yourshop')}
+            </div>
           </div>
           <span className="flex h-5 w-5 items-center justify-center rounded-full text-[9px]" style={{ background: css.primaryMix10, color: css.primary }}>↗</span>
         </div>
 
         {/* Featured banner */}
         <div className="mx-3 mt-2.5 shrink-0 rounded-lg border px-3 py-2" style={{ background: css.surfaceMuted, borderColor: css.border }}>
-          <div className="text-[7px] font-semibold uppercase tracking-[0.16em]" style={{ color: css.mutedFg }}>Featured Collection</div>
-          <div className="mt-0.5 font-heading text-[10px] font-extrabold" style={{ color: css.fg }}>Summer '25 Arrivals</div>
+          <div className="text-[7px] font-semibold uppercase tracking-[0.16em]" style={{ color: css.mutedFg }}>
+            {t('insideTheBox.storefront.featuredBanner.label', 'Featured Collection')}
+          </div>
+          <div className="mt-0.5 font-heading text-[10px] font-extrabold" style={{ color: css.fg }}>
+            {t('insideTheBox.storefront.featuredBanner.title', "Summer '25 Arrivals")}
+          </div>
         </div>
 
         {/* Product grid — auto-rotates */}
@@ -392,7 +432,9 @@ const StorefrontCard = ({ index, inView, reducedMotion }) => {
 
         {/* Cart bar */}
         <div className="mx-3 mb-3 flex items-center justify-between rounded-lg border px-3 py-2" style={{ background: css.primaryMix10, borderColor: css.primaryMix18 }}>
-          <span className="text-[9px] font-medium" style={{ color: css.fg }}>View cart</span>
+          <span className="text-[9px] font-medium" style={{ color: css.fg }}>
+            {t('insideTheBox.storefront.cartBar.label', 'View cart')}
+          </span>
           <span className="font-heading text-[10px] font-bold" style={{ color: css.primary }}>₨ 4,500</span>
         </div>
       </div>
@@ -412,111 +454,142 @@ const StorefrontCard = ({ index, inView, reducedMotion }) => {
 // ─── MINI PREVIEWS (rows 2 & 3) ──────────────────────────────────────────────
 // ═══════════════════════════════════════════════════════════════════════════════
 
-const CheckoutPreview = () => (
-  <div className="w-full rounded-xl border p-3 space-y-2" style={{ borderColor: css.border, background: css.surfaceMuted }}>
-    <div className="text-[9px] font-bold uppercase tracking-widest mb-2" style={{ color: css.mutedFg }}>Order Summary</div>
-    {[{ name: 'Classic Tee', qty: '×1', price: '₨ 1,200' }, { name: 'Sneakers', qty: '×1', price: '₨ 6,800' }].map((item, i) => (
-      <div key={i} className="flex items-center justify-between">
-        <span className="text-[9px] font-medium" style={{ color: css.fg }}>{item.name} <span style={{ color: css.mutedFg }}>{item.qty}</span></span>
-        <span className="text-[9px] font-bold" style={{ color: css.fg }}>{item.price}</span>
+const CheckoutPreview = () => {
+  const { t } = useTranslation('home')
+  return (
+    <div className="w-full rounded-xl border p-3 space-y-2" style={{ borderColor: css.border, background: css.surfaceMuted }}>
+      <div className="text-[9px] font-bold uppercase tracking-widest mb-2" style={{ color: css.mutedFg }}>
+        {t('insideTheBox.features.checkout.orderSummary.heading', 'Order Summary')}
       </div>
-    ))}
-    <div className="border-t pt-2 flex items-center justify-between" style={{ borderColor: css.border }}>
-      <span className="text-[9px] font-bold" style={{ color: css.fg }}>Total</span>
-      <span className="text-[11px] font-extrabold" style={{ color: css.primary }}>₨ 8,000</span>
+      {[{ name: 'Classic Tee', qty: '×1', price: '₨ 1,200' }, { name: 'Sneakers', qty: '×1', price: '₨ 6,800' }].map((item, i) => (
+        <div key={i} className="flex items-center justify-between">
+          <span className="text-[9px] font-medium" style={{ color: css.fg }}>{item.name} <span style={{ color: css.mutedFg }}>{item.qty}</span></span>
+          <span className="text-[9px] font-bold" style={{ color: css.fg }}>{item.price}</span>
+        </div>
+      ))}
+      <div className="border-t pt-2 flex items-center justify-between" style={{ borderColor: css.border }}>
+        <span className="text-[9px] font-bold" style={{ color: css.fg }}>
+          {t('insideTheBox.features.checkout.orderSummary.totalLabel', 'Total')}
+        </span>
+        <span className="text-[11px] font-extrabold" style={{ color: css.primary }}>₨ 8,000</span>
+      </div>
+      <div className="mt-1 w-full rounded-lg py-2 text-center text-[9px] font-bold" style={{ background: css.primary, color: css.primaryFg }}>
+        {t('insideTheBox.features.checkout.orderSummary.placeOrder', 'Place Order →')}
+      </div>
     </div>
-    <div className="mt-1 w-full rounded-lg py-2 text-center text-[9px] font-bold" style={{ background: css.primary, color: css.primaryFg }}>
-      Place Order →
-    </div>
-  </div>
-)
+  )
+}
 
-const LinkPreview = () => (
-  <div className="w-full space-y-2">
-    <div className="flex items-center gap-2 rounded-xl border px-3 py-2.5" style={{ borderColor: css.primaryMix18, background: css.primaryMix10 }}>
-      <FaLink className="h-3.5 w-3.5 shrink-0" style={{ color: css.primary }} />
-      <span className="text-[10px] font-semibold" style={{ color: css.primary }}>stallio.shop/yourshop</span>
-      <div className="ml-auto shrink-0 rounded-full px-2 py-0.5 text-[7px] font-bold" style={{ background: css.primaryMix18, color: css.primary }}>Copy</div>
+const LinkPreview = () => {
+  const { t } = useTranslation('home')
+  return (
+    <div className="w-full space-y-2">
+      <div className="flex items-center gap-2 rounded-xl border px-3 py-2.5" style={{ borderColor: css.primaryMix18, background: css.primaryMix10 }}>
+        <FaLink className="h-3.5 w-3.5 shrink-0" style={{ color: css.primary }} />
+        <span className="text-[10px] font-semibold" style={{ color: css.primary }}>stallio.shop/yourshop</span>
+        <div className="ml-auto shrink-0 rounded-full px-2 py-0.5 text-[7px] font-bold" style={{ background: css.primaryMix18, color: css.primary }}>
+          {t('insideTheBox.features.link.copyLabel', 'Copy')}
+        </div>
+      </div>
+      <div className="grid grid-cols-3 gap-1.5">
+        {[
+          { label: 'Instagram', icon: FaInstagram, color: '#dd2a7b' },
+          { label: 'WhatsApp', icon: FaWhatsapp, color: '#25d366' },
+          { label: 'Facebook', icon: FaFacebook, color: '#009dfff4' },
+        ].map((p) => {
+          const Icon = p.icon
+
+          return (
+            <div key={p.label} className="flex flex-col items-center gap-1 rounded-xl border py-2" style={{ borderColor: css.border, background: css.surfaceMuted }}>
+              <Icon className="h-3.5 w-3.5" style={{ color: p.color }} />
+              <span className="text-[7px]" style={{ color: css.mutedFg }}>{p.label}</span>
+            </div>
+          )
+        })}
+      </div>
     </div>
-    <div className="grid grid-cols-3 gap-1.5">
+  )
+}
+
+const OrdersPreview = () => {
+  const { t } = useTranslation('home')
+  const newStatus = t('insideTheBox.features.orders.statuses.new', 'New')
+  const shippedStatus = t('insideTheBox.features.orders.statuses.shipped', 'Shipped')
+  const doneStatus = t('insideTheBox.features.orders.statuses.done', 'Done')
+
+  return (
+    <div className="w-full space-y-1.5">
       {[
-        { label: 'Instagram', icon: FaInstagram, color: '#dd2a7b' },
-        { label: 'WhatsApp', icon: FaWhatsapp, color: '#25d366' },
-        { label: 'Facebook', icon: FaFacebook, color: '#009dfff4' },
-      ].map((p) => {
-        const Icon = p.icon
-
-        return (
-          <div key={p.label} className="flex flex-col items-center gap-1 rounded-xl border py-2" style={{ borderColor: css.border, background: css.surfaceMuted }}>
-            <Icon className="h-3.5 w-3.5" style={{ color: p.color }} />
-            <span className="text-[7px]" style={{ color: css.mutedFg }}>{p.label}</span>
+        { id: '#1054', item: 'Classic Tee',  amount: '₨ 1,200', status: newStatus,     dot: css.primary              },
+        { id: '#1053', item: 'Sneakers',     amount: '₨ 6,800', status: shippedStatus, dot: 'oklch(0.58 0.18 145)'  },
+        { id: '#1052', item: 'Linen Shirt',  amount: '₨ 1,850', status: doneStatus,    dot: css.mutedFg              },
+        { id: '#1051', item: 'Summer Kurta', amount: '₨ 2,400', status: newStatus,     dot: css.primary              },
+      ].map((o) => (
+        <div key={o.id} className="flex items-center justify-between gap-2 rounded-xl border px-3 py-2" style={{ borderColor: css.border, background: css.surfaceMuted }}>
+          <span className="h-1.5 w-1.5 rounded-full shrink-0" style={{ background: o.dot }} />
+          <div className="min-w-0 flex-1">
+            <div className="text-[9px] font-semibold truncate" style={{ color: css.fg }}>{o.item}</div>
+            <div className="text-[7px]" style={{ color: css.mutedFg }}>{o.id}</div>
           </div>
-        )
-      })}
+          <div className="shrink-0 text-right">
+            <div className="text-[9px] font-bold" style={{ color: css.primary }}>{o.amount}</div>
+            <div
+              className="mt-0.5 rounded-full px-1.5 py-px text-[6px] font-bold uppercase tracking-wide inline-block"
+              style={{ background: o.status === newStatus ? css.primaryMix10 : css.surfaceMuted, color: o.status === newStatus ? css.primary : css.mutedFg, border: `1px solid ${css.border}` }}
+            >
+              {o.status}
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
-  </div>
-)
+  )
+}
 
-const OrdersPreview = () => (
-  <div className="w-full space-y-1.5">
-    {[
-      { id: '#1054', item: 'Classic Tee',  amount: '₨ 1,200', status: 'New',     dot: css.primary              },
-      { id: '#1053', item: 'Sneakers',     amount: '₨ 6,800', status: 'Shipped', dot: 'oklch(0.58 0.18 145)'  },
-      { id: '#1052', item: 'Linen Shirt',  amount: '₨ 1,850', status: 'Done',    dot: css.mutedFg              },
-      { id: '#1051', item: 'Summer Kurta', amount: '₨ 2,400', status: 'New',     dot: css.primary              },
-    ].map((o) => (
-      <div key={o.id} className="flex items-center justify-between gap-2 rounded-xl border px-3 py-2" style={{ borderColor: css.border, background: css.surfaceMuted }}>
-        <span className="h-1.5 w-1.5 rounded-full shrink-0" style={{ background: o.dot }} />
-        <div className="min-w-0 flex-1">
-          <div className="text-[9px] font-semibold truncate" style={{ color: css.fg }}>{o.item}</div>
-          <div className="text-[7px]" style={{ color: css.mutedFg }}>{o.id}</div>
-        </div>
-        <div className="shrink-0 text-right">
-          <div className="text-[9px] font-bold" style={{ color: css.primary }}>{o.amount}</div>
-          <div
-            className="mt-0.5 rounded-full px-1.5 py-px text-[6px] font-bold uppercase tracking-wide inline-block"
-            style={{ background: o.status === 'New' ? css.primaryMix10 : css.surfaceMuted, color: o.status === 'New' ? css.primary : css.mutedFg, border: `1px solid ${css.border}` }}
-          >
-            {o.status}
+const ProductsPreview = () => {
+  const { t } = useTranslation('home')
+  const stockSuffix = t('insideTheBox.features.products.stockSuffix', 'left')
+
+  return (
+    <div className="w-full space-y-1.5">
+      {[
+        { name: 'Classic Tee',  stock: 38, pct: 76 },
+        { name: 'Sneakers',     stock: 12, pct: 42 },
+        { name: 'Linen Shirt',  stock: 24, pct: 58 },
+      ].map((p) => (
+        <div key={p.name} className="flex items-center gap-3 rounded-xl border px-3 py-2" style={{ borderColor: css.border, background: css.surfaceMuted }}>
+          <div className="h-7 w-7 shrink-0 rounded-lg" style={{ background: css.primaryMix10 }} />
+          <div className="min-w-0 flex-1">
+            <div className="text-[9px] font-semibold" style={{ color: css.fg }}>{p.name}</div>
+            <div className="mt-1 h-1 w-full overflow-hidden rounded-full" style={{ background: css.border }}>
+              <div className="h-full rounded-full" style={{ width: `${p.pct}%`, background: css.primary }} />
+            </div>
+          </div>
+          <div className="text-[8px] font-bold shrink-0" style={{ color: css.mutedFg }}>
+            {p.stock} {stockSuffix}
           </div>
         </div>
-      </div>
-    ))}
-  </div>
-)
-
-const ProductsPreview = () => (
-  <div className="w-full space-y-1.5">
-    {[
-      { name: 'Classic Tee',  stock: 38, pct: 76 },
-      { name: 'Sneakers',     stock: 12, pct: 42 },
-      { name: 'Linen Shirt',  stock: 24, pct: 58 },
-    ].map((p) => (
-      <div key={p.name} className="flex items-center gap-3 rounded-xl border px-3 py-2" style={{ borderColor: css.border, background: css.surfaceMuted }}>
-        <div className="h-7 w-7 shrink-0 rounded-lg" style={{ background: css.primaryMix10 }} />
-        <div className="min-w-0 flex-1">
-          <div className="text-[9px] font-semibold" style={{ color: css.fg }}>{p.name}</div>
-          <div className="mt-1 h-1 w-full overflow-hidden rounded-full" style={{ background: css.border }}>
-            <div className="h-full rounded-full" style={{ width: `${p.pct}%`, background: css.primary }} />
-          </div>
-        </div>
-        <div className="text-[8px] font-bold shrink-0" style={{ color: css.mutedFg }}>{p.stock} left</div>
-      </div>
-    ))}
-  </div>
-)
+      ))}
+    </div>
+  )
+}
 
 const AnalyticsPreview = () => {
+  const { t } = useTranslation('home')
   const bars = [42, 58, 74, 52, 81, 67, 90]
-  const days  = ['M', 'T', 'W', 'T', 'F', 'S', 'S']
+  const rawDays = t('insideTheBox.features.analytics.days', { returnObjects: true })
+  const days = Array.isArray(rawDays) ? rawDays : ['M', 'T', 'W', 'T', 'F', 'S', 'S']
+
   return (
     <div className="w-full space-y-2">
       <div className="grid grid-cols-2 gap-2">
-        <StatChip value="₨84.5k" label="Revenue" />
-        <StatChip value="+23%"   label="vs last week" green />
+        <StatChip value="₨84.5k" label={t('insideTheBox.features.analytics.revenue', 'Revenue')} />
+        <StatChip value="+23%"   label={t('insideTheBox.features.analytics.vsLastWeek', 'vs last week')} green />
       </div>
       <div className="rounded-xl border p-3" style={{ borderColor: css.border, background: css.surfaceMuted }}>
-        <div className="mb-2 text-[8px] font-semibold uppercase tracking-widest" style={{ color: css.mutedFg }}>Weekly sales</div>
+        <div className="mb-2 text-[8px] font-semibold uppercase tracking-widest" style={{ color: css.mutedFg }}>
+          {t('insideTheBox.features.analytics.weeklyTitle', 'Weekly sales')}
+        </div>
         <div className="flex items-end justify-between gap-1" style={{ height: 52 }}>
           {bars.map((h, i) => (
             <div key={i} className="flex-1 rounded-sm" style={{ height: `${h}%`, background: i === 6 ? css.primary : css.primaryMix28 }} />
@@ -591,58 +664,66 @@ const BentoCard = ({ feature, index, inView, reducedMotion }) => {
   )
 }
 
-// ─── Feature config (5 cards — Storefront is its own card above) ──────────────
-const FEATURES = [
-  {
-    id:          'checkout',
-    eyebrow:     'Zero friction',
-    title:       'Simple Checkout',
-    description: 'Customers place orders in seconds. No waiting for DMs.',
-    preview:     <CheckoutPreview />,
-    desktopSpan: 'lg:col-span-3',
-  },
-  {
-    id:          'link',
-    eyebrow:     'One link, everywhere',
-    title:       'Shareable Link',
-    description: 'Share one link on Instagram, WhatsApp, or anywhere.',
-    preview:     <LinkPreview />,
-    desktopSpan: 'lg:col-span-3',
-  },
-  {
-    id:          'orders',
-    eyebrow:     'Nothing gets lost',
-    title:       'Order Dashboard',
-    description: 'Every order neatly tracked. Stop managing sales through DMs.',
-    preview:     <OrdersPreview />,
-    desktopSpan: 'lg:col-span-6',
-  },
-  {
-    id:          'products',
-    eyebrow:     'Stay organised',
-    title:       'Product Management',
-    description: 'Add, edit, and reorder your full catalog in moments.',
-    preview:     <ProductsPreview />,
-    desktopSpan: 'lg:col-span-5',
-  },
-  {
-    id:          'analytics',
-    eyebrow:     'Know your numbers',
-    title:       'Analytics',
-    description: "See what's selling, when, and how much at a glance.",
-    preview:     <AnalyticsPreview />,
-    desktopSpan: 'lg:col-span-7',
-  },
-]
-
 // ═══════════════════════════════════════════════════════════════════════════════
 // ─── MAIN SECTION ─────────────────────────────────────────────────────────────
 // ═══════════════════════════════════════════════════════════════════════════════
 const InsidetheBox = () => {
+  const { t } = useTranslation('home')
   const sectionRef    = useRef(null)
   const inView        = useInView(sectionRef, { once: true, margin: '-80px' })
   const reducedMotion = useReducedMotion()
   const isVisible     = reducedMotion || inView
+
+  const features = [
+    {
+      id:          'checkout',
+      eyebrow:     t('insideTheBox.features.checkout.eyebrow', 'Zero friction'),
+      title:       t('insideTheBox.features.checkout.title', 'Simple Checkout'),
+      description: t('insideTheBox.features.checkout.description', 'Customers place orders in seconds. No waiting for DMs.'),
+      preview:     <CheckoutPreview />,
+      desktopSpan: 'lg:col-span-3',
+    },
+    {
+      id:          'link',
+      eyebrow:     t('insideTheBox.features.link.eyebrow', 'One link, everywhere'),
+      title:       t('insideTheBox.features.link.title', 'Shareable Link'),
+      description: t('insideTheBox.features.link.description', 'Share one link on Instagram, WhatsApp, or anywhere.'),
+      preview:     <LinkPreview />,
+      desktopSpan: 'lg:col-span-3',
+    },
+    {
+      id:          'orders',
+      eyebrow:     t('insideTheBox.features.orders.eyebrow', 'Nothing gets lost'),
+      title:       t('insideTheBox.features.orders.title', 'Order Dashboard'),
+      description: t('insideTheBox.features.orders.description', 'Every order neatly tracked. Stop managing sales through DMs.'),
+      preview:     <OrdersPreview />,
+      desktopSpan: 'lg:col-span-6',
+    },
+    {
+      id:          'products',
+      eyebrow:     t('insideTheBox.features.products.eyebrow', 'Stay organised'),
+      title:       t('insideTheBox.features.products.title', 'Product Management'),
+      description: t('insideTheBox.features.products.description', 'Add, edit, and reorder your full catalog in moments.'),
+      preview:     <ProductsPreview />,
+      desktopSpan: 'lg:col-span-5',
+    },
+    {
+      id:          'analytics',
+      eyebrow:     t('insideTheBox.features.analytics.eyebrow', 'Know your numbers'),
+      title:       t('insideTheBox.features.analytics.title', 'Analytics'),
+      description: t('insideTheBox.features.analytics.description', "See what's selling, when, and how much at a glance."),
+      preview:     <AnalyticsPreview />,
+      desktopSpan: 'lg:col-span-7',
+    },
+  ]
+
+  const rawTrust = t('insideTheBox.trustStrip', { returnObjects: true })
+  const trustStrip = Array.isArray(rawTrust) ? rawTrust : [
+    'No domain required',
+    'No payment gateway setup',
+    'Free to start',
+    'Works on any device',
+  ]
 
   return (
     <section
@@ -667,8 +748,7 @@ const InsidetheBox = () => {
           animate={isVisible ? 'visible' : 'hidden'}
         >
           <motion.div variants={revealSoft} className="text-[11px] font-semibold uppercase tracking-[0.28em]" style={{ color: 'var(--primary)' }}>
-            
-            Inside The Box
+            {t('insideTheBox.eyebrow')}
           </motion.div>
           <motion.h2
             variants={revealSoft}
@@ -676,15 +756,14 @@ const InsidetheBox = () => {
             className="font-heading font-extrabold tracking-[-0.05em]"
             style={{ fontSize: 'clamp(2rem, 4.5vw, 3.25rem)', lineHeight: 1.04, color: css.fg }}
           >
-            Everything in the box.
+            {t('insideTheBox.headline')}
           </motion.h2>
           <motion.p
             variants={revealSoft}
             className="mx-auto mt-4 max-w-md text-base leading-7"
             style={{ color: css.mutedFg }}
           >
-            Six tools, one platform. Everything an Instagram or WhatsApp seller
-            needs to go from DMs to a real online business is already built in.
+            {t('insideTheBox.body')}
           </motion.p>
         </motion.div>
 
@@ -695,7 +774,7 @@ const InsidetheBox = () => {
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-12">
           <DashboardMockupCard index={0} inView={isVisible} reducedMotion={reducedMotion} />
           <StorefrontCard      index={1} inView={isVisible} reducedMotion={reducedMotion} />
-          {FEATURES.map((feature, i) => (
+          {features.map((feature, i) => (
             <BentoCard
               key={feature.id}
               feature={feature}
@@ -713,10 +792,10 @@ const InsidetheBox = () => {
           initial={reducedMotion ? false : 'hidden'}
           animate={isVisible ? 'visible' : 'hidden'}
         >
-          {['No domain required', 'No payment gateway setup', 'Free to start', 'Works on any device'].map((t) => (
-            <span key={t} className="inline-flex items-center gap-2 text-sm font-medium" style={{ color: css.mutedFg }}>
+          {trustStrip.map((tItem) => (
+            <span key={tItem} className="inline-flex items-center gap-2 text-sm font-medium" style={{ color: css.mutedFg }}>
               <span className="h-1.5 w-1.5 rounded-full" style={{ background: css.primary, opacity: 0.8 }} />
-              {t}
+              {tItem}
             </span>
           ))}
         </motion.div>

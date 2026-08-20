@@ -1,0 +1,168 @@
+{
+  "hero": {
+    "eyebrow": "Precios simples y transparentes",
+    "headline": "Un plan que",
+    "headlineHighlight": "crece contigo.",
+    "body": "Empieza gratis. Pasa a Pro cuando tus mensajes directos se conviertan en un trabajo a tiempo completo. Sin comisiones, sin sorpresas.",
+    "cta": {
+      "createStore": "Crea Tu Tienda",
+      "whatYouGet": "Qué Incluye"
+    },
+    "trust": {
+      "noCard": "Sin tarjeta de crédito",
+      "liveFast": "Activa en 5 minutos",
+      "cancel": "Cancela cuando quieras"
+    },
+    "stats": {
+      "setup": { "value": "5 min", "label": "configuración" },
+      "trial": { "value": "30 días", "label": "prueba gratis" },
+      "access": { "value": "100%", "label": "acceso total" }
+    },
+    "mockup": {
+      "header": "Elige tu plan",
+      "monthly": {
+        "label": "Mensual",
+        "badge": "Popular",
+        "priceLabel": "$5",
+        "suffix": "/ mes",
+        "note": "Facturación mensual · cancela cuando quieras"
+      },
+      "yearly": {
+        "label": "Anual",
+        "priceLabel": "$55",
+        "suffix": "/ año",
+        "note": "Un solo pago · ahorra 27%"
+      },
+      "stats": {
+        "setup": { "label": "Tiempo medio de config.", "value": "< 5 min" },
+        "trial": { "label": "Prueba gratuita", "value": "30 días" },
+        "products": { "label": "Productos", "value": "Ilimitados" },
+        "domain": { "label": "Dominio personalizado", "value": "Incluido" }
+      },
+      "startTrial": "Empezar Prueba Gratis",
+      "noCardRequired": "No se requiere tarjeta de crédito",
+      "activeCount": "+2,400",
+      "activeSellers": "vendedores activos este mes"
+    }
+  },
+  "billing": {
+    "eyebrow": "Precios",
+    "title": "Un solo precio. Toda tu tienda.",
+    "subtitle": "Diseñado para vendedores que avanzan rápido. Todo incluido: sin niveles ocultos ni sorpresas.",
+    "currencyLabel": "Mostrar precios en",
+    "currencyPlaceholder": "Buscar moneda o código…",
+    "noResults": "Sin resultados para \"{{query}}\"",
+    "currencyAria": "Seleccionar moneda",
+    "availableCurrencies": "Monedas disponibles",
+    "plans": {
+      "monthly": {
+        "name": "Mensual",
+        "tagline": "Toda la potencia. Facturación flexible.",
+        "billingLabel": "por mes",
+        "billedAs": "Facturado mensualmente · cancela cuando quieras",
+        "badge": "Más Popular",
+        "cta": "Empezar Prueba Gratis"
+      },
+      "yearly": {
+        "name": "Anual",
+        "tagline": "Consigue la mejor tarifa.",
+        "billingLabel": "por año",
+        "billedAs": "Un solo pago · 12 meses incluidos",
+        "badge": "Ahorra 27%",
+        "cta": "Empezar Anual",
+        "savingsNote": "Ahorra {{symbol}}{{savings}} frente al pago mensual — ~{{symbol}}{{avg}}/mes"
+      }
+    },
+    "features": {
+      "unlimitedProducts": "Productos Ilimitados",
+      "customDomain": "Dominio Personalizado",
+      "advancedAnalytics": "Analíticas Avanzadas",
+      "discounts": "Descuentos y Ofertas Flash",
+      "productVariants": "Variantes de Producto",
+      "orderNotifications": "Notificaciones de Pedidos",
+      "apiWebhooks": "API y Webhooks",
+      "dedicatedSupport": "Soporte Dedicado"
+    },
+    "trust": {
+      "freeTrial": "Prueba gratis de 30 días",
+      "noCard": "Sin tarjeta de crédito",
+      "cancel": "Cancela en cualquier momento"
+    },
+    "narrative": {
+      "eyebrow": "Cómo elegir",
+      "title": "Un solo precio.\nToda tu tienda.",
+      "p1": "Ambos planes incluyen todas las funciones. Productos ilimitados, analíticas, dominio personalizado, acceso API y soporte real. Lo único que decides es cómo pagar.",
+      "p2": "Empieza mensual. Pásate al anual cuando tenga sentido. Tu tienda funcionará exactamente igual.",
+      "phoneBadge": "Diseñado para vendedores que gestionan su negocio desde el móvil.",
+      "milestones": {
+        "m1": {
+          "month": "Mes 1",
+          "headline": "Bajo compromiso, acceso total.",
+          "body": "El plan mensual minimiza el riesgo mientras validas tu tienda. Cancela cuando quieras."
+        },
+        "m3": {
+          "month": "Mes 3",
+          "headline": "Tu tienda está ganando impulso.",
+          "body": "Si los pedidos llegan de forma constante, el plan anual tiene todo el sentido económico."
+        },
+        "m12": {
+          "month": "Mes 12",
+          "headline": "Has ahorrado {{symbol}}{{savings}}.",
+          "body": "Dinero que vuelve a tu negocio para inventario, publicidad o tu próximo paso. El plan anual se amortiza solo."
+        }
+      }
+    }
+  },
+  "cta": {
+    "eyebrow": "Empieza sin riesgos",
+    "headline": "Estás a un solo enlace",
+    "headlineHighlight": "de tu próximo pedido.",
+    "body": "Empieza gratis en 5 minutos. Sin código, sin tarjeta, sin compromiso. Pasa a Pro cuando tus mensajes directos sean tu trabajo diario.",
+    "primary": "Crear Mi Tienda",
+    "secondary": "¿Tienes dudas?",
+    "trust": {
+      "noCard": "Sin tarjeta de crédito",
+      "cancel": "Cancela cuando quieras",
+      "support": "Atención al Cliente"
+    }
+  },
+  "faq": {
+    "eyebrow": "Preguntas",
+    "title": "Preguntas antes de empezar.",
+    "subtitle": "Todo lo que los vendedores nos suelen preguntar antes de abrir su tienda.",
+    "items": [
+      {
+        "q": "¿Necesito mi propio dominio o alojamiento?",
+        "a": "No. Tu tienda se aloja en stallio.shop/tu-usuario. Comparte ese enlace en cualquier sitio; nosotros alojamos la tienda y el panel de control."
+      },
+      {
+        "q": "¿Necesito tarjeta de crédito para empezar?",
+        "a": "No. El plan gratuito es gratis para siempre y se configura en 5 minutos. Solo añades un método de pago si decides actualizar."
+      },
+      {
+        "q": "¿Stallio procesa los pagos de mis clientes?",
+        "a": "No. Tú indicas a tus compradores cómo pagar (transferencia, enlace de pago, contra reembolso, etc.). Stallio genera el pedido y la factura; tú confirmas la recepción."
+      },
+      {
+        "q": "¿Los precios están en dólares estadounidenses?",
+        "a": "Las suscripciones se facturan en USD. El selector de moneda muestra importes locales aproximados para tu referencia; tu banco aplicará su propio tipo de cambio."
+      },
+      {
+        "q": "¿En qué moneda se me cobrará?",
+        "a": "Los precios se muestran en tu moneda local para facilitar el cálculo. El cobro se procesa en USD con la conversión habitual de tu entidad bancaria."
+      },
+      {
+        "q": "¿Puedo cancelar en cualquier momento?",
+        "a": "Sí en los planes mensuales. Cancela desde tu cuenta y no se te cobrará en los siguientes periodos."
+      },
+      {
+        "q": "¿Cobráis comisiones por mis ventas?",
+        "a": "Nunca. Stallio solo cobra una suscripción fija. Cada céntimo que pagan tus clientes va directamente a ti."
+      },
+      {
+        "q": "¿Con quién contacto sobre facturación?",
+        "a": "Utiliza la página de Contacto seleccionando el tema de facturación. Indica el correo de tu tienda para ayudarte de inmediato."
+      }
+    ]
+  }
+}

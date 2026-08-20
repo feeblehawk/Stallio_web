@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import { Link2, Package, Smartphone, ClipboardList, Tag, FileText, Truck, LayoutGrid, Wallet, BarChart2, MessageCircle, HeadphonesIcon } from 'lucide-react'
 import useReducedMotion from '../../../hooks/useReducedMotion'
 import { easePremium, staggerContainer, revealSoft } from '../../../utils/motionVariants'
@@ -21,9 +22,24 @@ const css = {
   p30:          'color-mix(in oklch, var(--primary) 30%, transparent)',
 }
 
-// ─── Feature data — single source of truth ────────────────────────────────────
-// 3 columns × 4 rows = 12 features total, matching WhatsIncluded pattern
-const COLUMNS = [
+// ─── Feature icons map ────────────────────────────────────────────────────────
+const FEATURE_ICONS = {
+  'store-link': Link2,
+  'catalog':    Package,
+  'storefront': Smartphone,
+  'categories': LayoutGrid,
+  'orders':     ClipboardList,
+  'coupons':    Tag,
+  'invoices':   FileText,
+  'delivery':   Truck,
+  'payment':    Wallet,
+  'revenue':    BarChart2,
+  'messages':   MessageCircle,
+  'support':    HeadphonesIcon,
+}
+
+// ─── Default fallback columns ────────────────────────────────────────────────
+const DEFAULT_COLUMNS = [
   {
     id:    'store',
     label: 'Your Store',
@@ -119,17 +135,17 @@ const COLUMNS = [
 // ─── Feature card — individual feature row with icon, label, and body ─────────
 const FeatureCard = ({ feature, delay, isVisible, reducedMotion }) => {
   const { Icon, label, body } = feature
+  const DisplayIcon = Icon || Package
   return (
     <motion.div
       initial={reducedMotion ? false : { opacity: 0, y: 20 }}
       animate={isVisible ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.65, ease: easePremium, delay }}
-      className="group flex gap-3.5 rounded-xl border p-4 transition-all duration-300"
+      className="group flex gap-3.5 rounded-xl border p-4 transition-all duration-300 text-start"
       style={{
         background:  css.surface,
         borderColor: css.border,
       }}
-      // subtle lift on hover
       whileHover={reducedMotion ? undefined : {
         y: -2,
         boxShadow: `0 8px 24px ${css.p30}`,
@@ -147,7 +163,7 @@ const FeatureCard = ({ feature, delay, isVisible, reducedMotion }) => {
         }}
         aria-hidden="true"
       >
-        <Icon size={15} strokeWidth={1.8} />
+        <DisplayIcon size={15} strokeWidth={1.8} />
       </div>
 
       {/* Text */}
@@ -174,7 +190,7 @@ const FeatureColumn = ({ column, colIdx, isVisible, reducedMotion }) => (
   <div className="flex flex-col gap-3">
     {/* Column heading — matches WhatsIncluded COL_HEADS style */}
     <motion.div
-      className="mb-2 flex items-center gap-2 pb-3 border-b"
+      className="mb-2 flex items-center gap-2 pb-3 border-b text-start"
       style={{ borderColor: css.p20 }}
       initial={reducedMotion ? false : { opacity: 0, y: 10 }}
       animate={isVisible ? { opacity: 1, y: 0 } : {}}
@@ -191,7 +207,7 @@ const FeatureColumn = ({ column, colIdx, isVisible, reducedMotion }) => (
     {/* Feature cards */}
     {column.features.map((feature, rowIdx) => (
       <FeatureCard
-        key={feature.id}
+        key={feature.id || rowIdx}
         feature={feature}
         delay={0.1 + colIdx * 0.06 + rowIdx * 0.05}
         isVisible={isVisible}
@@ -203,10 +219,33 @@ const FeatureColumn = ({ column, colIdx, isVisible, reducedMotion }) => (
 
 // ─── Main section ─────────────────────────────────────────────────────────────
 const AllFeatures = () => {
+  const { t } = useTranslation('features')
   const sectionRef  = useRef(null)
   const inView      = useInView(sectionRef, { once: true, margin: '-80px' })
   const reducedMotion = useReducedMotion()
   const isVisible   = reducedMotion || inView
+
+  const columnsData = t('allFeatures.columns', { returnObjects: true })
+  
+  const columns = ['store', 'operations', 'growth'].map((key, i) => {
+    const colData = columnsData?.[key]
+    const defaultCol = DEFAULT_COLUMNS[i]
+    if (!colData) return defaultCol
+
+    return {
+      id: key,
+      label: colData.label || defaultCol.label,
+      features: (colData.items || defaultCol.features).map((item, j) => {
+        const id = item.id || defaultCol.features[j]?.id
+        return {
+          id,
+          Icon: FEATURE_ICONS[id] || defaultCol.features[j]?.Icon || Package,
+          label: item.label,
+          body: item.body,
+        }
+      }),
+    }
+  })
 
   return (
     <section
@@ -240,7 +279,7 @@ const AllFeatures = () => {
             className="text-[11px] font-semibold uppercase tracking-[0.28em]"
             style={{ color: css.primary }}
           >
-            Everything included
+            {t('allFeatures.eyebrow')}
           </motion.span>
 
           {/* Headline */}
@@ -254,7 +293,7 @@ const AllFeatures = () => {
               color:      'var(--foreground)',
             }}
           >
-            A storefront, not a science project.
+            {t('allFeatures.headline')}
           </motion.h2>
 
           {/* Sub copy */}
@@ -263,8 +302,7 @@ const AllFeatures = () => {
             className="mx-auto mt-4 max-w-2xl text-base leading-7"
             style={{ color: css.mutedFg }}
           >
-            Buyers browse categories, pick variants, apply coupons, and place orders on their phone.
-            Share one link tonight, no hosting bill, custom domain, or deploy keys.
+            {t('allFeatures.body')}
           </motion.p>
 
           {/* Feature count pill */}
@@ -281,14 +319,14 @@ const AllFeatures = () => {
               }}
             >
               <span className="h-1.5 w-1.5 rounded-full shrink-0" style={{ background: css.primary }} />
-              12 features · all plans · no add-ons
+              {t('allFeatures.pill')}
             </span>
           </motion.div>
         </motion.div>
 
         {/* ── 3-column feature grid ── */}
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-          {COLUMNS.map((col, colIdx) => (
+          {columns.map((col, colIdx) => (
             <FeatureColumn
               key={col.id}
               column={col}
@@ -319,7 +357,7 @@ const AllFeatures = () => {
               style={{ background: 'oklch(0.65 0.18 145)' }}
               aria-hidden="true"
             />
-            Hosted on stallio.shop/yourname
+            {t('allFeatures.bottomBadge')}
           </div>
         </motion.div>
 

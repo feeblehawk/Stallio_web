@@ -1,0 +1,145 @@
+{
+  "nav": {
+    "home":       "Home",
+    "features":   "Features",
+    "pricing":    "Pricing",
+    "howItWorks": "How It Works",
+    "about":      "About",
+    "login":      "Log in",
+    "signup":     "Start for Free"
+  },
+  "language": {
+    "label":       "Language",
+    "ariaLabel":   "Select language",
+    "en":          "English",
+    "es":          "Español"
+  },
+  "cta": {
+    "startFree":   "Start for Free",
+    "seeHow":      "See how it works",
+    "learnMore":   "Learn more",
+    "getStarted":  "Get started"
+  },
+  "footer": {
+    "tagline": "Your store. One link away.",
+    "rights":  "All rights reserved."
+  },
+  "auth": {
+    "backToHome": "Back to home",
+    "terms": "Terms",
+    "and": "and",
+    "privacyPolicy": "Privacy Policy",
+    "brandSubtitle": "Your online shop, one link away",
+    "login": {
+      "welcomeBack": "Welcome back to your Shop",
+      "heading": "Log in to Stallio",
+      "subtitle": "Your store is one tap away",
+      "email": "Email",
+      "emailPlaceholder": "you@example.com",
+      "password": "Password",
+      "passwordPlaceholder": "Your password",
+      "forgotPassword": "Forgot password?",
+      "submit": "Log In",
+      "submitting": "Signing in…",
+      "noAccount": "Don't have a shop yet?",
+      "signupLink": "Sign up free →",
+      "legal": "By logging in you agree to our",
+      "errors": {
+        "required": "Please enter your email and password.",
+        "invalid": "Incorrect email or password. Please try again."
+      }
+    },
+    "signup": {
+      "steps": {
+        "step1Label": "Account",
+        "step1Hint": "How you sign in",
+        "step2Label": "Your Shop",
+        "step2Hint": "What customers see",
+        "step3Label": "Preferences",
+        "step3Hint": "Region & currency"
+      },
+      "titles": {
+        "step1": "Create your account",
+        "step2": "Set up your shop",
+        "step3": "Almost there"
+      },
+      "fields": {
+        "email": "Email",
+        "emailPlaceholder": "you@example.com",
+        "password": "Password",
+        "passwordHint": "Minimum 8 characters",
+        "passwordPlaceholder": "Create a strong password",
+        "confirmPassword": "Confirm Password",
+        "confirmPasswordPlaceholder": "Repeat password",
+        "shopName": "Shop Name",
+        "shopNamePlaceholder": "My Awesome Shop",
+        "username": "Username (Store URL)",
+        "usernameHint": "Letters, numbers, underscores and hyphens only",
+        "usernamePlaceholder": "myshop",
+        "logo": "Shop Logo",
+        "logoHint": "Optional — PNG or JPG, max 2 MB",
+        "chooseLogo": "Choose Logo",
+        "country": "Country",
+        "countryPlaceholder": "Select your country",
+        "countrySearch": "Search countries…",
+        "currency": "Currency",
+        "currencyPlaceholder": "Select currency",
+        "currencySearch": "Search currencies…",
+        "yourLink": "your link"
+      },
+      "buttons": {
+        "continue": "Continue",
+        "createShop": "Create My Shop",
+        "creating": "Creating your shop…"
+      },
+      "haveAccount": "Already have a shop?",
+      "loginLink": "Log In",
+      "legal": "By creating a shop you agree to our"
+    },
+    "forgotPassword": {
+      "title": "Forgot your password?",
+      "subtext": "No worries. Enter the email linked to your Stallio account and we'll send you a reset link.",
+      "email": "Email address",
+      "submit": "Send Reset Link",
+      "submitting": "Sending link…",
+      "backToLogin": "Back to Log In",
+      "checkInbox": "Check your inbox",
+      "sentSubtext": "We sent a password reset link to {{email}}. It expires in 15 minutes.",
+      "didntGetIt": "Didn't get it? Check your spam folder, or",
+      "resendLink": "resend the link",
+      "resending": "resending…",
+      "linkResent": "link resent ✓",
+      "useDifferentEmail": "Use a different email address",
+      "needHelp": "Need help?",
+      "contactSupport": "Contact support",
+      "errors": {
+        "empty": "Please enter your email address.",
+        "invalid": "Enter a valid email address."
+      }
+    },
+    "verifyEmail": {
+      "heading": "Verify your Email",
+      "checkInbox": "Check your inbox",
+      "subtext": "We sent a 6-digit code to {{email}}.",
+      "inputAriaLabel": "Digit {{index}} of 6",
+      "groupAriaLabel": "Enter your 6-digit verification code",
+      "submit": "Verify email",
+      "verifying": "Verifying…",
+      "didntGetIt": "Didn't get it?",
+      "resend": "Resend code",
+      "sent": "Sent!",
+      "backToSignup": "Back to",
+      "signup": "Sign Up",
+      "trust": "Your code expires in 10 minutes and can only be used once.",
+      "successTitle": "Email verified",
+      "successDesc": "Your account is confirmed and ready to go.",
+      "continueToSignIn": "Continue to sign in",
+      "errors": {
+        "incorrect": "Incorrect code. Please try again."
+      }
+    },
+    "selectDropdown": {
+      "noResults": "No results for \"{{query}}\""
+    }
+  }
+}

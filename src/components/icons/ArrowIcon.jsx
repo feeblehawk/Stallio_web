@@ -7,7 +7,7 @@ import { ArrowRight } from 'lucide-react'
 const ArrowIcon = ({ size = 14, className = '' }) => (
   <ArrowRight
     size={size}
-    className={`transition-transform duration-300 group-hover:translate-x-0.5 ${className}`}
+    className={`transition-transform duration-300 group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5 ${className}`}
     aria-hidden="true"
   />
 )

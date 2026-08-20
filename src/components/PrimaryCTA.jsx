@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import ArrowIcon from './icons/ArrowIcon'
 
 const baseClasses =
@@ -11,7 +12,9 @@ const sizeClasses = {
   full: 'w-full px-4 py-3 text-sm',
 }
 
-const PrimaryCTA = ({ to = '/signup', size = 'sm', className = '', onClick, children = 'Start for Free', ...props }) => {
+const PrimaryCTA = ({ to = '/signup', size = 'sm', className = '', onClick, children, ...props }) => {
+  const { t } = useTranslation('common')
+  const label = children ?? t('nav.startFree', 'Start for Free')
   const componentClassName = `${baseClasses} ${sizeClasses[size] ?? sizeClasses.sm} ${className}`
 
   if (!to) {
@@ -21,7 +24,7 @@ const PrimaryCTA = ({ to = '/signup', size = 'sm', className = '', onClick, chil
           className="pointer-events-none absolute inset-0 -translate-x-full skew-x-[-20deg] bg-white/10 transition-transform duration-500 group-hover:translate-x-[200%]"
           aria-hidden="true"
         />
-        {children}
+        {label}
         <ArrowIcon />
       </button>
     )
@@ -33,7 +36,7 @@ const PrimaryCTA = ({ to = '/signup', size = 'sm', className = '', onClick, chil
         className="pointer-events-none absolute inset-0 -translate-x-full skew-x-[-20deg] bg-white/10 transition-transform duration-500 group-hover:translate-x-[200%]"
         aria-hidden="true"
       />
-      {children}
+      {label}
       <ArrowIcon />
     </Link>
   )

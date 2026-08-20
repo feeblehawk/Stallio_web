@@ -1,0 +1,168 @@
+{
+  "hero": {
+    "eyebrow": "Simple, transparent pricing",
+    "headline": "One plan that",
+    "headlineHighlight": "grows with you.",
+    "body": "Start free. Go pro when your DMs become a full-time job. No commissions, no gotchas, just tools that work.",
+    "cta": {
+      "createStore": "Create Your Store",
+      "whatYouGet": "What You Get"
+    },
+    "trust": {
+      "noCard": "No credit card",
+      "liveFast": "Live in 5 minutes",
+      "cancel": "Cancel anytime"
+    },
+    "stats": {
+      "setup": { "value": "5 min", "label": "avg setup" },
+      "trial": { "value": "30 days", "label": "free trial" },
+      "access": { "value": "100%", "label": "access" }
+    },
+    "mockup": {
+      "header": "Choose your plan",
+      "monthly": {
+        "label": "Monthly",
+        "badge": "Popular",
+        "priceLabel": "$5",
+        "suffix": "/ mo",
+        "note": "Billed monthly · cancel anytime"
+      },
+      "yearly": {
+        "label": "Yearly",
+        "priceLabel": "$55",
+        "suffix": "/ yr",
+        "note": "One payment · save 27%"
+      },
+      "stats": {
+        "setup": { "label": "Avg. setup time", "value": "< 5 min" },
+        "trial": { "label": "Free trial", "value": "30 days" },
+        "products": { "label": "Products", "value": "Unlimited" },
+        "domain": { "label": "Custom domain", "value": "Included" }
+      },
+      "startTrial": "Start Free Trial",
+      "noCardRequired": "No credit card required",
+      "activeCount": "2,400+",
+      "activeSellers": "sellers active this month"
+    }
+  },
+  "billing": {
+    "eyebrow": "Pricing",
+    "title": "One price. Your whole store.",
+    "subtitle": "Built for sellers who move fast. Everything included — no hidden tiers, no upgrade traps, no surprises.",
+    "currencyLabel": "Show prices in",
+    "currencyPlaceholder": "Search currency or code…",
+    "noResults": "No results for \"{{query}}\"",
+    "currencyAria": "Select display currency",
+    "availableCurrencies": "Available currencies",
+    "plans": {
+      "monthly": {
+        "name": "Monthly",
+        "tagline": "Full power. Flexible billing.",
+        "billingLabel": "per month",
+        "billedAs": "Billed monthly · cancel anytime",
+        "badge": "Most Popular",
+        "cta": "Start Free Trial"
+      },
+      "yearly": {
+        "name": "Yearly",
+        "tagline": "Lock in the best rate.",
+        "billingLabel": "per year",
+        "billedAs": "One payment · 12 months unlocked",
+        "badge": "Save 27%",
+        "cta": "Start Yearly",
+        "savingsNote": "Save {{symbol}}{{savings}} vs paying monthly — ~{{symbol}}{{avg}}/mo"
+      }
+    },
+    "features": {
+      "unlimitedProducts": "Unlimited Products",
+      "customDomain": "Custom Domain",
+      "advancedAnalytics": "Advanced Analytics",
+      "discounts": "Discounts & Flash Sales",
+      "productVariants": "Product Variants",
+      "orderNotifications": "Order Notifications",
+      "apiWebhooks": "API & Webhooks",
+      "dedicatedSupport": "Dedicated Support"
+    },
+    "trust": {
+      "freeTrial": "30-day free trial",
+      "noCard": "No credit card required",
+      "cancel": "Cancel anytime"
+    },
+    "narrative": {
+      "eyebrow": "How to choose",
+      "title": "One price.\nYour whole store.",
+      "p1": "Both plans include every feature. Unlimited products, analytics, custom domain, API access, and real support. The only decision is how you pay.",
+      "p2": "Start monthly. Switch to yearly whenever it makes sense. Your store stays exactly the same either way.",
+      "phoneBadge": "Built for sellers who run their business from their phone.",
+      "milestones": {
+        "m1": {
+          "month": "Month 1",
+          "headline": "Low commitment, full access.",
+          "body": "Monthly keeps risk minimal while you validate your store. Cancel anytime."
+        },
+        "m3": {
+          "month": "Month 3",
+          "headline": "Your store is gaining traction.",
+          "body": "If orders are coming in, locking in yearly starts making financial sense and frees your mind from monthly renewals."
+        },
+        "m12": {
+          "month": "Month 12",
+          "headline": "You've saved {{symbol}}{{savings}}.",
+          "body": "That's {{symbol}}{{savings}} back in your business for inventory, ads, or whatever your next move is. Yearly pays for itself fast."
+        }
+      }
+    }
+  },
+  "cta": {
+    "eyebrow": "Risk-free to start",
+    "headline": "You're one link away",
+    "headlineHighlight": "from your next order.",
+    "body": "Start free in 5 minutes. No code, no card, no commitment. Upgrade to Growth the moment your DMs become a full-time job.",
+    "primary": "Create My Store",
+    "secondary": "Have A Query?",
+    "trust": {
+      "noCard": "No credit card",
+      "cancel": "Cancel anytime",
+      "support": "Customer Support"
+    }
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "Questions before you start.",
+    "subtitle": "Everything sellers usually ask us before opening their store.",
+    "items": [
+      {
+        "q": "Do I need my own domain or hosting?",
+        "a": "No. Your shop lives at stallio.shop/your-username. Share that link everywhere; we host the storefront and dashboard."
+      },
+      {
+        "q": "Do I need a credit card to start?",
+        "a": "No. The Free plan is genuinely free forever and takes about five minutes to set up. You only add a payment method when you upgrade."
+      },
+      {
+        "q": "Does Stallio process payments from my customers?",
+        "a": "No. You tell buyers how to pay (bank transfer, payment link, cash on delivery, etc.). Stallio handles the order, invoice PDF, and paid or awaiting status; you confirm when money arrives."
+      },
+      {
+        "q": "Are prices in US dollars?",
+        "a": "Subscriptions are billed in USD. The country picker on this page shows approximate local amounts for planning; your bank may apply its own exchange rate or fees."
+      },
+      {
+        "q": "Which currency will I be charged in?",
+        "a": "Prices are shown in your local currency for reference using indicative rates. Billing is processed in USD, and your bank applies its own conversion at the time of payment."
+      },
+      {
+        "q": "Can I cancel anytime?",
+        "a": "Yes for monthly plans. Cancel from your account and you will not be billed for future months. Yearly plans are prepaid for the term; see Terms for details on refunds if we offer them."
+      },
+      {
+        "q": "Do you take a commission on my sales?",
+        "a": "Never. Stallio charges a flat subscription only, every dollar, riyal or rupee your customers pay goes straight to you."
+      },
+      {
+        "q": "Who do I contact about billing?",
+        "a": "Use the Contact page and choose a billing-related subject. Include your shop email so we can find your account quickly."
+      }
+    ]
+  }
+}

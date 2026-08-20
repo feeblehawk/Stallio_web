@@ -1,11 +1,12 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import useReducedMotion from '../../../hooks/useReducedMotion'
 import Stat from '../../../components/Stat'
 import { easePremium, staggerContainer, revealSoft } from '../../../utils/motionVariants'
 
-// ─── Feature list ─────────────────────────────────────────────────────────────
-const FEATURES = [
+// ─── Fallback feature list ──────────────────────────────────────────────────
+const DEFAULT_FEATURES = [
   {
     id: 'domain',
     title: 'No domain stress',
@@ -31,6 +32,12 @@ const FEATURES = [
     title: 'Run promotions',
     desc: 'Coupon codes and delivery fees, all in Stallio.',
   },
+]
+
+const DEFAULT_STATS = [
+  { num: '1 link', label: 'your whole store' },
+  { num: '0 apps', label: 'to stitch together' },
+  { num: '30 days', label: 'on us, no card' },
 ]
 
 // ─── Feature row ──────────────────────────────────────────────────────────────
@@ -67,10 +74,17 @@ const FeatureRow = ({ feature, delay, isVisible, reducedMotion }) => (
 
 // ─── Main section ─────────────────────────────────────────────────────────────
 const WhyStallo = () => {
+  const { t } = useTranslation('home')
   const sectionRef = useRef(null)
   const inView = useInView(sectionRef, { once: true, margin: '-80px' })
   const reducedMotion = useReducedMotion()
   const isVisible = reducedMotion || inView
+
+  const rawStats = t('whyStallio.stats', { returnObjects: true })
+  const stats = Array.isArray(rawStats) && rawStats.length > 0 ? rawStats : DEFAULT_STATS
+
+  const rawFeatures = t('whyStallio.features', { returnObjects: true })
+  const features = Array.isArray(rawFeatures) && rawFeatures.length > 0 ? rawFeatures : DEFAULT_FEATURES
 
   return (
     <section
@@ -105,7 +119,7 @@ const WhyStallo = () => {
                 className="text-[11px] font-semibold uppercase tracking-[0.28em]"
                 style={{ color: 'var(--primary)' }}
               >
-                Why it lands
+                {t('whyStallio.eyebrow')}
               </motion.span>
 
               {/* Headline */}
@@ -119,9 +133,9 @@ const WhyStallo = () => {
                   color: 'var(--foreground)',
                 }}
               >
-                Sharp where money moves.{' '}
+                {t('whyStallio.headline')}{' '}
                 <span style={{ color: 'var(--muted-foreground)', fontWeight: 700 }}>
-                  Quiet everywhere else.
+                  {t('whyStallio.headlineSecondary')}
                 </span>
               </motion.h2>
 
@@ -131,7 +145,7 @@ const WhyStallo = () => {
                 className="mt-4 text-base leading-7"
                 style={{ color: 'var(--muted-foreground)' }}
               >
-                Fewer tools to babysit. More time making and shipping.
+                {t('whyStallio.body')}
               </motion.p>
 
               {/* Accent rule */}
@@ -144,24 +158,24 @@ const WhyStallo = () => {
 
               {/* Stats row */}
               <div className="mt-8 flex items-start gap-6 sm:gap-8">
-                <Stat num="1 link" label="your whole store"    delay={0.3} isVisible={isVisible} reducedMotion={reducedMotion} />
-
-                {/* Vertical divider */}
-                <div
-                  className="mt-1 w-px self-stretch"
-                  style={{ background: 'var(--border)' }}
-                  aria-hidden="true"
-                />
-
-                <Stat num="0 apps"  label="to stitch together"  delay={0.38} isVisible={isVisible} reducedMotion={reducedMotion} />
-
-                <div
-                  className="mt-1 w-px self-stretch"
-                  style={{ background: 'var(--border)' }}
-                  aria-hidden="true"
-                />
-
-                <Stat num="30 days" label="on us, no card"       delay={0.46} isVisible={isVisible} reducedMotion={reducedMotion} />
+                {stats.map((stat, i) => (
+                  <div key={i} className="flex items-start gap-6 sm:gap-8">
+                    <Stat
+                      num={stat.num}
+                      label={stat.label}
+                      delay={0.3 + i * 0.08}
+                      isVisible={isVisible}
+                      reducedMotion={reducedMotion}
+                    />
+                    {i < stats.length - 1 && (
+                      <div
+                        className="mt-1 w-px self-stretch"
+                        style={{ background: 'var(--border)' }}
+                        aria-hidden="true"
+                      />
+                    )}
+                  </div>
+                ))}
               </div>
 
               {/* Free pill */}
@@ -184,7 +198,7 @@ const WhyStallo = () => {
                     style={{ background: 'oklch(0.58 0.18 145)' }}
                     aria-hidden="true"
                   />
-                  First month completely free
+                  {t('whyStallio.freePill')}
                 </span>
               </motion.div>
             </motion.div>
@@ -192,9 +206,9 @@ const WhyStallo = () => {
 
           {/* ── Right: feature list ── */}
           <div>
-            {FEATURES.map((feature, i) => (
+            {features.map((feature, i) => (
               <FeatureRow
-                key={feature.id}
+                key={feature.id || i}
                 feature={feature}
                 delay={0.12 + i * 0.08}
                 isVisible={isVisible}

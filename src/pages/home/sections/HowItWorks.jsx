@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import useReducedMotion from '../../../hooks/useReducedMotion'
 import { easePremium } from '../../../utils/motionVariants'
 import { FaInstagram } from 'react-icons/fa6'
 
-const SCENES = [
+const DEFAULT_SCENES = [
   {
     id: 'social',
     num: '01',
@@ -71,6 +72,7 @@ const PRODUCTS = [
 
 // ─── Scene 1: Social Post ───────────────────────────────────────────────────
 function SceneSocial({ reducedMotion }) {
+  const { t } = useTranslation('home')
   return (
     <div className="flex h-full flex-col justify-between p-0.5 sm:p-1">
       <div className="flex items-center justify-between pb-1.5 sm:pb-2">
@@ -83,10 +85,10 @@ function SceneSocial({ reducedMotion }) {
           </div>
           <div>
             <div className="text-[10px] sm:text-[11px] font-bold" style={{ color: 'var(--foreground)' }}>
-              yourshop
+              {t('howItWorks.sceneContent.social.accountName', 'yourshop')}
             </div>
             <div className="text-[8px] sm:text-[9px]" style={{ color: 'var(--muted-foreground)' }}>
-              Instagram Post • 2h ago
+              {t('howItWorks.sceneContent.social.postTime', 'Instagram Post • 2h ago')}
             </div>
           </div>
         </div>
@@ -98,7 +100,7 @@ function SceneSocial({ reducedMotion }) {
             border: '1px solid color-mix(in oklch, var(--primary) 20%, var(--border))',
           }}
         >
-          Featured
+          {t('howItWorks.sceneContent.social.featuredBadge', 'Featured')}
         </span>
       </div>
 
@@ -118,7 +120,8 @@ function SceneSocial({ reducedMotion }) {
 
       <div className="space-y-1 sm:space-y-1.5">
         <p className="text-[9px] sm:text-[10px] leading-tight sm:leading-relaxed truncate" style={{ color: 'var(--muted-foreground)' }}>
-          <span className="font-semibold" style={{ color: 'var(--foreground)' }}>yourshop</span> Summer collection is live! 👇
+          <span className="font-semibold" style={{ color: 'var(--foreground)' }}>{t('howItWorks.sceneContent.social.accountName', 'yourshop')}</span>{' '}
+          {t('howItWorks.sceneContent.social.caption', 'Summer collection is live! 👇')}
         </p>
 
         <motion.div
@@ -133,9 +136,13 @@ function SceneSocial({ reducedMotion }) {
         >
           <div className="flex items-center gap-1 sm:gap-1.5">
             <span className="h-1.5 w-1.5 rounded-full" style={{ background: 'var(--primary)' }} />
-            <span className="truncate max-w-[110px] sm:max-w-none">stallio.shop/yourshop</span>
+            <span className="truncate max-w-[110px] sm:max-w-none">
+              {t('howItWorks.sceneContent.social.storeLink', 'stallio.shop/yourshop')}
+            </span>
           </div>
-          <span className="text-[8px] sm:text-[9px] font-bold uppercase tracking-wider shrink-0">Bio ↗</span>
+          <span className="text-[8px] sm:text-[9px] font-bold uppercase tracking-wider shrink-0">
+            {t('howItWorks.sceneContent.social.bioBadge', 'Bio ↗')}
+          </span>
         </motion.div>
       </div>
     </div>
@@ -144,6 +151,7 @@ function SceneSocial({ reducedMotion }) {
 
 // ─── Scene 2: Bio Link Tap ──────────────────────────────────────────────────
 function SceneLink({ reducedMotion }) {
+  const { t } = useTranslation('home')
   return (
     <div className="flex h-full flex-col justify-between p-0.5 sm:p-1">
       <div className="text-center">
@@ -158,10 +166,10 @@ function SceneLink({ reducedMotion }) {
           STL
         </div>
         <div className="text-[11px] sm:text-xs font-bold" style={{ color: 'var(--foreground)' }}>
-          @yourshop
+          {t('howItWorks.sceneContent.link.accountHandle', '@yourshop')}
         </div>
         <div className="text-[8px] sm:text-[10px]" style={{ color: 'var(--muted-foreground)' }}>
-          Official Stallio Store Link
+          {t('howItWorks.sceneContent.link.linkSubtitle', 'Official Stallio Store Link')}
         </div>
       </div>
 
@@ -184,15 +192,15 @@ function SceneLink({ reducedMotion }) {
             </div>
             <div>
               <div className="text-[10px] sm:text-[11px] font-bold" style={{ color: 'var(--foreground)' }}>
-                Visit Storefront
+                {t('howItWorks.sceneContent.link.visitLabel', 'Visit Storefront')}
               </div>
               <div className="text-[8px] sm:text-[9px]" style={{ color: 'var(--primary)' }}>
-                stallio.shop/yourshop
+                {t('howItWorks.sceneContent.link.storeLink', 'stallio.shop/yourshop')}
               </div>
             </div>
           </div>
           <span className="text-[10px] sm:text-[11px] font-bold" style={{ color: 'var(--primary)' }}>
-            Open ↗
+            {t('howItWorks.sceneContent.link.openLabel', 'Open ↗')}
           </span>
         </motion.div>
 
@@ -200,21 +208,32 @@ function SceneLink({ reducedMotion }) {
           className="flex items-center justify-between rounded-lg border px-2 sm:px-2.5 py-1 sm:py-1.5 text-[8px] sm:text-[10px]"
           style={{ borderColor: 'var(--border)', background: 'var(--surface)' }}
         >
-          <span style={{ color: 'var(--muted-foreground)' }}>⚡ Instant loading</span>
-          <span className="font-semibold" style={{ color: 'var(--foreground)' }}>No app needed</span>
+          <span style={{ color: 'var(--muted-foreground)' }}>
+            {t('howItWorks.sceneContent.link.instantLoading', '⚡ Instant loading')}
+          </span>
+          <span className="font-semibold" style={{ color: 'var(--foreground)' }}>
+            {t('howItWorks.sceneContent.link.noApp', 'No app needed')}
+          </span>
         </div>
 
         <div
           className="flex items-center justify-between rounded-lg border px-2 sm:px-2.5 py-1 sm:py-1.5 text-[8px] sm:text-[10px]"
           style={{ borderColor: 'var(--border)', background: 'var(--surface)' }}
         >
-          <span style={{ color: 'var(--muted-foreground)' }}>📦 COD & Card</span>
-          <span className="font-semibold" style={{ color: 'var(--foreground)' }}>Verified Store</span>
+          <span style={{ color: 'var(--muted-foreground)' }}>
+            {t('howItWorks.sceneContent.link.paymentMethods', '📦 COD & Card')}
+          </span>
+          <span className="font-semibold" style={{ color: 'var(--foreground)' }}>
+            {t('howItWorks.sceneContent.link.verifiedStore', 'Verified Store')}
+          </span>
         </div>
       </div>
 
       <div className="text-center text-[8px] sm:text-[9px]" style={{ color: 'var(--muted-foreground)' }}>
-        Powered by <span className="font-bold" style={{ color: 'var(--foreground)' }}>Stallio</span>
+        {t('howItWorks.sceneContent.link.poweredBy', 'Powered by')}{' '}
+        <span className="font-bold" style={{ color: 'var(--foreground)' }}>
+          {t('howItWorks.sceneContent.link.poweredByBrand', 'Stallio')}
+        </span>
       </div>
     </div>
   )
@@ -222,15 +241,16 @@ function SceneLink({ reducedMotion }) {
 
 // ─── Scene 3: Stallio Storefront ────────────────────────────────────────────
 function SceneStore() {
+  const { t } = useTranslation('home')
   return (
     <div className="flex h-full flex-col justify-between p-0.5 sm:p-1">
       <div className="flex items-center justify-between border-b pb-1 sm:pb-1.5" style={{ borderColor: 'var(--border)' }}>
         <div>
           <div className="font-heading text-[10px] sm:text-[11px] font-bold" style={{ color: 'var(--foreground)' }}>
-            Your Shop
+            {t('howItWorks.sceneContent.store.shopName', 'Your Shop')}
           </div>
           <div className="text-[7px] sm:text-[8px]" style={{ color: 'var(--muted-foreground)' }}>
-            stallio.shop/yourshop
+            {t('howItWorks.sceneContent.store.storeUrl', 'stallio.shop/yourshop')}
           </div>
         </div>
         <span
@@ -240,7 +260,7 @@ function SceneStore() {
             color: 'var(--primary)',
           }}
         >
-          Verified
+          {t('howItWorks.sceneContent.store.verifiedBadge', 'Verified')}
         </span>
       </div>
 
@@ -249,7 +269,7 @@ function SceneStore() {
         style={{ borderColor: 'var(--border)', background: 'var(--surface-muted)', color: 'var(--muted-foreground)' }}
       >
         <span>🔍</span>
-        <span>Search collection…</span>
+        <span>{t('howItWorks.sceneContent.store.searchPlaceholder', 'Search collection…')}</span>
       </div>
 
       <div className="grid flex-1 grid-cols-2 gap-1 sm:gap-1.5 overflow-hidden">
@@ -282,7 +302,7 @@ function SceneStore() {
         }}
       >
         <span className="text-[8px] sm:text-[9px] font-medium" style={{ color: 'var(--foreground)' }}>
-          1 item in cart
+          {t('howItWorks.sceneContent.store.cartLabel', '1 item in cart')}
         </span>
         <span className="font-heading text-[9px] sm:text-[10px] font-bold" style={{ color: 'var(--primary)' }}>
           ₨ 1,200 →
@@ -294,7 +314,9 @@ function SceneStore() {
 
 // ─── Scene 4: Frictionless Checkout ─────────────────────────────────────────
 function SceneCheckout() {
-  const fields = [
+  const { t } = useTranslation('home')
+  const rawFields = t('howItWorks.sceneContent.checkout.fields', { returnObjects: true })
+  const fields = Array.isArray(rawFields) ? rawFields : [
     { label: 'Full Name', value: 'Amna Khan' },
     { label: 'City / Delivery', value: 'Lahore (Cash on Delivery)' },
     { label: 'Phone / WhatsApp', value: '0300-1234567' },
@@ -304,10 +326,10 @@ function SceneCheckout() {
     <div className="flex h-full flex-col justify-between p-0.5 sm:p-1">
       <div className="flex items-center justify-between border-b pb-1 sm:pb-1.5" style={{ borderColor: 'var(--border)' }}>
         <div className="text-[10px] sm:text-[11px] font-bold" style={{ color: 'var(--foreground)' }}>
-          Order Checkout
+          {t('howItWorks.sceneContent.checkout.title', 'Order Checkout')}
         </div>
         <span className="text-[8px] sm:text-[9px] font-medium" style={{ color: 'var(--muted-foreground)' }}>
-          Step 2 of 2
+          {t('howItWorks.sceneContent.checkout.step', 'Step 2 of 2')}
         </span>
       </div>
 
@@ -321,7 +343,7 @@ function SceneCheckout() {
             {PRODUCTS[0].name}
           </div>
           <div className="text-[8px] sm:text-[9px]" style={{ color: 'var(--muted-foreground)' }}>
-            Qty: 1 • Size: M
+            {t('howItWorks.sceneContent.checkout.qty', 'Qty: 1 • Size: M')}
           </div>
         </div>
         <div className="font-heading text-[9px] sm:text-[10px] font-bold shrink-0" style={{ color: 'var(--primary)' }}>
@@ -350,8 +372,7 @@ function SceneCheckout() {
           className="flex items-center justify-center gap-1 sm:gap-1.5 rounded-lg py-1.5 sm:py-2 text-[9px] sm:text-[10px] font-bold shadow-md"
           style={{ background: 'var(--primary)', color: 'var(--primary-foreground)' }}
         >
-          <span>Complete Order</span>
-          <span>→</span>
+          <span>{t('howItWorks.sceneContent.checkout.completeButton', 'Complete Order →')}</span>
         </div>
       </div>
     </div>
@@ -360,6 +381,9 @@ function SceneCheckout() {
 
 // ─── Scene 5: Order Confirmed ────────────────────────────────────────────────
 function SceneConfirmed() {
+  const { t } = useTranslation('home')
+  const customerName = t('howItWorks.sceneContent.confirmed.customerName', 'Amna Khan')
+
   return (
     <div className="flex h-full flex-col items-center justify-center p-1 sm:p-2 text-center">
       <motion.div
@@ -379,7 +403,7 @@ function SceneConfirmed() {
       </motion.div>
 
       <h3 className="font-heading text-xs sm:text-sm font-extrabold" style={{ color: 'var(--foreground)' }}>
-        Order Confirmed!
+        {t('howItWorks.sceneContent.confirmed.title', 'Order Confirmed!')}
       </h3>
       <div
         className="mt-1 inline-flex items-center gap-1 rounded-full border px-1.5 sm:px-2 py-0.5 text-[8px] sm:text-[9px] font-bold tracking-wider"
@@ -389,11 +413,13 @@ function SceneConfirmed() {
           color: 'var(--primary)',
         }}
       >
-        Order #STL-2847
+        {t('howItWorks.sceneContent.confirmed.orderId', 'Order #STL-2847')}
       </div>
 
       <p className="mt-1 max-w-[180px] sm:max-w-[200px] text-[8px] sm:text-[10px] leading-relaxed" style={{ color: 'var(--muted-foreground)' }}>
-        Confirmation sent to <span className="font-semibold" style={{ color: 'var(--foreground)' }}>Amna Khan</span> via WhatsApp automatically.
+        {t('howItWorks.sceneContent.confirmed.message', 'Confirmation sent to')}{' '}
+        <span className="font-semibold" style={{ color: 'var(--foreground)' }}>{customerName}</span>{' '}
+        {t('howItWorks.sceneContent.confirmed.messageSuffix', 'via WhatsApp automatically.')}
       </p>
 
       <motion.div
@@ -414,10 +440,10 @@ function SceneConfirmed() {
         </span>
         <div className="text-left">
           <div className="text-[8px] sm:text-[9px] font-bold" style={{ color: 'var(--foreground)' }}>
-            New Order Received
+            {t('howItWorks.sceneContent.confirmed.notificationTitle', 'New Order Received')}
           </div>
           <div className="text-[7px] sm:text-[8px]" style={{ color: 'var(--muted-foreground)' }}>
-            ₨ 1,200 • Just now
+            {t('howItWorks.sceneContent.confirmed.notificationDetail', '₨ 1,200 • Just now')}
           </div>
         </div>
       </motion.div>
@@ -428,6 +454,7 @@ function SceneConfirmed() {
 const SCENE_COMPONENTS = [SceneSocial, SceneLink, SceneStore, SceneCheckout, SceneConfirmed]
 
 export default function HowItWorks() {
+  const { t } = useTranslation('home')
   const containerRef = useRef(null)
   const stageRef = useRef(null)
   const trackRef = useRef(null)
@@ -437,6 +464,9 @@ export default function HowItWorks() {
   const [isMobile, setIsMobile] = useState(false)
   const [activeStep, setActiveStep] = useState(0)
   const [stageDimensions, setStageDimensions] = useState({ stageWidth: 0, cardWidth: 340, gap: 24 })
+
+  const rawScenes = t('howItWorks.scenes', { returnObjects: true })
+  const scenes = Array.isArray(rawScenes) && rawScenes.length > 0 ? rawScenes : DEFAULT_SCENES
 
   // Track window resize and measure stage dimensions dynamically without magic hardcoded numbers
   useEffect(() => {
@@ -484,8 +514,8 @@ export default function HowItWorks() {
     const el = stageRef.current
     const scrollLeft = el.scrollLeft
     const firstCard = trackRef.current.firstElementChild
-    const itemWidth = firstCard ? firstCard.offsetWidth + gap : trackRef.current.scrollWidth / SCENES.length
-    const newStep = Math.min(Math.floor((scrollLeft + itemWidth / 2) / itemWidth), SCENES.length - 1)
+    const itemWidth = firstCard ? firstCard.offsetWidth + gap : trackRef.current.scrollWidth / scenes.length
+    const newStep = Math.min(Math.floor((scrollLeft + itemWidth / 2) / itemWidth), scenes.length - 1)
     if (newStep !== activeStep) setActiveStep(newStep)
   }
 
@@ -494,8 +524,8 @@ export default function HowItWorks() {
     if (!mobileTrackRef.current) return
     const el = mobileTrackRef.current
     const scrollLeft = el.scrollLeft
-    const itemWidth = el.scrollWidth / SCENES.length
-    const newStep = Math.min(Math.floor((scrollLeft + itemWidth / 2) / itemWidth), SCENES.length - 1)
+    const itemWidth = el.scrollWidth / scenes.length
+    const newStep = Math.min(Math.floor((scrollLeft + itemWidth / 2) / itemWidth), scenes.length - 1)
     if (newStep !== activeStep) {
       setActiveStep(newStep)
     }
@@ -506,22 +536,22 @@ export default function HowItWorks() {
     setActiveStep(idx)
     if (isMobile && mobileTrackRef.current) {
       const el = mobileTrackRef.current
-      const itemWidth = el.scrollWidth / SCENES.length
+      const itemWidth = el.scrollWidth / scenes.length
       el.scrollTo({ left: itemWidth * idx, behavior: 'smooth' })
     } else if (stageRef.current && trackRef.current) {
       const el = stageRef.current
       const firstCard = trackRef.current.firstElementChild
-      const itemWidth = firstCard ? firstCard.offsetWidth + gap : trackRef.current.scrollWidth / SCENES.length
+      const itemWidth = firstCard ? firstCard.offsetWidth + gap : trackRef.current.scrollWidth / scenes.length
       el.scrollTo({ left: itemWidth * idx, behavior: 'smooth' })
     } else if (containerRef.current) {
       const elementTop = containerRef.current.offsetTop
       const totalHeight = containerRef.current.offsetHeight - window.innerHeight
-      const targetY = elementTop + totalHeight * (idx / (SCENES.length - 1))
+      const targetY = elementTop + totalHeight * (idx / (scenes.length - 1))
       window.scrollTo({ top: targetY, behavior: 'smooth' })
     }
   }
 
-  const activeScene = SCENES[activeStep]
+  const activeScene = scenes[activeStep] || scenes[0]
 
   return (
     <section
@@ -545,17 +575,20 @@ export default function HowItWorks() {
               className="text-[10px] font-bold uppercase tracking-[0.25em]"
               style={{ color: 'var(--primary)' }}
             >
-              How It Works
+              {t('howItWorks.eyebrow')}
             </span>
             <h2
               id="how-it-works-heading"
               className="mt-1 font-heading font-extrabold tracking-[-0.04em] text-2xl"
               style={{ color: 'var(--foreground)' }}
             >
-              From a tap to a sale, <span style={{ color: 'var(--primary)' }}>in seconds.</span>
+              {t('howItWorks.headline')}{' '}
+              <span style={{ color: 'var(--primary)' }}>
+                {t('howItWorks.headlineHighlight')}
+              </span>
             </h2>
             <p className="mt-4 text-sm leading-7 text-muted-foreground">
-              Follow the quick buyer journey that turns social traffic into orders without extra setup.
+              {t('howItWorks.body')}
             </p>
           </div>
 
@@ -570,7 +603,7 @@ export default function HowItWorks() {
               paddingRight: '15vw',
             }}
           >
-            {SCENES.map((scene, idx) => {
+            {scenes.map((scene, idx) => {
               const SceneComp = SCENE_COMPONENTS[idx]
               const isActive = activeStep === idx
 
@@ -613,7 +646,7 @@ export default function HowItWorks() {
                 <span>{activeScene.label}</span>
               </div>
               <span className="text-[10px] font-semibold" style={{ color: 'var(--muted-foreground)' }}>
-                {activeStep + 1} of {SCENES.length}
+                {activeStep + 1} {t('howItWorks.ofLabel', 'of')} {scenes.length}
               </span>
             </div>
 
@@ -627,7 +660,7 @@ export default function HowItWorks() {
 
             {/* Mobile Step Dots */}
             <div className="pt-2 flex items-center justify-center gap-1.5">
-              {SCENES.map((_, i) => (
+              {scenes.map((_, i) => (
                 <button
                   key={i}
                   type="button"
@@ -659,7 +692,7 @@ export default function HowItWorks() {
                     className="text-[11px] font-bold uppercase tracking-[0.28em]"
                     style={{ color: 'var(--primary)' }}
                   >
-                    How it works
+                    {t('howItWorks.eyebrow')}
                   </span>
                   <motion.h2
                     id="how-it-works-heading"
@@ -670,8 +703,10 @@ export default function HowItWorks() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, ease: easePremium }}
                   >
-                    From a tap to a sale,{' '}
-                    <span style={{ color: 'var(--primary)' }}>in seconds.</span>
+                    {t('howItWorks.headline')}{' '}
+                    <span style={{ color: 'var(--primary)' }}>
+                      {t('howItWorks.headlineHighlight')}
+                    </span>
                   </motion.h2>
                 </div>
 
@@ -729,12 +764,12 @@ export default function HowItWorks() {
                       className="absolute top-1/2 left-0 h-[2px] -translate-y-1/2 -z-10 rounded-full"
                       style={{
                         background: 'var(--primary)',
-                        width: `${(activeStep / (SCENES.length - 1)) * 100}%`,
+                        width: `${(activeStep / (scenes.length - 1)) * 100}%`,
                         transition: 'width 0.4s ease-out',
                       }}
                     />
 
-                    {SCENES.map((scene, i) => {
+                    {scenes.map((scene, i) => {
                       const isCurrent = activeStep === i
                       const isPast = activeStep > i
 
@@ -743,7 +778,7 @@ export default function HowItWorks() {
                           key={scene.id}
                           type="button"
                           onClick={() => scrollToStep(i)}
-                          className="group relative flex flex-col items-center focus:outline-none"
+                          className="group relative flex flex-col items-center focus:outline-none cursor-pointer"
                           aria-label={`Go to step ${i + 1}: ${scene.label}`}
                         >
                           <div
@@ -779,20 +814,22 @@ export default function HowItWorks() {
 
                   {/* Subtle navigation helper caption */}
                   <div className="flex items-center justify-between text-[11px] font-medium" style={{ color: 'var(--muted-foreground)' }}>
-                    <span>Step {activeStep + 1} of {SCENES.length}</span>
+                    <span>
+                      {t('howItWorks.stepLabel', 'Step')} {activeStep + 1} {t('howItWorks.ofLabel', 'of')} {scenes.length}
+                    </span>
                     <span className="flex items-center gap-1 text-[10px] opacity-75">
-                      Scroll to explore →
+                      {t('howItWorks.scrollHint', 'Scroll to explore →')}
                     </span>
                   </div>
                 </div>
               </div>
 
               {/* Right Column (~60%): Pinned 3D Focal Deck Stage */}
-                      <div
-                        ref={stageRef}
-                        onScroll={handleDesktopScroll}
-                        className="relative col-span-12 md:col-span-7 lg:col-span-7 overflow-x-auto snap-x snap-mandatory py-4 scrollbar-none"
-                      >
+              <div
+                ref={stageRef}
+                onScroll={handleDesktopScroll}
+                className="relative col-span-12 md:col-span-7 lg:col-span-7 overflow-x-auto snap-x snap-mandatory py-4 scrollbar-none"
+              >
                 {/* Ambient dynamic primary glow aura behind active focal card */}
                 <div
                   className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[320px] w-[320px] rounded-full opacity-25 blur-3xl transition-opacity duration-700"
@@ -809,7 +846,7 @@ export default function HowItWorks() {
                     minWidth: '100%',
                   }}
                 >
-                  {SCENES.map((scene, idx) => {
+                  {scenes.map((scene, idx) => {
                     const SceneComp = SCENE_COMPONENTS[idx]
                     const isActive = activeStep === idx
 
@@ -844,7 +881,6 @@ export default function HowItWorks() {
                       </motion.div>
                     )
                   })}
-                
                 </motion.div>
               </div>
 

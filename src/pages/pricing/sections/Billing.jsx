@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import {
   Sparkles, Zap, TrendingUp,
   Check, ChevronDown, Search, X,
@@ -31,50 +32,6 @@ const RATES = {
 const localPrice = (usd, code) =>
   code === 'USD' ? usd : Math.round(usd * (RATES[code] ?? 1))
 
-// ─── Feature definitions ──────────────────────────────────────────────────────
-const FEATURES = [
-  { icon: Package,    title: 'Unlimited Products'      },
-  { icon: Link2,      title: 'Custom Domain'            },
-  { icon: BarChart3,  title: 'Advanced Analytics'       },
-  { icon: Tag,        title: 'Discounts & Flash Sales'  },
-  { icon: Layers,     title: 'Product Variants'         },
-  { icon: Bell,       title: 'Order Notifications'      },
-  { icon: Webhook,    title: 'API & Webhooks'           },
-  { icon: Headphones, title: 'Dedicated Support'        },
-]
-
-// ─── Plans ────────────────────────────────────────────────────────────────────
-const PLANS = [
-  {
-    id:           'monthly',
-    name:         'Monthly',
-    tagline:      'Full power. Flexible billing.',
-    priceUSD:     5,
-    billingLabel: 'per month',
-    billedAs:     'Billed monthly · cancel anytime',
-    Icon:         TrendingUp,
-    badge:        'Most Popular',
-    cta:          'Start Free Trial',
-    ctaHref:      '/signup?plan=monthly',
-    savingsNote:  null,
-    tint:         false,
-  },
-  {
-    id:           'yearly',
-    name:         'Yearly',
-    tagline:      'Lock in the best rate.',
-    priceUSD:     55,
-    billingLabel: 'per year',
-    billedAs:     'One payment · 12 months unlocked',
-    Icon:         Zap,
-    badge:        'Save 27%',
-    cta:          'Start Yearly',
-    ctaHref:      '/signup?plan=yearly',
-    savingsNote:  true,
-    tint:         true,
-  },
-]
-
 // ─── Dropdown items ────────────────────────────────────────────────────────────
 const CURRENCY_ITEMS = CURRENCIES.map(c => ({
   id:     c.code,
@@ -92,6 +49,8 @@ const NONE  = '0 0 0 0px transparent'
 
 // ─── Currency Dropdown ─────────────────────────────────────────────────────────
 const CurrencyDropdown = () => {
+  const { t, i18n } = useTranslation('pricing')
+  const isRtl = i18n.resolvedLanguage === 'ar'
   const { code: selected, setCurrency } = useCurrency()
   const [open,    setOpen]    = useState(false)
   const [query,   setQuery]   = useState('')
@@ -111,26 +70,26 @@ const CurrencyDropdown = () => {
     const rect = wrapRef.current.getBoundingClientRect()
     const spaceBelow = window.innerHeight - rect.bottom
     setOpenUp(spaceBelow < 280)
+    const timer = setTimeout(() => inputRef.current?.focus(), 60)
+    return () => clearTimeout(timer)
   }, [open])
 
   useEffect(() => {
     const fn = (e) => {
       if (wrapRef.current && !wrapRef.current.contains(e.target)) {
-        setOpen(false); setQuery('')
+        setOpen(false)
+        setQuery('')
       }
     }
     document.addEventListener('mousedown', fn)
     return () => document.removeEventListener('mousedown', fn)
   }, [])
 
-  useEffect(() => {
-    if (open) setTimeout(() => inputRef.current?.focus(), 60)
-    else setQuery('')
-  }, [open])
-
   const pick = (item) => {
     setCurrency({ code: item.id, symbol: item.symbol })
-    setOpen(false); setQuery(''); setFocused(false)
+    setOpen(false)
+    setQuery('')
+    setFocused(false)
   }
 
   return (
@@ -141,10 +100,16 @@ const CurrencyDropdown = () => {
         id="currency-select"
         aria-haspopup="listbox"
         aria-expanded={open}
-        aria-label="Select display currency"
-        onClick={() => { setOpen(p => !p); setFocused(true) }}
+        aria-label={t('billing.currencyAria', 'Select display currency')}
+        onClick={() => {
+          setOpen(p => {
+            if (p) setQuery('')
+            return !p
+          })
+          setFocused(true)
+        }}
         onBlur={(e) => { if (!wrapRef.current?.contains(e.relatedTarget)) setFocused(false) }}
-        className="group flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-[12px] font-medium transition-all duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+        className="group flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-[12px] font-medium transition-all duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring cursor-pointer"
         style={{
           background:  open || focused ? 'var(--p-8)' : css.surfaceMuted,
           borderColor: open || focused ? css.primary : css.border,
@@ -205,12 +170,12 @@ const CurrencyDropdown = () => {
           <motion.div
             key="dp"
             role="listbox"
-            aria-label="Available currencies"
+            aria-label={t('billing.availableCurrencies', 'Available currencies')}
             initial={{ opacity: 0, y: openUp ? 6 : -6, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: openUp ? 3 : -3, scale: 0.97 }}
             transition={{ duration: 0.18, ease: EASE }}
-            className="absolute left-0 w-60 overflow-hidden rounded-xl border"
+            className={`absolute w-60 overflow-hidden rounded-xl border ${isRtl ? 'right-0' : 'left-0'}`}
             style={{
               zIndex:      50,
               background:  css.surface,
@@ -232,8 +197,8 @@ const CurrencyDropdown = () => {
                 type="text"
                 value={query}
                 onChange={e => setQuery(e.target.value)}
-                placeholder="Search currency or code…"
-                className="flex-1 bg-transparent text-[11.5px] outline-none placeholder:text-muted-foreground"
+                placeholder={t('billing.currencyPlaceholder', 'Search currency or code…')}
+                className="flex-1 bg-transparent text-[11.5px] outline-none placeholder:text-muted-foreground text-start"
                 style={{ color: css.fg }}
                 aria-label="Search currencies"
               />
@@ -246,7 +211,7 @@ const CurrencyDropdown = () => {
                     transition={{ duration: 0.1 }}
                     type="button"
                     onClick={() => setQuery('')}
-                    className="shrink-0 rounded p-0.5 transition-colors hover:text-foreground"
+                    className="shrink-0 rounded p-0.5 transition-colors hover:text-foreground cursor-pointer"
                     style={{ color: css.mutedFg }}
                     aria-label="Clear search"
                   >
@@ -260,7 +225,7 @@ const CurrencyDropdown = () => {
             <ul className="max-h-52 overflow-y-auto py-1" style={{ scrollbarWidth: 'thin' }}>
               {filtered.length === 0 ? (
                 <li className="px-4 py-5 text-center text-[11.5px]" style={{ color: css.mutedFg }}>
-                  No results for "{query}"
+                  {t('billing.noResults', { query, defaultValue: `No results for "${query}"` })}
                 </li>
               ) : (
                 filtered.map(item => {
@@ -271,7 +236,7 @@ const CurrencyDropdown = () => {
                       role="option"
                       aria-selected={isSel}
                       onClick={() => pick(item)}
-                      className="flex cursor-pointer items-center gap-2 px-3 py-2 transition-colors duration-100"
+                      className="flex cursor-pointer items-center gap-2 px-3 py-2 transition-colors duration-100 text-start"
                       style={{ background: isSel ? 'var(--p-10)' : 'transparent', color: css.fg }}
                       onMouseEnter={e => { if (!isSel) e.currentTarget.style.background = 'var(--accent)' }}
                       onMouseLeave={e => { e.currentTarget.style.background = isSel ? 'var(--p-10)' : 'transparent' }}
@@ -285,7 +250,7 @@ const CurrencyDropdown = () => {
                           onError={(e) => { e.currentTarget.style.display = 'none' }}
                         />
                       ) : null}
-                      <span className="w-5 text-center text-sm leading-none select-none" aria-hidden="true"
+                      <span className="w-5 text-center text-sm leading-none select-none shrink-0" aria-hidden="true"
                         style={{ display: item._code ? 'none' : 'inline' }}>
                         {item.flag}
                       </span>
@@ -311,9 +276,9 @@ const CurrencyDropdown = () => {
   )
 }
 
-// ─── Feature Item — Claude-style: check + label only, tight spacing ───────────
+// ─── Feature Item ─────────────────────────────────────────────────────────────
 const FeatureItem = ({ title, highlight }) => (
-  <li className="flex items-center gap-2.5">
+  <li className="flex items-center gap-2.5 text-start">
     <Check
       size={13}
       strokeWidth={2.5}
@@ -330,7 +295,7 @@ const FeatureItem = ({ title, highlight }) => (
 )
 
 // ─── Plan Card ────────────────────────────────────────────────────────────────
-const PlanCard = ({ plan, index, isSelected, onSelect }) => {
+const PlanCard = ({ plan, index, isSelected, onSelect, features }) => {
   const { code: currencyCode, symbol } = useCurrency()
   const [ref, inView] = useInViewOnce()
   const reduced = useReducedMotion()
@@ -352,7 +317,7 @@ const PlanCard = ({ plan, index, isSelected, onSelect }) => {
       tabIndex={0}
       onClick={onSelect}
       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onSelect() }}
-      className="relative flex flex-col rounded-2xl border cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      className="relative flex flex-col rounded-2xl border cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 text-start"
       style={{
         background:  isSelected ? 'var(--card)' : unselectedBg,
         borderColor: isSelected
@@ -445,7 +410,7 @@ const PlanCard = ({ plan, index, isSelected, onSelect }) => {
 
         {plan.savingsNote && (
           <p className="text-[12px] font-semibold mb-1" style={{ color: css.success }}>
-            Save {symbol}{savings} vs paying monthly — ~{symbol}{Math.round(yearlyPrice / 12)}/mo
+            {plan.savingsNoteFormatted(symbol, savings, Math.round(yearlyPrice / 12))}
           </p>
         )}
 
@@ -477,9 +442,9 @@ const PlanCard = ({ plan, index, isSelected, onSelect }) => {
           style={{ background: `linear-gradient(90deg, transparent, ${css.border}, transparent)` }}
         />
 
-        {/* ── Features — compact checkmark list, no icons, no dividers ── */}
+        {/* ── Features list ── */}
         <ul className="flex flex-col gap-2">
-          {FEATURES.map((feat) => (
+          {features.map((feat) => (
             <FeatureItem
               key={feat.title}
               title={feat.title}
@@ -500,11 +465,11 @@ const MilestoneCard = ({ month, headline, body, accent, index }) => {
   return (
     <motion.div
       ref={ref}
-      className="rounded-2xl border p-5"
+      className="rounded-2xl border p-5 text-start"
       style={{
         background:  css.surface,
         borderColor: css.border,
-        borderLeft:  `3px solid ${accent}`,
+        borderInlineStart: `3px solid ${accent}`,
       }}
       initial={reduced ? false : { opacity: 0, x: 24 }}
       animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -524,6 +489,7 @@ const MilestoneCard = ({ month, headline, body, accent, index }) => {
 
 // ─── Pricing Narrative ────────────────────────────────────────────────────────
 const PricingNarrative = () => {
+  const { t } = useTranslation('pricing')
   const { code: currencyCode, symbol } = useCurrency()
 
   const monthlyAnnual = localPrice(5 * 12, currencyCode)
@@ -532,21 +498,21 @@ const PricingNarrative = () => {
 
   const milestones = [
     {
-      month:    'Month 1',
-      headline: 'Low commitment, full access.',
-      body:     'Monthly keeps risk minimal while you validate your store. Cancel anytime.',
+      month:    t('billing.narrative.milestones.m1.month', 'Month 1'),
+      headline: t('billing.narrative.milestones.m1.headline', 'Low commitment, full access.'),
+      body:     t('billing.narrative.milestones.m1.body', 'Monthly keeps risk minimal while you validate your store. Cancel anytime.'),
       accent:   css.mutedFg,
     },
     {
-      month:    'Month 3',
-      headline: 'Your store is gaining traction.',
-      body:     'If orders are coming in, locking in yearly starts making financial sense and frees your mind from monthly renewals.',
+      month:    t('billing.narrative.milestones.m3.month', 'Month 3'),
+      headline: t('billing.narrative.milestones.m3.headline', 'Your store is gaining traction.'),
+      body:     t('billing.narrative.milestones.m3.body', 'If orders are coming in, locking in yearly starts making financial sense and frees your mind from monthly renewals.'),
       accent:   css.primary,
     },
     {
-      month:    'Month 12',
-      headline: `You've saved ${symbol}${savings}.`,
-      body:     `That's ${symbol}${savings} back in your business for inventory, ads, or whatever your next move is. Yearly pays for itself fast.`,
+      month:    t('billing.narrative.milestones.m12.month', 'Month 12'),
+      headline: t('billing.narrative.milestones.m12.headline', { symbol, savings, defaultValue: `You've saved ${symbol}${savings}.` }),
+      body:     t('billing.narrative.milestones.m12.body', { symbol, savings, defaultValue: `That's ${symbol}${savings} back in your business for inventory, ads, or whatever your next move is. Yearly pays for itself fast.` }),
       accent:   css.success,
     },
   ]
@@ -555,7 +521,7 @@ const PricingNarrative = () => {
   const reduced = useReducedMotion()
 
   return (
-    <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_1.1fr] lg:gap-12 lg:items-start">
+    <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_1.1fr] lg:gap-12 lg:items-start text-start">
       <motion.div
         ref={leftRef}
         className="lg:sticky lg:top-24"
@@ -564,28 +530,26 @@ const PricingNarrative = () => {
         transition={{ duration: 0.7, ease: easePremium }}
       >
         <p className="mb-3 text-[10.5px] font-bold uppercase tracking-[0.2em]" style={{ color: css.primary }}>
-          How to choose
+          {t('billing.narrative.eyebrow', 'How to choose')}
         </p>
         <h3
-          className="font-heading font-extrabold tracking-[-0.035em] leading-[1.1]"
+          className="font-heading font-extrabold tracking-[-0.035em] leading-[1.1] whitespace-pre-line"
           style={{ fontSize: 'clamp(1.5rem, 2.8vw, 2.1rem)', color: css.fg }}
         >
-          One price.
-          <br />
-          Your whole store.
+          {t('billing.narrative.title', 'One price.\nYour whole store.')}
         </h3>
         <p className="mt-4 text-[13.5px] leading-relaxed" style={{ color: css.mutedFg }}>
-          Both plans include every feature. Unlimited products, analytics, custom domain, API access, and real support. The only decision is how you pay.
+          {t('billing.narrative.p1', 'Both plans include every feature. Unlimited products, analytics, custom domain, API access, and real support. The only decision is how you pay.')}
         </p>
         <p className="mt-3 text-[13.5px] leading-relaxed" style={{ color: css.mutedFg }}>
-          Start monthly. Switch to yearly whenever it makes sense. Your store stays exactly the same either way.
+          {t('billing.narrative.p2', 'Start monthly. Switch to yearly whenever it makes sense. Your store stays exactly the same either way.')}
         </p>
         <div
           className="mt-6 flex items-center gap-2 text-[11.5px] font-medium pt-5 border-t"
           style={{ borderColor: css.border, color: css.mutedFg }}
         >
           <ShieldCheck size={13} style={{ color: css.primary, flexShrink: 0 }} aria-hidden="true" />
-          Built for sellers who run their business from their phone.
+          {t('billing.narrative.phoneBadge', 'Built for sellers who run their business from their phone.')}
         </div>
       </motion.div>
 
@@ -608,7 +572,51 @@ const TrustItem = ({ icon: Icon, iconColor, text }) => (
 
 // ─── Billing Section ──────────────────────────────────────────────────────────
 const BillingInner = () => {
+  const { t } = useTranslation('pricing')
   const [selectedPlan, setSelectedPlan] = useState('monthly')
+
+  const features = [
+    { icon: Package,    title: t('billing.features.unlimitedProducts', 'Unlimited Products') },
+    { icon: Link2,      title: t('billing.features.customDomain', 'Custom Domain') },
+    { icon: BarChart3,  title: t('billing.features.advancedAnalytics', 'Advanced Analytics') },
+    { icon: Tag,        title: t('billing.features.discounts', 'Discounts & Flash Sales') },
+    { icon: Layers,     title: t('billing.features.productVariants', 'Product Variants') },
+    { icon: Bell,       title: t('billing.features.orderNotifications', 'Order Notifications') },
+    { icon: Webhook,    title: t('billing.features.apiWebhooks', 'API & Webhooks') },
+    { icon: Headphones, title: t('billing.features.dedicatedSupport', 'Dedicated Support') },
+  ]
+
+  const plans = [
+    {
+      id:           'monthly',
+      name:         t('billing.plans.monthly.name', 'Monthly'),
+      tagline:      t('billing.plans.monthly.tagline', 'Full power. Flexible billing.'),
+      priceUSD:     5,
+      billingLabel: t('billing.plans.monthly.billingLabel', 'per month'),
+      billedAs:     t('billing.plans.monthly.billedAs', 'Billed monthly · cancel anytime'),
+      Icon:         TrendingUp,
+      badge:        t('billing.plans.monthly.badge', 'Most Popular'),
+      cta:          t('billing.plans.monthly.cta', 'Start Free Trial'),
+      ctaHref:      '/signup?plan=monthly',
+      savingsNote:  null,
+      tint:         false,
+    },
+    {
+      id:           'yearly',
+      name:         t('billing.plans.yearly.name', 'Yearly'),
+      tagline:      t('billing.plans.yearly.tagline', 'Lock in the best rate.'),
+      priceUSD:     55,
+      billingLabel: t('billing.plans.yearly.billingLabel', 'per year'),
+      billedAs:     t('billing.plans.yearly.billedAs', 'One payment · 12 months unlocked'),
+      Icon:         Zap,
+      badge:        t('billing.plans.yearly.badge', 'Save 27%'),
+      cta:          t('billing.plans.yearly.cta', 'Start Yearly'),
+      ctaHref:      '/signup?plan=yearly',
+      savingsNote:  true,
+      savingsNoteFormatted: (symbol, savings, avg) => t('billing.plans.yearly.savingsNote', { symbol, savings, avg, defaultValue: `Save ${symbol}${savings} vs paying monthly — ~${symbol}${avg}/mo` }),
+      tint:         true,
+    },
+  ]
 
   return (
     <section
@@ -650,16 +658,16 @@ const BillingInner = () => {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 sm:gap-6">
           <SectionHeading
             id="billing-heading"
-            eyebrow="Pricing"
-            title="One price. Your whole store."
-            subtitle="Built for sellers who move fast. Everything included — no hidden tiers, no upgrade traps, no surprises."
+            eyebrow={t('billing.eyebrow', 'Pricing')}
+            title={t('billing.title', 'One price. Your whole store.')}
+            subtitle={t('billing.subtitle', 'Built for sellers who move fast. Everything included — no hidden tiers, no upgrade traps, no surprises.')}
             align="left"
           />
 
           {/* Currency dropdown — anchored to the top-right of the heading block */}
-          <div className="shrink-0 pb-1">
+          <div className="shrink-0 pb-1 text-start">
             <p className="mb-1.5 text-[10.5px] font-medium" style={{ color: css.mutedFg }}>
-              Show prices in
+              {t('billing.currencyLabel', 'Show prices in')}
             </p>
             <CurrencyDropdown />
           </div>
@@ -667,22 +675,23 @@ const BillingInner = () => {
 
         {/* ── Plan cards ── */}
         <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2">
-          {PLANS.map((plan, i) => (
+          {plans.map((plan, i) => (
             <PlanCard
               key={plan.id}
               plan={plan}
               index={i}
               isSelected={selectedPlan === plan.id}
               onSelect={() => setSelectedPlan(plan.id)}
+              features={features}
             />
           ))}
         </div>
 
         {/* ── Trust strip ── */}
         <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-          <TrustItem icon={ShieldCheck} iconColor={css.primary}      text="30-day free trial" />
-          <TrustItem icon={ShieldCheck} iconColor="rgb(16 185 129)" text="No credit card required" />
-          <TrustItem icon={ShieldCheck} iconColor="rgb(245 158 11)" text="Cancel anytime" />
+          <TrustItem icon={ShieldCheck} iconColor={css.primary}      text={t('billing.trust.freeTrial', '30-day free trial')} />
+          <TrustItem icon={ShieldCheck} iconColor="rgb(16 185 129)" text={t('billing.trust.noCard', 'No credit card required')} />
+          <TrustItem icon={ShieldCheck} iconColor="rgb(245 158 11)" text={t('billing.trust.cancel', 'Cancel anytime')} />
         </div>
 
         {/* ── Pricing narrative ── */}

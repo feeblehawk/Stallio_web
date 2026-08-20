@@ -1,20 +1,34 @@
 import { motion } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import { useInViewOnce } from '../../../hooks/useInViewOnce'
 import useReducedMotion from '../../../hooks/useReducedMotion'
 import { reveal, revealSoft, staggerContainer } from '../../../utils/motionVariants'
 
-const TIMELINE = [
-  { id: 'The problem',   detail: 'Watching sellers drown in DMs',     step: '01' },
-  { id: 'First version', detail: 'Launched to 50 beta sellers',       step: '02' },
-  { id: 'Growing fast',  detail: '500+ active stores nationwide',      step: '03' },
-]
-
 const Story = () => {
+  const { t } = useTranslation('about')
   const [ref, isInView] = useInViewOnce()
   const reducedMotion = useReducedMotion()
   const motionProps = reducedMotion
     ? { initial: false, animate: 'visible' }
     : { initial: 'hidden', animate: isInView ? 'visible' : 'hidden' }
+
+  const timeline = [
+    {
+      id:     t('story.timeline.step1.id', 'The problem'),
+      detail: t('story.timeline.step1.detail', 'Watching sellers drown in DMs'),
+      step:   t('story.timeline.step1.step', '01'),
+    },
+    {
+      id:     t('story.timeline.step2.id', 'First version'),
+      detail: t('story.timeline.step2.detail', 'Launched to 50 beta sellers'),
+      step:   t('story.timeline.step2.step', '02'),
+    },
+    {
+      id:     t('story.timeline.step3.id', 'Growing fast'),
+      detail: t('story.timeline.step3.detail', '500+ active stores nationwide'),
+      step:   t('story.timeline.step3.step', '03'),
+    },
+  ]
 
   return (
     <section
@@ -25,24 +39,18 @@ const Story = () => {
         ref={ref}
         className="mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-28 lg:px-8 lg:py-32"
       >
-        {/* Eyebrow — centered on mobile, left on desktop */}
+        {/* Eyebrow — centered on mobile, start on desktop */}
         <motion.span
           variants={revealSoft}
           {...motionProps}
-          className="mb-12 block text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-primary lg:text-left"
+          className="mb-12 block text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-primary lg:text-start"
         >
-          Our story
+          {t('story.eyebrow', 'Our story')}
         </motion.span>
 
         <div className="grid gap-16 lg:grid-cols-[220px_1fr] lg:gap-24">
 
           {/* ── Timeline ───────────────────────────────────────────────────── */}
-          {/*
-              Mobile  : horizontal stepper — 3 numbered chips in a row with a
-                        connecting line between them, labels stacked below each chip.
-              Desktop : classic vertical sidebar — dot + gradient connector line,
-                        label + detail to the right.
-          */}
           <motion.div
             variants={staggerContainer}
             {...motionProps}
@@ -50,19 +58,18 @@ const Story = () => {
 
             {/* ── MOBILE: horizontal step strip ── */}
             <div className="lg:hidden">
-              {/* Track: connecting line behind the chips */}
               <div className="relative flex items-start justify-between">
 
-                {/* Hairline track — spans between first and last chip centers */}
+                {/* Hairline track */}
                 <div
-                  className="absolute top-4 left-[calc(16.66%)] right-[calc(16.66%)] h-px"
+                  className="absolute top-4 start-[calc(16.66%)] end-[calc(16.66%)] h-px"
                   style={{
                     background: 'linear-gradient(to right, var(--primary), color-mix(in oklch, var(--primary) 30%, var(--border)), var(--border))',
                   }}
                   aria-hidden="true"
                 />
 
-                {TIMELINE.map(({ id, detail, step }, i) => (
+                {timeline.map(({ id, detail, step }) => (
                   <motion.div
                     key={id}
                     variants={revealSoft}
@@ -70,7 +77,7 @@ const Story = () => {
                   >
                     {/* Step chip */}
                     <div
-                      className="relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-[11px] font-bold text-primary-foreground"
+                      className="relative z-10 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-[11px] font-bold text-primary-foreground tabular-nums"
                       style={{ boxShadow: '0 0 0 4px color-mix(in oklch, var(--primary) 18%, transparent)' }}
                     >
                       {step}
@@ -92,21 +99,21 @@ const Story = () => {
 
             {/* ── DESKTOP: vertical sidebar timeline ── */}
             <div className="hidden lg:flex lg:flex-col">
-              {TIMELINE.map(({ id, detail, step }, i) => (
+              {timeline.map(({ id, detail, step }, i) => (
                 <motion.div
                   key={id}
                   variants={revealSoft}
-                  className="flex items-start gap-3"
+                  className="flex items-start gap-3 text-start"
                 >
                   {/* Dot + connector */}
                   <div className="flex flex-col items-center">
                     <div
-                      className="relative z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[10px] font-bold text-primary-foreground"
+                      className="relative z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[10px] font-bold text-primary-foreground tabular-nums"
                       style={{ background: 'var(--primary)' }}
                     >
                       {step}
                     </div>
-                    {i < TIMELINE.length - 1 && (
+                    {i < timeline.length - 1 && (
                       <span
                         className="mt-1 w-px opacity-40"
                         style={{
@@ -131,34 +138,28 @@ const Story = () => {
             </div>
           </motion.div>
 
-          {/* ── Narrative prose — centered on mobile, left on desktop ── */}
+          {/* ── Narrative prose ── */}
           <motion.div
             variants={reveal}
             {...motionProps}
-            className="space-y-7 text-center lg:text-left"
+            className="space-y-7 text-center lg:text-start"
           >
             <h2
               id="story-heading"
               className="font-heading font-extrabold tracking-[-0.03em] text-foreground"
               style={{ fontSize: 'clamp(1.9rem, 3.8vw, 3rem)' }}
             >
-              Why we built Stallio
+              {t('story.title', 'Why we built Stallio')}
             </h2>
             <div className="space-y-5 text-base leading-7 text-muted-foreground sm:text-lg">
               <p>
-                We watched talented sellers spend their days copy-pasting product details
-                into WhatsApp DMs, tracking orders in handwritten notebooks, and losing
-                buyers to a checkout process that didn't exist.
+                {t('story.p1', "We watched talented sellers spend their days copy-pasting product details into WhatsApp DMs, tracking orders in handwritten notebooks, and losing buyers to a checkout process that didn't exist.")}
               </p>
               <p>
-                The tools they had were built for warehouses, not for someone running a
-                boutique from their phone. So, we built Stallio — a store that
-                lives at a single link and fits the way social selling actually works
-                in Pakistan.
+                {t('story.p2', "The tools they had were built for warehouses, not for someone running a boutique from their phone. So, we built Stallio — a store that lives at a single link and fits the way social selling actually works.")}
               </p>
               <p>
-                No domains to configure. No payment gateways to negotiate. Just your
-                products, your buyers, and one link you share everywhere.
+                {t('story.p3', 'No domains to configure. No payment gateways to negotiate. Just your products, your buyers, and one link you share everywhere.')}
               </p>
             </div>
           </motion.div>
