@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Mail, ShieldCheck, RotateCcw, ArrowRight, CheckCircle2 } from 'lucide-react'
+import { Mail, ShieldCheck, RotateCcw, ArrowRight, CheckCircle2, ArrowLeft} from 'lucide-react'
 import { css } from '../../utils/cssTokens'
 import { revealSoft, scaleIn, staggerContainer } from '../../utils/motionVariants'
 import useReducedMotion from '../../hooks/useReducedMotion'
+import BrandLogo from '../../components/BrandLogo'
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const SLOT_COUNT = 6
@@ -27,7 +28,37 @@ const BgOrbs = () => (
       style={{ background: 'radial-gradient(ellipse 80% 50% at 50% 0%, var(--p-12), transparent 68%)' }} />
   </div>
 )
-
+// ─── Back to Home — premium frosted pill ──────────────────────────────────────
+const BackToHome = () => (
+  <motion.div
+    variants={revealSoft}
+    className="mb-6"
+  >
+    <Link
+      to="/"
+      aria-label="Back to Stallio home"
+      className="group inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-[12px] font-medium 
+      text-muted-foreground transition-all duration-200 hover: hover:text-primary focus-visible:outline-2 
+      focus-visible:outline-offset-2 focus-visible:outline-ring"
+      style={{
+        borderColor: css.border,
+        background: 'color-mix(in oklch, var(--surface) 80%, transparent)',
+        backdropFilter: 'blur(10px)',
+        color: css.mutedfg,
+        WebkitBackdropFilter: 'blur(10px)',
+      }}
+    >
+      <ArrowLeft
+        size={13}
+        strokeWidth={2}
+        aria-hidden="true"
+        className="transition-transform duration-200 group-hover:-translate-x-0.5"
+        style={{ color: css.primary }}
+      />
+      Back to home
+    </Link>
+  </motion.div>
+)
 // ─── Single OTP digit input ───────────────────────────────────────────────────
 const OtpSlot = ({ index, value, onChange, onKeyDown, inputRef, isActive, isFilled, disabled }) => {
   const id = useId()
@@ -324,28 +355,18 @@ const VerifyEmail = () => {
     >
       <BgOrbs />
 
-      {/* Logo — identical to Signup */}
-      <motion.div
-        className="mb-7 flex flex-col items-center gap-2.5"
-        variants={staggerContainer}
-        {...motionProps}
-      >
-        <motion.a
-          href="/"
-          variants={revealSoft}
-          aria-label="Stallio — Home"
-          className="block rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
-        >
-          <img
-            src="/logo.png"
-            alt="Stallio"
-            className="h-20 w-auto object-contain drop-shadow-xl sm:h-24"
-          />
-        </motion.a>
-        <motion.p variants={revealSoft} className="text-sm font-medium" style={{ color: css.mutedFg }}>
-          Verify your email
-        </motion.p>
-      </motion.div>
+       {/* ── Back to home pill ── */}
+            <motion.div variants={staggerContainer} {...motionProps} className="flex flex-col items-center">
+              <BackToHome />
+      
+              {/* Brand */}
+              <motion.div variants={revealSoft} className="mb-7 flex flex-col items-center gap-2.5">
+                <BrandLogo size="lg" />
+                <p className="text-sm font-medium" style={{ color: css.mutedFg }}>
+                  Verify your Email
+                </p>
+              </motion.div>
+            </motion.div>
 
       {/* Card — mirrors Signup card structure */}
       <motion.div className="w-full max-w-sm relative" variants={scaleIn} {...motionProps}>

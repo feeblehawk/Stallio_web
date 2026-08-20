@@ -48,25 +48,54 @@ const StatRow = ({ label, value, accent, delay, reducedMotion }) => (
   </motion.div>
 )
 
-// ─── Plan pill ────────────────────────────────────────────────────────────────
 const PlanPill = ({ label, Icon, badge, active, onClick }) => (
   <button
     type="button"
     onClick={onClick}
     aria-pressed={active}
-    className="relative flex flex-1 flex-col items-center gap-1 rounded-xl py-2.5 px-1 text-center transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring"
-    style={{
-      background: active ? 'color-mix(in oklch, var(--primary) 10%, var(--surface))' : 'transparent',
-      border:     active ? '1px solid color-mix(in oklch, var(--primary) 28%, transparent)' : '1px solid transparent',
-      color:      active ? css.primary : css.mutedFg,
-    }}
+    className="group relative flex flex-1 flex-col items-center gap-1 rounded-xl px-1 py-2.5 text-center focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-ring"
   >
-    <Icon size={14} aria-hidden="true" />
-    <span className="text-[10px] font-semibold">{label}</span>
+    {active && (
+      <motion.span
+        layoutId="active-plan"
+        className="absolute inset-0 rounded-xl"
+        transition={{ type: 'spring', stiffness: 450, damping: 32, mass: 0.7,
+        }}
+        style={{
+          background: 'color-mix(in oklch, var(--primary) 10%, var(--surface))',
+          border: '1px solid color-mix(in oklch, var(--primary) 28%, transparent)',
+        }}
+      />
+    )}
+
+    <motion.span
+      animate={{
+        opacity: active ? 1 : 0.65,
+        y: active ? 0 : 1,
+      }}
+      transition={{
+        duration: 0.4,
+        ease: [0.22, 1, 0.40, 1],
+      }}
+      className="relative z-10 flex flex-col items-center gap-1"
+      style={{
+        color: active ? css.primary : css.mutedFg,
+      }}
+    >
+      <Icon size={14} aria-hidden="true" />
+
+      <span className="text-[10px] font-semibold">
+        {label}
+      </span>
+    </motion.span>
+
     {badge && (
       <span
-        className="absolute -top-2 left-1/2 -translate-x-1/2 rounded-full px-2 py-px text-[8px] font-bold uppercase tracking-wider whitespace-nowrap"
-        style={{ background: css.primary, color: css.primaryFg }}
+        className="absolute -top-2 left-1/2 z-20 -translate-x-1/2 rounded-full px-2 py-px text-[8px] font-bold uppercase tracking-wider whitespace-nowrap"
+        style={{
+          background: css.primary,
+          color: css.primaryFg,
+        }}
       >
         {badge}
       </span>
@@ -182,7 +211,7 @@ const PricingMockup = ({ reducedMotion }) => {
               initial={{ opacity: 0, y: 8, filter: 'blur(4px)' }}
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               exit={{ opacity: 0, y: -6, filter: 'blur(4px)' }}
-              transition={{ duration: 0.26, ease: easePremium }}
+              transition={{ duration: 0.38, ease: easePremium }}
               className="mb-4"
             >
               <div className="flex items-baseline gap-1.5">

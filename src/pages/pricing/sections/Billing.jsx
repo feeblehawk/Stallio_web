@@ -575,7 +575,7 @@ const PricingNarrative = () => {
           Your whole store.
         </h3>
         <p className="mt-4 text-[13.5px] leading-relaxed" style={{ color: css.mutedFg }}>
-          Both plans include every feature — unlimited products, analytics, custom domain, API access, and real support. The only decision is how you pay.
+          Both plans include every feature. Unlimited products, analytics, custom domain, API access, and real support. The only decision is how you pay.
         </p>
         <p className="mt-3 text-[13.5px] leading-relaxed" style={{ color: css.mutedFg }}>
           Start monthly. Switch to yearly whenever it makes sense. Your store stays exactly the same either way.

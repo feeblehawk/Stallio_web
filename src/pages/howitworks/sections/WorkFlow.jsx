@@ -15,7 +15,7 @@ const STEPS = [
     kicker: 'Setup',
     title: 'Create your store in 60 seconds',
     body: 'Pick your shop name, upload your logo, and choose your primary accent brand color. Stallio instantly generates your storefront, instant checkout, and order inbox.',
-    bullets: ['Instant live URL — no domain configuration needed', 'Custom store branding & color palette'],
+    bullets: ['Instant live URL, no domain configuration needed', 'Custom store branding & color palette'],
     previewBadge: 'Store Builder Studio',
   },
   {
@@ -132,7 +132,7 @@ const ProductCatalogMockup = () => {
   const products = [
     {
       id: 1,
-      name: 'Silk Linen Kurta',
+      name: 'Men\'s Suit Classic',
       price: '₨ 3,400',
       stock: 12,
       img: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=200&h=200&fit=crop&auto=format&q=80',
