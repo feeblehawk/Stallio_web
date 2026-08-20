@@ -19,7 +19,7 @@ const PRODUCTS = [
   {
     id: 'p3',
     img: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=300&h=340&fit=crop&auto=format&q=80',
-    name: 'Summer Kurta',
+    name: 'Classic Men\'s Suit',
     price: '₨ 2,400',
     badge: null,
   },
