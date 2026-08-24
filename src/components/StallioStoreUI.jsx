@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 
 // ─── Curated product images ──────────────────────────────────────────────────
 const PRODUCTS = [
@@ -6,42 +7,42 @@ const PRODUCTS = [
     id: 'p1',
     img: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=300&h=340&fit=crop&auto=format&q=80',
     name: 'Classic Tee',
-    price: '₨ 1,200',
+    price: '$ 15',
     badge: 'New',
   },
   {
     id: 'p2',
     img: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300&h=340&fit=crop&auto=format&q=80',
     name: 'Sneakers',
-    price: '₨ 6,800',
+    price: '$ 100',
     badge: 'Hot',
   },
   {
     id: 'p3',
     img: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=300&h=340&fit=crop&auto=format&q=80',
     name: 'Classic Men\'s Suit',
-    price: '₨ 2,400',
+    price: '$ 150',
     badge: null,
   },
   {
     id: 'p4',
     img: 'https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=300&h=340&fit=crop&auto=format&q=80',
     name: 'Linen Shirt',
-    price: '₨ 1,850',
+    price: '$ 18',
     badge: 'Sale',
   },
   {
     id: 'p5',
     img: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=300&h=340&fit=crop&auto=format&q=80',
     name: 'Casual Hoodie',
-    price: '₨ 3,200',
+    price: '$60',
     badge: null,
   },
   {
     id: 'p6',
     img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=340&fit=crop&auto=format&q=80',
     name: 'Summer Dress',
-    price: '₨ 2,100',
+    price: '$ 20',
     badge: 'New',
   },
 ]

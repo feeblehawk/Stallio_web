@@ -14,7 +14,7 @@ const sizeClasses = {
 
 const PrimaryCTA = ({ to = '/signup', size = 'sm', className = '', onClick, children, ...props }) => {
   const { t } = useTranslation('common')
-  const label = children ?? t('nav.startFree', 'Start for Free')
+  const label = children ?? t('nav.signup')
   const componentClassName = `${baseClasses} ${sizeClasses[size] ?? sizeClasses.sm} ${className}`
 
   if (!to) {
