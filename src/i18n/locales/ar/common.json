@@ -22,9 +22,87 @@
     "getStarted": "ابدأ الآن"
   },
   "footer": {
-    "tagline": "متجرك. على بُعد رابط واحد.",
-    "rights": "جميع الحقوق محفوظة."
+    "product": "المنتج",
+    "features": "الميزات",
+    "pricing": "الأسعار",
+    "howItWorks": "كيف يعمل",
+
+    "company": "الشركة",
+    "about": "من نحن",
+    "contact": "اتصل بنا",
+    "careers": "الوظائف",
+
+    "resources": "الموارد",
+    "documentation": "التوثيق",
+    "guides": "الأدلة",
+    "blog": "المدونة",
+
+    "support": "الدعم",
+    "helpCenter": "مركز المساعدة",
+    "contactSupport": "التواصل مع الدعم",
+    "faq": "الأسئلة الشائعة",
+
+    "description": "متجرك الإلكتروني على بُعد رابط واحد. الطريقة الأبسط والأقوى لبائعي وسائل التواصل الاجتماعي على Instagram وWhatsApp وTikTok لإنشاء متجر متوافق مع الهواتف.",
+    "startSellingFree": "ابدأ البيع مجانًا",
+
+    "socialMediaLinks": "روابط وسائل التواصل الاجتماعي",
+    "visitOn": "زيارة Stallio على {{platform}}",
+
+    "legalLinks": "الروابط القانونية",
+    "terms": "شروط الخدمة",
+    "privacy": "سياسة الخصوصية",
+    "legal": "المعلومات القانونية",
+
+    "copyright": "حقوق النشر © {{year}} Stallio. جميع الحقوق محفوظة."
   },
+  "StallioStoreUI": {
+    "casualSuit": "بدلة رجالية كاجوال",
+    "yourStore": "متجرك",
+    "oneLinkAway": "على بُعد رابط واحد",
+    "cart": "السلة",
+    "checkout": "الدفع",
+
+    "headerYourStore": "متجرك",
+    "headerStoreUrl": "stallio.store/yourbrand",
+    "headerNewStore": "متجر جديد",
+    "headerGettingStarted": "البدء",
+    "headerOrders": "الطلبات",
+    "headerToday": "اليوم",
+    "headerDashboard": "لوحة التحكم",
+    "headerThisMonth": "هذا الشهر",
+
+    "classicTee": "تيشيرت كلاسيكي",
+    "sneakers": "أحذية رياضية",
+    "classicSuit": "بدلة رجالية كلاسيكية",
+    "linenShirt": "قميص كتان",
+    "casualHoodie": "هودي كاجوال",
+    "summerDress": "فستان صيفي",
+
+    "badgeNew": "جديد",
+    "badgeHot": "رائج",
+    "badgeSale": "تخفيض",
+
+    "featuredCollection": "المجموعة المميزة",
+    "summerArrivals": "وصلات صيف 2025",
+    "viewCart": "عرض السلة",
+
+    "stepCreateStore": "إنشاء متجر",
+    "stepAddProducts": "إضافة المنتجات",
+    "stepShareLink": "مشاركة الرابط",
+    "stepInstagramDm": "رسائل إنستغرام",
+    "stepStallioStore": "متجر Stallio",
+    "stepNewOrder": "طلب جديد",
+
+    "latestOrder": "أحدث طلب",
+    "revenue": "الإيرادات",
+    "stat42Orders": "42 طلبًا",
+    "stat128Products": "128 منتجًا",
+
+    "featured": "مميز",
+    "summerCollection": "المجموعة الصيفية",
+    "nProducts": "{{count}} منتج",
+    "viewStore": "عرض المتجر"
+    },
   "auth": {
     "backToHome": "العودة للرئيسية",
     "terms": "شروط الخدمة",
