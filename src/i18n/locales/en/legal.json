@@ -1,0 +1,399 @@
+{
+  "common": {
+    "badge": "Legal",
+    "lastUpdated": "Last updated",
+    "appliesGlobally": "Applies globally",
+    "onThisPage": "On this page",
+    "respondDays": "We will respond within 5 business days.",
+    "contactUs": "Contact Us",
+    "getInTouch": "Get in touch",
+    "contactBilling": "Contact Billing",
+    "emailLabel": "Email Support",
+    "contactPageLabel": "Contact Page"
+  },
+
+  "privacy": {
+    "hero": {
+      "headline1": "Privacy",
+      "headline2": "Policy",
+      "subtitle": "We believe your data belongs to you. This policy explains exactly what we collect, why, and how you can control it.",
+      "lastUpdatedDate": "June 1, 2025"
+    },
+    "toc": {
+      "informationWeCollect": "Information We Collect",
+      "howWeUse": "How We Use It",
+      "sharing": "Sharing & Disclosure",
+      "cookies": "Cookies & Tracking",
+      "dataSecurity": "Data Security",
+      "yourRights": "Your Rights",
+      "international": "International Transfers",
+      "updates": "Policy Updates",
+      "contact": "Contact Us"
+    },
+    "informationWeCollect": {
+      "title": "Information We Collect",
+      "intro": "We collect information you provide directly, information generated as you use Stallio, and limited technical information from your device. We collect only what we need to operate and improve the service.",
+      "accountHeading": "Account & Profile",
+      "accountItems": [
+        "Your name, email address, and password when you create an account.",
+        "Your shop name, description, and profile image.",
+        "Payment preferences and billing details (processed by our payment provider; we do not store raw card numbers).",
+        "Language and notification preferences."
+      ],
+      "storeHeading": "Store & Order Data",
+      "storeItems": [
+        "Products, prices, images, and descriptions you add to your store.",
+        "Orders placed by your customers, including contact details and order notes they submit.",
+        "Inventory adjustments and order status changes you record."
+      ],
+      "technicalHeading": "Technical & Usage Data",
+      "technicalItems": [
+        "IP address, browser type, operating system, and device identifiers.",
+        "Pages visited, features used, clicks, and time spent in the dashboard.",
+        "Crash logs, error traces, and performance metrics."
+      ],
+      "callout": "We never collect payment card details directly. All payment processing is handled by our PCI-compliant payment provider, who has its own privacy policy."
+    },
+    "howWeUse": {
+      "title": "How We Use Your Information",
+      "intro": "Every piece of data we collect has a specific, documented purpose. We do not sell your data, use it to train AI models, or share it for third-party advertising.",
+      "operateHeading": "To Operate Stallio",
+      "operateItems": [
+        "Create and maintain your account and storefront.",
+        "Process subscription payments and send receipts.",
+        "Deliver order notifications and dashboard updates.",
+        "Respond to support requests and troubleshoot issues."
+      ],
+      "improveHeading": "To Improve the Service",
+      "improveItems": [
+        "Analyse aggregated, anonymised usage patterns to prioritise features.",
+        "Detect and prevent fraud, abuse, and security incidents.",
+        "Test new features with consenting users in opt-in programmes."
+      ],
+      "gdprHeading": "Legal Basis (GDPR)",
+      "gdprText": "If you are in the European Economic Area, we rely on the following legal bases: contract performance (operating your account), legitimate interests (security, fraud prevention, product improvement), and consent (marketing emails, where applicable)."
+    },
+    "sharing": {
+      "title": "Sharing & Disclosure",
+      "intro": "We do not sell your personal data. We share it only in the limited circumstances described below.",
+      "providersHeading": "Service Providers",
+      "providersText": "We use trusted sub-processors to operate Stallio including cloud infrastructure, email delivery, analytics, and payment processing. Each provider is bound by a data processing agreement and may only use your data to perform services for us.",
+      "customersHeading": "Your Customers' Data",
+      "customersText": "Order and contact information submitted by your buyers belongs to you. You are the data controller for your customers' data. We act as a data processor on your behalf and handle it only as needed to operate the order management features you use.",
+      "legalHeading": "Legal Requirements",
+      "legalText": "We may disclose information when required by law, regulation, or a valid legal process, or when we believe disclosure is necessary to protect the safety of any person or to prevent fraud.",
+      "callout": "We will notify you of any government or law-enforcement request for your data unless we are legally prohibited from doing so.",
+      "transfersHeading": "Business Transfers",
+      "transfersText": "If Stallio is involved in a merger, acquisition, or asset sale, your data may be transferred as part of that transaction. We will notify you before your data is transferred and becomes subject to a different privacy policy."
+    },
+    "cookies": {
+      "title": "Cookies & Tracking",
+      "intro": "We use a small set of cookies and similar technologies to keep you signed in, remember your preferences, and understand how the dashboard is used.",
+      "essentialHeading": "Essential Cookies",
+      "essentialText": "Required for authentication and security. These cannot be disabled without breaking core functionality.",
+      "analyticsHeading": "Analytics Cookies",
+      "analyticsText": "Used to understand aggregate usage patterns which features are popular, where errors occur, and how navigation flows work. We use privacy-friendly analytics that do not build cross-site profiles or fingerprint individual users.",
+      "choicesHeading": "Your Choices",
+      "choicesText": "You can manage cookie preferences through your browser settings. Disabling non-essential cookies will not affect your ability to use Stallio, but may limit some personalisation features. We do not currently respond to Do Not Track (DNT) signals due to the lack of a consistent industry standard."
+    },
+    "dataSecurity": {
+      "title": "Data Security",
+      "intro": "We take security seriously and apply technical and organisational measures proportionate to the sensitivity of the data we hold.",
+      "items": [
+        "All data in transit is encrypted using TLS 1.2 or higher.",
+        "Data at rest is encrypted using AES-256.",
+        "Access to production systems is restricted to authorised personnel and protected by multi-factor authentication.",
+        "We conduct regular security reviews and penetration tests.",
+        "We maintain an incident response plan and will notify affected users within 72 hours of a confirmed breach."
+      ],
+      "reportText": "No system is perfectly secure. If you discover a vulnerability, please report it responsibly to contact@stallio.shop. We will respond within two business days."
+    },
+    "yourRights": {
+      "title": "Your Rights",
+      "intro": "Depending on your location, you may have the following rights over your personal data. To exercise any of them, contact us at the address below.",
+      "items": [
+        "Access: request a copy of the personal data we hold about you.",
+        "Correction: ask us to correct inaccurate or incomplete data.",
+        "Deletion: request that we delete your account and associated data.",
+        "Portability: receive your data in a machine-readable format.",
+        "Restriction: ask us to restrict processing while a dispute is resolved.",
+        "Objection: object to processing based on legitimate interests.",
+        "Withdraw Consent: where processing is based on consent, withdraw it at any time without affecting prior processing."
+      ],
+      "callout": "We will respond to verified requests within 30 days. We may need to verify your identity before fulfilling a request."
+    },
+    "international": {
+      "title": "International Data Transfers",
+      "text1": "Stallio is operated from Pakistan and may transfer and process your data in countries outside your own. Where we transfer data from the EEA, UK, or Switzerland to countries without an adequacy decision, we rely on Standard Contractual Clauses approved by the European Commission.",
+      "text2": "By using Stallio, you acknowledge that your data may be transferred to and processed in countries with different data-protection standards than your country of residence."
+    },
+    "updates": {
+      "title": "Policy Updates",
+      "text1": "We may update this Privacy Policy from time to time. When we make material changes, we will notify you by email and by displaying a prominent notice in the dashboard at least 14 days before the changes take effect.",
+      "text2": "Continued use of Stallio after the effective date of a revised policy constitutes your acceptance of the changes. If you disagree with the new terms, you may close your account before they take effect."
+    },
+    "contact": {
+      "title": "Contact Us",
+      "intro": "Have questions about this Privacy Policy or a privacy concern? Reach out and we'll be happy to assist you.",
+      "emailTitle": "Email Support",
+      "email": "contact@stallio.shop",
+      "emailNote": "Include your account email for fastest resolution.",
+      "contactPageTitle": "Contact Page",
+      "contactPageNote": "Select the Privacy category for priority routing to our team.",
+      "availabilityNote": "Our privacy team responds within 5 business days. We are available Monday – Friday, 9 AM – 6 PM PKT."
+    }
+  },
+
+  "terms": {
+    "hero": {
+      "headline1": "Terms &",
+      "headline2": "Conditions",
+      "subtitle": "Please read these terms carefully. By using Stallio you agree to be bound by them. If you have questions, contact us before you start.",
+      "lastUpdatedDate": "June 1, 2025",
+      "governedBy": "Governed by Pakistani law"
+    },
+    "toc": {
+      "acceptance": "Acceptance of Terms",
+      "theService": "The Service",
+      "yourAccount": "Your Account",
+      "sellerConduct": "Seller Conduct",
+      "subscriptions": "Subscriptions & Billing",
+      "ip": "Intellectual Property",
+      "liability": "Limitation of Liability",
+      "prohibited": "Prohibited Uses",
+      "governingLaw": "Governing Law",
+      "changes": "Changes to Terms",
+      "contact": "Contact"
+    },
+    "acceptance": {
+      "title": "Acceptance of Terms",
+      "text1": "By creating an account, accessing, or using any part of the Stallio platform (\"Service\"), you agree to be legally bound by these Terms and Conditions (\"Terms\"), our Privacy Policy, and our Refund Policy. If you do not agree, do not use the Service.",
+      "text2": "These Terms apply to all users, including sellers who create and operate a Stallio storefront, visitors who browse seller storefronts, and any other person who accesses the Service.",
+      "callout": "You must be at least 18 years old to create a Stallio account. By agreeing to these Terms you represent that you meet this age requirement."
+    },
+    "theService": {
+      "title": "The Service",
+      "intro": "Stallio provides a software platform that allows individuals and businesses to create an online storefront, list products, manage orders, and share their store via a unique link.",
+      "providesHeading": "What Stallio Provides",
+      "providesItems": [
+        "A hosted storefront accessible at stallio.shop/your-username.",
+        "A dashboard to manage products, inventory, and orders.",
+        "Order notification tools including WhatsApp and email alerts.",
+        "Analytics and reporting on store performance.",
+        "Invoice and receipt generation."
+      ],
+      "doesNotHeading": "What Stallio Does Not Do",
+      "doesNotItems": [
+        "Stallio does not process payments between sellers and buyers. Payment is agreed directly between you and your customers.",
+        "Stallio does not fulfil, ship, or warehouse physical goods.",
+        "Stallio does not act as a marketplace and is not a party to any sale between you and your customers.",
+        "Stallio does not guarantee any level of sales, traffic, or commercial outcome."
+      ],
+      "reserveRight": "We reserve the right to modify, suspend, or discontinue any part of the Service at any time, with reasonable notice where practicable. We are not liable to you or any third party for any modification, suspension, or discontinuation."
+    },
+    "yourAccount": {
+      "title": "Your Account",
+      "registrationHeading": "Registration",
+      "registrationText": "You must provide accurate, complete, and current information when creating your account. You are responsible for keeping your login credentials secure and for all activity that occurs under your account.",
+      "responsibilitiesHeading": "Account Responsibilities",
+      "responsibilitiesItems": [
+        "Notify us immediately at contact@stallio.shop if you suspect unauthorised access to your account.",
+        "Do not share your password or grant access to your account to people you do not trust.",
+        "Keep your contact email address current so we can reach you with important notices.",
+        "One account per individual or business entity unless you have our written permission."
+      ],
+      "terminationHeading": "Account Termination",
+      "terminationText": "You may close your account at any time from your dashboard settings. We may suspend or terminate your account if you breach these Terms, engage in fraudulent activity, or if required by law. On termination, your storefront will be taken offline and your data will be handled in accordance with our Privacy Policy."
+    },
+    "sellerConduct": {
+      "title": "Seller Conduct",
+      "intro": "As a seller on Stallio, you are solely responsible for your store, your products, and your relationships with your customers. You agree to conduct your business lawfully and ethically.",
+      "responsibilitiesHeading": "Your Responsibilities",
+      "responsibilitiesItems": [
+        "List only products you are legally authorised to sell.",
+        "Provide accurate product descriptions, pricing, and availability.",
+        "Honour orders you accept and communicate promptly with buyers.",
+        "Comply with all applicable consumer protection, trade, and tax laws in your jurisdiction.",
+        "Handle customer data you receive through Stallio in compliance with applicable privacy laws.",
+        "Resolve customer disputes fairly and in good faith."
+      ],
+      "callout": "You are the seller and the data controller for your customers. Stallio is not responsible for disputes between you and your buyers.",
+      "prohibitedHeading": "Prohibited Products",
+      "prohibitedText": "You may not use Stallio to sell: illegal goods or services; counterfeit, pirated, or stolen items; controlled substances, drugs, or drug paraphernalia; weapons, explosives, or hazardous materials; content that exploits or harms minors; financial instruments, securities, or investment products without appropriate licences; or any product or service that violates applicable law."
+    },
+    "subscriptions": {
+      "title": "Subscriptions & Billing",
+      "plansHeading": "Plans",
+      "plansText": "Stallio offers a free plan with core features and paid plans that unlock additional capabilities. Paid plans are offered on a monthly or annual billing cycle. Plan details, feature limits, and pricing are displayed on our Pricing page and are subject to change with 30 days' notice.",
+      "billingHeading": "Billing",
+      "billingItems": [
+        "Subscriptions are billed in advance at the start of each billing period.",
+        "All prices are in US dollars unless otherwise stated.",
+        "You authorise us to charge your payment method on file at each renewal.",
+        "Failed payments may result in a brief grace period, after which your account may be downgraded."
+      ],
+      "upgradesHeading": "Upgrades & Downgrades",
+      "upgradesText": "You may upgrade your plan at any time; the upgrade takes effect immediately and you will be charged a prorated amount for the remainder of the current billing period. Downgrades take effect at the end of the current billing period.",
+      "cancellationHeading": "Cancellation",
+      "cancellationText": "You may cancel your paid subscription at any time. Cancellation stops future billing but does not entitle you to a refund of fees already paid, except as described in our Refund Policy. Your paid features remain available until the end of the paid period.",
+      "callout": "We do not take a commission on your sales. Your subscription fee is the only amount you pay Stallio. All revenue from your sales goes directly to you."
+    },
+    "ip": {
+      "title": "Intellectual Property",
+      "stallioHeading": "Stallio's Intellectual Property",
+      "stallioText": "The Stallio platform, including its software, design, trademarks, logos, and all related materials, are owned by or licensed to Stallio and are protected by applicable intellectual property laws. You may not copy, modify, distribute, or create derivative works without our express written permission.",
+      "yourContentHeading": "Your Content",
+      "yourContentText1": "You retain all intellectual property rights in the content you upload to Stallio such as product images, descriptions, logos, and other materials. By uploading content, you grant Stallio a non-exclusive, worldwide, royalty-free licence to display and deliver that content solely as necessary to operate the Service.",
+      "yourContentText2": "You represent that you own or have the rights to all content you upload, and that your content does not infringe any third-party intellectual property rights."
+    },
+    "liability": {
+      "title": "Limitation of Liability",
+      "text1": "The Service is provided \"as is\" and \"as available\" without warranties of any kind, express or implied. To the fullest extent permitted by law, Stallio disclaims all warranties including merchantability, fitness for a particular purpose, and non-infringement.",
+      "text2": "In no event shall Stallio be liable for any indirect, incidental, special, consequential, or punitive damages, including lost profits, loss of data, or business interruption, arising out of or in connection with your use of the Service, even if advised of the possibility of such damages.",
+      "text3": "Our total liability to you for any claim arising under these Terms shall not exceed the amount you paid to Stallio in the three months preceding the event giving rise to the claim, or USD 100, whichever is greater.",
+      "callout": "Some jurisdictions do not allow the exclusion of certain warranties or limitations of liability. In such cases, our liability is limited to the fullest extent permitted by applicable law."
+    },
+    "prohibited": {
+      "title": "Prohibited Uses",
+      "intro": "In addition to the prohibited products above, you agree not to:",
+      "items": [
+        "Use the Service to transmit spam, phishing messages, or unsolicited commercial communications.",
+        "Attempt to gain unauthorised access to any part of the Service or another user's account.",
+        "Use automated tools to scrape, crawl, or harvest data from the platform.",
+        "Reverse-engineer, decompile, or disassemble any portion of the Service.",
+        "Use the Service in a way that could damage, disable, overburden, or impair our servers or networks.",
+        "Impersonate Stallio, another seller, or any person or entity.",
+        "Use the Service to facilitate illegal gambling, pyramid schemes, or fraudulent activity.",
+        "Violate any applicable local, national, or international law or regulation."
+      ],
+      "consequence": "Breach of these prohibitions may result in immediate account suspension or termination without refund."
+    },
+    "governingLaw": {
+      "title": "Governing Law & Disputes",
+      "text1": "These Terms are governed by and construed in accordance with the laws of Pakistan, without regard to conflict-of-law principles.",
+      "text2": "Any dispute arising out of or in connection with these Terms that cannot be resolved through good-faith negotiation will be submitted to the exclusive jurisdiction of the courts of Lahore, Punjab, Pakistan. If you are a consumer located in a jurisdiction that requires disputes to be heard in your local courts, this clause will be construed to the extent permitted by applicable law.",
+      "text3": "Before initiating any formal dispute, you agree to contact us at contact@stallio.shop and give us 30 days to attempt resolution."
+    },
+    "changes": {
+      "title": "Changes to These Terms",
+      "text1": "We may update these Terms from time to time to reflect changes to the Service, legal requirements, or our business practices. When we make material changes, we will notify you by email and display a notice in the dashboard at least 14 days before the new Terms take effect.",
+      "text2": "Your continued use of the Service after the effective date constitutes acceptance of the revised Terms. If you do not agree to the new Terms, you may terminate your account before the effective date."
+    },
+    "contact": {
+      "title": "Contact",
+      "intro": "Questions about these Terms? Reach out and we'll be happy to assist you.",
+      "emailTitle": "Email Support",
+      "email": "contact@stallio.shop",
+      "emailNote": "Include your account email for fastest resolution.",
+      "contactPageTitle": "Contact Page",
+      "contactPageNote": "Select the Legal category for priority routing to our team.",
+      "availabilityNote": "Our legal team responds within 5 business days. We are available Monday – Friday, 9 AM – 6 PM PKT."
+    }
+  },
+
+  "refund": {
+    "hero": {
+      "headline1": "Refund",
+      "headline2": "Policy",
+      "subtitle": "We want every Stallio subscription to be worth it. This policy tells you exactly when we issue refunds and how to request one.",
+      "lastUpdatedDate": "June 1, 2025",
+      "processingTime": "5–10 business days to process"
+    },
+    "toc": {
+      "overview": "Overview",
+      "billing": "Subscription & Billing",
+      "eligible": "Eligible Refunds",
+      "notEligible": "Non-Refundable Cases",
+      "billingErrors": "Billing Errors",
+      "howToRequest": "How to Request",
+      "timeline": "Processing Timeline",
+      "contact": "Contact Billing"
+    },
+    "overview": {
+      "title": "Overview",
+      "text1": "Stallio subscriptions are prepaid software services. Because our platform is immediately available the moment you subscribe, we operate a no-refund-by-default policy with a defined exception window and specific circumstances where refunds are always granted.",
+      "text2": "We believe in being fair. If something goes wrong on our side like a billing error, a double charge. We will make it right promptly and without argument.",
+      "callout": "This policy applies only to subscription fees you pay Stallio for seller plans on stallio.shop. It does not cover orders placed on your shop. You handle refunds for your own shop orders with your customers."
+    },
+    "billing": {
+      "title": "Subscription & Billing",
+      "monthlyHeading": "Monthly plans",
+      "monthlyText": "When you cancel a monthly paid plan, future billing stops. You keep access until the end of the period you already paid for, as shown on the Pricing page or in your account messages. We usually do not refund unused days in a month you already paid for, unless the law requires it or we confirm a billing mistake on our side.",
+      "yearlyHeading": "Yearly Plans",
+      "yearlyText": "Yearly plans are paid in advance for the full term shown on the Pricing page. If you cancel early, we do not automatically refund the remaining months unless we confirm it in writing or your local law requires it.",
+      "downgradingHeading": "Downgrading",
+      "downgradingText": "When you downgrade from a paid plan to a lower tier or the free plan, your current plan's features remain active until the end of the paid billing period.",
+      "upgradingHeading": "Upgrading",
+      "upgradingText": "Upgrades take effect immediately. You will be charged ful amount at the end of the current billing period. The next billing cycle will be at the full new rate. Upgrade charges are non-refundable.",
+      "switchingMonthlyHeading": "Switching from Monthly to Annual",
+      "switchingMonthlyText": "If you switch from a monthly to an annual plan, your current monthly plan's features remain active until the end of the paid billing period. You will be charged the full annual plan amount immediately at the end of paid monthly period, and the next billing cycle will be at the full annual rate. The monthly plan's unused portion is not refunded.",
+      "switchingAnnualHeading": "Switching from Annual To monthlly",
+      "switchingAnnualText": "Annual plans are paid in advanced. You can switch to a monthly plan at the end of your current annual billing period. The unused portion of the annual plan is not refunded."
+    },
+    "eligible": {
+      "title": "Eligible Refunds",
+      "intro": "The following situations always qualify for a full or prorated refund. Contact us within the timeframes noted.",
+      "items": [
+        { "label": "Billing error.", "detail": "You were charged the wrong amount, charged twice, or at wrong rate. Full refund of the erroneous amount after investigation." },
+        { "label": "Unauthorised charge.", "detail": "You have evidence that a charge was made without your authorisation. Full refund pending investigation." },
+        { "label": "Cancellation error.", "detail": "You were charged after successfully canceling your subscription due to a Stallio billing or system error." },
+        { "label": "Incorrect plan or add-on.", "detail": "You were charged for a plan, feature, or add-on that you did not select." }
+      ]
+    },
+    "notEligible": {
+      "title": "Non-Refundable Cases",
+      "intro": "The following situations are generally not eligible for a refund.",
+      "items": [
+        { "label": "Change of mind.", "detail": "You subscribed and then decided not to use the platform, or found an alternative." },
+        { "label": "Inactivity.", "detail": "You did not use your account during the billing period but the platform was available and functioning." },
+        { "label": "Plan mid-cycle cancellation.", "detail": "You cancel a subscription after the billing period has started. Access continues until the period ends; no partial refund is issued." },
+        { "label": "Account termination for breach.", "detail": "Your account was terminated because you violated our Terms and Conditions." },
+        { "label": "Third-party costs.", "detail": "Any fees paid to third parties (payment gateways, couriers, domain registrars, etc.) as a result of using Stallio." }
+      ]
+    },
+    "billingErrors": {
+      "title": "Billing Errors",
+      "intro": "If you notice a discrepancy between what you were charged and your current plan, contact us immediately. Common billing errors include:",
+      "items": [
+        "Being charged after a confirmed cancellation.",
+        "A double charge in the same billing period.",
+        "Being billed at the wrong rate (e.g. old pricing not updated)."
+      ],
+      "outro": "Billing errors are always fully refunded once verified. We do not charge a processing fee on error refunds."
+    },
+    "howToRequest": {
+      "title": "How to Request a Refund",
+      "intro": "Refund requests must be submitted via our Contact page or by email. Requests made through social media or chat may not be tracked and cannot be guaranteed a response.",
+      "whatToIncludeHeading": "What to Include",
+      "whatToIncludeText": "To process your request quickly, include the following in your message:",
+      "steps": [
+        { "label": "Your account email", "description": "The email address registered to your Stallio account so we can locate your subscription." },
+        { "label": "Date and amount charged", "description": "The exact date of the charge and the amount, found in your billing receipt or bank statement." },
+        { "label": "Reason for the request", "description": "A brief description of the issue such as billing error, outage, or other eligible circumstance." },
+        { "label": "Supporting evidence (if applicable)", "description": "A screenshot of the duplicate charge, a bank statement, or details of the outage you experienced." }
+      ],
+      "callout": "Send your request to contact@stallio.shop or use the Contact page and select the Billing category."
+    },
+    "timeline": {
+      "title": "Processing Timeline",
+      "intro": "Once we receive your request we follow a consistent process.",
+      "steps": [
+        { "label": "Acknowledgement: within 2 business days", "description": "We confirm receipt of your request and let you know if we need any additional information." },
+        { "label": "Review: within 5 business days", "description": "We verify the charge details against our billing records and assess eligibility." },
+        { "label": "Decision: within 7 business days", "description": "We notify you by email of our decision, including the refund amount if approved." },
+        { "label": "Payment : 5–10 business days after approval", "description": "Approved refunds are returned to your original payment method. Bank processing times vary." }
+      ],
+      "callout": "Total end-to-end time is typically 7–14 business days from the date of your request. International bank transfers may take slightly longer."
+    },
+    "contact": {
+      "title": "Contact Billing",
+      "intro": "Have a billing issue or a question about your refund? Reach out and we'll make it right — usually within 2 business days.",
+      "emailTitle": "Email Support",
+      "email": "contact@stallio.shop",
+      "emailNote": "Include your account email and charge date for fastest resolution.",
+      "contactPageTitle": "Contact Page",
+      "contactPageNote": "Select the Billing category for priority routing to our billing team.",
+      "availabilityNote": "Our billing team responds within 2 business days. Available Monday – Friday, 9 AM – 6 PM PKT."
+    }
+  }
+}

@@ -10,7 +10,7 @@ import enHowitworks from './locales/en/howitworks.json'
 import enPricing  from './locales/en/pricing.json'
 import enAbout    from './locales/en/about.json'
 import enContact  from './locales/en/contact.json'
-// import enBlog     from './locales/en/blog.json'
+import enLegal    from './locales/en/legal.json'
 
 // ─── Spanish ─────────────────────────────────────────────────────────────────
 import esCommon   from './locales/es/common.json'
@@ -20,6 +20,7 @@ import esHowitworks from './locales/es/howitworks.json'
 import esPricing from './locales/es/pricing.json'
 import esAbout    from './locales/es/about.json'
 import esContact from './locales/es/contact.json'
+import esLegal    from './locales/es/legal.json'
 
 // ─── Arabic ─────────────────────────────────────────────────────────────────
 import arCommon   from './locales/ar/common.json'
@@ -29,6 +30,8 @@ import arHowitworks from './locales/ar/howitworks.json'
 import arPricing from './locales/ar/pricing.json'
 import arAbout    from './locales/ar/about.json'
 import arContact from './locales/ar/contact.json'
+import arLegal    from './locales/ar/legal.json'
+
 // ─── Supported languages ─────────────────────────────────────────────────────
 export const LANGUAGES = [
   { code: 'en', label: 'English', nativeLabel: 'English', flag: '🇺🇸' },
@@ -54,9 +57,9 @@ i18n
   .use(initReactI18next)
   .init({
     resources: {
-      en: { common: enCommon, home: enHome, features: enFeatures, howitworks: enHowitworks, pricing: enPricing, about: enAbout, contact: enContact },
-      es: { common: esCommon, home: esHome, features: esFeatures, howitworks: esHowitworks, pricing: esPricing, about: esAbout, contact: esContact },
-      ar: { common: arCommon, home: arHome, features: arFeatures, howitworks: arHowitworks, pricing: arPricing, about: arAbout, contact: arContact },
+      en: { common: enCommon, home: enHome, features: enFeatures, howitworks: enHowitworks, pricing: enPricing, about: enAbout, contact: enContact, legal: enLegal },
+      es: { common: esCommon, home: esHome, features: esFeatures, howitworks: esHowitworks, pricing: esPricing, about: esAbout, contact: esContact, legal: esLegal },
+      ar: { common: arCommon, home: arHome, features: arFeatures, howitworks: arHowitworks, pricing: arPricing, about: arAbout, contact: arContact, legal: arLegal },
     },
 
     // Fallback to English if a key is missing in the active language
@@ -64,7 +67,7 @@ i18n
 
     // Namespaces — 'common' is the default so simple t('key') works for nav/UI
     defaultNS: 'common',
-    ns: ['common', 'home', 'features', 'howitworks', 'pricing', 'about', 'contact'],
+    ns: ['common', 'home', 'features', 'howitworks', 'pricing', 'about', 'contact', 'legal'],
 
     // Language detection order
     detection: {

@@ -5,6 +5,7 @@
     "pricing":    "Pricing",
     "howItWorks": "How It Works",
     "about":      "About",
+    "contact": "Contact",
     "login":      "Log in",
     "signup":     "Start for Free"
   },
@@ -50,7 +51,7 @@
     "legalLinks": "Legal links",
     "terms": "Terms of Service",
     "privacy": "Privacy Policy",
-    "legal": "Legal",
+    "refund": "Refund",
 
     "copyright": "Copyright © {{year}} Stallio. All rights reserved."
   },

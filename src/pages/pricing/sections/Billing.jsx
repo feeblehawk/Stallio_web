@@ -660,7 +660,7 @@ const BillingInner = () => {
             id="billing-heading"
             eyebrow={t('billing.eyebrow', 'Pricing')}
             title={t('billing.title', 'One price. Your whole store.')}
-            subtitle={t('billing.subtitle', 'Built for sellers who move fast. Everything included — no hidden tiers, no upgrade traps, no surprises.')}
+            subtitle={t('billing.subtitle', 'Built for sellers who move fast. Everything included  no hidden tiers, no upgrade traps, no surprises.')}
             align="left"
           />
 

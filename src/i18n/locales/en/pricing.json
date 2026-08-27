@@ -48,7 +48,7 @@
   "billing": {
     "eyebrow": "Pricing",
     "title": "One price. Your whole store.",
-    "subtitle": "Built for sellers who move fast. Everything included — no hidden tiers, no upgrade traps, no surprises.",
+    "subtitle": "Built for sellers who move fast. Everything included  no hidden tiers, no upgrade traps, no surprises.",
     "currencyLabel": "Show prices in",
     "currencyPlaceholder": "Search currency or code…",
     "noResults": "No results for \"{{query}}\"",
@@ -70,7 +70,7 @@
         "billedAs": "One payment · 12 months unlocked",
         "badge": "Save 27%",
         "cta": "Start Yearly",
-        "savingsNote": "Save {{symbol}}{{savings}} vs paying monthly — ~{{symbol}}{{avg}}/mo"
+        "savingsNote": "Save {{symbol}}{{savings}} vs paying monthly  ~{{symbol}}{{avg}}/mo"
       }
     },
     "features": {

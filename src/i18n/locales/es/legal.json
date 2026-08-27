@@ -1,0 +1,399 @@
+{
+  "common": {
+    "badge": "Legal",
+    "lastUpdated": "Ultima actualizacion",
+    "appliesGlobally": "Aplicacion global",
+    "onThisPage": "En esta pagina",
+    "respondDays": "Respondemos en un plazo de 5 dias habiles.",
+    "contactUs": "Contactanos",
+    "getInTouch": "Ponerse en contacto",
+    "contactBilling": "Contactar facturacion",
+    "emailLabel": "Soporte por correo",
+    "contactPageLabel": "Pagina de contacto"
+  },
+
+  "privacy": {
+    "hero": {
+      "headline1": "Politica de",
+      "headline2": "Privacidad",
+      "subtitle": "Creemos que tus datos te pertenecen. Esta politica explica exactamente que recopilamos, por que y como puedes controlarlo.",
+      "lastUpdatedDate": "1 de junio de 2025"
+    },
+    "toc": {
+      "informationWeCollect": "Informacion que recopilamos",
+      "howWeUse": "Como la utilizamos",
+      "sharing": "Comparticion y divulgacion",
+      "cookies": "Cookies y seguimiento",
+      "dataSecurity": "Seguridad de datos",
+      "yourRights": "Tus derechos",
+      "international": "Transferencias internacionales",
+      "updates": "Actualizaciones de la politica",
+      "contact": "Contactanos"
+    },
+    "informationWeCollect": {
+      "title": "Informacion que recopilamos",
+      "intro": "Recopilamos informacion que proporcionas directamente, informacion generada mientras usas Stallio y datos tecnicos limitados de tu dispositivo. Solo recopilamos lo necesario para operar y mejorar el servicio.",
+      "accountHeading": "Cuenta y perfil",
+      "accountItems": [
+        "Tu nombre, direccion de correo electronico y contrasena cuando creas una cuenta.",
+        "El nombre, descripcion e imagen de perfil de tu tienda.",
+        "Preferencias de pago y datos de facturacion (procesados por nuestro proveedor de pagos; no almacenamos numeros de tarjeta sin procesar).",
+        "Preferencias de idioma y notificaciones."
+      ],
+      "storeHeading": "Datos de tienda y pedidos",
+      "storeItems": [
+        "Productos, precios, imagenes y descripciones que agregas a tu tienda.",
+        "Pedidos realizados por tus clientes, incluyendo datos de contacto y notas de pedido que envian.",
+        "Ajustes de inventario y cambios de estado de pedidos que registras."
+      ],
+      "technicalHeading": "Datos tecnicos y de uso",
+      "technicalItems": [
+        "Direccion IP, tipo de navegador, sistema operativo e identificadores de dispositivo.",
+        "Paginas visitadas, funciones utilizadas, clics y tiempo transcurrido en el panel de control.",
+        "Registros de fallos, trazas de errores y metricas de rendimiento."
+      ],
+      "callout": "Nunca recopilamos datos de tarjetas de pago directamente. Todo el procesamiento de pagos lo realiza nuestro proveedor de pagos compatible con PCI, que tiene su propia politica de privacidad."
+    },
+    "howWeUse": {
+      "title": "Como utilizamos tu informacion",
+      "intro": "Cada dato que recopilamos tiene una finalidad especifica y documentada. No vendemos tus datos, no los usamos para entrenar modelos de IA ni los compartimos para publicidad de terceros.",
+      "operateHeading": "Para operar Stallio",
+      "operateItems": [
+        "Crear y mantener tu cuenta y tu tienda.",
+        "Procesar pagos de suscripcion y enviar recibos.",
+        "Entregar notificaciones de pedidos y actualizaciones del panel de control.",
+        "Responder a solicitudes de soporte y solucionar problemas."
+      ],
+      "improveHeading": "Para mejorar el servicio",
+      "improveItems": [
+        "Analizar patrones de uso agregados y anonimizados para priorizar funciones.",
+        "Detectar y prevenir fraudes, abusos e incidentes de seguridad.",
+        "Probar nuevas funciones con usuarios que den su consentimiento en programas de prueba."
+      ],
+      "gdprHeading": "Base legal (RGPD)",
+      "gdprText": "Si te encuentras en el Espacio Economico Europeo, nos basamos en las siguientes bases legales: ejecucion contractual (operar tu cuenta), intereses legitimos (seguridad, prevencion de fraude, mejora del producto) y consentimiento (correos de marketing, si corresponde)."
+    },
+    "sharing": {
+      "title": "Comparticion y divulgacion",
+      "intro": "No vendemos tus datos personales. Solo los compartimos en las circunstancias limitadas que se describen a continuacion.",
+      "providersHeading": "Proveedores de servicios",
+      "providersText": "Utilizamos subencargados del tratamiento de confianza para operar Stallio, incluyendo infraestructura en la nube, entrega de correo electronico, analitica y procesamiento de pagos. Cada proveedor esta obligado por un contrato de procesamiento de datos y solo puede usar tus datos para prestarnos servicios.",
+      "customersHeading": "Datos de tus clientes",
+      "customersText": "La informacion de pedidos y contacto enviada por tus compradores te pertenece. Eres el responsable del tratamiento de los datos de tus clientes. Actuamos como encargados del tratamiento en tu nombre y la gestionamos solo segun sea necesario para operar las funciones de gestion de pedidos que utilices.",
+      "legalHeading": "Requisitos legales",
+      "legalText": "Podemos divulgar informacion cuando lo exija la ley, un reglamento o un proceso legal valido, o cuando creamos que la divulgacion es necesaria para proteger la seguridad de cualquier persona o prevenir fraudes.",
+      "callout": "Te notificaremos cualquier solicitud gubernamental o de las fuerzas de seguridad sobre tus datos, a menos que la ley nos lo prohiba.",
+      "transfersHeading": "Transferencias comerciales",
+      "transfersText": "Si Stallio participa en una fusion, adquisicion o venta de activos, tus datos pueden ser transferidos como parte de esa transaccion. Te notificaremos antes de que tus datos sean transferidos y queden sujetos a una politica de privacidad diferente."
+    },
+    "cookies": {
+      "title": "Cookies y seguimiento",
+      "intro": "Utilizamos un conjunto reducido de cookies y tecnologias similares para mantener tu sesion iniciada, recordar tus preferencias y entender como se utiliza el panel de control.",
+      "essentialHeading": "Cookies esenciales",
+      "essentialText": "Necesarias para la autenticacion y la seguridad. No se pueden desactivar sin interrumpir la funcionalidad principal.",
+      "analyticsHeading": "Cookies analiticas",
+      "analyticsText": "Se utilizan para comprender los patrones de uso agregados, incluidas las funciones populares, donde ocurren errores y como funcionan los flujos de navegacion. Utilizamos analitica respetuosa con la privacidad que no crea perfiles entre sitios ni rastrea a usuarios individuales.",
+      "choicesHeading": "Tus opciones",
+      "choicesText": "Puedes gestionar tus preferencias de cookies a traves de la configuracion de tu navegador. Desactivar las cookies no esenciales no afectara tu capacidad para usar Stallio, pero puede limitar algunas funciones de personalizacion. Actualmente no respondemos a senales Do Not Track (DNT) debido a la falta de un estandar constante en la industria."
+    },
+    "dataSecurity": {
+      "title": "Seguridad de datos",
+      "intro": "Nos tomamos la seguridad muy en serio y aplicamos medidas tecnicas y organizativas proporcionadas a la sensibilidad de los datos que conservamos.",
+      "items": [
+        "Todos los datos en transito estan cifrados mediante TLS 1.2 o superior.",
+        "Los datos en reposo estan cifrados mediante AES-256.",
+        "El acceso a los sistemas de produccion esta restringido al personal autorizado y protegido mediante autenticacion de doble factor.",
+        "Realizamos revisiones de seguridad y pruebas de penetracion periodicas.",
+        "Mantenemos un plan de respuesta a incidentes y notificaremos a los usuarios afectados en un plazo de 72 horas tras confirmarse una brecha."
+      ],
+      "reportText": "Ningun sistema es perfectamente seguro. Si descubres una vulnerabilidad, por favor informala de manera responsable a contact@stallio.shop. Responderemos en un plazo de dos dias habiles."
+    },
+    "yourRights": {
+      "title": "Tus derechos",
+      "intro": "Segun tu ubicacion, puedes tener los siguientes derechos sobre tus datos personales. Para ejercer cualquiera de ellos, contactanos en la direccion a continuacion.",
+      "items": [
+        "Acceso: solicitar una copia de los datos personales que conservamos sobre ti.",
+        "Rectificacion: pedirnos que corrijamos datos inexactos o incompletos.",
+        "Supresion: solicitar que eliminemos tu cuenta y los datos asociados.",
+        "Portabilidad: recibir tus datos en un formato legible por maquina.",
+        "Limitacion: pedirnos que limitemos el tratamiento mientras se resuelve una disputa.",
+        "Oposicion: oponerte al tratamiento basado en intereses legitimos.",
+        "Retirar el consentimiento: cuando el tratamiento se base en el consentimiento, retirarlo en cualquier momento sin afectar al tratamiento anterior."
+      ],
+      "callout": "Responderemos a las solicitudes verificadas en un plazo de 30 dias. Es posible que debamos verificar tu identidad antes de cumplir con una solicitud."
+    },
+    "international": {
+      "title": "Transferencias internacionales de datos",
+      "text1": "Stallio opera desde Pakistan y puede transferir y procesar tus datos en paises fuera del tuyo. Cuando transferimos datos desde el EEE, el Reino Unido o Suiza a paises sin una decision de adecuacion, nos basamos en Cláusulas Contractuales Tipo aprobadas por la Comision Europea.",
+      "text2": "Al usar Stallio, reconoces que tus datos pueden ser transferidos y procesados en paises con estandares de proteccion de datos diferentes a los de tu pais de residencia."
+    },
+    "updates": {
+      "title": "Actualizaciones de la politica",
+      "text1": "Podemos actualizar esta Politica de Privacidad de vez en cuando. Cuando hagamos cambios sustanciales, te notificaremos por correo electronico y mediante un aviso destacado en el panel de control al menos 14 dias antes de que los cambios surtan efecto.",
+      "text2": "El uso continuado de Stallio despues de la fecha de entrada en vigor de una politica revisada constituye tu aceptacion de los cambios. Si no estas de acuerdo con los nuevos terminos, puedes cerrar tu cuenta antes de que entren en vigor."
+    },
+    "contact": {
+      "title": "Contactanos",
+      "intro": "Tienes preguntas sobre esta Politica de Privacidad o alguna inquietud? Ponte en contacto y estaremos encantados de ayudarte.",
+      "emailTitle": "Soporte por correo",
+      "email": "contact@stallio.shop",
+      "emailNote": "Incluye el correo electronico de tu cuenta para una resolucion mas rapida.",
+      "contactPageTitle": "Pagina de contacto",
+      "contactPageNote": "Selecciona la categoria Privacidad para una atencion prioritaria por nuestro equipo.",
+      "availabilityNote": "Nuestro equipo de privacidad responde en un plazo de 5 dias habiles. Estamos disponibles de lunes a viernes, de 9 AM a 6 PM PKT."
+    }
+  },
+
+  "terms": {
+    "hero": {
+      "headline1": "Terminos y",
+      "headline2": "Condiciones",
+      "subtitle": "Por favor, lee estos terminos detenidamente. Al usar Stallio aceptas quedar vinculado por ellos. Si tienes preguntas, contactanos antes de comenzar.",
+      "lastUpdatedDate": "1 de junio de 2025",
+      "governedBy": "Regido por la ley pakistaní"
+    },
+    "toc": {
+      "acceptance": "Aceptacion de los terminos",
+      "theService": "El Servicio",
+      "yourAccount": "Tu Cuenta",
+      "sellerConduct": "Conducta del vendedor",
+      "subscriptions": "Suscripciones y Facturacion",
+      "ip": "Propiedad Intelectual",
+      "liability": "Limitacion de Responsabilidad",
+      "prohibited": "Usos Prohibidos",
+      "governingLaw": "Ley Aplicable",
+      "changes": "Cambios en los Terminos",
+      "contact": "Contacto"
+    },
+    "acceptance": {
+      "title": "Aceptacion de los terminos",
+      "text1": "Al crear una cuenta, acceder o usar cualquier parte de la plataforma Stallio (\"Servicio\"), aceptas quedar vinculado legalmente por estos Terminos y Condiciones (\"Terminos\"), nuestra Politica de Privacidad y nuestra Politica de Reembolso. Si no estas de acuerdo, no utilices el Servicio.",
+      "text2": "Estos Terminos se aplican a todos los usuarios, incluidos los vendedores que crean y operan una tienda Stallio, los visitantes que navegan por las tiendas de los vendedores y cualquier otra persona que acceda al Servicio.",
+      "callout": "Debes tener al menos 18 anos para crear una cuenta en Stallio. Al aceptar estos Terminos declaras que cumples con este requisito de edad."
+    },
+    "theService": {
+      "title": "El Servicio",
+      "intro": "Stallio proporciona una plataforma de software que permite a personas y empresas crear una tienda en linea, publicar productos, gestionar pedidos y compartir su tienda a traves de un enlace unico.",
+      "providesHeading": "Lo que ofrece Stallio",
+      "providesItems": [
+        "Una tienda alojada accesible en stallio.shop/tu-usuario.",
+        "Un panel de control para gestionar productos, inventario y pedidos.",
+        "Herramientas de notificacion de pedidos, incluidas alertas por WhatsApp y correo electronico.",
+        "Analitica e informes sobre el rendimiento de la tienda.",
+        "Generacion de facturas y recibos."
+      ],
+      "doesNotHeading": "Lo que Stallio no hace",
+      "doesNotItems": [
+        "Stallio no procesa pagos entre vendedores y compradores. El pago se acuerda directamente entre tu y tus clientes.",
+        "Stallio no gestiona, envia ni almacena productos fisicos.",
+        "Stallio no actua como mercado y no es parte de ninguna venta entre tu y tus clientes.",
+        "Stallio no garantiza ningun nivel de ventas, trafico o resultado comercial."
+      ],
+      "reserveRight": "Nos reservamos el derecho de modificar, suspender o interrumpir cualquier parte del Servicio en cualquier momento, con un aviso razonable cuando sea posible. No somos responsables ante ti ni ante terceros por ninguna modificacion, suspension o interrupcion."
+    },
+    "yourAccount": {
+      "title": "Tu Cuenta",
+      "registrationHeading": "Registro",
+      "registrationText": "Debes proporcionar informacion precisa, completa y actualizada al crear tu cuenta. Eres responsable de mantener seguras tus credenciales de acceso y de toda la actividad que ocurra bajo tu cuenta.",
+      "responsibilitiesHeading": "Responsabilidades de la cuenta",
+      "responsibilitiesItems": [
+        "Notificarnos inmediatamente a contact@stallio.shop si sospechas un acceso no autorizado a tu cuenta.",
+        "No compartir tu contrasena ni conceder acceso a tu cuenta a personas en las que no confies.",
+        "Mantener actualizada tu direccion de correo electronico de contacto para que podamos enviarte avisos importantes.",
+        "Una cuenta por persona o entidad comercial a menos que tengas nuestra autorizacion por escrito."
+      ],
+      "terminationHeading": "Cancelacion de la cuenta",
+      "terminationText": "Puedes cerrar tu cuenta en cualquier momento desde la configuracion de tu panel de control. Podemos suspender o cancelar tu cuenta si incumples estos Terminos, realizas actividades fraudulentas o si lo exige la ley. Tras la cancelacion, tu tienda quedara fuera de linea y tus datos se gestionaran de acuerdo con nuestra Politica de Privacidad."
+    },
+    "sellerConduct": {
+      "title": "Conducta del vendedor",
+      "intro": "Como vendedor en Stallio, eres el unico responsable de tu tienda, tus productos y tus relaciones con tus clientes. Aceptas llevar a cabo tu negocio de manera legal y etica.",
+      "responsibilitiesHeading": "Tus responsabilidades",
+      "responsibilitiesItems": [
+        "Publicar solo productos que estes legalmente autorizado a vender.",
+        "Proporcionar descripciones de productos, precios y disponibilidad precisos.",
+        "Cumplir con los pedidos que aceptes y comunicarte de inmediato con los compradores.",
+        "Cumplir con todas las leyes de proteccion al consumidor, comercio y tributarias aplicables en tu jurisdiccion.",
+        "Gestionar los datos de clientes que recibas a traves de Stallio de acuerdo con las leyes de privacidad aplicables.",
+        "Resolver las disputas con los clientes de manera justa y de buena fe."
+      ],
+      "callout": "Eres el vendedor y el responsable del tratamiento de los datos de tus clientes. Stallio no es responsable de las disputas entre tu y tus compradores.",
+      "prohibitedHeading": "Productos prohibidos",
+      "prohibitedText": "No puedes usar Stallio para vender: bienes o servicios ilegales; articulos falsificados, pirateados o robados; sustancias controladas, drogas o parafernalia de drogas; armas, explosivos o materiales peligrosos; contenido que explote o dane a menores; instrumentos financieros, valores o productos de inversion sin las licencias correspondientes; o cualquier producto o servicio que viole la ley aplicable."
+    },
+    "subscriptions": {
+      "title": "Suscripciones y Facturacion",
+      "plansHeading": "Planes",
+      "plansText": "Stallio ofrece un plan gratuito con funciones basicas y planes de pago que desbloquean capacidades adicionales. Los planes de pago se ofrecen en un ciclo de facturacion mensual o anual. Los detalles del plan, los limites de funciones y los precios se muestran en nuestra pagina de Precios y estan sujetos a cambios con un aviso de 30 dias.",
+      "billingHeading": "Facturacion",
+      "billingItems": [
+        "Las suscripciones se facturan por adelantado al comienzo de cada periodo de facturacion.",
+        "Todos los precios estan en dolares estadounidenses a menos que se indique lo contrario.",
+        "Nos autorizas a cobrar a tu metodo de pago registrado en cada renovacion.",
+        "Los pagos fallidos pueden dar lugar a un breve periodo de gracia, tras el cual tu cuenta puede ser degradada."
+      ],
+      "upgradesHeading": "Actualizaciones y degradaciones",
+      "upgradesText": "Puedes actualizar tu plan en cualquier momento; la actualizacion surte efecto de inmediato y se te cobrara un importe prorrateado por el resto del periodo de facturacion actual. Las degradaciones surten efecto al final del periodo de facturacion actual.",
+      "cancellationHeading": "Cancelacion",
+      "cancellationText": "Puedes cancelar tu suscripcion de pago en cualquier momento. La cancelacion detiene la facturacion futura, pero no te da derecho a un reembolso de las tarifas ya pagadas, excepto lo descrito en nuestra Politica de Reembolso. Tus funciones de pago permanecen disponibles hasta el final del periodo pagado.",
+      "callout": "No cobramos comision sobre tus ventas. Tu cuota de suscripcion es el unico importe que pagas a Stallio. Todos los ingresos de tus ventas van directamente a ti."
+    },
+    "ip": {
+      "title": "Propiedad Intelectual",
+      "stallioHeading": "Propiedad Intelectual de Stallio",
+      "stallioText": "La plataforma Stallio, incluidos su software, diseno, marcas registradas, logotipos y todos los materiales relacionados, son propiedad de Stallio o estan licenciados a esta y estan protegidos por las leyes de propiedad intelectual aplicables. No puedes copiar, modificar, distribuir ni crear obras derivadas sin nuestro permiso expreso por escrito.",
+      "yourContentHeading": "Tu contenido",
+      "yourContentText1": "Conservas todos los derechos de propiedad intelectual sobre el contenido que subes a Stallio, como imagenes de productos, descripciones, logotipos y otros materiales. Al subir contenido, concedes a Stallio una licencia no exclusiva, mundial y libre de regalias para mostrar y entregar ese contenido unicamente segun sea necesario para operar el Servicio.",
+      "yourContentText2": "Declaras que posees o tienes los derechos sobre todo el contenido que subes, y que tu contenido no infringe ningun derecho de propiedad intelectual de terceros."
+    },
+    "liability": {
+      "title": "Limitacion de Responsabilidad",
+      "text1": "El Servicio se proporciona \"tal cual\" y \"segun disponibilidad\" sin garantias de ningun tipo, expresas o implicitas. En la maxima medida permitida por la ley, Stallio renuncia a todas las garantias, incluidas la comerciabilidad, la idoneidad para un proposito particular y la no infraccion.",
+      "text2": "En ningun caso Stallio sera responsable de ningun dano indirecto, incidental, especial, consecuente o punitivo, incluidos el lucro cesante, la perdida de datos o la interrupcion del negocio, derivados del uso del Servicio.",
+      "text3": "Nuestra responsabilidad total ante ti por cualquier reclamacion que surja bajo estos Terminos no superara el importe que pagaste a Stallio en los tres meses anteriores al evento que dio lugar a la reclamacion, o 100 USD, lo que sea mayor.",
+      "callout": "Algunas jurisdicciones no permiten la exclusion de ciertas garantias o limitaciones de responsabilidad. En tales casos, nuestra responsabilidad se limita a la maxima medida permitida por la ley aplicable."
+    },
+    "prohibited": {
+      "title": "Usos Prohibidos",
+      "intro": "Ademas de los productos prohibidos anteriores, aceptas no:",
+      "items": [
+        "Usar el Servicio para transmitir correo no deseado, mensajes de suplantacion de identidad (phishing) o comunicaciones comerciales no solicitadas.",
+        "Intentar obtener acceso no autorizado a cualquier parte del Servicio o a la cuenta de otro usuario.",
+        "Utilizar herramientas automatizadas para extraer datos de la plataforma.",
+        "Realizar ingenieria inversa o desensamblar cualquier parte del Servicio.",
+        "Usar el Servicio de manera que pueda danar, deshabilitar o sobrecargar nuestros servidores o redes.",
+        "Suplantar a Stallio, a otro vendedor o a cualquier persona o entidad.",
+        "Usar el Servicio para facilitar juegos de azar ilegales, esquemas piramidales o actividades fraudulentas.",
+        "Violaciones de cualquier ley o reglamento local, nacional o internacional aplicable."
+      ],
+      "consequence": "El incumplimiento de estas prohibiciones puede dar lugar a la suspension o cancelacion inmediata de la cuenta sin reembolso."
+    },
+    "governingLaw": {
+      "title": "Ley Aplicable y Disputas",
+      "text1": "Estos Terminos se rigen e interpretan de acuerdo con las leyes de Pakistan, sin tener en cuenta los principios de conflicto de leyes.",
+      "text2": "Cualquier disputa que surja de estos Terminos y que no pueda resolverse mediante negociaciones de buena fe se sometera a la jurisdiccion exclusiva de los tribunales de Lahore, Punjab, Pakistan.",
+      "text3": "Antes de iniciar cualquier disputa formal, aceptas contactarnos en contact@stallio.shop y darnos 30 dias para intentar una resolucion."
+    },
+    "changes": {
+      "title": "Cambios en estos Terminos",
+      "text1": "Podemos actualizar estos Terminos de vez en cuando para reflejar cambios en el Servicio, requisitos legales o nuestras practicas comerciales. Cuando hagamos cambios sustanciales, te notificaremos por correo electronico y mostraremos un aviso en el panel de control al menos 14 dias antes de que entren en vigor.",
+      "text2": "Tu uso continuado del Servicio despues de la fecha de entrada en vigor constituye la aceptacion de los Terminos revisados. Si no estas de acuerdo con los nuevos Terminos, puedes cancelar tu cuenta antes de la fecha de entrada en vigor."
+    },
+    "contact": {
+      "title": "Contacto",
+      "intro": "Tienes preguntas sobre estos Terminos? Ponte en contacto y estaremos encantados de ayudarte.",
+      "emailTitle": "Soporte por correo",
+      "email": "contact@stallio.shop",
+      "emailNote": "Incluye el correo electronico de tu cuenta para una resolucion mas rapida.",
+      "contactPageTitle": "Pagina de contacto",
+      "contactPageNote": "Selecciona la categoria Legal para una atencion prioritaria por nuestro equipo.",
+      "availabilityNote": "Nuestro equipo legal responde en un plazo de 5 dias habiles. Estamos disponibles de lunes a viernes, de 9 AM a 6 PM PKT."
+    }
+  },
+
+  "refund": {
+    "hero": {
+      "headline1": "Politica de",
+      "headline2": "Reembolso",
+      "subtitle": "Queremos que cada suscripcion a Stallio valga la pena. Esta politica te dice exactamente cuando emitimos reembolsos y como solicitar uno.",
+      "lastUpdatedDate": "1 de junio de 2025",
+      "processingTime": "5 a 10 dias habiles para procesar"
+    },
+    "toc": {
+      "overview": "Resumen",
+      "billing": "Suscripcion y Facturacion",
+      "eligible": "Reembolsos elegibles",
+      "notEligible": "Casos no reembolsables",
+      "billingErrors": "Errores de facturacion",
+      "howToRequest": "Como solicitarlo",
+      "timeline": "Plazo de procesamiento",
+      "contact": "Contactar facturacion"
+    },
+    "overview": {
+      "title": "Resumen",
+      "text1": "Las suscripciones a Stallio son servicios de software prepagados. Debido a que nuestra plataforma esta disponible de inmediato en el momento en que te suscribes, operamos una politica sin reembolso por defecto con una ventana de excepcion definida y circunstancias especificas en las que siempre se conceden reembolsos.",
+      "text2": "Creemos en ser justos. Si algo sale mal por nuestra parte, como un error de facturacion o un cobro doble, lo solucionaremos de inmediato y sin objeciones.",
+      "callout": "Esta politica se aplica unicamente a las cuotas de suscripcion que pagas a Stallio por los planes de vendedor en stallio.shop. No cubre los pedidos realizados en tu tienda. Tu gestionas los reembolsos de los pedidos de tu propia tienda con tus clientes."
+    },
+    "billing": {
+      "title": "Suscripcion y Facturacion",
+      "monthlyHeading": "Planes mensuales",
+      "monthlyText": "Cuando cancelas un plan de pago mensual, la facturacion futura se detiene. Mantienes el acceso hasta el final del periodo que ya pagaste, como se muestra en la pagina de Precios o en los mensajes de tu cuenta. Por lo general, no reembolsamos los dias no utilizados de un mes que ya pagaste, a menos que la ley lo exija o confirmemos un error de facturacion por nuestra parte.",
+      "yearlyHeading": "Planes anuales",
+      "yearlyText": "Los planes anuales se pagan por adelantado por el plazo completo mostrado en la pagina de Precios. Si cancelas antes de tiempo, no reembolsamos automaticamente los meses restantes a menos que lo confirmemos por escrito o tu ley local lo exija.",
+      "downgradingHeading": "Degradacion de plan",
+      "downgradingText": "Cuando degradas tu plan de uno de pago a un nivel inferior o al plan gratuito, las funciones de tu plan actual permanecen activas hasta el final del periodo de facturacion pagado.",
+      "upgradingHeading": "Actualizacion de plan",
+      "upgradingText": "Las actualizaciones surten efecto de inmediato. Se te cobrara el importe total al final del periodo de facturacion actual. El siguiente ciclo de facturacion sera a la tarifa completa nueva. Los cargos de actualizacion no son reembolsables.",
+      "switchingMonthlyHeading": "Cambiar de mensual a anual",
+      "switchingMonthlyText": "Si cambias de un plan mensual a uno anual, las funciones de tu plan mensual actual permanecen activas hasta el final del periodo de facturacion pagado. Se te cobrara el importe total del plan anual de inmediato al final del periodo mensual pagado, y el siguiente ciclo de facturacion sera a la tarifa anual completa. La parte no utilizada del plan mensual no se reembolsa.",
+      "switchingAnnualHeading": "Cambiar de anual a mensual",
+      "switchingAnnualText": "Los planes anuales se pagan por adelantado. Puedes cambiar a un plan mensual al final de tu periodo de facturacion anual actual. La parte no utilizada del plan anual no se reembolsa."
+    },
+    "eligible": {
+      "title": "Reembolsos elegibles",
+      "intro": "Las siguientes situaciones siempre califican para un reembolso completo o prorrateado. Contactanos dentro de los plazos indicados.",
+      "items": [
+        { "label": "Error de facturacion.", "detail": "Se te cobro un importe incorrecto, se te cobro dos veces o a una tarifa errónea. Reembolso completo del importe erroneo tras la investigacion." },
+        { "label": "Cargo no autorizado.", "detail": "Tienes pruebas de que se realizo un cargo sin tu autorizacion. Reembolso completo pendiente de investigacion." },
+        { "label": "Error de cancelacion.", "detail": "Se te cobro despues de haber cancelado con exito tu suscripcion debido a un error del sistema o de facturacion de Stallio." },
+        { "label": "Plan o complemento incorrecto.", "detail": "Se te cobro por un plan, funcion o complemento que no seleccionaste." }
+      ]
+    },
+    "notEligible": {
+      "title": "Casos no reembolsables",
+      "intro": "Las siguientes situaciones generalmente no son elegibles para un reembolso.",
+      "items": [
+        { "label": "Cambio de opinion.", "detail": "Te suscribiste y luego decidiste no usar la plataforma, o encontraste una alternativa." },
+        { "label": "Inactividad.", "detail": "No usaste tu cuenta durante el periodo de facturacion pero la plataforma estaba disponible y funcionando." },
+        { "label": "Cancelacion a mitad de ciclo.", "detail": "Cancelas la suscripcion despues de que haya comenzado el periodo de facturacion. El acceso continua hasta que finalice el periodo; no se emite reembolso parcial." },
+        { "label": "Cancelacion de cuenta por incumplimiento.", "detail": "Tu cuenta fue cancelada porque violaste nuestros Terminos y Condiciones." },
+        { "label": "Costos de terceros.", "detail": "Cualquier tarifa pagada a terceros (pasarelas de pago, empresas de transporte, registradores de dominios, etc.) como resultado del uso de Stallio." }
+      ]
+    },
+    "billingErrors": {
+      "title": "Errores de facturacion",
+      "intro": "Si notas alguna discrepancia entre lo que se te cobro y tu plan actual, contactanos de inmediato. Los errores de facturacion comunes incluyen:",
+      "items": [
+        "Cobro despues de una cancelacion confirmada.",
+        "Un cobro doble en el mismo periodo de facturacion.",
+        "Facturacion a la tarifa incorrecta (por ejemplo, precios antiguos no actualizados)."
+      ],
+      "outro": "Los errores de facturacion siempre se reembolsan por completo una vez verificados. No cobramos tarifa de procesamiento por reembolsos de errores."
+    },
+    "howToRequest": {
+      "title": "Como solicitar un reembolso",
+      "intro": "Las solicitudes de reembolso deben enviarse a traves de nuestra pagina de Contacto o por correo electronico. Es posible que las solicitudes realizadas a traves de redes sociales o chat no se rastreen y no se pueda garantizar una respuesta.",
+      "whatToIncludeHeading": "Que incluir",
+      "whatToIncludeText": "Para procesar tu solicitud rapidamente, incluye lo siguiente en tu mensaje:",
+      "steps": [
+        { "label": "El correo electronico de tu cuenta", "description": "La direccion de correo electronico registrada en tu cuenta de Stallio para que podamos localizar tu suscripcion." },
+        { "label": "Fecha e importe cobrado", "description": "La fecha exacta del cargo y el importe, que se encuentran en tu recibo de facturacion o extracto bancario." },
+        { "label": "Motivo de la solicitud", "description": "Una breve descripcion del problema, como error de facturacion, interrupcion u otra circunstancia elegible." },
+        { "label": "Pruebas de respaldo (si corresponde)", "description": "Una captura de pantalla del cargo duplicado, un extracto bancario o detalles de la interrupcion que experimentaste." }
+      ],
+      "callout": "Envia tu solicitud a contact@stallio.shop o utiliza la pagina de Contacto y selecciona la categoria Facturacion."
+    },
+    "timeline": {
+      "title": "Plazo de procesamiento",
+      "intro": "Una vez que recibimos tu solicitud, seguimos un proceso constante.",
+      "steps": [
+        { "label": "Confirmacion: en un plazo de 2 dias habiles", "description": "Confirmamos la recepcion de tu solicitud y te informamos si necesitamos informacion adicional." },
+        { "label": "Revision: en un plazo de 5 dias habiles", "description": "Verificamos los detalles del cargo con nuestros registros de facturacion y evaluamos la elegibilidad." },
+        { "label": "Decision: en un plazo de 7 dias habiles", "description": "Te notificamos por correo electronico nuestra decision, incluido el importe del reembolso si se aprueba." },
+        { "label": "Pago: 5 a 10 dias habiles despues de la aprobacion", "description": "Los reembolsos aprobados se devuelven a tu metodo de pago original. Los tiempos de procesamiento bancario varian." }
+      ],
+      "callout": "El tiempo total de principio a fin suele ser de 7 a 14 dias habiles a partir de la fecha de tu solicitud. Las transferencias bancarias internacionales pueden tardar un poco mas."
+    },
+    "contact": {
+      "title": "Contactar facturacion",
+      "intro": "Tienes un problema de facturacion o una pregunta sobre tu reembolso? Ponte en contacto y lo solucionaremos, generalmente en un plazo de 2 dias habiles.",
+      "emailTitle": "Soporte por correo",
+      "email": "contact@stallio.shop",
+      "emailNote": "Incluye el correo electronico de tu cuenta y la fecha del cargo para una resolucion mas rapida.",
+      "contactPageTitle": "Pagina de contacto",
+      "contactPageNote": "Selecciona la categoria Facturacion para una atencion prioritaria por nuestro equipo.",
+      "availabilityNote": "Nuestro equipo de facturacion responde en un plazo de 2 dias habiles. Estamos disponibles de lunes a viernes, de 9 AM a 6 PM PKT."
+    }
+  }
+}

@@ -14,7 +14,7 @@ import { easePremium } from '../utils/motionVariants'
  */
 const Stat = ({ num, label, delay = 0, isVisible, reducedMotion }) => (
   <motion.div
-    className="flex flex-col gap-0.5"
+    className="flex flex-col gap-0.5 text-center sm:text-start"
     initial={reducedMotion ? false : { opacity: 0, y: 16 }}
     animate={isVisible ? { opacity: 1, y: 0 } : {}}
     transition={{ duration: 0.65, ease: easePremium, delay }}

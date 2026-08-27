@@ -92,7 +92,7 @@ const Footer = () => {
   const legalLinks = [
     { name: t('footer.terms'), path: '/terms' },
     { name: t('footer.privacy'), path: '/privacy' },
-    { name: t('footer.legal'), path: '/legal' },
+    { name: t('footer.refund'), path: '/refund' },
   ]
 
   return (

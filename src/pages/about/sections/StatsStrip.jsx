@@ -27,7 +27,7 @@ const StatsStrip = () => {
           {stats.map(({ num, label, delay }, i) => (
             <div
               key={label}
-              className={`flex flex-1 flex-col items-center sm:items-start sm:px-10 first:ps-0 last:pe-0 ${i > 0 ? 'border-s border-border' : ''}`}
+              className={`flex flex-1 flex-col items-center sm:items-start sm:px-10 first:ps-0 last:pe-0 ${i > 0 ? 'sm:border-s border-border' : ''}`}
             >
               <Stat
                 num={num}

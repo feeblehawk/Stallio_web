@@ -23,7 +23,10 @@ const About          = lazy(() => import('./pages/about/About'))
 const Features       = lazy(() => import('./pages/features/Features'))
 const HowItWorks     = lazy(() => import('./pages/howitworks/HowItWorks'))
 const Pricing        = lazy(() => import('./pages/pricing/Pricing'))
-const Contact       = lazy(() => import('./pages/contact/Contact')) 
+const Contact       = lazy(() => import('./pages/contact/Contact'))
+const RefundPolicy  = lazy(() => import('./pages/legal/RefundPolicy'))
+const PrivacyPolicy = lazy(() => import('./pages/legal/PrivacyPolicy'))
+const Terms         = lazy(() => import('./pages/legal/Terms'))
 const ComingSoon     = lazy(() => import('./pages/ComingSoon'))
 
 // Minimal fallback — invisible div keeps layout stable during chunk fetch
@@ -59,14 +62,17 @@ function App() {
             <Route path="features"          element={wrap(Features)} />
             <Route path="how-it-works"      element={wrap(HowItWorks)} />
             <Route path="pricing"           element={wrap(Pricing)} />
-            <Route path="contact"          element={wrap(Contact)} />    
+            <Route path="contact"          element={wrap(Contact)} />   
+            <Route path="refund"            element={wrap(RefundPolicy)} /> 
+            <Route path="privacy"           element={wrap(PrivacyPolicy)} />
+            <Route path="terms"             element={wrap(Terms)} />
 
             {/* Catch-all */}
             {[
                'careers',
-              'docs', 'blog', 'guides', 'help',
+              'docs', 'guides', 'help',
               'faq', 'community', 'status',
-              'terms', 'privacy', 'legal', 'sitemap',
+              'terms', 'privacy',
               '*',
             ].map((path) => (
               <Route key={path} path={path} element={wrap(ComingSoon)} />

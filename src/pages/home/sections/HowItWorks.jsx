@@ -512,10 +512,11 @@ export default function HowItWorks() {
   const handleDesktopScroll = () => {
     if (!stageRef.current || !trackRef.current) return
     const el = stageRef.current
-    const scrollLeft = el.scrollLeft
+    const isRtl = typeof document !== 'undefined' && document.documentElement.dir === 'rtl'
+    const scrollLeft = isRtl ? Math.abs(el.scrollLeft) : el.scrollLeft
     const firstCard = trackRef.current.firstElementChild
     const itemWidth = firstCard ? firstCard.offsetWidth + gap : trackRef.current.scrollWidth / scenes.length
-    const newStep = Math.min(Math.floor((scrollLeft + itemWidth / 2) / itemWidth), scenes.length - 1)
+    const newStep = Math.min(Math.max(0, Math.floor((scrollLeft + itemWidth / 2) / itemWidth)), scenes.length - 1)
     if (newStep !== activeStep) setActiveStep(newStep)
   }
 
@@ -523,9 +524,10 @@ export default function HowItWorks() {
   const handleMobileScroll = () => {
     if (!mobileTrackRef.current) return
     const el = mobileTrackRef.current
-    const scrollLeft = el.scrollLeft
+    const isRtl = typeof document !== 'undefined' && document.documentElement.dir === 'rtl'
+    const scrollLeft = isRtl ? Math.abs(el.scrollLeft) : el.scrollLeft
     const itemWidth = el.scrollWidth / scenes.length
-    const newStep = Math.min(Math.floor((scrollLeft + itemWidth / 2) / itemWidth), scenes.length - 1)
+    const newStep = Math.min(Math.max(0, Math.floor((scrollLeft + itemWidth / 2) / itemWidth)), scenes.length - 1)
     if (newStep !== activeStep) {
       setActiveStep(newStep)
     }
@@ -534,15 +536,18 @@ export default function HowItWorks() {
   // Scroll to step programmatically (for desktop step buttons or mobile pill taps)
   const scrollToStep = (idx) => {
     setActiveStep(idx)
+    const isRtl = typeof document !== 'undefined' && document.documentElement.dir === 'rtl'
     if (isMobile && mobileTrackRef.current) {
       const el = mobileTrackRef.current
       const itemWidth = el.scrollWidth / scenes.length
-      el.scrollTo({ left: itemWidth * idx, behavior: 'smooth' })
+      const targetLeft = isRtl ? -itemWidth * idx : itemWidth * idx
+      el.scrollTo({ left: targetLeft, behavior: 'smooth' })
     } else if (stageRef.current && trackRef.current) {
       const el = stageRef.current
       const firstCard = trackRef.current.firstElementChild
       const itemWidth = firstCard ? firstCard.offsetWidth + gap : trackRef.current.scrollWidth / scenes.length
-      el.scrollTo({ left: itemWidth * idx, behavior: 'smooth' })
+      const targetLeft = isRtl ? -itemWidth * idx : itemWidth * idx
+      el.scrollTo({ left: targetLeft, behavior: 'smooth' })
     } else if (containerRef.current) {
       const elementTop = containerRef.current.offsetTop
       const totalHeight = containerRef.current.offsetHeight - window.innerHeight
@@ -761,8 +766,9 @@ export default function HowItWorks() {
                     />
                     {/* Continuous active fill line */}
                     <motion.div
-                      className="absolute top-1/2 left-0 h-[2px] -translate-y-1/2 -z-10 rounded-full"
+                      className="absolute top-1/2 h-[2px] -translate-y-1/2 -z-10 rounded-full"
                       style={{
+                        [typeof document !== 'undefined' && document.documentElement.dir === 'rtl' ? 'right' : 'left']: 0,
                         background: 'var(--primary)',
                         width: `${(activeStep / (scenes.length - 1)) * 100}%`,
                         transition: 'width 0.4s ease-out',

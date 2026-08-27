@@ -70,7 +70,7 @@
         "billedAs": "Un solo pago · 12 meses incluidos",
         "badge": "Ahorra 27%",
         "cta": "Empezar Anual",
-        "savingsNote": "Ahorra {{symbol}}{{savings}} frente al pago mensual — ~{{symbol}}{{avg}}/mes"
+        "savingsNote": "Ahorra {{symbol}}{{savings}} frente al pago mensual  ~{{symbol}}{{avg}}/mes"
       }
     },
     "features": {

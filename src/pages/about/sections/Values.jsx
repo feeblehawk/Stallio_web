@@ -14,7 +14,7 @@ const ValueRow = ({ value, index: i, total, isInView, reducedMotion }) => {
     >
       {/* Left — large title block */}
       <motion.div
-        className="relative flex items-start gap-6 py-10 pe-0 lg:pe-16 text-start"
+        className="relative flex items-start gap-6 pt-8 pb-3 lg:py-10 pe-0 lg:pe-16 text-start"
         initial={reducedMotion ? false : { opacity: 0, x: -24 }}
         animate={isInView ? { opacity: 1, x: 0 } : {}}
         transition={{ duration: 0.75, ease: easePremium, delay: 0.08 + i * 0.1 }}
@@ -42,9 +42,9 @@ const ValueRow = ({ value, index: i, total, isInView, reducedMotion }) => {
         </h3>
       </motion.div>
 
-      {/* Right — description + rule */}
+      {/* Right — description */}
       <motion.div
-        className="flex items-center border-s border-border pb-10 lg:py-10 lg:ps-10 text-start"
+        className="flex items-center pb-8 lg:py-10 lg:ps-10 lg:border-s lg:border-border text-start"
         initial={reducedMotion ? false : { opacity: 0, x: 16 }}
         animate={isInView ? { opacity: 1, x: 0 } : {}}
         transition={{ duration: 0.75, ease: easePremium, delay: 0.18 + i * 0.1 }}

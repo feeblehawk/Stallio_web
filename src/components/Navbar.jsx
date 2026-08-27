@@ -30,6 +30,7 @@ const Navbar = () => {
     { nameKey: 'nav.pricing',    path: '/pricing' },
     { nameKey: 'nav.howItWorks', path: '/how-it-works' },
     { nameKey: 'nav.about',      path: '/about' },
+    { nameKey: 'nav.contact',    path: '/contact' },
   ]
 
   // ── Scroll handler ────────────────────────────────────────────────────────
