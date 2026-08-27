@@ -147,8 +147,8 @@ const Hero = () => {
           {/* ── Right: Phone mockup with product images ── */}
           <motion.div
             className="relative flex justify-center"
-            initial={reducedMotion ? false : { opacity: 0, y: 44, filter: 'blur(10px)' }}
-            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            initial={reducedMotion ? false : { opacity: 0, y: 44 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.1, delay: reducedMotion ? 0 : 0.38, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="relative">

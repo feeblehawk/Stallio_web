@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import useReducedMotion from '../hooks/useReducedMotion'
 import { floatKeyframes, floatTransition } from '../utils/motionVariants'
@@ -5,20 +6,31 @@ import { floatKeyframes, floatTransition } from '../utils/motionVariants'
 const PhoneMockup = ({ children, className = '', size = 'default', float = true }) => {
   const reducedMotion = useReducedMotion()
 
+  // Defer the infinite float animation until after the component has mounted
+  // and the hero entrance animation has had a chance to complete. Starting the
+  // float immediately on mount competes with the entrance animation for
+  // compositor budget, causing dropped frames on initial load.
+  const [floatReady, setFloatReady] = useState(false)
+  useEffect(() => {
+    // ~1.5 s covers the longest entrance transition (phone: 1.1 s + 0.38 s delay)
+    const id = setTimeout(() => setFloatReady(true), 1500)
+    return () => clearTimeout(id)
+  }, [])
+
   const sizeClasses = {
     default: 'w-[min(180px,80vw)] sm:w-[min(220px,68vw)] lg:w-[min(240px,52vw)]',
     large: 'w-[min(180px,84vw)] sm:w-[min(220px,64vw)] lg:w-[min(240px,54vw)]',
     compact: 'w-[min(160px,80vw)] sm:w-[min(180px,62vw)]',
   }
 
-  const Wrapper = float && !reducedMotion ? motion.div : 'div'
-  const floatProps =
-    float && !reducedMotion
-      ? {
-          animate: floatKeyframes,
-          transition: floatTransition,
-        }
-      : {}
+  const shouldFloat = float && !reducedMotion && floatReady
+  const Wrapper = shouldFloat ? motion.div : 'div'
+  const floatProps = shouldFloat
+    ? {
+        animate: floatKeyframes,
+        transition: floatTransition,
+      }
+    : {}
 
   return (
     <Wrapper className={`relative ${sizeClasses[size] ?? sizeClasses.default} ${className}`} {...floatProps}>
