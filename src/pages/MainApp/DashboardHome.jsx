@@ -1,46 +1,176 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
-  DollarSign,
-  ShoppingCart,
-  Clock,
-  Users,
-  Plus,
-  ExternalLink,
-  Copy,
-  Check,
-  MessageSquare,
-  ChevronRight,
-  ChevronDown,
-  ArrowUpRight,
-  Sparkles,
+  DollarSign, ShoppingCart, Clock, Users, Plus, ExternalLink, Copy, Check,
+  MessageSquare, ChevronRight, ArrowUpRight, Sparkles, Zap, Share2, Activity,
+  TrendingUp,
 } from 'lucide-react'
 import PageHeader from '../../components/ui/PageHeader'
 import StatCard from '../../components/ui/StatCard'
 import StatusBadge from '../../components/ui/StatusBadge'
 import { useStore } from '../../contexts/StoreContext'
 import {
-  MOCK_DASHBOARD_METRICS,
-  MOCK_WEEKLY_SALES,
-  MOCK_RECENT_ORDERS,
-  MOCK_SETUP_CHECKLIST,
+  MOCK_DASHBOARD_METRICS, MOCK_WEEKLY_SALES, MOCK_RECENT_ORDERS, MOCK_SETUP_CHECKLIST,
 } from '../../services/storeService'
+
+/* ── Mini SVG Line Graph ─────────────────────────────────────────────── */
+const OrdersLineGraph = ({ data }) => {
+  const W = 260
+  const H = 72
+  const PAD = { t: 8, r: 8, b: 18, l: 8 }
+  const iW = W - PAD.l - PAD.r
+  const iH = H - PAD.t - PAD.b
+
+  const maxO = Math.max(...data.map((d) => d.orders))
+  const minO = Math.min(...data.map((d) => d.orders))
+  const range = maxO - minO || 1
+
+  const pts = data.map((d, i) => ({
+    x: PAD.l + (i / (data.length - 1)) * iW,
+    y: PAD.t + (1 - (d.orders - minO) / range) * iH,
+    day: d.day,
+    orders: d.orders,
+  }))
+
+  const linePath = pts
+    .map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`)
+    .join(' ')
+
+  const areaPath =
+    `${linePath} L ${pts[pts.length - 1].x.toFixed(1)} ${(H - PAD.b).toFixed(1)} L ${pts[0].x.toFixed(1)} ${(H - PAD.b).toFixed(1)} Z`
+
+  return (
+    <div className="relative w-full" style={{ paddingBottom: '28%' }}>
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="none"
+        className="absolute inset-0 w-full h-full overflow-visible"
+      >
+        <defs>
+          <linearGradient id="ordersGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.18" />
+            <stop offset="100%" stopColor="var(--primary)" stopOpacity="0.01" />
+          </linearGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="1.5" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        {/* Horizontal guide lines */}
+        {[0.25, 0.5, 0.75].map((t, i) => (
+          <line
+            key={i}
+            x1={PAD.l} y1={PAD.t + t * iH}
+            x2={W - PAD.r} y2={PAD.t + t * iH}
+            stroke="var(--border)" strokeWidth="0.5" strokeDasharray="3 3"
+          />
+        ))}
+
+        {/* Area fill */}
+        <path d={areaPath} fill="url(#ordersGrad)" />
+
+        {/* Line stroke */}
+        <path
+          d={linePath}
+          fill="none"
+          stroke="var(--primary)"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          filter="url(#glow)"
+        />
+
+        {/* Day labels */}
+        {pts.map((p) => (
+          <text
+            key={p.day}
+            x={p.x}
+            y={H - 3}
+            textAnchor="middle"
+            fontSize="7"
+            fill="var(--muted-foreground)"
+            fontFamily="Inter, system-ui, sans-serif"
+          >
+            {p.day}
+          </text>
+        ))}
+
+        {/* Dots — only on peak */}
+        {pts.map((p) => (
+          p.orders === maxO && (
+            <circle
+              key={p.day}
+              cx={p.x} cy={p.y} r="3"
+              fill="var(--primary)"
+              stroke="var(--card)"
+              strokeWidth="1.5"
+            />
+          )
+        ))}
+      </svg>
+    </div>
+  )
+}
+
+/* ── Mini SVG Bar Chart (Revenue) — compact single-column ───────────── */
+const RevenueBarChart = ({ data, maxRevenue, currencySymbol }) => {
+  const [hovered, setHovered] = useState(null)
+
+  return (
+    <div className="grid grid-cols-7 gap-1.5 items-end h-24 border-b border-border/60 pb-2">
+      {data.map((item) => {
+        const heightPercent = Math.round((item.revenue / maxRevenue) * 100)
+        const isToday = item.day === 'Sun'
+        const isHovered = hovered === item.day
+        return (
+          <div
+            key={item.day}
+            className="flex flex-col items-center gap-1 h-full justify-end group relative"
+            onMouseEnter={() => setHovered(item.day)}
+            onMouseLeave={() => setHovered(null)}
+          >
+            {isHovered && (
+              <div className="absolute -top-6 left-1/2 -translate-x-1/2 flex items-center justify-center rounded-md bg-foreground px-1.5 py-0.5 text-[9px] font-bold text-background shadow-xs whitespace-nowrap z-10">
+                {currencySymbol}{(item.revenue / 1000).toFixed(0)}k
+              </div>
+            )}
+            <div
+              className="w-full rounded-t-lg transition-all duration-200 cursor-default"
+              style={{
+                height: `${heightPercent}%`,
+                backgroundColor: isToday
+                  ? 'var(--primary)'
+                  : isHovered
+                    ? 'color-mix(in oklch, var(--primary) 40%, var(--surface-muted))'
+                    : 'color-mix(in oklch, var(--primary) 20%, var(--surface-muted))',
+              }}
+            />
+            <span className={`text-[9px] font-medium leading-none ${isToday ? 'font-bold text-primary' : 'text-muted-foreground'}`}>
+              {item.day.slice(0, 2)}
+            </span>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+/* ═══════════════════════════════════════════════════════════════════════ */
 
 const DashboardHome = () => {
   const { formatPrice, currencySymbol } = useStore()
   const [orders, setOrders] = useState(MOCK_RECENT_ORDERS)
-  const [expandedOrderId, setExpandedOrderId] = useState(null)
   const [checklist, setChecklist] = useState(MOCK_SETUP_CHECKLIST)
   const [copiedLink, setCopiedLink] = useState(false)
 
   const handleCopyLink = () => {
-    navigator.clipboard?.writeText('https://stallio.shop/denzen-thrift')
+    navigator.clipboard?.writeText('https://stallioshop.netlify.app/denzen-thrift')
     setCopiedLink(true)
     setTimeout(() => setCopiedLink(false), 2000)
-  }
-
-  const toggleExpandOrder = (id) => {
-    setExpandedOrderId((prev) => (prev === id ? null : id))
   }
 
   const handleUpdateOrderStatus = (orderId, newStatus, e) => {
@@ -60,12 +190,15 @@ const DashboardHome = () => {
 
   const completedCount = checklist.filter((item) => item.completed).length
   const progressPercent = Math.round((completedCount / checklist.length) * 100)
-
   const maxRevenue = Math.max(...MOCK_WEEKLY_SALES.map((d) => d.revenue))
+  const totalOrders = MOCK_WEEKLY_SALES.reduce((s, d) => s + d.orders, 0)
+  const peakOrders = Math.max(...MOCK_WEEKLY_SALES.map((d) => d.orders))
+  const peakDay = MOCK_WEEKLY_SALES.find((d) => d.orders === peakOrders)?.day
 
   return (
-    <div className="space-y-6 pb-12">
-      {/* ── Page Header with Live Visitor Pulse ──────────────────────── */}
+    <div className="space-y-3 pb-12">
+
+      {/* ── Page Header ─────────────────────────────────────────────────── */}
       <PageHeader
         title="Dashboard"
         subtitle="Here's what's happening across your store today."
@@ -74,24 +207,17 @@ const DashboardHome = () => {
             <button
               type="button"
               onClick={handleCopyLink}
-              className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-card px-3.5 py-2 text-xs font-semibold text-foreground transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-ring"
+              className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-card px-3.5 py-2 text-xs font-semibold text-foreground transition-colors hover:bg-accent"
             >
               {copiedLink ? (
-                <>
-                  <Check size={14} className="text-[var(--success)]" />
-                  <span>Copied link!</span>
-                </>
+                <><Check size={14} className="text-[var(--success)]" /><span>Copied!</span></>
               ) : (
-                <>
-                  <Copy size={14} className="text-muted-foreground" />
-                  <span>Copy Store Link</span>
-                </>
+                <><Copy size={14} className="text-muted-foreground" /><span>Copy Store Link</span></>
               )}
             </button>
-
             <Link
               to="/app/products"
-              className="inline-flex items-center gap-1.5 rounded-xl bg-primary px-3.5 py-2 text-xs font-semibold text-primary-foreground shadow-sm shadow-primary/25 transition-all duration-150 hover:shadow-md hover:shadow-primary/35 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-2 focus-visible:outline-ring"
+              className="inline-flex items-center gap-1.5 rounded-xl bg-primary px-3.5 py-2 text-xs font-semibold text-primary-foreground shadow-sm shadow-primary/25 transition-all hover:shadow-md hover:-translate-y-0.5"
             >
               <Plus size={15} strokeWidth={2.5} />
               <span>Add Product</span>
@@ -99,469 +225,364 @@ const DashboardHome = () => {
           </div>
         }
       >
-        {/* Live Visitor Bar */}
-        <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card/80 px-3 py-1 text-xs text-muted-foreground backdrop-blur-sm">
+        <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card/80 px-3 py-1 text-xs text-muted-foreground">
           <span className="relative flex h-2 w-2">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--success)] opacity-75" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--success)]" />
           </span>
-          <span>
-            <strong className="text-foreground">19 live shoppers</strong> browsing your store right now
-          </span>
+          <span><strong className="text-foreground">19 live shoppers</strong> browsing right now</span>
         </div>
       </PageHeader>
 
-      {/* ── 1. Top Strip: 4 Metric KPI Cards ─────────────────────────── */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard
-          label="Revenue Today"
-          value={formatPrice(28450)}
-          change={MOCK_DASHBOARD_METRICS.revenueChange}
-          isPositive={MOCK_DASHBOARD_METRICS.revenueIsPositive}
-          period="vs yesterday"
-          icon={DollarSign}
-        />
-        <StatCard
-          label="Orders Today"
-          value={MOCK_DASHBOARD_METRICS.ordersToday}
-          change={MOCK_DASHBOARD_METRICS.ordersChange}
-          isPositive={MOCK_DASHBOARD_METRICS.ordersIsPositive}
-          period="vs yesterday"
-          icon={ShoppingCart}
-        />
-        <StatCard
-          label="Pending Orders"
-          value={MOCK_DASHBOARD_METRICS.pendingOrders}
-          badge={MOCK_DASHBOARD_METRICS.pendingBadge}
-          period="Needs fulfillment"
-          icon={Clock}
-        />
-        <StatCard
-          label="Store Visitors"
-          value={MOCK_DASHBOARD_METRICS.liveVisitors}
-          change={MOCK_DASHBOARD_METRICS.visitorsChange}
-          isPositive={MOCK_DASHBOARD_METRICS.visitorsIsPositive}
-          period="Active sessions"
-          icon={Users}
-        />
+      {/* ── Row 1: 4 KPI Stat Cards ─────────────────────────────────────── */}
+      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+        <StatCard label="Revenue Today" value={formatPrice(28450)} change={MOCK_DASHBOARD_METRICS.revenueChange} isPositive={MOCK_DASHBOARD_METRICS.revenueIsPositive} period="vs yesterday" icon={DollarSign} />
+        <StatCard label="Orders Today" value={MOCK_DASHBOARD_METRICS.ordersToday} change={MOCK_DASHBOARD_METRICS.ordersChange} isPositive={MOCK_DASHBOARD_METRICS.ordersIsPositive} period="vs yesterday" icon={ShoppingCart} />
+        <StatCard label="Pending" value={MOCK_DASHBOARD_METRICS.pendingOrders} badge={MOCK_DASHBOARD_METRICS.pendingBadge} period="Needs fulfillment" icon={Clock} />
+        <StatCard label="Store Visitors" value={MOCK_DASHBOARD_METRICS.liveVisitors} change={MOCK_DASHBOARD_METRICS.visitorsChange} isPositive={MOCK_DASHBOARD_METRICS.visitorsIsPositive} period="Active sessions" icon={Users} />
       </div>
 
-      {/* ── 2. Middle Grid: Recent Orders Feed + Right Action Rail ──── */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-        {/* Left 2 Columns: Recent Orders Feed */}
-        <div className="space-y-4 lg:col-span-2">
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-base font-bold tracking-tight text-foreground font-heading">
-                Recent Orders
-              </h2>
-              <p className="text-xs text-muted-foreground">
-                Incoming orders awaiting confirmation or shipment
-              </p>
-            </div>
 
+{/* ── Row 2: Live Store Banner ─────────────────────────────────────── */}
+<div className="rounded-2xl border border-border bg-card px-4 py-3">
+  <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+
+    {/* Store info */}
+    <div className="flex items-center gap-3 shrink-0">
+      <div className="relative shrink-0">
+        <div className="h-9 w-9 rounded-xl bg-primary/10 flex items-center justify-center">
+          <Zap size={16} className="text-primary" />
+        </div>
+
+        <span className="absolute -top-0.5 -right-0.5 flex h-2.5 w-2.5">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--success)] opacity-60" />
+          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[var(--success)]" />
+        </span>
+      </div>
+
+      <div className="min-w-0">
+        <div className="flex items-center gap-2">
+          <span className="font-bold text-foreground text-sm font-heading truncate">
+            Denzen Thrift
+          </span>
+
+          <span className="inline-flex items-center gap-1 rounded-full bg-[var(--success-bg)] border border-[var(--success-border)] px-2 py-0.5 text-[10px] font-bold text-[var(--success)] uppercase tracking-wide shrink-0">
+            <Activity size={8} />
+            Live
+          </span>
+        </div>
+      </div>
+    </div>
+
+    {/* URL - centered inside bordered box */}
+    <div className="flex-1 min-w-0">
+      <div className="flex items-center justify-center gap-2 rounded-xl border border-border bg-muted/50 px-3 py-2.5">
+        <span className="text-[15px] md:text-md text-muted-foreground font-mono truncate">
+          stallioshop.netlify.app/denzen-thrift
+        </span>
+
+        <button
+          type="button"
+          onClick={handleCopyLink}
+          className="shrink-0 rounded-md p-1 text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+          title="Copy link"
+        >
+          {copiedLink ? (
+            <Check size={12} className="text-[var(--success)]" />
+          ) : (
+            <Copy size={12} />
+          )}
+        </button>
+      </div>
+    </div>
+
+    {/* Right-side buttons */}
+    <div className="flex items-center gap-2 shrink-0">
+      <button
+        type="button"
+        onClick={() => {
+          if (navigator.share) {
+            navigator.share({
+              title: 'Denzen Thrift',
+              url: 'https://stallioshop.netlify.app/denzen-thrift',
+            })
+          } else {
+            handleCopyLink()
+          }
+        }}
+        className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-muted/50 px-3 py-1.5 text-xs font-semibold text-muted-foreground hover:bg-accent hover:text-foreground transition-all"
+      >
+        <Share2 size={13} />
+        <span>Share</span>
+      </button>
+
+      <a
+        href="https://stallioshop.netlify.app/denzen-thrift"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-1.5 rounded-xl bg-primary px-3.5 py-1.5 text-xs font-semibold text-primary-foreground shadow-sm shadow-primary/25 transition-all hover:shadow-md hover:-translate-y-0.5"
+      >
+        <ExternalLink size={13} />
+        <span>Visit Store</span>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+
+      {/* ── Row 3: Bento Grid — 4 cols ──────────────────────────────────── */}
+      {/*
+          Layout (lg):
+          [ Orders Line Graph — 2 cols ] [ Revenue Bar — 1 col ] [ Quick Actions — 1 col ]
+          [ Setup Checklist — 2 cols   ] [       Top Items — 2 cols                       ]
+      */}
+      <div className="grid grid-cols-1 gap-3 lg:grid-cols-4">
+
+        {/* ① Orders Line Graph — lg: col-span-2 */}
+        <div className="lg:col-span-2 rounded-2xl border border-border bg-card p-4 flex flex-col gap-3">
+          <div className="flex items-start justify-between">
+            <div>
+              <h3 className="text-sm font-bold text-foreground font-heading leading-tight">Order Volume</h3>
+              <p className="text-[11px] text-muted-foreground mt-0.5">Weekly order trend</p>
+            </div>
+            <div className="flex items-center gap-1.5 rounded-full bg-[var(--success-bg)] border border-[var(--success-border)] px-2.5 py-1">
+              <TrendingUp size={11} className="text-[var(--success)]" />
+              <span className="text-[11px] font-bold text-[var(--success)]">+12.5%</span>
+            </div>
+          </div>
+
+          {/* Line graph */}
+          <OrdersLineGraph data={MOCK_WEEKLY_SALES} />
+
+          {/* Footer stats */}
+          <div className="grid grid-cols-3 gap-2 pt-1 border-t border-border/60">
+            <div>
+              <div className="text-[10px] text-muted-foreground">This week</div>
+              <div className="text-sm font-extrabold text-foreground font-heading">{totalOrders}</div>
+            </div>
+            <div>
+              <div className="text-[10px] text-muted-foreground">Peak day</div>
+              <div className="text-sm font-extrabold text-foreground font-heading">{peakDay} · {peakOrders}</div>
+            </div>
+            <div>
+              <div className="text-[10px] text-muted-foreground">Avg/day</div>
+              <div className="text-sm font-extrabold text-foreground font-heading">{Math.round(totalOrders / MOCK_WEEKLY_SALES.length)}</div>
+            </div>
+          </div>
+        </div>
+
+        {/* ② Weekly Revenue Bar — lg: col-span-1 */}
+        <div className="rounded-2xl border border-border bg-card p-4 flex flex-col gap-3">
+          <div className="flex items-start justify-between">
+            <div>
+              <h3 className="text-sm font-bold text-foreground font-heading leading-tight">Revenue</h3>
+              <p className="text-[11px] text-muted-foreground mt-0.5">Last 7 days</p>
+            </div>
+            <div className="text-right">
+              <div className="text-sm font-extrabold text-foreground font-heading">{formatPrice(356200)}</div>
+              <div className="text-[10px] text-muted-foreground">total</div>
+            </div>
+          </div>
+
+          <RevenueBarChart
+            data={MOCK_WEEKLY_SALES}
+            maxRevenue={maxRevenue}
+            currencySymbol={currencySymbol}
+          />
+
+          <div className="flex items-center justify-between text-[10px] text-muted-foreground pt-0.5">
+            <span>Peak <strong className="text-foreground">{currencySymbol}{(maxRevenue / 1000).toFixed(0)}k</strong></span>
+            <span>Avg <strong className="text-foreground">{formatPrice(Math.round(MOCK_WEEKLY_SALES.reduce((s, d) => s + d.revenue, 0) / MOCK_WEEKLY_SALES.length))}</strong></span>
+          </div>
+        </div>
+
+        {/* ③ Quick Actions — lg: col-span-1 */}
+        <div className="rounded-2xl border border-border bg-card p-4 flex flex-col gap-3">
+          <h3 className="text-xs font-bold text-muted-foreground">Quick Actions</h3>
+          <div className="flex flex-col gap-1.5 flex-1">
             <Link
-              to="/app/orders"
-              className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline"
+              to="/app/products"
+              className="flex w-full items-center justify-between rounded-xl border border-border bg-muted/30 px-3 py-2.5 text-xs font-semibold text-foreground hover:bg-accent transition-all"
             >
-              <span>View all orders</span>
-              <ArrowUpRight size={13} />
+              <span className="flex items-center gap-2"><Plus size={14} className="text-primary" /> Add Product</span>
+              <ChevronRight size={13} className="text-muted-foreground" />
+            </Link>
+            <a
+              href="https://stallioshop.netlify.app/denzen-thrift"
+              target="_blank" rel="noopener noreferrer"
+              className="flex w-full items-center justify-between rounded-xl border border-border bg-muted/30 px-3 py-2.5 text-xs font-semibold text-foreground hover:bg-accent transition-all"
+            >
+              <span className="flex items-center gap-2"><ExternalLink size={14} className="text-primary" /> View Store</span>
+              <ChevronRight size={13} className="text-muted-foreground" />
+            </a>
+            <Link
+              to="/app/messages"
+              className="flex w-full items-center justify-between rounded-xl border border-border bg-muted/30 px-3 py-2.5 text-xs font-semibold text-foreground hover:bg-accent transition-all"
+            >
+              <span className="flex items-center gap-2"><MessageSquare size={14} className="text-primary" /> Messages</span>
+              <span className="rounded-full bg-destructive/10 px-2 py-0.5 text-[10px] font-bold text-destructive">3</span>
             </Link>
           </div>
 
-          <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-xs">
-            {/* Desktop Table View */}
-            <div className="hidden md:block overflow-x-auto">
-              <table className="w-full text-left text-xs">
-                <thead className="border-b border-border bg-muted/40 text-muted-foreground">
-                  <tr>
-                    <th className="px-4 py-3 font-semibold uppercase tracking-wider text-[10px]">
-                      Order
-                    </th>
-                    <th className="px-4 py-3 font-semibold uppercase tracking-wider text-[10px]">
-                      Customer
-                    </th>
-                    <th className="px-4 py-3 font-semibold uppercase tracking-wider text-[10px]">
-                      Items
-                    </th>
-                    <th className="px-4 py-3 font-semibold uppercase tracking-wider text-[10px]">
-                      Total
-                    </th>
-                    <th className="px-4 py-3 font-semibold uppercase tracking-wider text-[10px]">
-                      Status
-                    </th>
-                    <th className="px-4 py-3 text-right font-semibold uppercase tracking-wider text-[10px]">
-                      Action
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-border">
-                  {orders.map((order) => {
-                    const isExpanded = expandedOrderId === order.id
-                    return (
-                      <React.Fragment key={order.id}>
-                        <tr
-                          onClick={() => toggleExpandOrder(order.id)}
-                          className="cursor-pointer transition-colors hover:bg-accent/40"
-                        >
-                          <td className="px-4 py-3.5 font-bold text-foreground">
-                            <div className="flex items-center gap-1.5">
-                              {isExpanded ? (
-                                <ChevronDown size={14} className="text-muted-foreground" />
-                              ) : (
-                                <ChevronRight size={14} className="text-muted-foreground" />
-                              )}
-                              <span>{order.id}</span>
-                            </div>
-                          </td>
-
-                          <td className="px-4 py-3.5">
-                            <div className="font-semibold text-foreground">
-                              {order.customer.name}
-                            </div>
-                            <div className="text-[11px] text-muted-foreground">
-                              {order.customer.city}
-                            </div>
-                          </td>
-
-                          <td className="px-4 py-3.5">
-                            <div className="flex items-center gap-1.5">
-                              {order.items.map((item, idx) => (
-                                <img
-                                  key={idx}
-                                  src={item.img}
-                                  alt={item.name}
-                                  className="h-7 w-7 rounded-lg border border-border object-cover"
-                                />
-                              ))}
-                              <span className="text-[11px] text-muted-foreground ml-1">
-                                {order.items.reduce((sum, it) => sum + it.qty, 0)} items
-                              </span>
-                            </div>
-                          </td>
-
-                          <td className="px-4 py-3.5 font-bold text-foreground">
-                            {order.total}
-                          </td>
-
-                          <td className="px-4 py-3.5">
-                            <StatusBadge status={order.status} />
-                          </td>
-
-                          <td className="px-4 py-3.5 text-right">
-                            {order.status === 'pending' && (
-                              <button
-                                type="button"
-                                onClick={(e) =>
-                                  handleUpdateOrderStatus(order.id, 'confirmed', e)
-                                }
-                                className="inline-flex items-center rounded-lg bg-[var(--info-bg)] border border-[var(--info-border)] px-2.5 py-1 text-[11px] font-semibold text-[var(--info)] hover:opacity-80 transition-opacity"
-                              >
-                                Confirm Order
-                              </button>
-                            )}
-
-                            {order.status === 'confirmed' && (
-                              <button
-                                type="button"
-                                onClick={(e) =>
-                                  handleUpdateOrderStatus(order.id, 'shipped', e)
-                                }
-                                className="inline-flex items-center rounded-lg bg-primary/10 border border-primary/20 px-2.5 py-1 text-[11px] font-semibold text-primary hover:opacity-80 transition-opacity"
-                              >
-                                Mark Shipped
-                              </button>
-                            )}
-
-                            {order.status === 'shipped' && (
-                              <span className="text-[11px] text-muted-foreground">
-                                In transit
-                              </span>
-                            )}
-
-                            {order.status === 'delivered' && (
-                              <span className="text-[11px] text-[var(--success)] font-medium">
-                                Completed
-                              </span>
-                            )}
-                          </td>
-                        </tr>
-
-                        {/* Expanded Drawer Row */}
-                        {isExpanded && (
-                          <tr className="bg-muted/25">
-                            <td colSpan={6} className="px-6 py-4">
-                              <div className="space-y-3">
-                                <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                                  Order Details & Customer Address
-                                </div>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                                  <div className="space-y-1 rounded-xl bg-card p-3 border border-border">
-                                    <p className="font-semibold text-foreground">
-                                      Shipping Address:
-                                    </p>
-                                    <p className="text-muted-foreground">
-                                      {order.customer.address}
-                                    </p>
-                                    <p className="text-muted-foreground">
-                                      Phone: <strong>{order.customer.phone}</strong>
-                                    </p>
-                                  </div>
-
-                                  <div className="space-y-1 rounded-xl bg-card p-3 border border-border">
-                                    <p className="font-semibold text-foreground">
-                                      Payment & Timing:
-                                    </p>
-                                    <p className="text-muted-foreground">
-                                      Method: {order.paymentMethod}
-                                    </p>
-                                    <p className="text-muted-foreground">
-                                      Placed: {order.date} ({order.time})
-                                    </p>
-                                  </div>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                        )}
-                      </React.Fragment>
-                    )
-                  })}
-                </tbody>
-              </table>
+          {/* Mini revenue sparkline insight */}
+          <div className="mt-auto rounded-xl bg-primary/8 border border-primary/12 px-3 py-2.5">
+            <div className="flex items-center gap-1.5 mb-0.5">
+              <Sparkles size={11} className="text-primary" />
+              <span className="text-[10px] font-bold text-primary">Insight</span>
             </div>
-
-            {/* Mobile Card List View */}
-            <div className="divide-y divide-border md:hidden">
-              {orders.map((order) => {
-                const isExpanded = expandedOrderId === order.id
-                return (
-                  <div
-                    key={order.id}
-                    onClick={() => toggleExpandOrder(order.id)}
-                    className="p-4 space-y-3 cursor-pointer"
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="font-bold text-foreground text-sm font-heading">
-                          {order.id}
-                        </span>
-                        <StatusBadge status={order.status} size="sm" />
-                      </div>
-                      <span className="text-xs text-muted-foreground">{order.time}</span>
-                    </div>
-
-                    <div className="flex items-center justify-between text-xs">
-                      <div>
-                        <div className="font-semibold text-foreground">
-                          {order.customer.name}
-                        </div>
-                        <div className="text-muted-foreground">{order.customer.city}</div>
-                      </div>
-                      <div className="text-right">
-                        <div className="font-bold text-foreground text-sm">
-                          {order.total}
-                        </div>
-                        <div className="text-muted-foreground">
-                          {order.paymentMethod.split(' ')[0]}
-                        </div>
-                      </div>
-                    </div>
-
-                    {isExpanded && (
-                      <div className="pt-2 border-t border-border/80 text-xs space-y-2">
-                        <p className="text-muted-foreground">
-                          <strong>Address:</strong> {order.customer.address}
-                        </p>
-                        <p className="text-muted-foreground">
-                          <strong>Phone:</strong> {order.customer.phone}
-                        </p>
-
-                        <div className="pt-2 flex gap-2">
-                          {order.status === 'pending' && (
-                            <button
-                              type="button"
-                              onClick={(e) =>
-                                handleUpdateOrderStatus(order.id, 'confirmed', e)
-                              }
-                              className="w-full rounded-xl bg-[var(--info-bg)] border border-[var(--info-border)] py-2 text-xs font-semibold text-[var(--info)]"
-                            >
-                              Confirm Order
-                            </button>
-                          )}
-                          {order.status === 'confirmed' && (
-                            <button
-                              type="button"
-                              onClick={(e) =>
-                                handleUpdateOrderStatus(order.id, 'shipped', e)
-                              }
-                              className="w-full rounded-xl bg-primary py-2 text-xs font-semibold text-primary-foreground"
-                            >
-                              Mark Shipped
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        </div>
-
-        {/* Right 1 Column: Quick Actions & Launch Checklist */}
-        <div className="space-y-6">
-          {/* Quick Actions Panel */}
-          <div className="rounded-2xl border border-border bg-card p-5 space-y-4">
-            <h3 className="text-sm font-bold tracking-tight text-foreground font-heading">
-              Quick Actions
-            </h3>
-
-            <div className="space-y-2">
-              <Link
-                to="/app/products"
-                className="flex w-full items-center justify-between rounded-xl border border-border bg-muted/30 px-3.5 py-2.5 text-xs font-semibold text-foreground transition-all hover:bg-accent hover:border-border/80"
-              >
-                <span className="flex items-center gap-2.5">
-                  <Plus size={16} className="text-primary" />
-                  <span>Add New Product</span>
-                </span>
-                <ChevronRight size={14} className="text-muted-foreground" />
-              </Link>
-
-              <a
-                href="https://stallio.shop/denzen-thrift"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex w-full items-center justify-between rounded-xl border border-border bg-muted/30 px-3.5 py-2.5 text-xs font-semibold text-foreground transition-all hover:bg-accent hover:border-border/80"
-              >
-                <span className="flex items-center gap-2.5">
-                  <ExternalLink size={16} className="text-primary" />
-                  <span>View Live Store</span>
-                </span>
-                <ChevronRight size={14} className="text-muted-foreground" />
-              </a>
-
-              <Link
-                to="/app/messages"
-                className="flex w-full items-center justify-between rounded-xl border border-border bg-muted/30 px-3.5 py-2.5 text-xs font-semibold text-foreground transition-all hover:bg-accent hover:border-border/80"
-              >
-                <span className="flex items-center gap-2.5">
-                  <MessageSquare size={16} className="text-primary" />
-                  <span>Unanswered Messages</span>
-                </span>
-                <span className="rounded-full bg-destructive/10 px-2 py-0.5 text-[11px] font-bold text-destructive">
-                  3 new
-                </span>
-              </Link>
-            </div>
-          </div>
-
-          {/* Setup Guide Checklist */}
-          <div className="rounded-2xl border border-border bg-card p-5 space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Sparkles size={16} className="text-primary" />
-                <h3 className="text-sm font-bold tracking-tight text-foreground font-heading">
-                  Store Setup
-                </h3>
-              </div>
-              <span className="text-xs font-bold text-primary font-heading">
-                {progressPercent}%
-              </span>
-            </div>
-
-            {/* Progress bar */}
-            <div className="h-1.5 w-full rounded-full bg-muted overflow-hidden">
-              <div
-                className="h-full bg-primary rounded-full transition-all duration-300"
-                style={{ width: `${progressPercent}%` }}
-              />
-            </div>
-
-            <div className="space-y-2">
-              {checklist.map((item) => (
-                <div
-                  key={item.id}
-                  onClick={() => toggleChecklistItem(item.id)}
-                  className="flex items-center gap-2.5 cursor-pointer rounded-xl p-2 transition-colors hover:bg-accent/40 text-xs"
-                >
-                  <div
-                    className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-lg border transition-colors ${
-                      item.completed
-                        ? 'bg-primary border-primary text-primary-foreground'
-                        : 'border-border bg-card'
-                    }`}
-                  >
-                    {item.completed && <Check size={12} strokeWidth={3} />}
-                  </div>
-                  <span
-                    className={`flex-1 ${
-                      item.completed
-                        ? 'line-through text-muted-foreground'
-                        : 'font-medium text-foreground'
-                    }`}
-                  >
-                    {item.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* ── 3. Bottom: 7-Day Revenue Trend Visualization ─────────────── */}
-      <div className="rounded-2xl border border-border bg-card p-5 space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-          <div>
-            <h3 className="text-sm font-bold tracking-tight text-foreground font-heading">
-              Weekly Revenue Velocity
-            </h3>
-            <p className="text-xs text-muted-foreground">
-              Sales performance over the last 7 days
+            <p className="text-[10px] text-muted-foreground leading-snug">
+              Saturday is your peak day. Consider restocking best-sellers by Friday.
             </p>
           </div>
-          <div className="text-xs font-bold text-foreground font-heading">
-            {formatPrice(356200)} total volume
+        </div>
+
+        {/* ④ Setup Checklist — lg: col-span-2 */}
+        <div className="lg:col-span-2 rounded-2xl border border-border bg-card p-4 flex flex-col gap-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-1.5">
+              <Sparkles size={14} className="text-primary" />
+              <h3 className="text-xs font-bold text-muted-foreground">Store Setup</h3>
+            </div>
+            <span className="text-xs font-extrabold text-primary font-heading">{progressPercent}%</span>
+          </div>
+          <div className="h-1 w-full rounded-full bg-muted overflow-hidden">
+            <div className="h-full bg-primary rounded-full transition-all duration-500" style={{ width: `${progressPercent}%` }} />
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
+            {checklist.map((item) => (
+              <div
+                key={item.id}
+                onClick={() => toggleChecklistItem(item.id)}
+                className="flex items-center gap-2 cursor-pointer rounded-lg p-2 transition-colors hover:bg-accent/40 text-xs"
+              >
+                <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-md border transition-colors ${item.completed ? 'bg-primary border-primary text-primary-foreground' : 'border-border bg-card'}`}>
+                  {item.completed && <Check size={10} strokeWidth={3} />}
+                </div>
+                <span className={`flex-1 leading-snug ${item.completed ? 'line-through text-muted-foreground' : 'font-medium text-foreground'}`}>
+                  {item.label}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Lightweight SVG-based Bar Chart */}
-        <div className="grid grid-cols-7 gap-2 sm:gap-4 pt-4 items-end h-40 border-b border-border/80 pb-2">
-          {MOCK_WEEKLY_SALES.map((item) => {
-            const heightPercent = Math.round((item.revenue / maxRevenue) * 100)
-            const isToday = item.day === 'Sun'
-
-            return (
-              <div key={item.day} className="flex flex-col items-center gap-2 h-full justify-end group">
-                <div
-                  className="w-full max-w-[48px] rounded-t-xl transition-all duration-300 relative"
-                  style={{
-                    height: `${heightPercent}%`,
-                    backgroundColor: isToday
-                      ? 'var(--primary)'
-                      : 'color-mix(in oklch, var(--primary) 24%, var(--surface-muted))',
-                  }}
-                >
-                  {/* Tooltip on hover */}
-                  <div className="absolute -top-8 left-1/2 -translate-x-1/2 hidden group-hover:flex items-center justify-center rounded-md bg-foreground px-2 py-0.5 text-[10px] font-bold text-background shadow-xs whitespace-nowrap z-10">
-                    {currencySymbol} {(item.revenue / 1000).toFixed(1)}k
-                  </div>
+        {/* ⑤ Top Products — lg: col-span-2 */}
+        <div className="lg:col-span-2 rounded-2xl border border-border bg-card p-4 flex flex-col gap-3">
+          <div className="flex items-center justify-between">
+            <h3 className="text-xs font-bold text-muted-foreground">Top Selling Items</h3>
+            <Link to="/app/products" className="inline-flex items-center gap-0.5 text-[11px] font-semibold text-primary hover:underline">
+              All products <ArrowUpRight size={11} />
+            </Link>
+          </div>
+          <div className="flex flex-col gap-2">
+            {[
+              { name: 'Oversized Vintage Acid-Wash Tee', sold: 24, rev: '₨ 76,800', img: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=80&h=80&fit=crop&auto=format&q=80' },
+              { name: 'Minimalist Cargo Pants — Olive', sold: 18, rev: '₨ 86,400', img: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=80&h=80&fit=crop&auto=format&q=80' },
+              { name: 'Monochrome Heavyweight Hoodie', sold: 15, rev: '₨ 97,500', img: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=80&h=80&fit=crop&auto=format&q=80' },
+            ].map((product, i) => (
+              <div key={i} className="flex items-center gap-3">
+                <img src={product.img} alt={product.name} className="h-9 w-9 rounded-xl border border-border object-cover shrink-0" />
+                <div className="flex-1 min-w-0">
+                  <div className="text-[11px] font-semibold text-foreground truncate">{product.name}</div>
+                  <div className="text-[10px] text-muted-foreground">{product.sold} sold</div>
                 </div>
-                <span
-                  className={`text-[11px] font-medium ${
-                    isToday ? 'font-bold text-primary' : 'text-muted-foreground'
-                  }`}
-                >
-                  {item.day}
-                </span>
+                <div className="text-[11px] font-bold text-foreground shrink-0">{product.rev}</div>
               </div>
-            )
-          })}
+            ))}
+          </div>
+        </div>
+
+      </div>
+
+      {/* ── Row 4: Recent Orders ─────────────────────────────────────────── */}
+      <div className="rounded-2xl border border-border bg-card overflow-hidden">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-border">
+          <div>
+            <h3 className="text-sm font-bold text-foreground font-heading">Recent Orders</h3>
+            <p className="text-[11px] text-muted-foreground">Latest incoming orders</p>
+          </div>
+          <Link to="/app/orders" className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:underline">
+            <span>View all</span><ArrowUpRight size={12} />
+          </Link>
+        </div>
+
+        {/* Desktop table */}
+        <div className="hidden md:block overflow-x-auto">
+          <table className="w-full text-left text-xs">
+            <thead className="bg-muted/30 text-muted-foreground border-b border-border">
+              <tr>
+                {['Order', 'Customer', 'Items', 'Total', 'Status', 'Action'].map((col, i) => (
+                  <th key={col} className={`px-4 py-2.5 font-semibold uppercase tracking-wider text-[10px] ${i === 5 ? 'text-right' : ''}`}>{col}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border">
+              {orders.slice(0, 5).map((order) => (
+                <tr key={order.id} className="hover:bg-accent/30 transition-colors">
+                  <td className="px-4 py-2.5 font-bold text-foreground text-[11px]">{order.id}</td>
+                  <td className="px-4 py-2.5">
+                    <div className="font-semibold text-foreground text-[11px]">{order.customer.name}</div>
+                    <div className="text-[10px] text-muted-foreground">{order.customer.city}</div>
+                  </td>
+                  <td className="px-4 py-2.5">
+                    <div className="flex items-center gap-1">
+                      {order.items.slice(0, 3).map((item, idx) => (
+                        <img key={idx} src={item.img} alt={item.name} className="h-6 w-6 rounded-lg border border-border object-cover" />
+                      ))}
+                      <span className="text-[10px] text-muted-foreground ml-0.5">{order.items.reduce((s, it) => s + it.qty, 0)} pcs</span>
+                    </div>
+                  </td>
+                  <td className="px-4 py-2.5 font-bold text-foreground text-[11px]">{order.total}</td>
+                  <td className="px-4 py-2.5"><StatusBadge status={order.status} size="sm" /></td>
+                  <td className="px-4 py-2.5 text-right">
+                    {order.status === 'pending' && (
+                      <button type="button" onClick={(e) => handleUpdateOrderStatus(order.id, 'confirmed', e)}
+                        className="rounded-lg bg-[var(--info-bg)] border border-[var(--info-border)] px-2.5 py-1 text-[10px] font-semibold text-[var(--info)] hover:opacity-80 transition-opacity">
+                        Confirm
+                      </button>
+                    )}
+                    {order.status === 'confirmed' && (
+                      <button type="button" onClick={(e) => handleUpdateOrderStatus(order.id, 'shipped', e)}
+                        className="rounded-lg bg-primary/10 border border-primary/20 px-2.5 py-1 text-[10px] font-semibold text-primary hover:opacity-80 transition-opacity">
+                        Ship
+                      </button>
+                    )}
+                    {(order.status === 'shipped' || order.status === 'delivered') && (
+                      <span className="text-[10px] text-muted-foreground capitalize">{order.status}</span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Mobile list */}
+        <div className="divide-y divide-border md:hidden">
+          {orders.slice(0, 4).map((order) => (
+            <div key={order.id} className="flex items-center justify-between px-4 py-3 text-xs">
+              <div>
+                <div className="flex items-center gap-2 mb-0.5">
+                  <span className="font-bold text-foreground">{order.id}</span>
+                  <StatusBadge status={order.status} size="sm" />
+                </div>
+                <div className="text-muted-foreground">{order.customer.name} · {order.customer.city}</div>
+              </div>
+              <div className="text-right">
+                <div className="font-bold text-foreground">{order.total}</div>
+                {order.status === 'pending' && (
+                  <button type="button" onClick={(e) => handleUpdateOrderStatus(order.id, 'confirmed', e)}
+                    className="mt-1 rounded-lg bg-[var(--info-bg)] border border-[var(--info-border)] px-2 py-0.5 text-[10px] font-semibold text-[var(--info)]">
+                    Confirm
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
+
     </div>
   )
 }

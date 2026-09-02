@@ -39,7 +39,7 @@ export const ToastProvider = ({ children }) => {
       {/* Floating Toast Container */}
       <div
         aria-live="polite"
-        className="fixed bottom-6 right-6 z-50 flex flex-col gap-2.5 max-w-sm w-full pointer-events-none"
+        className="fixed bottom-3 left-3 right-3 z-50 flex w-auto max-w-none flex-col gap-2 pointer-events-none sm:bottom-6 sm:left-auto sm:right-6 sm:w-full sm:max-w-sm sm:gap-2.5"
       >
         {toasts.map((toast) => (
           <ToastItem key={toast.id} toast={toast} onDismiss={() => removeToast(toast.id)} />
@@ -85,20 +85,20 @@ const ToastItem = ({ toast, onDismiss }) => {
   return (
     <div
       role="alert"
-      className={`pointer-events-auto flex items-start gap-3 rounded-2xl border ${config.border} ${config.bg} p-3.5 shadow-xl transition-all`}
+      className={`pointer-events-auto flex items-start gap-2 rounded-xl border ${config.border} ${config.bg} p-2.5 shadow-xl transition-all sm:gap-3 sm:rounded-2xl sm:p-3.5`}
       style={{
         animation: 'toastSlideIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards',
       }}
     >
-      <config.Icon size={18} className={`${config.color} shrink-0 mt-0.5`} />
+      <config.Icon size={16} className={`${config.color} shrink-0 mt-0.5 sm:h-[18px] sm:w-[18px]`} />
 
       <div className="flex-1 min-w-0">
         {toast.title && (
-          <h4 className="text-xs font-bold text-foreground font-heading">
+          <h4 className="text-[11px] font-bold text-foreground font-heading sm:text-xs">
             {toast.title}
           </h4>
         )}
-        <p className="text-xs text-muted-foreground leading-snug">
+        <p className="text-[11px] text-muted-foreground leading-snug sm:text-xs">
           {toast.message}
         </p>
       </div>
