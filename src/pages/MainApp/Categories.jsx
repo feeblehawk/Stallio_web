@@ -1,33 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import {
-  LayoutGrid,
-  Plus,
-  Edit3,
-  Trash2,
-  ExternalLink,
-  Sparkles,
-  Layers,
-  Star,
-  Check,
-  Package,
-} from 'lucide-react'
-import {
-  PageHeader,
-  StatCard,
-  Drawer,
-  ConfirmDialog,
-  FormField,
-  SearchInput,
-  ImageUpload,
-  EmptyState,
-  useToast,
+import { LayoutGrid, Plus, Edit3, Trash2,Layers, Star, Package, } from 'lucide-react'
+import {PageHeader, StatCard, Drawer, ConfirmDialog, FormField, SearchInput, ImageUpload, EmptyState, useToast,
 } from '../../components/ui'
-import {
-  getCategories,
-  createCategory,
-  updateCategory,
-  deleteCategory,
-  toggleFeaturedCategory,
+import { getCategories, createCategory, updateCategory, deleteCategory, toggleFeaturedCategory,
 } from '../../services/categoryService'
 
 export const Categories = () => {

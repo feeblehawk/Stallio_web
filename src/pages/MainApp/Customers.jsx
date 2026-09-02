@@ -1,38 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import {
-  Users,
-  UserPlus,
-  Phone,
-  Mail,
-  MapPin,
-  ShoppingBag,
-  ExternalLink,
-  MessageCircle,
-  Clock,
-  Sparkles,
-  Award,
-  ChevronRight,
-  TrendingUp,
-} from 'lucide-react'
-import {
-  PageHeader,
-  StatCard,
-  StatusBadge,
-  DataTable,
-  Drawer,
-  Modal,
-  FormField,
-  SearchInput,
-  FilterTabs,
-  EmptyState,
-  useToast,
-} from '../../components/ui'
-import {
-  getCustomers,
-  createCustomer,
-  updateCustomer,
-  deleteCustomer,
-  calculateCustomerStats,
+import {Users, UserPlus, Phone, Mail, MapPin, ShoppingBag, ExternalLink,
+  MessageCircle, Clock, Sparkles, Award, ChevronRight, TrendingUp, } from 'lucide-react'
+import {PageHeader, StatCard, StatusBadge, DataTable, Drawer, Modal, FormField, SearchInput,
+  FilterTabs, EmptyState, useToast, } from '../../components/ui'
+import { getCustomers, createCustomer, updateCustomer, deleteCustomer, calculateCustomerStats,
 } from '../../services/customerService'
 
 const SEGMENT_TABS = [
@@ -151,8 +122,8 @@ export const Customers = () => {
         key: 'city',
         label: 'Location & Phone',
         render: (_, customer) => (
-          <div>
-            <div className="text-foreground font-medium flex items-center gap-1">
+          <div className="text-right sm:text-left">
+            <div className="flex items-center justify-end gap-1 text-foreground font-medium sm:justify-start">
               <MapPin size={11} className="text-muted-foreground" />
               <span>{customer.city}</span>
             </div>
