@@ -32,14 +32,14 @@ const PrivacyPolicy = lazy(() => import('./pages/legal/PrivacyPolicy'))
 const Terms         = lazy(() => import('./pages/legal/Terms'))
 const ComingSoon     = lazy(() => import('./pages/ComingSoon'))
 const DashboardHome = lazy(() => import('./pages/MainApp/DashboardHome'))
-const Products      = lazy(() => import('./pages/MainApp/Products'))
-const Orders        = lazy(() => import('./pages/MainApp/Orders'))
-const Messages      = lazy(() => import('./pages/MainApp/Messages'))
-const Customers     = lazy(() => import('./pages/MainApp/Customers'))
-const Analytics     = lazy(() => import('./pages/MainApp/Analytics'))
-const Categories    = lazy(() => import('./pages/MainApp/Categories'))
-const Discounts     = lazy(() => import('./pages/MainApp/Discounts'))
-const Settings      = lazy(() => import('./pages/MainApp/Settings'))
+// const Products      = lazy(() => import('./pages/MainApp/Products'))
+// const Orders        = lazy(() => import('./pages/MainApp/Orders'))
+// const Messages      = lazy(() => import('./pages/MainApp/Messages'))
+// const Customers     = lazy(() => import('./pages/MainApp/Customers'))
+// const Analytics     = lazy(() => import('./pages/MainApp/Analytics'))
+// const Categories    = lazy(() => import('./pages/MainApp/Categories'))
+// const Discounts     = lazy(() => import('./pages/MainApp/Discounts'))
+// const Settings      = lazy(() => import('./pages/MainApp/Settings'))
 
 // Minimal fallback — invisible div keeps layout stable during chunk fetch
 const PageFallback = () => (
@@ -71,14 +71,14 @@ function App() {
 
          <Route path="/app" element={<DashboardLayout />}>
             <Route index                    element={wrap(DashboardHome)} />
-            <Route path="orders"            element={wrap(Orders)} />
+            {/* <Route path="orders"            element={wrap(Orders)} />
             <Route path="customers"         element={wrap(Customers)} />
             <Route path="messages"          element={wrap(Messages)} />
             <Route path="products"          element={wrap(Products)} />
             <Route path="categories"        element={wrap(Categories)} />
             <Route path="analytics"         element={wrap(Analytics)} />
             <Route path="discounts"         element={wrap(Discounts)} />
-            <Route path="settings"          element={wrap(Settings)} />
+            <Route path="settings"          element={wrap(Settings)} /> */}
           </Route>
       
           {/* ── Main routes — with Navbar + Footer ── */}
