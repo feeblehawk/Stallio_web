@@ -45,9 +45,7 @@ const Discounts     = lazy(() => import('./pages/MainApp/Discounts'))
 // const Settings      = lazy(() => import('./pages/MainApp/Settings'))
 // const Storefront    = lazy(() => import('./pages/MainApp/Storefront'))
 
-// Store Builder Studio
-const BuilderLayout      = lazy(() => import('./layouts/BuilderLayout'))
-const StoreBuilderStudio = lazy(() => import('./pages/Builder/index'))
+
 
 // Minimal fallback — invisible div keeps layout stable during chunk fetch
 const PageFallback = () => (
@@ -92,10 +90,7 @@ function App() {
                 {/* <Route path="storefront"        element={wrap(Storefront)} /> */}
               </Route> 
 
-              {/* ── Standalone Fullscreen Store Builder Studio ── */}
-              <Route path="/builder" element={wrap(BuilderLayout)}>
-                <Route index element={wrap(StoreBuilderStudio)} />
-              </Route>
+              
           
               {/* ── Marketing routes — with Navbar + Footer ── */}
               <Route path="/" element={<MarketingLayout />}>
