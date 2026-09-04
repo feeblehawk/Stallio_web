@@ -15,6 +15,7 @@ import {
 
 /* ── Mini SVG Line Graph ─────────────────────────────────────────────── */
 const OrdersLineGraph = ({ data }) => {
+  const [hoveredIndex, setHoveredIndex] = useState(null)
   const W = 260
   const H = 72
   const PAD = { t: 8, r: 8, b: 18, l: 8 }
@@ -39,8 +40,20 @@ const OrdersLineGraph = ({ data }) => {
   const areaPath =
     `${linePath} L ${pts[pts.length - 1].x.toFixed(1)} ${(H - PAD.b).toFixed(1)} L ${pts[0].x.toFixed(1)} ${(H - PAD.b).toFixed(1)} Z`
 
+  const activePoint = hoveredIndex === null ? null : pts[hoveredIndex]
+  const tooltipAlignment = hoveredIndex === 0 ? 'left-0' : hoveredIndex === pts.length - 1 ? 'right-0' : '-translate-x-1/2'
+
   return (
-    <div className="relative w-full" style={{ paddingBottom: '28%' }}>
+    <div className="relative w-full" style={{ paddingBottom: '28%' }} onMouseLeave={() => setHoveredIndex(null)}>
+      {activePoint && (
+        <div
+          className={`pointer-events-none absolute top-0 z-10 whitespace-nowrap rounded-md bg-foreground px-2 py-1 text-[10px] font-bold text-background shadow-md ${tooltipAlignment}`}
+          style={{ left: `${(activePoint.x / W) * 100}%` }}
+          role="status"
+        >
+          {activePoint.day}: {activePoint.orders} orders
+        </div>
+      )}
       <svg
         viewBox={`0 0 ${W} ${H}`}
         preserveAspectRatio="none"
@@ -84,6 +97,23 @@ const OrdersLineGraph = ({ data }) => {
           filter="url(#glow)"
         />
 
+        {activePoint && (
+          <>
+            <line
+              x1={activePoint.x} y1={PAD.t}
+              x2={activePoint.x} y2={H - PAD.b}
+              stroke="var(--primary)" strokeWidth="0.75" strokeDasharray="2 2"
+              opacity="0.65"
+            />
+            <circle
+              cx={activePoint.x} cy={activePoint.y} r="3.5"
+              fill="var(--primary)"
+              stroke="var(--card)"
+              strokeWidth="1.5"
+            />
+          </>
+        )}
+
         {/* Day labels */}
         {pts.map((p) => (
           <text
@@ -110,6 +140,23 @@ const OrdersLineGraph = ({ data }) => {
               strokeWidth="1.5"
             />
           )
+        ))}
+
+        {/* Invisible point targets keep the chart easy to explore without changing its shape. */}
+        {pts.map((p, i) => (
+          <rect
+            key={`target-${p.day}`}
+            x={i === 0 ? 0 : p.x - (pts[i].x - pts[i - 1].x) / 2}
+            y={0}
+            width={i === 0 || i === pts.length - 1 ? (W / pts.length) : p.x - pts[i - 1].x}
+            height={H}
+            fill="transparent"
+            tabIndex={0}
+            aria-label={`${p.day}: ${p.orders} orders`}
+            onMouseEnter={() => setHoveredIndex(i)}
+            onFocus={() => setHoveredIndex(i)}
+            onBlur={() => setHoveredIndex(null)}
+          />
         ))}
       </svg>
     </div>

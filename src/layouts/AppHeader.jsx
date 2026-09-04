@@ -1,12 +1,24 @@
 import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import {
+  AlertTriangle,
   Bell,
+  CircleDollarSign,
   ExternalLink,
   Menu,
+  PackageCheck,
+  ShoppingBag,
+  Trash2,
+  UserRound,
 } from 'lucide-react'
 import ThemeToggle from '../components/ThemeToggle'
 import { useSidebar } from '../contexts/SidebarContext'
+import {
+  getNotifications,
+  deleteNotification,
+  markAllNotificationsRead,
+  subscribeToNotifications,
+} from '../services/notificationService'
 
 // ─── Fixed Store ─────────────────────────────────────────────────────────────
 const STORE = {
@@ -34,9 +46,12 @@ const AppHeader = () => {
   const { toggleMobileOpen } = useSidebar()
 
   const [notifOpen, setNotifOpen] = useState(false)
-  const [notifCount] = useState(4)
+  const [notifications, setNotifications] = useState(getNotifications)
+  const notifCount = notifications.filter((item) => item.unread).length
 
   const notifRef = useRef(null)
+
+  useEffect(() => subscribeToNotifications(setNotifications), [])
 
   // Close notification dropdown on outside click
   useEffect(() => {
@@ -191,7 +206,9 @@ const AppHeader = () => {
 
                   <button
                     type="button"
-                    className="text-xs font-medium text-primary hover:underline focus-visible:outline-2 focus-visible:outline-ring rounded"
+                    onClick={markAllNotificationsRead}
+                    disabled={notifCount === 0}
+                    className="rounded text-xs font-medium text-primary hover:underline disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-ring"
                   >
                     Mark all read
                   </button>
@@ -199,10 +216,11 @@ const AppHeader = () => {
 
                 {/* Notification Items */}
                 <div className="max-h-[320px] overflow-y-auto divide-y divide-border">
-                  {NOTIF_ITEMS.map((n) => (
+                  {notifications.map((n) => (
                     <NotifItem
                       key={n.id}
                       {...n}
+                      icon={NOTIF_ICONS[n.type]}
                     />
                   ))}
                 </div>
@@ -210,7 +228,7 @@ const AppHeader = () => {
                 {/* Footer */}
                 <div className="border-t border-border px-4 py-2.5">
                   <Link
-                    to="/app/messages"
+                    to="/app/notifications"
                     onClick={() => setNotifOpen(false)}
                     className="block text-center text-xs font-medium text-muted-foreground hover:text-primary transition-colors duration-150 py-1"
                   >
@@ -244,51 +262,17 @@ const AppHeader = () => {
 }
 
 // ─── Mock Notification Data ───────────────────────────────────────────────────
-const NOTIF_ITEMS = [
-  {
-    id: 1,
-    unread: true,
-    icon: '🛍️',
-    title: 'New order received',
-    body: 'Order #1042 — 2 items — Rs. 3,400',
-    time: '2m ago',
-  },
-  {
-    id: 2,
-    unread: true,
-    icon: '👤',
-    title: 'New customer signed up',
-    body: 'Ayesha Khan just created an account',
-    time: '18m ago',
-  },
-  {
-    id: 3,
-    unread: true,
-    icon: '⚠️',
-    title: 'Low stock alert',
-    body: 'Vintage denim jacket — only 2 left',
-    time: '1h ago',
-  },
-  {
-    id: 4,
-    unread: true,
-    icon: '💳',
-    title: 'Payment received',
-    body: 'Rs. 12,500 deposited to your account',
-    time: '3h ago',
-  },
-  {
-    id: 5,
-    unread: false,
-    icon: '📦',
-    title: 'Order #1039 shipped',
-    body: 'Tracking: TCS-892341',
-    time: 'Yesterday',
-  },
-]
-
 // ─── Notification Item ────────────────────────────────────────────────────────
+const NOTIF_ICONS = {
+  order: ShoppingBag,
+  customer: UserRound,
+  warning: AlertTriangle,
+  payment: CircleDollarSign,
+  shipping: PackageCheck,
+}
+
 const NotifItem = ({
+  id,
   unread,
   icon,
   title,
@@ -296,7 +280,7 @@ const NotifItem = ({
   time,
 }) => (
   <div
-    className={`flex items-start gap-3 px-4 py-3 transition-colors duration-100 hover:bg-accent/60 cursor-pointer ${
+    className={`group flex items-start gap-3 px-4 py-3 transition-colors duration-100 hover:bg-accent/60 cursor-pointer ${
       unread ? 'bg-primary/[0.04]' : ''
     }`}
   >
@@ -304,7 +288,12 @@ const NotifItem = ({
       className="shrink-0 text-xl leading-none mt-0.5"
       aria-hidden="true"
     >
-      {icon}
+      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary" aria-hidden="true">
+        {(() => {
+          const Icon = icon
+          return <Icon size={15} strokeWidth={2} />
+        })()}
+      </span>
     </span>
 
     <div className="flex-1 min-w-0">
@@ -334,6 +323,15 @@ const NotifItem = ({
           aria-label="Unread"
         />
       )}
+      <button
+        type="button"
+        onClick={() => deleteNotification(id)}
+        className="rounded p-1 text-muted-foreground opacity-0 transition-colors hover:bg-destructive/10 hover:text-destructive group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-ring"
+        aria-label={`Delete ${title}`}
+        title="Delete notification"
+      >
+        <Trash2 size={13} />
+      </button>
     </div>
   </div>
 )

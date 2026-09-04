@@ -176,8 +176,8 @@ export const Categories = () => {
                   </span>
                 )}
 
-                {/* Quick Action Overlay */}
-                <div className="absolute inset-0 flex items-center justify-center gap-2 bg-black/40 opacity-0 backdrop-blur-xs transition-opacity duration-200 group-hover:opacity-100">
+                {/* Quick Action Overlay (Desktop hover) */}
+                <div className="absolute inset-0 hidden md:flex items-center justify-center gap-2 bg-black/40 opacity-0 backdrop-blur-xs transition-opacity duration-200 group-hover:opacity-100">
                   <button
                     type="button"
                     onClick={() => handleOpenEdit(cat)}
@@ -232,9 +232,39 @@ export const Categories = () => {
                   <button
                     type="button"
                     onClick={() => handleOpenEdit(cat)}
-                    className="font-semibold text-foreground hover:text-primary transition-colors"
+                    className="font-semibold text-foreground hover:text-primary transition-colors hidden md:block"
                   >
                     Manage →
+                  </button>
+                </div>
+
+                {/* Mobile CRUD Actions Bar */}
+                <div className="flex md:hidden items-center gap-1.5 border-t border-border/80 pt-3">
+                  <button
+                    type="button"
+                    onClick={() => handleOpenEdit(cat)}
+                    className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-xl border border-border bg-muted/60 py-2 px-3 text-xs font-semibold text-foreground hover:bg-accent active:scale-98 transition-colors"
+                  >
+                    <Edit3 size={13} />
+                    <span>Edit</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={(e) => handleToggleFeatured(cat.id, e)}
+                    className={`flex h-8 w-8 items-center justify-center rounded-xl border border-border bg-muted/60 hover:bg-accent active:scale-95 transition-colors shrink-0 ${
+                      cat.isFeatured ? 'text-amber-500' : 'text-muted-foreground hover:text-foreground'
+                    }`}
+                    title={cat.isFeatured ? 'Unpin' : 'Pin to Storefront'}
+                  >
+                    <Star size={14} className={cat.isFeatured ? 'fill-current' : ''} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setDeleteTarget(cat)}
+                    className="flex h-8 w-8 items-center justify-center rounded-xl border border-destructive/20 bg-destructive/10 text-destructive hover:bg-destructive/20 active:scale-95 transition-colors shrink-0"
+                    title="Delete Collection"
+                  >
+                    <Trash2 size={14} />
                   </button>
                 </div>
               </div>

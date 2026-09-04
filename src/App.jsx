@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { ThemeProvider } from './contexts/ThemeContext'
 import { StoreProvider } from './contexts/StoreContext'
 import { ToastProvider } from './components/ui'
-import MainLayout from './layouts/MainLayout'
+import MarketingLayout from './layouts/MarketingLayout'
 import AuthLayout from './layouts/AuthLayout'
 import DashboardLayout from './layouts/DashboardLayout'
 
@@ -26,20 +26,28 @@ const About          = lazy(() => import('./pages/about/About'))
 const Features       = lazy(() => import('./pages/features/Features'))
 const HowItWorks     = lazy(() => import('./pages/howitworks/HowItWorks'))
 const Pricing        = lazy(() => import('./pages/pricing/Pricing'))
-const Contact       = lazy(() => import('./pages/contact/Contact'))
+const Contact        = lazy(() => import('./pages/contact/Contact'))
 const RefundPolicy  = lazy(() => import('./pages/legal/RefundPolicy'))
 const PrivacyPolicy = lazy(() => import('./pages/legal/PrivacyPolicy'))
 const Terms         = lazy(() => import('./pages/legal/Terms'))
 const ComingSoon     = lazy(() => import('./pages/ComingSoon'))
+
+// MainApp Dashboard pages
 const DashboardHome = lazy(() => import('./pages/MainApp/DashboardHome'))
 const Products      = lazy(() => import('./pages/MainApp/Products'))
-// const Orders        = lazy(() => import('./pages/MainApp/Orders'))
-// const Messages      = lazy(() => import('./pages/MainApp/Messages'))
+const Orders        = lazy(() => import('./pages/MainApp/Orders'))
+const Messages      = lazy(() => import('./pages/MainApp/Messages'))
+const Notifications = lazy(() => import('./pages/MainApp/Notifications'))
 const Customers     = lazy(() => import('./pages/MainApp/Customers'))
-// const Analytics     = lazy(() => import('./pages/MainApp/Analytics'))
+const Analytics     = lazy(() => import('./pages/MainApp/Analytics'))
 const Categories    = lazy(() => import('./pages/MainApp/Categories'))
-// const Discounts     = lazy(() => import('./pages/MainApp/Discounts'))
+const Discounts     = lazy(() => import('./pages/MainApp/Discounts'))
 // const Settings      = lazy(() => import('./pages/MainApp/Settings'))
+// const Storefront    = lazy(() => import('./pages/MainApp/Storefront'))
+
+// Store Builder Studio
+const BuilderLayout      = lazy(() => import('./layouts/BuilderLayout'))
+const StoreBuilderStudio = lazy(() => import('./pages/Builder/index'))
 
 // Minimal fallback — invisible div keeps layout stable during chunk fetch
 const PageFallback = () => (
@@ -61,53 +69,60 @@ function App() {
             <ScrollToTop />
             <Routes>
 
-          {/* ── Auth routes — no Navbar or Footer ── */}
-          <Route element={<AuthLayout />}>
-            <Route path="signup"            element={wrap(Signup)} />
-            <Route path="login"             element={wrap(Login)} />
-            <Route path="forgot-password"   element={wrap(ForgotPassword)} />
-            <Route path="verify-email"      element={wrap(VerifyEmail)} />
-          </Route>
+              {/* ── Auth routes — no Navbar or Footer ── */}
+              <Route element={<AuthLayout />}>
+                <Route path="signup"            element={wrap(Signup)} />
+                <Route path="login"             element={wrap(Login)} />
+                <Route path="forgot-password"   element={wrap(ForgotPassword)} />
+                <Route path="verify-email"      element={wrap(VerifyEmail)} />
+              </Route>
 
-         <Route path="/app" element={<DashboardLayout />}>
-            <Route index                    element={wrap(DashboardHome)} />
-            {/* <Route path="orders"            element={wrap(Orders)} /> */}
-            <Route path="customers"         element={wrap(Customers)} />
-            {/* <Route path="messages"          element={wrap(Messages)} /> */}
-            <Route path="products"          element={wrap(Products)} />
-            <Route path="categories"        element={wrap(Categories)} />
-            {/* <Route path="analytics"         element={wrap(Analytics)} />
-            <Route path="discounts"         element={wrap(Discounts)} />
-            <Route path="settings"          element={wrap(Settings)} /> */}
-          </Route> 
-      
-          {/* ── Main routes — with Navbar + Footer ── */}
-          <Route path="/" element={<MainLayout />}>
-            <Route index                    element={wrap(Home)} />
-            <Route path="about"             element={wrap(About)} />
-            <Route path="features"          element={wrap(Features)} />
-            <Route path="how-it-works"      element={wrap(HowItWorks)} />
-            <Route path="pricing"           element={wrap(Pricing)} />
-            <Route path="contact"           element={wrap(Contact)} />   
-            <Route path="refund"            element={wrap(RefundPolicy)} /> 
-            <Route path="privacy"           element={wrap(PrivacyPolicy)} />
-            <Route path="terms"             element={wrap(Terms)} />
+              {/* ── Dashboard routes ── */}
+              <Route path="/app" element={<DashboardLayout />}>
+                <Route index                    element={wrap(DashboardHome)} />
+                <Route path="orders"            element={wrap(Orders)} />
+                <Route path="customers"         element={wrap(Customers)} />
+                <Route path="messages"          element={wrap(Messages)} />
+                <Route path="notifications"     element={wrap(Notifications)} />
+                <Route path="products"          element={wrap(Products)} />
+                <Route path="categories"        element={wrap(Categories)} />
+                <Route path="analytics"         element={wrap(Analytics)} />
+                <Route path="discounts"         element={wrap(Discounts)} />
+                {/* <Route path="settings"          element={wrap(Settings)} /> */}
+                {/* <Route path="storefront"        element={wrap(Storefront)} /> */}
+              </Route> 
 
+              {/* ── Standalone Fullscreen Store Builder Studio ── */}
+              <Route path="/builder" element={wrap(BuilderLayout)}>
+                <Route index element={wrap(StoreBuilderStudio)} />
+              </Route>
           
-            {/* Catch-all */}
-            {[
-               'careers',
-              'docs', 'guides', 'help',
-              'faq', 'community', 'status',
-              'terms', 'privacy',
-              '*',
-            ].map((path) => (
-              <Route key={path} path={path} element={wrap(ComingSoon)} />
-            ))}
-          </Route>
+              {/* ── Marketing routes — with Navbar + Footer ── */}
+              <Route path="/" element={<MarketingLayout />}>
+                <Route index                    element={wrap(Home)} />
+                <Route path="about"             element={wrap(About)} />
+                <Route path="features"          element={wrap(Features)} />
+                <Route path="how-it-works"      element={wrap(HowItWorks)} />
+                <Route path="pricing"           element={wrap(Pricing)} />
+                <Route path="contact"           element={wrap(Contact)} />   
+                <Route path="refund"            element={wrap(RefundPolicy)} /> 
+                <Route path="privacy"           element={wrap(PrivacyPolicy)} />
+                <Route path="terms"             element={wrap(Terms)} />
 
-          </Routes>
-        </BrowserRouter>
+                {/* Catch-all */}
+                {[
+                  'careers',
+                  'docs', 'guides', 'help',
+                  'faq', 'community', 'status',
+                  'terms', 'privacy',
+                  '*',
+                ].map((path) => (
+                  <Route key={path} path={path} element={wrap(ComingSoon)} />
+                ))}
+              </Route>
+
+            </Routes>
+          </BrowserRouter>
         </ToastProvider>
       </StoreProvider>
     </ThemeProvider>

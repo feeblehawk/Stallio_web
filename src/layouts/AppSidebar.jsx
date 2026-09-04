@@ -7,6 +7,7 @@ import {
   Users,
   BarChart2,
   Tag,
+  Bell,
   MessageSquare,
   Palette,
   Settings,
@@ -31,6 +32,7 @@ const NAV_SECTIONS = [
       { icon: ShoppingCart, label: 'Orders',    to: '/app/orders' },
       { icon: Users,        label: 'Customers', to: '/app/customers' },
       { icon: MessageSquare,label: 'Messages',  to: '/app/messages' },
+      { icon: Bell,         label: 'Notifications', to: '/app/notifications' },
     ],
   },
   {

@@ -462,6 +462,7 @@ export const Products = () => {
               onDelete={() => setDeleteTarget(product)}
               onToggleStatus={handleToggleStatus}
               onAdjustStock={handleAdjustStock}
+              onDuplicate={(e) => handleDuplicate(product.id, e)}
             />
           ))}
         </div>
